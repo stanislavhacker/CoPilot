@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
+  <DefaultLanguage xmlns="" code="en-US" />
+  <Languages xmlns="">
+    <Language code="cs" />
+  </Languages>
+  <App xmlns="" ProductID="{84707615-802a-416a-9b55-0e941cd929a4}" Title="Co-Pilot" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Stanislav Hacker" Description="CoPilot is a application for complete management for your car." Publisher="Stanislav Hacker" PublisherID="{d0ff0d91-8c5d-4645-8107-abd81e2e157c}">
+    <IconPath IsRelative="true" IsResource="false">Resources\Images\Tiles\AppIcon.png</IconPath>
+    <Capabilities>
+      <Capability Name="ID_CAP_NETWORKING" />
+      <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
+      <Capability Name="ID_CAP_MEDIALIB_PLAYBACK" />
+      <Capability Name="ID_CAP_SENSORS" />
+      <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
+      <Capability Name="ID_CAP_ISV_CAMERA" />
+      <Capability Name="ID_CAP_LOCATION" />
+      <Capability Name="ID_CAP_MEDIALIB_PHOTO" />
+      <Capability Name="ID_CAP_PROXIMITY" />
+      <Capability Name="ID_CAP_PHONEDIALER" />
+      <Capability Name="ID_CAP_MICROPHONE" />
+      <Capability Name="ID_CAP_SPEECH_RECOGNITION" />
+    </Capabilities>
+    <Tasks>
+      <DefaultTask Name="_default" NavigationPage="CoPilot/View/CoPilot.xaml" />
+    </Tasks>
+    <Tokens>
+      <PrimaryToken TokenID="CoPilotToken" TaskName="_default">
+        <TemplateFlip>
+          <SmallImageURI IsRelative="true" IsResource="false">Resources\Images\Tiles\SmallIcon.png</SmallImageURI>
+          <Count>0</Count>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Resources\Images\Tiles\MediumIcon.png</BackgroundImageURI>
+          <Title>Co-Pilot</Title>
+          <BackContent>
+          </BackContent>
+          <BackBackgroundImageURI IsRelative="true" IsResource="false">
+          </BackBackgroundImageURI>
+          <BackTitle>
+          </BackTitle>
+          <LargeBackgroundImageURI IsRelative="true" IsResource="false">Resources\Images\Tiles\LargeIcon.png</LargeBackgroundImageURI>
+          <LargeBackContent />
+          <LargeBackBackgroundImageURI IsRelative="true" IsResource="false">
+          </LargeBackBackgroundImageURI>
+          <DeviceLockImageURI IsRelative="true" IsResource="false">
+          </DeviceLockImageURI>
+          <HasLarge>True</HasLarge>
+        </TemplateFlip>
+      </PrimaryToken>
+    </Tokens>
+    <ScreenResolutions>
+      <ScreenResolution Name="ID_RESOLUTION_WVGA" />
+      <ScreenResolution Name="ID_RESOLUTION_WXGA" />
+      <ScreenResolution Name="ID_RESOLUTION_HD720P" />
+    </ScreenResolutions>
+    <Requirements>
+      <Requirement Name="ID_REQ_REARCAMERA" />
+    </Requirements>
+  </App>
+</Deployment>

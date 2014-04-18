@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<grammar version="1.0" xml:lang="en-GB" root="main" tag-format="semantics/1.0"
+         xmlns="http://www.w3.org/2001/06/grammar"
+         xmlns:sapi="http://schemas.microsoft.com/Speech/2002/06/SRGSExtensions">
+
+  <rule id="main" scope="public">
+
+    <item repeat="0-1"> I want to </item>
+
+    <item>
+      <ruleref uri="#commands"/>
+      <tag>out.Command = rules.latest();</tag>
+    </item>
+
+  </rule>
+
+  <rule id="commands">
+    <one-of>
+      <item>
+        add fill <tag> out = "AddFill" </tag>
+      </item>
+      <item>
+        make a photo <tag> out = "MakePhoto" </tag>
+      </item>
+      <item>
+        start recording <tag> out = "StartRecording" </tag>
+      </item>
+      <item>
+        cancel this <tag> out = "Cancel" </tag>
+      </item>
+      <item>
+        back <tag> out = "Back" </tag>
+      </item>
+      <item>
+        go back <tag> out = "Back" </tag>
+      </item>
+    </one-of>
+  </rule>
+
+</grammar>

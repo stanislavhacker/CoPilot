@@ -1,0 +1,121 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="CoPilot.CoPilot.View.Obd"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions" 
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Landscape" Orientation="Landscape"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="False">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideLeftFadeIn" />
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideLeftFadeIn" />
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideRightFadeOut" />
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideRightFadeOut" />
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <Grid>
+
+        <Grid Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Style="{StaticResource Title}" Text="{Binding LocalizedResources.ObdTitle, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" />
+            <ScrollViewer Grid.Row="1" Margin="10,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- SPEED -->
+                    <TextBlock  Grid.Row="0" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.ObdSpeed, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+                    <TextBlock  Grid.Row="0" Grid.Column="1" Style="{StaticResource Unit}" Text="{Binding DataController.Speed, StringFormat='{}{0} km/h'}" />
+
+                    <!-- RPM -->
+                    <TextBlock  Grid.Row="1" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.ObdRpm, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+                    <TextBlock  Grid.Row="1" Grid.Column="1" Style="{StaticResource Unit}" Text="{Binding DataController.Rpm, StringFormat='{}{0} RPM'}" />
+
+                    <!-- TEMPERATURE -->
+                    <TextBlock  Grid.Row="2" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.ObdTemperature, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+                    <TextBlock  Grid.Row="2" Grid.Column="1" Style="{StaticResource Unit}" Text="{Binding DataController.Temperature, StringFormat='{}{0} °C'}" />
+
+                    <!-- LOAD -->
+                    <TextBlock  Grid.Row="3" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.ObdEngineLoad, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+                    <TextBlock  Grid.Row="3" Grid.Column="1" Style="{StaticResource Unit}" Text="{Binding DataController.EngineLoad, StringFormat='{}{0} %'}" />
+
+                    <!-- MaxAirFlowRate -->
+                    <TextBlock  Grid.Row="4" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.ObdMaxAirFlowRate, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+                    <TextBlock  Grid.Row="4" Grid.Column="1" Style="{StaticResource Unit}" Text="{Binding DataController.MaxAirFlowRate, StringFormat='{}{0} grams/sec'}" />
+
+                    <!-- ThrottlePosition -->
+                    <TextBlock  Grid.Row="5" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.ObdThrottlePosition, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+                    <TextBlock  Grid.Row="5" Grid.Column="1" Style="{StaticResource Unit}" Text="{Binding DataController.ThrottlePosition, StringFormat='{}{0} %'}" />
+
+                    <!-- AcceleratorPedalPosition -->
+                    <TextBlock  Grid.Row="6" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.ObdAcceleratorPedalPosition, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+                    <TextBlock  Grid.Row="6" Grid.Column="1" Style="{StaticResource Unit}" Text="{Binding DataController.AcceleratorPedalPosition, StringFormat='{}{0} %'}" />
+
+                    <!-- EngineOilTemperature -->
+                    <TextBlock  Grid.Row="7" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.ObdEngineOilTemperature, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+                    <TextBlock  Grid.Row="7" Grid.Column="1" Style="{StaticResource Unit}" Text="{Binding DataController.EngineOilTemperature, StringFormat='{}{0} °C'}" />
+
+                    <!-- FuelInjectionTiming -->
+                    <TextBlock  Grid.Row="8" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.ObdFuelInjectionTiming, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+                    <TextBlock  Grid.Row="8" Grid.Column="1" Style="{StaticResource Unit}" Text="{Binding DataController.FuelInjectionTiming, StringFormat='{}{0} °'}" />
+
+                    <!-- EngineReferenceTorque -->
+                    <TextBlock  Grid.Row="9" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.ObdEngineReferenceTorque, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+                    <TextBlock  Grid.Row="9" Grid.Column="1" Style="{StaticResource Unit}" Text="{Binding DataController.EngineReferenceTorque, StringFormat='{}{0} Nm'}" />
+
+                    <!-- Uptime -->
+                    <TextBlock  Grid.Row="10" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.ObdUptime, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+                    <TextBlock  Grid.Row="10" Grid.Column="1" Style="{StaticResource Unit}" Text="{Binding DataController.Uptime, StringFormat='{}{0} sec'}" />
+
+
+                </Grid>
+            </ScrollViewer>
+
+        </Grid>
+
+    </Grid>
+
+</phone:PhoneApplicationPage>

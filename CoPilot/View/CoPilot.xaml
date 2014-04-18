@@ -1,0 +1,766 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="CoPilot.CoPilot.View.CoPilot"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:tutorial="clr-namespace:CoPilot.CoPilot.View.Tutorial"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Landscape" 
+    Orientation="Landscape"
+    mc:Ignorable="d"
+    x:Name="CoPilotRoot"
+    shell:SystemTray.IsVisible="False">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideLeftFadeIn" />
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideLeftFadeIn" />
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideRightFadeOut" />
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideRightFadeOut" />
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <Grid>
+        <!-- CAMERA LAYER -->
+        <Rectangle 
+            Fill="{Binding CameraController.VideoBrush}">
+
+            <Rectangle.Projection>
+                <PlaneProjection RotationZ="{Binding CameraController.Rotation}"/>
+            </Rectangle.Projection>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Tap">
+                    <i:InvokeCommandAction Command="{Binding TapCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Rectangle>
+        
+        <!-- STATUS -->
+        <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Visibility="{Binding CameraController.IsRecording, Converter={StaticResource BooleanToVisibilityConvertor}}" Text="{Binding CameraController.RecordLength}" Style="{StaticResource Duration}" />
+            </StackPanel>
+        </Grid>
+
+        <!-- FLASH -->
+        <Grid Name="Flash" Visibility="Collapsed" Background="White">
+
+            <!-- property watcher for visual states -->
+            <i:Interaction.Behaviors>
+                <ec:DataStateBehavior Binding="{Binding CameraController.IsShot}" Value="True" TrueState="Visible"/>
+                <ec:DataStateBehavior Binding="{Binding CameraController.IsShot}" Value="False" TrueState="Hidden"/>
+            </i:Interaction.Behaviors>
+
+            <!-- visual states -->
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup>
+                    <VisualStateGroup.Transitions>
+                        <VisualTransition To="Visible" GeneratedDuration="0:0:0.5">
+                            <Storyboard FillBehavior="HoldEnd" AutoReverse="False">
+                                <ObjectAnimationUsingKeyFrames 
+								    Storyboard.TargetProperty="(UIElement.Visibility)" 
+								    Storyboard.TargetName="Flash">
+                                    <DiscreteObjectKeyFrame KeyTime="0">
+                                        <DiscreteObjectKeyFrame.Value>
+                                            <Visibility>Visible</Visibility>
+                                        </DiscreteObjectKeyFrame.Value>
+                                    </DiscreteObjectKeyFrame>
+                                </ObjectAnimationUsingKeyFrames>
+                                <DoubleAnimation 
+							        Storyboard.TargetName="Flash"
+							        Storyboard.TargetProperty="(UIElement.Opacity)"
+                                    From="1"
+							        To="0"
+							        Duration="0:0:0.5"/>
+                            </Storyboard>
+                        </VisualTransition>
+                        <VisualTransition To="Hidden" GeneratedDuration="0:0:0">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames 
+								    Storyboard.TargetProperty="(UIElement.Visibility)" 
+								    Storyboard.TargetName="Flash">
+                                    <DiscreteObjectKeyFrame KeyTime="0">
+                                        <DiscreteObjectKeyFrame.Value>
+                                            <Visibility>Collapsed</Visibility>
+                                        </DiscreteObjectKeyFrame.Value>
+                                    </DiscreteObjectKeyFrame>
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualTransition>
+                    </VisualStateGroup.Transitions>
+
+                    <VisualState x:Name="Visible">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames 
+								    Storyboard.TargetProperty="(UIElement.Visibility)" 
+								    Storyboard.TargetName="Flash">
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Visible</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+
+                    <VisualState x:Name="Hidden">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames 
+								    Storyboard.TargetProperty="(UIElement.Visibility)" 
+								    Storyboard.TargetName="Flash">
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <VisualStateManager.CustomVisualStateManager>
+                <ec:ExtendedVisualStateManager/>
+            </VisualStateManager.CustomVisualStateManager>
+
+        </Grid>
+
+        <!-- MENU -->
+        <Grid 
+            Name="Menu"
+            HorizontalAlignment="Right"
+            Width="600">
+            <Grid.Projection>
+                <PlaneProjection GlobalOffsetX="480"/>
+            </Grid.Projection>
+
+            <!-- property watcher for visual states -->
+            <i:Interaction.Behaviors>
+                <ec:DataStateBehavior Binding="{Binding MenuController.IsOpen}" Value="True" TrueState="Open"/>
+                <ec:DataStateBehavior Binding="{Binding MenuController.IsOpen}" Value="False" TrueState="Close"/>
+            </i:Interaction.Behaviors>
+
+            <!-- visual states -->
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup>
+                    <VisualStateGroup.Transitions>
+                        <VisualTransition To="Close" GeneratedDuration="0:0:0.2">
+                            <Storyboard>
+                                <DoubleAnimation 
+							        Storyboard.TargetName="Menu"
+							        Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							        To="480"
+							        Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </VisualTransition>
+                        <VisualTransition To="Open" GeneratedDuration="0:0:0.2">
+                            <Storyboard>
+                                <DoubleAnimation 
+							        Storyboard.TargetName="Menu"
+							        Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							        To="5"
+							        Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </VisualTransition>
+                    </VisualStateGroup.Transitions>
+
+                    <VisualState x:Name="Close">
+                        <Storyboard>
+                            <DoubleAnimation 
+							    Storyboard.TargetName="Menu"
+							    Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							    To="480"
+							    Duration="0"/>
+                        </Storyboard>
+                    </VisualState>
+
+                    <VisualState x:Name="Open">
+                        <Storyboard>
+                            <DoubleAnimation 
+							    Storyboard.TargetName="Menu"
+							    Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							    To="5"
+							    Duration="0"/>
+                        </Storyboard>
+                    </VisualState>
+
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <VisualStateManager.CustomVisualStateManager>
+                <ec:ExtendedVisualStateManager/>
+            </VisualStateManager.CustomVisualStateManager>
+
+            <Grid
+                Width="120"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Left"
+                Background="{StaticResource PhoneChromeBrush}">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Button 
+                    IsEnabled="{Binding CameraController.IsSupported}"
+                    Command="{Binding CameraTap}" 
+                    Grid.Row="0" 
+                    Style="{StaticResource MenuButton}">
+                    <Image Source="/Resources/Images/Buttons/camcorder.png" Width="40" />
+                </Button>
+                <Rectangle VerticalAlignment="Bottom" Grid.Row="0" Fill="{StaticResource LineColor}" Height="1" />
+                <Button 
+                    Command="{Binding FuelTap}" 
+                    Grid.Row="1" 
+                    Style="{StaticResource MenuButton}">
+                    <Image Source="/Resources/Images/Buttons/fuel.png" Width="40" />
+                </Button>
+                <Rectangle VerticalAlignment="Bottom" Grid.Row="1" Fill="{StaticResource LineColor}" Height="1" />
+                <Button 
+                    Command="{Binding RepairTap}"
+                    Grid.Row="2" 
+                    Style="{StaticResource MenuButton}">
+                    <Image Source="/Resources/Images/Buttons/spark.png" Width="40" />
+                </Button>
+                <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+                <Button 
+                    Command="{Binding MoreTap}"
+                    Grid.Row="3" 
+                    Style="{StaticResource MenuButton}">
+                    <TextBlock Text="..." Margin="0,-32,0,0" FontSize="38" FontWeight="Bold"/>
+                </Button>
+
+            </Grid>
+            <Grid
+                Width="480"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Right"
+                Background="{StaticResource PhoneChromeBrush}">
+
+                <Rectangle HorizontalAlignment="Left" Grid.Row="0" Fill="{StaticResource LineColor}" Width="1" />
+
+                <!-- CAMERA -->
+                <Grid Visibility="{Binding MenuController.Context, ConverterParameter='Camera', Converter={StaticResource ContextMenuToVisibilityConvertor}}">
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical">
+
+                            <Button 
+                                IsEnabled="{Binding CameraController.IsSupported}"
+                                Command="{Binding CameraController.RecordCommand}" 
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="{Binding CameraController.IsRecording, Converter={StaticResource RecordingToImageConvertor}}" />
+                                    <TextBlock Margin="80,0,0,0" Visibility="{Binding CameraController.IsRecording, Converter={StaticResource BooleanToCollapsedConvertor}}" Text="{Binding LocalizedResources.StartRecording, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                    <TextBlock Margin="80,0,0,0" Visibility="{Binding CameraController.IsRecording, Converter={StaticResource BooleanToVisibilityConvertor}}" Text="{Binding LocalizedResources.StopRecording, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                IsEnabled="{Binding CameraController.IsShotEnabled}"
+                                Command="{Binding CameraController.ShotCommand}" 
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/photo.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.TakePicture, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Command="{Binding VideosCommand}"
+                                IsEnabled="{Binding DataController.VideosCount, Converter={StaticResource CountToBooleanConvertor}, ConverterParameter=0.0}"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/movies.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.Videos, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                    <TextBlock Margin="80,0,10,0" Text="{Binding DataController.VideosCount}" VerticalAlignment="Center" TextAlignment="Right" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Command="{Binding PicturesCommand}"
+                                IsEnabled="{Binding DataController.PicturesCount, Converter={StaticResource CountToBooleanConvertor}, ConverterParameter=0.0}"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/pictures.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.Photos, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                    <TextBlock Margin="80,0,10,0" Text="{Binding DataController.PicturesCount}" VerticalAlignment="Center" TextAlignment="Right" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+                <!-- FUEL -->
+                <Grid Visibility="{Binding MenuController.Context, ConverterParameter='Fuel', Converter={StaticResource ContextMenuToVisibilityConvertor}}">
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical">
+
+                            <Button 
+                                Command="{Binding AddFuelCommand}"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/add.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.AddFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Command="{Binding ToggleConsumptionCommand}"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/avarage.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.AverageConsumption, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" TextAlignment="Left" />
+                                    <TextBlock Text="{Binding DataController.AverageConsumption, Converter={StaticResource DistanceToConsumptionStringConvertor}}" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                    <TextBlock Text="{Binding DataController.Consumption, Converter={StaticResource RealConsumptionToStringConvertor}}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,-14" Style="{StaticResource Tip}"  />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <ListBox 
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ItemsSource="{Binding DataController.Fills}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <Button 
+                                                Command="{Binding ElementName=CoPilotRoot, Path=DataContext.ViewFuelCommand}" 
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource MenuButton}" 
+                                                Width="480"
+                                                Height="90"
+                                                Margin="0">
+
+                                                <Grid   
+                                                    Margin="-12"
+                                                    Width="460"
+                                                    Height="80">
+
+                                                    <Rectangle Visibility="{Binding Full, Converter={StaticResource BooleanToVisibilityConvertor}}" HorizontalAlignment="Left" Fill="{StaticResource PhoneAccentBrush}" Width="10" Margin="-6,0,0,0" />
+
+                                                    <StackPanel Margin="10,4" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                                                        <Image Width="30" Height="30" Source="/Resources/Images/Info/speedometer.png" Stretch="UniformToFill" />
+                                                        <TextBlock Style="{StaticResource Odometer}" Text="{Binding Odometer, Converter={StaticResource OdometerToRealOdometerConvertor}}" Margin="5,0" />
+                                                    </StackPanel>
+                                                    <TextBlock Margin="10,4" Style="{StaticResource Date}" Text="{Binding Date}" />
+
+                                                    <Grid Margin="0,0,10,0">
+                                                        <StackPanel Margin="10,0,0,2" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal">
+                                                            <TextBlock 
+                                                                Style="{StaticResource Info}" 
+                                                                Text="{Binding Price, Converter={StaticResource PriceToRealPriceConvertor}}"
+                                                                Margin="5,0" />
+                                                            <Image Width="20" Height="20" Source="/Resources/Images/Info/money.png" Stretch="UniformToFill" />
+                                                        </StackPanel>
+                                                        <StackPanel Margin="10,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+                                                            <TextBlock 
+                                                                Style="{StaticResource Info}" 
+                                                                Text="{Binding UnitPrice, Converter={StaticResource PriceToRealPriceConvertor}}"
+                                                                Margin="5,0" />
+                                                            <Image Width="20" Height="20" Source="/Resources/Images/Info/cheap.png" Stretch="UniformToFill" />
+                                                        </StackPanel>
+                                                        <StackPanel Margin="10,2,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal">
+                                                            <TextBlock Style="{StaticResource Info}" Text="{Binding Refueled}" Margin="5,0" />
+                                                            <Image Width="20" Height="20" Source="/Resources/Images/Info/refueled.png" Stretch="UniformToFill" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Grid>
+
+                                            </Button>
+                                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+                <!-- REPAIR -->
+                <Grid Visibility="{Binding MenuController.Context, ConverterParameter='Repair', Converter={StaticResource ContextMenuToVisibilityConvertor}}">
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical">
+
+                            <Button 
+                                Command="{Binding AddRepairCommand}"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/add.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.AddRepair, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <ListBox 
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ItemsSource="{Binding DataController.Repairs}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <Button 
+                                                Command="{Binding ElementName=CoPilotRoot, Path=DataContext.ViewRepairCommand}" 
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource MenuButton}" 
+                                                Width="480"
+                                                Height="90"
+                                                Margin="0">
+
+                                                <Grid   
+                                                    Margin="-12"
+                                                    Width="460"
+                                                    Height="80">
+
+                                                    <StackPanel Margin="10,4" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                                                        <Image Width="30" Height="30" Source="/Resources/Images/Info/speedometer.png" Stretch="UniformToFill" />
+                                                        <TextBlock Style="{StaticResource Odometer}" Text="{Binding Odometer, Converter={StaticResource OdometerToRealOdometerConvertor}}" Margin="5,0" />
+                                                    </StackPanel>
+                                                    <TextBlock Margin="10,4" Style="{StaticResource Date}" Text="{Binding Date}" />
+
+                                                    <Grid Margin="0,0,10,0">
+                                                        <StackPanel Margin="10,15,0,2" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal">
+                                                            <TextBlock 
+                                                                Style="{StaticResource Info}" 
+                                                                Text="{Binding Price, Converter={StaticResource PriceToRealPriceConvertor}}" 
+                                                                Margin="5,0" />
+                                                            <Image Width="20" Height="20" Source="/Resources/Images/Info/money.png" Stretch="UniformToFill" />
+                                                        </StackPanel>
+                                                        <StackPanel Margin="10,0,0,15" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+                                                            <TextBlock Style="{StaticResource Info}" Text="{Binding ServiceName}" Margin="5,0" />
+                                                            <Image Width="20" Height="20" Source="/Resources/Images/Info/service.png" Stretch="UniformToFill" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Grid>
+
+                                            </Button>
+                                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                        </StackPanel>
+                    </ScrollViewer>                    
+                </Grid>
+                <!-- MORE -->
+                <Grid Visibility="{Binding MenuController.Context, ConverterParameter='Other', Converter={StaticResource ContextMenuToVisibilityConvertor}}">
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical">
+
+                            <Button 
+                                IsEnabled="{Binding GpsController.IsGpsEnabled}"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Gps/gps_off.png" Visibility="{Binding GpsController.IsGpsEnabled, Converter={StaticResource BooleanToCollapsedConvertor}}" />
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Gps/gps_off.png" Visibility="{Binding GpsController.IsGpsAllowed, Converter={StaticResource BooleanToCollapsedConvertor}}" />
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Gps/gps_search.png" Visibility="{Binding GpsController.IsGpsInitializing, Converter={StaticResource BooleanToVisibilityConvertor}}" />
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Gps/gps_on.png" Visibility="{Binding GpsController.IsGpsData, Converter={StaticResource BooleanToVisibilityConvertor}}" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.UseGpsSenzor, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding GpsController.Current, Mode=OneWay}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+                                    <CheckBox VerticalAlignment="Center" IsChecked="{Binding GpsController.IsGpsAllowed, Mode=OneWay}" Command="{Binding GpsToggleCommand}" HorizontalAlignment="Right" Margin="-10" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Command="{Binding BluetoothCommand}"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_on.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NoDevice'}" />
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_on.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NotFound'}" />
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_on.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NotSelected'}" />
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_off.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NotEnabled'}" />
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_off.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NotAllowed'}" />
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_off.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='Unknown'}" />
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_disconnected.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='OutOfRange'}" />
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_connected.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='None'}" />
+                                    
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.UseObdDevice, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.BluetoothIsNotAllowed, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NotAllowed'}" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.TurnOnBluetooth, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NotEnabled'}" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.DeviceNotFound, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NotFound'}" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.DeviceNotFound, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NoDevice'}" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.ReceivingDataFromObd, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='None'}" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.MoreDevices, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NotSelected'}" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.OutOfRangeOfDevice, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='OutOfRange'}" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.Searching, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.IsFinding, Converter={StaticResource BooleanToVisibilityConvertor}}" />
+
+                                    <CheckBox VerticalAlignment="Center" IsChecked="{Binding BluetoothController.IsObdAllowed, Mode=OneWay}" Command="{Binding ObdToggleCommand}" HorizontalAlignment="Right" Margin="-10" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button
+                                IsEnabled="{Binding DriveModeController.IsSupported}"
+                                Command="{Binding DriveModeCommand}"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/assistant.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.DrivingMode, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.DriveModeActivated, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Visibility="{Binding DriveModeController.IsDriveModeAllowed, Converter={StaticResource BooleanToVisibilityConvertor}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.DriveModeNotAllowed, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Visibility="{Binding DriveModeController.IsDriveModeAllowed, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+
+                                    <CheckBox VerticalAlignment="Center" IsChecked="{Binding DriveModeController.IsDriveModeAllowed, Mode=OneWay}" Command="{Binding DriveModeToggleCommand}" HorizontalAlignment="Right" Margin="-10" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Command="{Binding BackupCommand}"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/backup.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.OpenBackup, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="120">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60" />
+                                        <ColumnDefinition Width="60" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock 
+                                        Grid.Row="0" 
+                                        Grid.ColumnSpan="3" 
+                                        Margin="0,-15,0,0" 
+                                        Text="{Binding LocalizedResources.Currency, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+
+                                    <Button 
+                                        Command="{Binding ChangeCurrencyCommand}"
+                                        CommandParameter="CZK"
+                                        Grid.Column="0"
+                                        Grid.Row="1"
+                                        Style="{Binding DataController.Currency, Converter={StaticResource CurrencyToStyleConvertor}, ConverterParameter='CZK'}"
+                                        Content="CZK"/>
+                                    <Button 
+                                        Command="{Binding ChangeCurrencyCommand}"
+                                        CommandParameter="USD"
+                                        Grid.Column="1"
+                                        Grid.Row="1"
+                                        Style="{Binding DataController.Currency, Converter={StaticResource CurrencyToStyleConvertor}, ConverterParameter='USD'}"
+                                        Content="USD"/>
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="120">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60" />
+                                        <ColumnDefinition Width="60" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock 
+                                        Grid.Row="0" 
+                                        Grid.ColumnSpan="3" 
+                                        Margin="0,-15,0,0" 
+                                        Text="{Binding LocalizedResources.Distance, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+
+                                    <Button 
+                                        Command="{Binding ChangeDistanceCommand}"
+                                        CommandParameter="Km"
+                                        Grid.Column="0"
+                                        Grid.Row="1"
+                                        Style="{Binding DataController.Distance, Converter={StaticResource DistanceToStyleConvertor}, ConverterParameter='Km'}"
+                                        Content="Km"/>
+                                    <Button 
+                                        Command="{Binding ChangeDistanceCommand}"
+                                        CommandParameter="Mi"
+                                        Grid.Column="1"
+                                        Grid.Row="1"
+                                        Style="{Binding DataController.Distance, Converter={StaticResource DistanceToStyleConvertor}, ConverterParameter='Mi'}"
+                                        Content="Mi"/>
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="120">
+                                <Grid>
+ 
+                                    <TextBlock Text="{Binding LocalizedResources.Social, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+
+                                    <StackPanel 
+                                        Margin="-10"
+                                        Orientation="Horizontal" 
+                                        VerticalAlignment="Center" 
+                                        HorizontalAlignment="Right">
+                                        <Button 
+                                            Width="110"
+                                            Height="110"
+                                            BorderThickness="0"
+                                            Background="{StaticResource FacebookButtonColor}"
+                                            Command="{Binding SocialCommand}"
+                                            CommandParameter="Facebook">
+                                            <Image Source="/Resources/Images/Buttons/Social/Facebook.png" Stretch="UniformToFill" />
+                                        </Button>
+                                        <Button 
+                                            Width="110"
+                                            Height="110"
+                                            BorderThickness="0"
+                                            Background="{StaticResource TwitterButtonColor}"
+                                            Command="{Binding SocialCommand}"
+                                            CommandParameter="Twitter">
+                                            <Image Source="/Resources/Images/Buttons/Social/Twitter.png" Stretch="UniformToFill" />
+                                        </Button>
+                                        <Button 
+                                            Width="110"
+                                            Height="110"
+                                            BorderThickness="0"
+                                            Background="{StaticResource GoogleButtonColor}"
+                                            Command="{Binding SocialCommand}"
+                                            CommandParameter="GooglePlus">
+                                            <Image Source="/Resources/Images/Buttons/Social/GooglePlus.png" Stretch="UniformToFill" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100"
+                                Command="{Binding SocialCommand}"
+                                CommandParameter="Donate">
+                                <Grid>
+
+                                    <TextBlock Text="{Binding LocalizedResources.Donate, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+
+                                    <StackPanel 
+                                        Margin="-10"
+                                        Orientation="Horizontal" 
+                                        VerticalAlignment="Center" 
+                                        HorizontalAlignment="Right">
+                                        <Button 
+                                            BorderThickness="0"
+                                            Background="Transparent"
+                                            Command="{Binding SocialCommand}"
+                                            CommandParameter="Donate">
+                                            <Image Width="203" Height="45" Source="/Resources/Images/Buttons/Social/Donate.png" Stretch="UniformToFill" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Command="{Binding TutorialCommand}"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/tutorial.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.Tutorial_WhatIsIt, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Command="{Binding PrivacyPolicyCommand}"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/privacy_policy.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.PrivacyPolicy, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+            </Grid>
+        </Grid>
+        
+        <!-- TUTORIAL -->
+        <tutorial:Tutorial />
+
+    </Grid>
+
+</phone:PhoneApplicationPage>

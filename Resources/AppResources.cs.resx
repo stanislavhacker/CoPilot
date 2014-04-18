@@ -1,0 +1,545 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddFuel" xml:space="preserve">
+    <value>Přidat palivo</value>
+  </data>
+  <data name="Fueled" xml:space="preserve">
+    <value>Natankováno</value>
+  </data>
+  <data name="FueledExample" xml:space="preserve">
+    <value>Příklad: 14.7</value>
+  </data>
+  <data name="FueledUnit" xml:space="preserve">
+    <value>Litrů</value>
+  </data>
+  <data name="FuelPrice" xml:space="preserve">
+    <value>Cena tankování</value>
+  </data>
+  <data name="FuelPriceExample" xml:space="preserve">
+    <value>Příklad: 1000</value>
+  </data>
+  <data name="FullTank" xml:space="preserve">
+    <value>Je plná nádrž?</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="OdometerState" xml:space="preserve">
+    <value>Stav tachometru</value>
+  </data>
+  <data name="OdometerStateExample" xml:space="preserve">
+    <value>Příklad: 35274</value>
+  </data>
+  <data name="Photos" xml:space="preserve">
+    <value>Fotky</value>
+  </data>
+  <data name="PricePerLiterUnit" xml:space="preserve">
+    <value>/ litr</value>
+  </data>
+  <data name="PricePerUnit" xml:space="preserve">
+    <value>Cena za jednotku</value>
+  </data>
+  <data name="PricePerUnitExample" xml:space="preserve">
+    <value>Příklad: 36.6</value>
+  </data>
+  <data name="ResourceFlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+    <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
+  </data>
+  <data name="ResourceLanguage" xml:space="preserve">
+    <value>cs</value>
+    <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
+  </data>
+  <data name="StartRecording" xml:space="preserve">
+    <value>Spustit nahrávání</value>
+  </data>
+  <data name="StopRecording" xml:space="preserve">
+    <value>Zastavit nahrávání</value>
+  </data>
+  <data name="TakePicture" xml:space="preserve">
+    <value>Vyfotit obrázek</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videa</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ano</value>
+  </data>
+  <data name="DeleteFuelMessage" xml:space="preserve">
+    <value>Opravdu chcete smazat tento záznam o tankování?</value>
+  </data>
+  <data name="DeleteFuelTitle" xml:space="preserve">
+    <value>Smazání tankování</value>
+  </data>
+  <data name="AddRepair" xml:space="preserve">
+    <value>Přidat opravu</value>
+  </data>
+  <data name="RepairDescription" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="RepairPrice" xml:space="preserve">
+    <value>Cena opravy</value>
+  </data>
+  <data name="RepairPriceExample" xml:space="preserve">
+    <value>Příklad:1250</value>
+  </data>
+  <data name="ServiceName" xml:space="preserve">
+    <value>Jméno servisu</value>
+  </data>
+  <data name="ServiceNameExample" xml:space="preserve">
+    <value>Příklad: Můj servis a.s.</value>
+  </data>
+  <data name="DeleteRepairMessage" xml:space="preserve">
+    <value>Opravdu chcete smazat tento záznam o opravě?</value>
+  </data>
+  <data name="DeleteRepairTitle" xml:space="preserve">
+    <value>Smazání opravy</value>
+  </data>
+  <data name="ViewFuel" xml:space="preserve">
+    <value>Tankování</value>
+  </data>
+  <data name="ViewRepair" xml:space="preserve">
+    <value>Oprava</value>
+  </data>
+  <data name="UseGpsSenzor" xml:space="preserve">
+    <value>Použít GPS senzor</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Měna</value>
+  </data>
+  <data name="Distance" xml:space="preserve">
+    <value>Jednotka vzdálenosti</value>
+  </data>
+  <data name="AverageConsumption" xml:space="preserve">
+    <value>Průměrně</value>
+  </data>
+  <data name="Per" xml:space="preserve">
+    <value>na</value>
+  </data>
+  <data name="UseObdDevice" xml:space="preserve">
+    <value>Použít OBD zařízení</value>
+  </data>
+  <data name="BluetoothIsNotAllowed" xml:space="preserve">
+    <value>Obd není povoleno k používání</value>
+  </data>
+  <data name="DeviceNotFound" xml:space="preserve">
+    <value>Zařízení nebylo nalezeno, klikněte pro obnovení</value>
+  </data>
+  <data name="MoreDevices" xml:space="preserve">
+    <value>Více obd zařízení, klikněte pro výběr</value>
+  </data>
+  <data name="OutOfRangeOfDevice" xml:space="preserve">
+    <value>Zařízení mimo dosah, klikněte pro obnovení</value>
+  </data>
+  <data name="ReceivingDataFromObd" xml:space="preserve">
+    <value>Čtení dat ze zařízení</value>
+  </data>
+  <data name="Searching" xml:space="preserve">
+    <value>Hledám ...</value>
+  </data>
+  <data name="TurnOnBluetooth" xml:space="preserve">
+    <value>Zapněte prosím bluetooth kliknutím</value>
+  </data>
+  <data name="SelectObdDevice" xml:space="preserve">
+    <value>Vyberte odb zařízení</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Ochrana osobních údajů</value>
+  </data>
+  <data name="Social" xml:space="preserve">
+    <value>Síťe</value>
+  </data>
+  <data name="Donate" xml:space="preserve">
+    <value>Přispějte</value>
+  </data>
+  <data name="AppEndDescription" xml:space="preserve">
+    <value>Opravdu chcete ukončit aplikaci? Nahrávání videa bude ukončeno!</value>
+  </data>
+  <data name="AppEndTitle" xml:space="preserve">
+    <value>Ukončit aplikaci?</value>
+  </data>
+  <data name="DriveModeActivated" xml:space="preserve">
+    <value>Automatické spuštění po připojení OBD</value>
+  </data>
+  <data name="DriveModeNotAllowed" xml:space="preserve">
+    <value>Pouze manuální spuštění</value>
+  </data>
+  <data name="DrivingMode" xml:space="preserve">
+    <value>Mód řízení</value>
+  </data>
+  <data name="DriveModeEndDescription" xml:space="preserve">
+    <value>Opravdu chcete vypnout mód pro řízení?</value>
+  </data>
+  <data name="DriveModeEndTitle" xml:space="preserve">
+    <value>Vypnout mód řízení?</value>
+  </data>
+  <data name="TapOnScreenToSpeak" xml:space="preserve">
+    <value>Dotkněte se obrazovky a mluvte</value>
+  </data>
+  <data name="TapOnScreenToStopRecording" xml:space="preserve">
+    <value>Dotkněte se obrazovky pro ukončení nahrávání</value>
+  </data>
+  <data name="Gallon" xml:space="preserve">
+    <value>galón</value>
+  </data>
+  <data name="OpenBackup" xml:space="preserve">
+    <value>Zálohování</value>
+  </data>
+  <data name="BackupOptions" xml:space="preserve">
+    <value>Možnosti zálohování</value>
+  </data>
+  <data name="BackupMainFile" xml:space="preserve">
+    <value>Zálohovat hlavní data</value>
+  </data>
+  <data name="OpenLinkInBrowser" xml:space="preserve">
+    <value>Otevřít v prohlížeči</value>
+  </data>
+  <data name="DownloadBackup" xml:space="preserve">
+    <value>Stáhnout zálohu</value>
+  </data>
+  <data name="EnterFileId" xml:space="preserve">
+    <value>File id</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>Poslat odkaz na zálohu emailem</value>
+  </data>
+  <data name="SendByEmailBody" xml:space="preserve">
+    <value>Zde najdete link pro vaše zazálohovaná data.{E}Id vaší zálohy je {0}{E}Klikněte na {1} pro stáhnutí souboru.</value>
+  </data>
+  <data name="SendByEmailSubject" xml:space="preserve">
+    <value>Odkaz na vaši zálohu</value>
+  </data>
+  <data name="DownloadBackupHelp" xml:space="preserve">
+    <value>Vložte id vaší zálohy a klikněte na tlačítko</value>
+  </data>
+  <data name="LastBackup" xml:space="preserve">
+    <value>Poslední záloha</value>
+  </data>
+  <data name="BackupUnknown" xml:space="preserve">
+    <value>nezálohováno</value>
+  </data>
+  <data name="BackupApplyDescription" xml:space="preserve">
+    <value>Opravdu chcete použít tuto zálohu dat? Tato akce není vratná!</value>
+  </data>
+  <data name="BackupApplyTitle" xml:space="preserve">
+    <value>Použít zálohu z {0}?</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>neznám</value>
+  </data>
+  <data name="BackupNotFoundDescription" xml:space="preserve">
+    <value>Záložní soubor s poskytnutým id nebyl nalezen na serveru.</value>
+  </data>
+  <data name="BackupNotFoundTitle" xml:space="preserve">
+    <value>Záloha nebyla nalezena</value>
+  </data>
+  <data name="BackupCurrentId" xml:space="preserve">
+    <value>Aktuální id zálohy</value>
+  </data>
+  <data name="BackupAllowOnStart" xml:space="preserve">
+    <value>Povolit zálohu při startu</value>
+  </data>
+  <data name="BackupSelectedFiles" xml:space="preserve">
+    <value>Zálohovat vybrané soubory</value>
+  </data>
+  <data name="CountOfSelectedFiled" xml:space="preserve">
+    <value>Počet souborů</value>
+  </data>
+  <data name="UploadInProgress" xml:space="preserve">
+    <value>Nahrávání souborů ...</value>
+  </data>
+  <data name="BackupDescription" xml:space="preserve">
+    <value>Při zvolení automatické zálohy po startu dojde pouze k zálohování hlavního souboru s nastavením a daty. Videa a fotografie nejsou v automatické záloze zahrnuty a je nutné je zálohovat ručně vždy pouze na WiFi připojení. Záloha video souborů může trvat dlouho!</value>
+  </data>
+  <data name="UnknownSize" xml:space="preserve">
+    <value>neznámé velikost</value>
+  </data>
+  <data name="ErrorDescription" xml:space="preserve">
+    <value>Omlouváme se, ale v aplikaci došlo k neočekávané chybě. Prosím, pomožte mi aplikaci vylepšit a odešlete mi email s chybovým hlášením po dalším startu. Aplikace bude nyní zavřena.</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>A je to dole :(</value>
+  </data>
+  <data name="ReportDescription" xml:space="preserve">
+    <value>Aplikace byla naposled ukončena s chybou. Chcete pomoci vylepšit aplikaci a chybu nahlásit?</value>
+  </data>
+  <data name="ReportTitle" xml:space="preserve">
+    <value>Nahlášení chyby aplikace</value>
+  </data>
+  <data name="BackupAllowSendEmail" xml:space="preserve">
+    <value>Poslat email při záloze</value>
+  </data>
+  <data name="BackupAllowSendEmailText" xml:space="preserve">
+    <value>Zadejte vaši emailovou adresu</value>
+  </data>
+  <data name="BackupDownload" xml:space="preserve">
+    <value>stáhnout do zařízení</value>
+  </data>
+  <data name="BackupView" xml:space="preserve">
+    <value>zobraz</value>
+  </data>
+  <data name="DownloadInProgress" xml:space="preserve">
+    <value>Souor se stahuje ...</value>
+  </data>
+  <data name="PhotoNotFoundDescription" xml:space="preserve">
+    <value>Fotografie nebyla nalezen na vašem zařízení. Pokud jste tento obrázek zálohovali, můžete se na něj podívat na níže uvedené adrese. V opačném případě není možné již obrázek získat zpět.</value>
+  </data>
+  <data name="PhotoNotFoundTitle" xml:space="preserve">
+    <value>Fotografie nebyla nalezena.</value>
+  </data>
+  <data name="VideoNotFoundDescription" xml:space="preserve">
+    <value>Video nebylo nalezeno na vašem zařízení. Pokud jste tento obrázek zálohovali, můžete se na něj podívat na níže uvedené adrese. V opačném případě není možné již video získat zpět.</value>
+  </data>
+  <data name="VideoNotFoundTitle" xml:space="preserve">
+    <value>Video nebylo nalezeno.</value>
+  </data>
+  <data name="ObdAcceleratorPedalPosition" xml:space="preserve">
+    <value>Poloha plynového pedálu</value>
+  </data>
+  <data name="ObdEngineLoad" xml:space="preserve">
+    <value>Zatížení motoru</value>
+  </data>
+  <data name="ObdEngineOilTemperature" xml:space="preserve">
+    <value>Teplota oleje v motoru</value>
+  </data>
+  <data name="ObdEngineReferenceTorque" xml:space="preserve">
+    <value>Kroutící moment</value>
+  </data>
+  <data name="ObdFuelInjectionTiming" xml:space="preserve">
+    <value>Časování vstřikování paliva</value>
+  </data>
+  <data name="ObdMaxAirFlowRate" xml:space="preserve">
+    <value>Maximální průtok vzduchu</value>
+  </data>
+  <data name="ObdRpm" xml:space="preserve">
+    <value>Otáčky motoru</value>
+  </data>
+  <data name="ObdSpeed" xml:space="preserve">
+    <value>Aktuální rychlost</value>
+  </data>
+  <data name="ObdTemperature" xml:space="preserve">
+    <value>Teplota motoru</value>
+  </data>
+  <data name="ObdThrottlePosition" xml:space="preserve">
+    <value>Pozice škrtící klapky</value>
+  </data>
+  <data name="ObdTitle" xml:space="preserve">
+    <value>Obd data</value>
+  </data>
+  <data name="ObdUptime" xml:space="preserve">
+    <value>Doba běhu motoru</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Další</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Předchozí</value>
+  </data>
+  <data name="Tutorial_Backup" xml:space="preserve">
+    <value>Záloha aplikace</value>
+  </data>
+  <data name="Tutorial_BackupFileMenu" xml:space="preserve">
+    <value>Menu pro zálohu hlavního souboru</value>
+  </data>
+  <data name="Tutorial_BackupFileMenu_Description" xml:space="preserve">
+    <value>V tomto menu jsou zobrazeny čtyři tlačítka. 1) Slouží pro spuštění zílohy hlavního souboru. 2) Pokud je záloha vytvořena, toto tlačítko slouží pro její zobrazení v prohlížeči nebo 3) poslání na email. Pokud máte k dispozici starou zálohu, můžete zadat její identifikátor 4) a poté kliknout na tlačítko pro stažení.</value>
+  </data>
+  <data name="Tutorial_BackupMenu" xml:space="preserve">
+    <value>Menu zálohy</value>
+  </data>
+  <data name="Tutorial_BackupMenu_Description" xml:space="preserve">
+    <value>V menu zálohy můžete vidět tři tlačítka. 1) Slouží pro zálohu hlavního souboru aplikace, 2) zálohuje obrázky a 3) zálohuje videa. pokud zvolíte automatickou zálohu po startu apliakce, je zálohovát pouze hlavní soubor. Videa a obrázku je nutné zálohovat manuálně. V seznamu médií pak vidíte, které obrázky nebo videa nejsou zálohována.</value>
+  </data>
+  <data name="Tutorial_Backup_Description" xml:space="preserve">
+    <value>Po kliknutí na tlačíko "Záloha" v menu nastaveí se zobrazí stránka s informacemi o zálohách aplikace. Zde naleznete datum poslední zálohy, identifikátor zálohy a nastavení zálohy. 1) Slouží pro nastavení automatické zálohy po spuštění aplikace a 2) pokud chcete posílat zálohy na email.</value>
+  </data>
+  <data name="Tutorial_CameraMenu" xml:space="preserve">
+    <value>Menu kamery</value>
+  </data>
+  <data name="Tutorial_CameraMenu_Description" xml:space="preserve">
+    <value>při kliknutí na tlačítko kamery se před vámo objeví čtyři prvky pro kameru. 1) Spustit / zastavit nahrávání, 2) Vyfotit, 3) Prohlížet nahrané videa, 4) Prohlížet pořízené fotky.</value>
+  </data>
+  <data name="Tutorial_End" xml:space="preserve">
+    <value>Zavřít tutoriál?</value>
+  </data>
+  <data name="Tutorial_End_Description" xml:space="preserve">
+    <value>Opravdu si přejete zavřít tutoriál? Tutoriál může být kdykoliv spuštěn z menu aplikace.</value>
+  </data>
+  <data name="Tutorial_FuelMenu" xml:space="preserve">
+    <value>Menu tankování</value>
+  </data>
+  <data name="Tutorial_FuelMenu_Description" xml:space="preserve">
+    <value>Pokud kliknete na menu pro tankování, před vám se zobrazí menu s dvěma prvky a seznamem všech tankování. 1) Slouží pro záznam nového tankování, 2) Slouží pro zobrazení průměrné spotřeby a slouží pro přepínání módů zobrazení, 3) Náhled na jeden záznam ze seznamu, po kliknutí se zobrazí detail tankování.</value>
+  </data>
+  <data name="Tutorial_Information" xml:space="preserve">
+    <value>Prosím, věnujte pár minut tomuto tutoriálu.</value>
+  </data>
+  <data name="Tutorial_MainScreen" xml:space="preserve">
+    <value>Hlavní obrazovka</value>
+  </data>
+  <data name="Tutorial_MainScreen_Description_One" xml:space="preserve">
+    <value>Na hlavní obrazovce vidíte průhled kamerou a hlavní menu aplikace.</value>
+  </data>
+  <data name="Tutorial_MainScreen_Description_Two" xml:space="preserve">
+    <value>Hlavní menu obsahuje čyři základní tlačítka.  1) Kameru, 2) Tankování, 3) Opravy and 4) Nastavení a ostatní.</value>
+  </data>
+  <data name="Tutorial_MoreMenu" xml:space="preserve">
+    <value>Menu nastavení a ostatní</value>
+  </data>
+  <data name="Tutorial_MoreMenu_Description" xml:space="preserve">
+    <value>Pokud kliknete na menu nastavené (tři tečky), před vámi se zobrazí seznam nastavení aplikace a další možnosti aplikace. 1) Slouží pro povolení používat GPS polohu, 2) Slouží pro připojení OBD modulu, pokud jich máte k dispozici více, slouží pro výběr jednpho, 3) Slouží pro zapnutí "Drive módu", ve kterém můžete aplikaci ovládat hlasem (pouze angličtina), 4) Je záloha aplikace, kde si můžete nastavit a zálohovat vše důležité. V tomto menu je také nastavení jednotek aplikace a odkazy na sociální sitě.</value>
+  </data>
+  <data name="Tutorial_ObdPage" xml:space="preserve">
+    <value>OBD informace</value>
+  </data>
+  <data name="Tutorial_ObdPage_Description" xml:space="preserve">
+    <value>Pokud kliknete na 1) tlačítko OBD v nastavení a máte připojené zařízení, zobrazí se vám informace z  řídící jednotky automobilu. Všechna data jsou ukládána do apliakce a slouží pro prohlížení stavu automobilu.</value>
+  </data>
+  <data name="Tutorial_RepairMenu" xml:space="preserve">
+    <value>Menu oprav</value>
+  </data>
+  <data name="Tutorial_RepairMenu_Description" xml:space="preserve">
+    <value>Pokud kliknete na menu pro opravy, před vám se zobrazí menu s jedním prvkem a seznamem všech oprav.1) Slouží pro záznam nové opravy, 2) Náhled na jeden záznam ze seznamu, po kliknutí se zobrazí detail opravy.</value>
+  </data>
+  <data name="Tutorial_ThanksEnd" xml:space="preserve">
+    <value>A to je vše</value>
+  </data>
+  <data name="Tutorial_ThanksEnd_Description" xml:space="preserve">
+    <value>Tento tutoriál je u konce a můžete ho kdykoliv znovu spustit z menu aplikace.</value>
+  </data>
+  <data name="Tutorial_ThankYou" xml:space="preserve">
+    <value>Děkuji za nainstalování aplikace CoPilot.</value>
+  </data>
+  <data name="Tutorial_Welcome" xml:space="preserve">
+    <value>Vítejte!</value>
+  </data>
+  <data name="Tutorial_WhatIsIt" xml:space="preserve">
+    <value>Co je CoPilot?</value>
+  </data>
+  <data name="Tutorial_WhatIsIt_Description" xml:space="preserve">
+    <value>CoPilot je aplikace, která slouží pro nahrávání informací o automobilu. Můžete nahrávat videa z cest, pořizovat fotografie, udržovat záznamy o tankování a opravách. Pokud připojíte OBD modul, můžete také zaznamenávat důležité informace z řídící jednotky automobilu a poté je prohlížet.</value>
+  </data>
+  <data name="Tile" xml:space="preserve">
+    <value>Auto má průměrnou spotřebu {0} a podstoupilo {1} oprav.</value>
+  </data>
+  <data name="Tile_Small" xml:space="preserve">
+    <value>Spotřeba {0}, oprav {1}</value>
+  </data>
+</root>

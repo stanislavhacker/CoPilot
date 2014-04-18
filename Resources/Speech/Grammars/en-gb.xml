@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<speech>
+  <i-want-to>I want to</i-want-to>
+  <add-fill>add fill.</add-fill>
+  <make-a-photo>make a photo.</make-a-photo>
+  <start-recording>start recording.</start-recording>
+  <go-back>go back.</go-back>
+  <cancel>cancel this.</cancel>
+  <fill>fill</fill>
+  <check>check</check>
+  <odometer>odometer.</odometer>
+  <fuel-price>fuel price.</fuel-price>
+  <price-per-unit>price per unit.</price-per-unit>
+  <fueled>fueled.</fueled>
+  <full-tank>full tank.</full-tank>
+  <save-record>save record.</save-record>
+</speech>

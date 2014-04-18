@@ -1,0 +1,272 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="CoPilot.CoPilot.View.Pictures"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Landscape" Orientation="Landscape"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="False">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideLeftFadeIn" />
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideLeftFadeIn" />
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideRightFadeOut" />
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideRightFadeOut" />
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <Grid>
+
+        <!-- PICTURE -->
+        <Grid Visibility="{Binding NotFound, Converter={StaticResource BooleanToCollapsedConvertor}}" RenderTransformOrigin="0.5,0.5">
+            <Grid.Background>
+                <ImageBrush ImageSource="{Binding Brush}" Stretch="UniformToFill"/>
+            </Grid.Background>
+            <Grid.Projection>
+                <PlaneProjection RotationZ="{Binding Rotation}"/>
+            </Grid.Projection>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Tap">
+                    <i:InvokeCommandAction Command="{Binding TapCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Grid>
+        <Grid Visibility="{Binding NotFound, Converter={StaticResource BooleanToVisibilityConvertor}}" RenderTransformOrigin="0.5,0.5">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Tap">
+                    <i:InvokeCommandAction Command="{Binding TapCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <Grid Margin="20,10,130,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65"/>
+                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="240"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Style="{StaticResource Title}" Text="{Binding LocalizedResources.PhotoNotFoundTitle, Mode=OneWay, Source={StaticResource LocalizedStrings}}" TextAlignment="Center" />
+                <TextBlock Grid.Row="1" Style="{StaticResource RowText}" Text="{Binding LocalizedResources.PhotoNotFoundDescription, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Center" Margin="60,10,60,0" />
+
+                <StackPanel Orientation="Horizontal" Visibility="{Binding Image.Backups.Count, Converter={StaticResource CountToVisibilityConvertor}, ConverterParameter='0'}" HorizontalAlignment="Center" Grid.Row="2">
+                    <Button 
+                        Command="{Binding OpenUrlCommand}"
+                        Visibility="{Binding Progress.IsChecked, Converter={StaticResource BooleanToCollapsedConvertor}}"
+                        Style="{StaticResource MenuButton}" 
+                        VerticalContentAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        Height="210" Width="210" Margin="10">
+                        <Grid Background="{StaticResource PhoneAccentBrush}" Margin="-10">
+                            <Image Width="70" Height="70" Source="/Resources/Images/Buttons/link.png"  Stretch="UniformToFill" />
+                            <TextBlock Style="{StaticResource Odometer}" Text="{Binding LocalizedResources.BackupView, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="12" FontSize="16" FontWeight="Normal" VerticalAlignment="Bottom"  HorizontalAlignment="Left" />
+                        </Grid>
+                    </Button>
+                    <Button 
+                        IsEnabled="{Binding FtpController.IsWifiEnabled}"
+                        Command="{Binding DownloadCommand}"
+                        Visibility="{Binding Progress.IsChecked, Converter={StaticResource BooleanToCollapsedConvertor}}"
+                        Style="{StaticResource MenuButton}" 
+                        VerticalContentAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        Height="210" Width="210" Margin="10">
+                        <Grid Background="{StaticResource PhoneAccentBrush}" Margin="-10">
+                            <Image Width="70" Height="70" Source="/Resources/Images/Buttons/download.png"  Stretch="UniformToFill" />
+                            <TextBlock Style="{StaticResource Odometer}" Text="{Binding LocalizedResources.BackupDownload, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="12" FontSize="16" FontWeight="Normal" VerticalAlignment="Bottom"  HorizontalAlignment="Left" />
+                        </Grid>
+                    </Button>
+                </StackPanel>
+                <Grid Visibility="{Binding Image.Backups.Count, Converter={StaticResource CountToVisibilityConvertor}, ConverterParameter='0'}" Grid.Row="2">
+                    <Grid Visibility="{Binding Progress.IsChecked, FallbackValue='Collapsed', Converter={StaticResource BooleanToVisibilityConvertor}}">
+                        <ProgressBar VerticalAlignment="Center" IsIndeterminate="true" Margin="100,0" />
+                        <TextBlock Text="{Binding LocalizedResources.DownloadInProgress, Mode=OneWay, Source={StaticResource LocalizedStrings}}" TextAlignment="Center" VerticalAlignment="Bottom" Margin="0,90" />
+                    </Grid>
+                </Grid>
+
+            </Grid>
+        </Grid>
+
+        <!-- STATUS -->
+        <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding Image.Time}" Style="{StaticResource Duration}" />
+            </StackPanel>
+        </Grid>
+
+        <!-- MENU -->
+        <Grid 
+            Name="Menu"
+            HorizontalAlignment="Right"
+            Width="600">
+            <Grid.Projection>
+                <PlaneProjection GlobalOffsetX="480"/>
+            </Grid.Projection>
+
+            <!-- property watcher for visual states -->
+            <i:Interaction.Behaviors>
+                <ec:DataStateBehavior Binding="{Binding MenuController.IsOpen}" Value="True" TrueState="Open"/>
+                <ec:DataStateBehavior Binding="{Binding MenuController.IsOpen}" Value="False" TrueState="Close"/>
+            </i:Interaction.Behaviors>
+
+            <!-- visual states -->
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup>
+                    <VisualStateGroup.Transitions>
+                        <VisualTransition To="Close" GeneratedDuration="0:0:0.2">
+                            <Storyboard>
+                                <DoubleAnimation 
+							        Storyboard.TargetName="Menu"
+							        Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							        To="480"
+							        Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </VisualTransition>
+                        <VisualTransition To="Open" GeneratedDuration="0:0:0.2">
+                            <Storyboard>
+                                <DoubleAnimation 
+							        Storyboard.TargetName="Menu"
+							        Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							        To="5"
+							        Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </VisualTransition>
+                    </VisualStateGroup.Transitions>
+
+                    <VisualState x:Name="Close">
+                        <Storyboard>
+                            <DoubleAnimation 
+							    Storyboard.TargetName="Menu"
+							    Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							    To="480"
+							    Duration="0"/>
+                        </Storyboard>
+                    </VisualState>
+
+                    <VisualState x:Name="Open">
+                        <Storyboard>
+                            <DoubleAnimation 
+							    Storyboard.TargetName="Menu"
+							    Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							    To="5"
+							    Duration="0"/>
+                        </Storyboard>
+                    </VisualState>
+
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <VisualStateManager.CustomVisualStateManager>
+                <ec:ExtendedVisualStateManager/>
+            </VisualStateManager.CustomVisualStateManager>
+
+            <Grid
+                Width="120"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Left"
+                Background="{StaticResource PhoneChromeBrush}">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Button 
+                    IsEnabled="{Binding IsButtonsEnabled}"
+                    Command="{Binding NextCommand}"
+                    Grid.Row="0" 
+                    Style="{StaticResource MenuButton}">
+                    <Image Source="/Resources/Images/Buttons/previous.png" Width="40" />
+                </Button>
+                <Rectangle VerticalAlignment="Bottom" Grid.Row="0" Fill="{StaticResource LineColor}" Height="1" />
+                <Button 
+                    IsEnabled="{Binding IsButtonsEnabled}"
+                    Command="{Binding PreviousCommand}"
+                    Grid.Row="1" 
+                    Style="{StaticResource MenuButton}">
+                    <Image Source="/Resources/Images/Buttons/next.png" Width="40" />
+                </Button>
+                <Rectangle VerticalAlignment="Bottom" Grid.Row="1" Fill="{StaticResource LineColor}" Height="1" />
+                <Button 
+                    Command="{Binding ConfirmDeleteCommand}"
+                    Grid.Row="2" 
+                    Style="{StaticResource MenuButton}">
+                    <Image Source="/Resources/Images/Buttons/delete.png" Width="40" />
+                </Button>
+                <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                <StackPanel Orientation="Horizontal" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding Position}" Style="{StaticResource Count}"  />
+                    <TextBlock Text="/" Style="{StaticResource Count}" Margin="3, 0"  />
+                    <TextBlock Text="{Binding Max}" Style="{StaticResource Count}"  />
+                </StackPanel>
+
+            </Grid>
+            <Grid
+                Width="480"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Right"
+                Background="{StaticResource PhoneChromeBrush}">
+
+                <Rectangle HorizontalAlignment="Left" Grid.Row="0" Fill="{StaticResource LineColor}" Width="1" />
+
+                <Grid>
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical">
+
+                            <Button 
+                                Command="{Binding DeleteCommand}" 
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/ok.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.Yes, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Command="{Binding CancelCommand}" 
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/cancel.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.No, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+
+</phone:PhoneApplicationPage>

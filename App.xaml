@@ -1,0 +1,46 @@
+﻿<Application
+    x:Class="CoPilot.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:convertors="clr-namespace:CoPilot.Utils.Convertors">
+
+    <!--Application Resources-->
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <local:LocalizedStrings xmlns:local="clr-namespace:CoPilot" x:Key="LocalizedStrings"/>
+            <convertors:ContextMenuToVisibility x:Key="ContextMenuToVisibilityConvertor"/>
+            <convertors:BooleanToVisibility x:Key="BooleanToVisibilityConvertor"/>
+            <convertors:BooleanToCollapsed x:Key="BooleanToCollapsedConvertor"/>
+            <convertors:RecordingToImage x:Key="RecordingToImageConvertor"/>
+            <convertors:TrueToFalse x:Key="TrueToFalseConvertor"/>
+            <convertors:CountToBoolean x:Key="CountToBooleanConvertor"/>
+            <convertors:CurrencyToStyle x:Key="CurrencyToStyleConvertor"/>
+            <convertors:DistanceToStyle x:Key="DistanceToStyleConvertor"/>
+            <convertors:PriceToRealPrice x:Key="PriceToRealPriceConvertor"/>
+            <convertors:OdometerToRealOdometer x:Key="OdometerToRealOdometerConvertor"/>
+            <convertors:BluetoothErrorTypeToVisibility x:Key="BluetoothErrorTypeToVisibilityConvertor"/>
+            <convertors:SpeechContextToVisibility x:Key="SpeechContextToVisibilityConvertor"/>
+            <convertors:PageToVisibility x:Key="PageToVisibilityConvertor" />
+            <convertors:RealConsumptionToString x:Key="RealConsumptionToStringConvertor" />
+            <convertors:DistanceToConsumptionString x:Key="DistanceToConsumptionStringConvertor" />
+            <convertors:NotBackuped x:Key="NotBackupedConvertor" />
+            <convertors:CountToVisibility x:Key="CountToVisibilityConvertor" />
+            <convertors:CountToCollapsed x:Key="CountToCollapsedConvertor" />
+            <convertors:StepToVisibility x:Key="StepToVisibilityConvertor" />
+            <convertors:TutorialContextToVisibility x:Key="TutorialContextToVisibilityConvertor" />
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <Application.ApplicationLifetimeObjects>
+        <!--Required object that handles lifetime events for the application-->
+        <shell:PhoneApplicationService
+            Launching="Application_Launching" Closing="Application_Closing"
+            Activated="Application_Activated" Deactivated="Application_Deactivated"/>
+    </Application.ApplicationLifetimeObjects>
+
+</Application>

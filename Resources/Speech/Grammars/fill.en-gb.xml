@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<grammar version="1.0" xml:lang="en-GB" root="fill" tag-format="semantics/1.0"
+         xmlns="http://www.w3.org/2001/06/grammar"
+         xmlns:sapi="http://schemas.microsoft.com/Speech/2002/06/SRGSExtensions">
+
+  <rule id="fill" scope="public">
+
+    <item repeat="0-1"> I want to </item>
+
+    <item repeat="0-1"> fill </item>
+
+    <item repeat="0-1"> check </item>
+
+    <item>
+      <ruleref uri="#commands"/>
+      <tag>out.Fill = rules.latest();</tag>
+    </item>
+
+  </rule>
+
+  <rule id="commands">
+    <one-of>
+      <item>
+        odometer <tag> out = "Odometer" </tag>
+      </item>
+      <item>
+        fuel price <tag> out = "FuelPrice" </tag>
+      </item>
+      <item>
+        price per unit <tag> out = "PricePerUnit" </tag>
+      </item>
+      <item>
+        fueled <tag> out = "Fueled" </tag>
+      </item>
+      <item>
+        full tank <tag> out = "FullTank" </tag>
+      </item>
+      <item>
+        save record <tag> out = "Save" </tag>
+      </item>
+    </one-of>
+  </rule>
+
+</grammar>

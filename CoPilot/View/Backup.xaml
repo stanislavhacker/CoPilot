@@ -1,0 +1,508 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="CoPilot.CoPilot.View.Backup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions" 
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Landscape" Orientation="Landscape"
+    x:Name="BackupRoot"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="False">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideLeftFadeIn" />
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideLeftFadeIn" />
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideRightFadeOut" />
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideRightFadeOut" />
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <Grid>
+
+        <Grid Margin="0,0,120,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Tap">
+                    <i:InvokeCommandAction Command="{Binding TapCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <TextBlock Grid.Row="0" Style="{StaticResource Title}" HorizontalAlignment="Left" Margin="20,10,0,0" Text="{Binding LocalizedResources.BackupOptions, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+            <Grid Margin="20,0" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="65*"/>
+                    <ColumnDefinition Width="289*"/>
+                    <ColumnDefinition Width="286*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- ROW 1 -->
+                <StackPanel Grid.Row="0" Margin="0" Orientation="Horizontal" Grid.ColumnSpan="2">
+                    <Image Width="30" Margin="0,0,10,0" Source="/Resources/Images/Info/date.png"  />
+                    <TextBlock Style="{StaticResource Row}" Text="{Binding LocalizedResources.LastBackup, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0" />
+                </StackPanel>
+                <TextBlock Grid.Row="0" Grid.Column="2" Visibility="{Binding DataController.IsBackupAvailable, Converter={StaticResource BooleanToVisibilityConvertor}}" Style="{StaticResource RowValue}" Text="{Binding DataController.Backup.Date}" Foreground="Gray" />
+                <TextBlock Grid.Row="0" Grid.Column="2" Visibility="{Binding DataController.IsBackupAvailable, Converter={StaticResource BooleanToCollapsedConvertor}}" Style="{StaticResource RowValue}" Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Foreground="Gray" />
+
+                <!-- ROW 2 -->
+                <TextBlock Grid.Row="1" Style="{StaticResource Row}" Text="{Binding LocalizedResources.BackupCurrentId, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,20" Grid.ColumnSpan="2" />
+                <TextBlock Grid.Row="1" Grid.Column="2" Visibility="{Binding DataController.IsBackupAvailable, Converter={StaticResource BooleanToVisibilityConvertor}}" Style="{StaticResource RowValue}" Text="{Binding DataController.Backup.Id}" Foreground="Gray" />
+                <TextBlock Grid.Row="1" Grid.Column="2" Visibility="{Binding DataController.IsBackupAvailable, Converter={StaticResource BooleanToCollapsedConvertor}}" Style="{StaticResource RowValue}" Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Foreground="Gray" />
+
+                <!-- ROW 3 -->
+                <CheckBox IsChecked="{Binding DataController.IsBackupOnStart, Mode=TwoWay, FallbackValue=False}" Grid.Row="2" Grid.Column="0" />
+                <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource Row}" Text="{Binding LocalizedResources.BackupAllowOnStart, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,20" Grid.ColumnSpan="2" />
+
+                <!-- ROW 4 -->
+                <CheckBox IsChecked="{Binding DataController.IsEmailOnBackup, Mode=TwoWay, FallbackValue=False}" Grid.Row="3" Grid.Column="0" />
+                <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource Row}" Text="{Binding LocalizedResources.BackupAllowSendEmail, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,20" />
+                <TextBox Text="{Binding DataController.BackupEmail, Mode=TwoWay}" IsEnabled="{Binding DataController.IsEmailOnBackup, FallbackValue=False}" Grid.Row="3" Grid.Column="2" Style="{StaticResource Value}" Margin="0,-8,0,0" VerticalAlignment="Top" />
+                <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource Tip}" Text="{Binding LocalizedResources.BackupAllowSendEmailText, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="12,2" VerticalAlignment="Bottom" />
+                
+                <!-- ROW 5 -->
+                <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource RowText}" Text="{Binding LocalizedResources.BackupDescription, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="10" VerticalAlignment="Top" Grid.ColumnSpan="3" />
+
+            </Grid>
+        </Grid>
+
+        <!-- MENU -->
+        <Grid
+            Name="Menu"
+            HorizontalAlignment="Right"
+            Width="740">
+            <Grid.Projection>
+                <PlaneProjection GlobalOffsetX="620"/>
+            </Grid.Projection>
+
+            <!-- property watcher for visual states -->
+            <i:Interaction.Behaviors>
+                <ec:DataStateBehavior Binding="{Binding MenuController.IsOpen}" Value="True" TrueState="Open"/>
+                <ec:DataStateBehavior Binding="{Binding MenuController.IsOpen}" Value="False" TrueState="Close"/>
+            </i:Interaction.Behaviors>
+
+            <!-- visual states -->
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup>
+                    <VisualStateGroup.Transitions>
+                        <VisualTransition To="Close" GeneratedDuration="0:0:0.2">
+                            <Storyboard>
+                                <DoubleAnimation 
+							        Storyboard.TargetName="Menu"
+							        Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							        To="620"
+							        Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </VisualTransition>
+                        <VisualTransition To="Open" GeneratedDuration="0:0:0.2">
+                            <Storyboard>
+                                <DoubleAnimation 
+							        Storyboard.TargetName="Menu"
+							        Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							        To="5"
+							        Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </VisualTransition>
+                    </VisualStateGroup.Transitions>
+
+                    <VisualState x:Name="Close">
+                        <Storyboard>
+                            <DoubleAnimation 
+							    Storyboard.TargetName="Menu"
+							    Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							    To="620"
+							    Duration="0"/>
+                        </Storyboard>
+                    </VisualState>
+
+                    <VisualState x:Name="Open">
+                        <Storyboard>
+                            <DoubleAnimation 
+							    Storyboard.TargetName="Menu"
+							    Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							    To="5"
+							    Duration="0"/>
+                        </Storyboard>
+                    </VisualState>
+
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <VisualStateManager.CustomVisualStateManager>
+                <ec:ExtendedVisualStateManager/>
+            </VisualStateManager.CustomVisualStateManager>
+
+            <Grid
+                Width="120"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Left"
+                Background="{StaticResource PhoneChromeBrush}">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Button 
+                    Command="{Binding MainBackupTap}" 
+                    Grid.Row="0" 
+                    Style="{StaticResource MenuButton}">
+                    <Image Source="/Resources/Images/Buttons/backup.png" Width="40" />
+                </Button>
+                <Rectangle VerticalAlignment="Bottom" Grid.Row="0" Fill="{StaticResource LineColor}" Height="1" />
+                <Button 
+                    IsEnabled="{Binding FtpController.IsWifiEnabled}"
+                    Command="{Binding PhotoBackupTap}"
+                    Grid.Row="1" 
+                    Style="{StaticResource MenuButton}">
+                    <Image Source="/Resources/Images/Buttons/photo.png" Width="40" />
+                </Button>
+                <Rectangle VerticalAlignment="Bottom" Grid.Row="1" Fill="{StaticResource LineColor}" Height="1" />
+                <Button 
+                    IsEnabled="{Binding FtpController.IsWifiEnabled}"
+                    Command="{Binding VideoBackupTap}"
+                    Grid.Row="2" 
+                    Style="{StaticResource MenuButton}">
+                    <Image Source="/Resources/Images/Buttons/movies.png" Width="40" />
+                </Button>
+                <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+            </Grid>
+            <Grid
+                Width="620"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Right"
+                Background="{StaticResource PhoneChromeBrush}">
+
+                <Rectangle HorizontalAlignment="Left" Grid.Row="0" Fill="{StaticResource LineColor}" Width="1" />
+
+                <!-- MAIN BACKUP -->
+                <Grid Visibility="{Binding MenuController.Context, ConverterParameter='MainBackup', Converter={StaticResource ContextMenuToVisibilityConvertor}}">
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical">
+
+                            <Button 
+                                IsEnabled="{Binding FtpController.IsNetEnabled}"
+                                Command="{Binding BackupCommand}" 
+                                CommandParameter="MainData"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid Height="50">
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/backup.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.BackupMainFile, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+
+                                    <!-- NORMAL -->
+                                    <TextBlock Margin="80,0,0,0" 
+                                               Text="{Binding FtpController.MainDataFile.Size, StringFormat='{}{0} MB', FallbackValue='--'}" 
+                                               Visibility="{Binding FtpController.IsUpload, Converter={StaticResource BooleanToCollapsedConvertor}}" 
+                                               VerticalAlignment="Bottom" 
+                                               TextAlignment="Left" 
+                                               FontSize="16"
+                                               Foreground="Gray" />
+
+                                    <!-- PROGRESS -->
+                                    <Grid Margin="80,0,0,0" Visibility="{Binding FtpController.IsUpload, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                                        <TextBlock Text="{Binding FtpController.MainDataFile.Eta, FallbackValue='00:00:00'}" Margin="5,0" FontSize="22" Foreground="Gray"  VerticalAlignment="Top" HorizontalAlignment="Right" />
+                                        <ProgressBar 
+                                            IsIndeterminate="{Binding FtpController.MainDataFile.IsIndetermine}"
+                                            Value="{Binding FtpController.MainDataFile.Percent}"
+                                            VerticalAlignment="Bottom" 
+                                            Margin="0" 
+                                            Grid.ColumnSpan="2" />
+                                        <TextBlock Text="{Binding FtpController.MainDataFile.Speed, FallbackValue='0', StringFormat='{}{0} kB/s'}" Style="{StaticResource Tip}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,3" />
+                                    </Grid>
+
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                IsEnabled="{Binding DataController.IsBackupAvailable}"
+                                Command="{Binding ShowCommand}" 
+                                CommandParameter="MainData"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid Height="50">
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/link.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.OpenLinkInBrowser, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                IsEnabled="{Binding DataController.IsBackupAvailable}"
+                                Command="{Binding EmailCommand}" 
+                                CommandParameter="MainData"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid Height="50">
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/sendEmail.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.SendByEmail, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                IsEnabled="{Binding FtpController.IsUpload, Converter={StaticResource TrueToFalseConvertor}}"
+                                Command="{Binding DownloadCommand}" 
+                                CommandParameter="MainData"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid Height="50">
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/download.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.DownloadBackup, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+
+                                    <!-- NORMAL -->
+                                    <TextBlock Margin="80,0,0,0" 
+                                               Text="{Binding LocalizedResources.DownloadBackupHelp, Mode=OneWay, Source={StaticResource LocalizedStrings}}" 
+                                               Visibility="{Binding FtpController.IsDownload, Converter={StaticResource BooleanToCollapsedConvertor}}" 
+                                               VerticalAlignment="Bottom" 
+                                               TextAlignment="Left" 
+                                               FontSize="16"
+                                               Foreground="Gray" />
+                                    <TextBox 
+                                        Visibility="{Binding FtpController.IsDownload, Converter={StaticResource BooleanToCollapsedConvertor}}" 
+                                        VerticalAlignment="Center" 
+                                        HorizontalAlignment="Right" 
+                                        Style="{Binding FileIdStyle}" 
+                                        Text="{Binding FileId, Mode=TwoWay}" 
+                                        Width="200" 
+                                        Margin="-8">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="GotFocus">
+                                                <i:InvokeCommandAction Command="{Binding FocusFileIdCommand}" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="LostFocus">
+                                                <i:InvokeCommandAction Command="{Binding BlurFileIdCommand}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+
+                                    <!-- PROGRESS -->
+                                    <ProgressBar 
+                                            Margin="80,0,0,0"
+                                            Visibility="{Binding FtpController.IsDownload, Converter={StaticResource BooleanToVisibilityConvertor}}"
+                                            IsIndeterminate="true"
+                                            VerticalAlignment="Bottom" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+                <!-- PHOTO BACKUP -->
+                <Grid Visibility="{Binding MenuController.Context, ConverterParameter='PhotoBackup', Converter={StaticResource ContextMenuToVisibilityConvertor}}">
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical">
+
+                            <Button 
+                                IsEnabled="{Binding Pictures.Count, Converter={StaticResource CountToBooleanConvertor}, ConverterParameter='0'}"
+                                Command="{Binding BackupCommand}" 
+                                CommandParameter="Images"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid Height="50">
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/backup.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.BackupSelectedFiles, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+
+                                    <!-- NORMAL -->
+                                    <StackPanel Orientation="Horizontal" Margin="80,0,0,0" Visibility="{Binding FtpController.IsMediaBackup, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
+                                        <TextBlock Margin="0,0,5,0" Text="{Binding LocalizedResources.CountOfSelectedFiled, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+                                        <TextBlock Text="{Binding Pictures.Count}" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+                                    </StackPanel>
+
+                                    <!-- PROGRESS -->
+                                    <Grid Margin="80,0,0,0" Visibility="{Binding FtpController.IsMediaBackup, Converter={StaticResource BooleanToVisibilityConvertor}}" VerticalAlignment="Bottom" >
+                                        <TextBlock Margin="0,0,5,0" Text="{Binding LocalizedResources.UploadInProgress, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+                                    </Grid>
+
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <ListBox 
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ItemsSource="{Binding DataController.Pictures, Converter={StaticResource NotBackupedConvertor}}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <Button 
+                                                Command="{Binding ElementName=BackupRoot, Path=DataContext.ViewPictureCommand}"
+                                                CommandParameter="{Binding Picture}"
+                                                Style="{StaticResource MenuButton}" 
+                                                HorizontalContentAlignment="Stretch"
+                                                Width="620"
+                                                Height="100">
+                                                <Grid>
+                                                    <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+                                                        <TextBlock Margin="0" Text="{Binding Picture.Time}" />
+                                                        <TextBlock Margin="0" Text="{Binding Size, StringFormat=' - {0}'}" Foreground="Gray" />
+                                                    </StackPanel>
+                                                    
+                                                    <!-- NORMAL -->
+                                                    <Grid Margin="0" Visibility="{Binding ElementName=BackupRoot, Path=DataContext.FtpController.IsMediaBackup, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
+                                                        <TextBlock Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" Visibility="{Binding Picture.Backups.Count, Converter={StaticResource CountToCollapsedConvertor}, ConverterParameter='0'}" />
+                                                        <TextBlock Text="{Binding Picture.Backups[0].Date, FallbackValue='-'}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding Picture.Backups.Count, Converter={StaticResource CountToVisibilityConvertor}, ConverterParameter='0'}" />
+                                                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsChecked, Mode=TwoWay}" Command="{Binding ElementName=BackupRoot, Path=DataContext.ChekcPictureCommand}" CommandParameter="{Binding}" HorizontalAlignment="Right" Margin="-10" />
+                                                    </Grid>
+
+                                                    <!-- PROGRESS -->
+                                                    <Grid Margin="0" Visibility="{Binding ElementName=BackupRoot, Path=DataContext.FtpController.IsMediaBackup, Converter={StaticResource BooleanToVisibilityConvertor}}" Height="60">
+                                                        <TextBlock Text="{Binding Progress.Eta, FallbackValue='00:00:00'}" Margin="5,0" FontSize="22" Foreground="Gray"  VerticalAlignment="Top" HorizontalAlignment="Right" />
+                                                        <ProgressBar 
+                                                            IsIndeterminate="{Binding Progress.IsIndetermine}"
+                                                            Value="{Binding Progress.Percent}"
+                                                            VerticalAlignment="Bottom" 
+                                                            Margin="0" />
+                                                        <TextBlock Text="{Binding Progress.Speed, FallbackValue='0', StringFormat='{}{0} kB/s'}" Style="{StaticResource Tip}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,10" />
+                                                    </Grid>
+
+                                                </Grid>
+                                            </Button>
+                                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+                <!-- VIDEO BACKUP -->
+                <Grid Visibility="{Binding MenuController.Context, ConverterParameter='VideoBackup', Converter={StaticResource ContextMenuToVisibilityConvertor}}">
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical">
+
+                            <Button 
+                                IsEnabled="{Binding Videos.Count, Converter={StaticResource CountToBooleanConvertor}, ConverterParameter='0'}"
+                                Command="{Binding BackupCommand}" 
+                                CommandParameter="Videos"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid Height="50">
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/backup.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.BackupSelectedFiles, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+
+                                    <!-- NORMAL -->
+                                    <StackPanel Orientation="Horizontal" Margin="80,0,0,0" Visibility="{Binding FtpController.IsMediaBackup, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
+                                        <TextBlock Margin="0,0,5,0" Text="{Binding LocalizedResources.CountOfSelectedFiled, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+                                        <TextBlock Text="{Binding Videos.Count}" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+                                    </StackPanel>
+
+                                    <!-- PROGRESS -->
+                                    <Grid Margin="80,0,0,0" Visibility="{Binding FtpController.IsMediaBackup, Converter={StaticResource BooleanToVisibilityConvertor}}" VerticalAlignment="Bottom" >
+                                        <TextBlock Margin="0,0,5,0" Text="{Binding LocalizedResources.UploadInProgress, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+                                    </Grid>
+
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <ListBox 
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ItemsSource="{Binding DataController.Videos, Converter={StaticResource NotBackupedConvertor}}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <Button 
+                                                Command="{Binding ElementName=BackupRoot, Path=DataContext.ViewVideoCommand}"
+                                                CommandParameter="{Binding Video}"
+                                                Style="{StaticResource MenuButton}" 
+                                                HorizontalContentAlignment="Stretch"
+                                                Width="620"
+                                                Height="100">
+                                                <Grid>
+                                                    <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+                                                        <TextBlock Margin="0" Text="{Binding Video.Time}" />
+                                                        <TextBlock Margin="0" Text="{Binding Size, StringFormat=' - {0}'}" Foreground="Gray" />
+                                                    </StackPanel> 
+
+                                                    <!-- NORMAL -->
+                                                    <Grid Margin="0" Visibility="{Binding ElementName=BackupRoot, Path=DataContext.FtpController.IsMediaBackup, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
+                                                        <TextBlock Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" Visibility="{Binding Video.VideoBackups.Count, Converter={StaticResource CountToCollapsedConvertor}, ConverterParameter='0'}" />
+                                                        <TextBlock Text="{Binding Video.VideoBackups[0].Date, FallbackValue='-'}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding Video.VideoBackups.Count, Converter={StaticResource CountToVisibilityConvertor}, ConverterParameter='0'}" />
+                                                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsChecked, Mode=TwoWay}" Command="{Binding ElementName=BackupRoot, Path=DataContext.ChekcVideoCommand}" CommandParameter="{Binding}" HorizontalAlignment="Right" Margin="-10" />
+                                                    </Grid>
+
+                                                    <!-- PROGRESS -->
+                                                    <Grid Margin="0" Visibility="{Binding ElementName=BackupRoot, Path=DataContext.FtpController.IsMediaBackup, Converter={StaticResource BooleanToVisibilityConvertor}}" Height="60">
+                                                        <TextBlock Text="{Binding Progress.Eta, FallbackValue='00:00:00'}" Margin="5,0" FontSize="22" Foreground="Gray"  VerticalAlignment="Top" HorizontalAlignment="Right" />
+                                                        <ProgressBar 
+                                                            IsIndeterminate="{Binding Progress.IsIndetermine}"
+                                                            Value="{Binding Progress.Percent}"
+                                                            VerticalAlignment="Bottom" 
+                                                            Margin="0" />
+                                                        <TextBlock Text="{Binding Progress.Speed, FallbackValue='0', StringFormat='{}{0} kB/s'}" Style="{StaticResource Tip}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,10" />
+                                                    </Grid>
+
+                                                </Grid>
+                                            </Button>
+                                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+
+</phone:PhoneApplicationPage>

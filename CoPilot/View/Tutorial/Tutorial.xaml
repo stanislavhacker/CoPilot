@@ -1,0 +1,762 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone" x:Class="CoPilot.CoPilot.View.Tutorial.Tutorial"
+    mc:Ignorable="d"
+    Visibility="{Binding IsTutorial, Converter={StaticResource BooleanToVisibilityConvertor}}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="800">
+
+    <Grid Margin="-2">
+
+        <!-- COPILOT -->
+        <Grid Background="Black">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Tap">
+                    <i:InvokeCommandAction Command="{Binding NextCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=1, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}" RenderTransformOrigin="0.5,0.5">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_Welcome, Source={StaticResource LocalizedStrings}}" FontSize="56" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_ThankYou, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_Information, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=2, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_WhatIsIt, Source={StaticResource LocalizedStrings}}" FontSize="56" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_WhatIsIt_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=3, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+                <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_MainScreen, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_MainScreen_Description_One, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=4, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+                <StackPanel Margin="0,0,170,0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_MainScreen, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_MainScreen_Description_Two, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+
+                <Border
+					Margin="10"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Right" 
+					BorderThickness="2"
+					BorderBrush="{StaticResource PhoneAccentBrush}">
+
+                    <Grid
+						Width="120"
+						VerticalAlignment="Stretch"
+						HorizontalAlignment="Right"
+						Background="{StaticResource PhoneChromeBrush}" 
+						RenderTransformOrigin="0.5,0.5">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="1)" Grid.Row="0" Margin="-24,0,0,0"/>
+                        <Button 
+							Grid.Row="0" 
+							Style="{StaticResource MenuButton}">
+                            <Image Source="/Resources/Images/Buttons/camcorder.png" Width="40" />
+                        </Button>
+                        <Rectangle VerticalAlignment="Bottom" Grid.Row="0" Fill="{StaticResource LineColor}" Height="1" />
+                        <TextBlock Text="2)" Grid.Row="1" Margin="-24,0,0,0"/>
+                        <Button 
+							Grid.Row="1" 
+							Style="{StaticResource MenuButton}">
+                            <Image Source="/Resources/Images/Buttons/fuel.png" Width="40" />
+                        </Button>
+                        <Rectangle VerticalAlignment="Bottom" Grid.Row="1" Fill="{StaticResource LineColor}" Height="1" />
+                        <TextBlock Text="3)" Grid.Row="2" Margin="-24,0,0,0"/>
+                        <Button 
+							Grid.Row="2" 
+							Style="{StaticResource MenuButton}">
+                            <Image Source="/Resources/Images/Buttons/spark.png" Width="40" />
+                        </Button>
+                        <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+                        <TextBlock Text="4)" Grid.Row="3" Margin="-24,0,0,0"/>
+                        <Button 
+							Grid.Row="3" 
+							Style="{StaticResource MenuButton}">
+                            <TextBlock Text="..." Margin="0,-32,0,0" FontSize="38" FontWeight="Bold"/>
+                        </Button>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=5, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+                <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_CameraMenu, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_CameraMenu_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+
+                <Grid VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="120"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="1)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="0" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid>
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/record.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.StartRecording, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <TextBlock Text="2)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="1" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="1"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid>
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/photo.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.TakePicture, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <TextBlock Text="3)" Margin="20,15,0,0" Grid.Row="1" Grid.Column="0" />
+                    <Border
+						Margin="10"
+						Grid.Row="1"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid>
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/movies.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.Videos, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                <TextBlock Margin="80,0,10,0" Text="2" VerticalAlignment="Center" TextAlignment="Right" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <TextBlock Text="4)" Margin="20,15,0,0" Grid.Row="1" Grid.Column="1" />
+                    <Border
+						Margin="10"
+						Grid.Row="1"
+						Grid.Column="1"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid>
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/pictures.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.Photos, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                <TextBlock Margin="80,0,10,0" Text="4" VerticalAlignment="Center" TextAlignment="Right" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                </Grid>
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=6, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+                <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_FuelMenu, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_FuelMenu_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+
+                <Grid VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="120"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="1)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="0" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid>
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/add.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.AddFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <TextBlock Text="2)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="1" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="1"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid>
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/avarage.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.AverageConsumption, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat=\{0\}:}" VerticalAlignment="Center" TextAlignment="Left" />
+                                <TextBlock Text="4.5" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                                <TextBlock Text="l / 100 Km" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,-14" Style="{StaticResource Tip}"  />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <Border
+						Margin="10"
+						Grid.Row="1"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							Width="370"
+							Height="90"
+							Margin="0">
+
+                            <Grid   
+								Margin="-12"
+								Width="360"
+								Height="80">
+
+                                <Rectangle Visibility="Visible" HorizontalAlignment="Left" Fill="{StaticResource PhoneAccentBrush}" Width="10" Margin="-6,0,0,0" />
+                                <StackPanel Margin="10,4" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                                    <Image Width="30" Height="30" Source="/Resources/Images/Info/speedometer.png" Stretch="UniformToFill" />
+                                    <TextBlock Style="{StaticResource Odometer}" Text="32588.2" Margin="5,0" />
+                                </StackPanel>
+                                <TextBlock Margin="10,4" Style="{StaticResource Date}" Text="2014/2/5" />
+                                <Grid Margin="0,0,10,0">
+                                    <StackPanel Margin="10,0,0,2" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource Info}" Text="120" Margin="5,0" />
+                                        <Image Width="20" Height="20" Source="/Resources/Images/Info/money.png" Stretch="UniformToFill" />
+                                    </StackPanel>
+                                    <StackPanel Margin="10,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource Info}" Text="2.57" Margin="5,0" />
+                                        <Image Width="20" Height="20" Source="/Resources/Images/Info/cheap.png" Stretch="UniformToFill" />
+                                    </StackPanel>
+                                    <StackPanel Margin="10,2,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource Info}" Text="46.69" Margin="5,0" />
+                                        <Image Width="20" Height="20" Source="/Resources/Images/Info/refueled.png" Stretch="UniformToFill" />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+
+                        </Button>
+                    </Border>
+                    <TextBlock Text="3)" Margin="20,15,0,0" Grid.Row="1" Grid.Column="0" />
+
+                </Grid>
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=7, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+                <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_RepairMenu, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_RepairMenu_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+
+                <Grid VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="120"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="1)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="0" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid>
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/add.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.AddRepair, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <TextBlock Text="2)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="1" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="1"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							Width="370"
+							Height="90"
+							Margin="0">
+
+                            <Grid   
+								Margin="-12"
+								Width="355"
+								Height="80">
+
+                                <StackPanel Margin="10,4" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                                    <Image Width="30" Height="30" Source="/Resources/Images/Info/speedometer.png" Stretch="UniformToFill" />
+                                    <TextBlock Style="{StaticResource Odometer}" Text="32584.2" Margin="5,0" />
+                                </StackPanel>
+                                <TextBlock Margin="10,4" Style="{StaticResource Date}" Text="2014/8/11" />
+
+                                <Grid Margin="0,0,10,0">
+                                    <StackPanel Margin="10,15,0,2" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal">
+                                        <TextBlock 
+											Style="{StaticResource Info}" 
+											Text="850" 
+											Margin="5,0" />
+                                        <Image Width="20" Height="20" Source="/Resources/Images/Info/money.png" Stretch="UniformToFill" />
+                                    </StackPanel>
+                                    <StackPanel Margin="10,0,0,15" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource Info}" Text="MyService a.s." Margin="5,0" />
+                                        <Image Width="20" Height="20" Source="/Resources/Images/Info/service.png" Stretch="UniformToFill" />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+
+                        </Button>
+                    </Border>
+
+                </Grid>
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=8, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+                <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_MoreMenu, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_MoreMenu_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+
+                <Grid VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="120"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="1)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="0" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid>
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Gps/gps_on.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.UseGpsSenzor, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+                                <TextBlock Margin="80,0,0,0" Text="Unknown" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+                                <CheckBox VerticalAlignment="Center" HorizontalAlignment="Right" Margin="-10" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <TextBlock Text="2)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="1" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="1"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid>
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_connected.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.UseObdDevice, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.ReceivingDataFromObd, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+                                <CheckBox VerticalAlignment="Center" HorizontalAlignment="Right" Margin="-10" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <TextBlock Text="3)" Margin="20,15,0,0" Grid.Row="1" Grid.Column="0" />
+                    <Border
+						Margin="10"
+						Grid.Row="1"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid>
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/assistant.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.DrivingMode, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.DriveModeNotAllowed, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+                                <CheckBox VerticalAlignment="Center" HorizontalAlignment="Right" Margin="-10" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <TextBlock Text="4)" Margin="20,15,0,0" Grid.Row="1" Grid.Column="1" />
+                    <Border
+						Margin="10"
+						Grid.Row="1"
+						Grid.Column="1"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid>
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/backup.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.OpenBackup, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                </Grid>
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=9, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+                <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_Backup, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_Backup_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+
+                <Grid VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="120"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="1)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="0" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="7*"/>
+                                <ColumnDefinition Width="40*"/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox VerticalAlignment="Bottom" Grid.Column="0"/>
+                            <TextBlock VerticalAlignment="Bottom" Grid.Column="1" Style="{StaticResource Row}" Text="{Binding LocalizedResources.BackupAllowOnStart, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,0,0,22" />
+                        </Grid>
+                    </Border>
+
+                    <TextBlock Text="2)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="1" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="1"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="7*"/>
+                                <ColumnDefinition Width="40*"/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox VerticalAlignment="Bottom" Grid.Column="0" />
+                            <TextBlock VerticalAlignment="Bottom" Grid.Column="1"  Style="{StaticResource Row}" Text="{Binding LocalizedResources.BackupAllowSendEmail, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,22" />
+                        </Grid>
+                    </Border>
+
+                </Grid>
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=10, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+                <StackPanel Margin="0,0,170,0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_BackupMenu, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_BackupMenu_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+
+                <Border
+					Margin="10"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Right" 
+					BorderThickness="2"
+					BorderBrush="{StaticResource PhoneAccentBrush}">
+
+                    <Grid
+						Width="120"
+						VerticalAlignment="Stretch"
+						HorizontalAlignment="Right"
+						Background="{StaticResource PhoneChromeBrush}" 
+						RenderTransformOrigin="0.5,0.5">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="1)" Grid.Row="0" Margin="-24,0,0,0"/>
+                        <Button 
+							Grid.Row="0" 
+							Style="{StaticResource MenuButton}">
+                            <Image Source="/Resources/Images/Buttons/backup.png" Width="40" />
+                        </Button>
+                        <Rectangle VerticalAlignment="Bottom" Grid.Row="0" Fill="{StaticResource LineColor}" Height="1" />
+                        <TextBlock Text="2)" Grid.Row="1" Margin="-24,0,0,0"/>
+                        <Button 
+							Grid.Row="1" 
+							Style="{StaticResource MenuButton}">
+                            <Image Source="/Resources/Images/Buttons/photo.png" Width="40" />
+                        </Button>
+                        <Rectangle VerticalAlignment="Bottom" Grid.Row="1" Fill="{StaticResource LineColor}" Height="1" />
+                        <TextBlock Text="3)" Grid.Row="2" Margin="-24,0,0,0"/>
+                        <Button 
+							Grid.Row="2" 
+							Style="{StaticResource MenuButton}">
+                            <Image Source="/Resources/Images/Buttons/movies.png" Width="40" />
+                        </Button>
+                        <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=11, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+                <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_BackupFileMenu, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_BackupFileMenu_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+
+                <Grid VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="120"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="1)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="0" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid Height="50">
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/backup.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.BackupMainFile, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+
+                                <!-- NORMAL -->
+                                <TextBlock Margin="80,0,0,0" 
+									Text="--" 
+									Visibility="Visible" 
+									VerticalAlignment="Bottom" 
+									TextAlignment="Left" 
+									FontSize="16"
+									Foreground="Gray" />
+
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <TextBlock Text="2)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="1" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="1"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid Height="50">
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/link.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.OpenLinkInBrowser, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <Border
+						Margin="10"
+						Grid.Row="1"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid Height="50">
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/sendEmail.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.SendByEmail, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                            </Grid>
+                        </Button>
+                    </Border>
+                    <TextBlock Text="3)" Margin="20,15,0,0" Grid.Row="1" Grid.Column="0" />
+
+                    <Border
+						Margin="10"
+						Grid.Row="1"
+						Grid.Column="1"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid Height="50">
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/download.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.DownloadBackup, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+
+                                <!-- NORMAL -->
+                                <TextBlock Margin="80,0,0,0" 
+									Text="{Binding LocalizedResources.DownloadBackupHelp, Mode=OneWay, Source={StaticResource LocalizedStrings}}" 
+									VerticalAlignment="Bottom" 
+									TextAlignment="Left" 
+									FontSize="16"
+									Foreground="Gray" />
+                            </Grid>
+                        </Button>
+                    </Border>
+                    <TextBlock Text="4)" Margin="20,15,0,0" Grid.Row="1" Grid.Column="1" />
+
+
+                </Grid>
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=12, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+                <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_ObdPage, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_ObdPage_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+
+                <Grid VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="120"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="1)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="0" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid>
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_connected.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.UseObdDevice, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.ReceivingDataFromObd, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+                                <CheckBox VerticalAlignment="Center" HorizontalAlignment="Right" Margin="-10" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                </Grid>
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=13, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_ThanksEnd, Source={StaticResource LocalizedStrings}}" FontSize="56" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_ThanksEnd_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+
+        <!-- BUTTONS -->
+        <Button 
+			IsEnabled="{Binding Step, ConverterParameter=1, Converter={StaticResource CountToBooleanConvertor}}"
+			Command="{Binding PreviousCommand}" 
+			Style="{StaticResource MenuButton}" 
+			HorizontalAlignment="Left"
+			VerticalAlignment="Bottom"
+			Margin="15,0,0,20"
+			HorizontalContentAlignment="Stretch" 
+			Opacity="0.4"
+			Height="60">
+            <Grid>
+                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/next.png" />
+                <TextBlock Margin="40,0,0,0" Text="{Binding LocalizedResources.Previous, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+            </Grid>
+        </Button>
+
+
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<speech>
+  <start>
+    <sentence>Drive mode started. Tap on screen and say your command.</sentence>
+  </start>
+  <stop>
+    <sentence>Good bye.</sentence>
+  </stop>
+  <say>
+    <sentence>I'm listening.</sentence>
+  </say>
+  <not-undestand>
+    <sentence>Sorry, I don't understand you.</sentence>
+  </not-undestand>
+  <take-shot>
+    <sentence>Making shot of view.</sentence>
+    <sentence>Saved.</sentence>
+    <sentence>Nice shot.</sentence>
+    <sentence>Photo complete.</sentence>
+  </take-shot>
+  <start-recording-now>
+    <sentence>Recording started.</sentence>
+    <sentence>Buckle up! We're moving.</sentence>
+    <sentence>Have a good trip.</sentence>
+    <sentence>Ready for a hell ride.</sentence>
+  </start-recording-now>
+  <start-recording-info>
+    <sentence>I'm not available during recording. If you want to stop recording, tap on display.</sentence>
+  </start-recording-info>
+  <stop-recording>
+    <sentence>Video recording stopped. I'm available now.</sentence>
+  </stop-recording>
+  <add-fill>
+    <sentence>Someone ran out of fuel.</sentence>
+    <sentence>Full tank please.</sentence>
+    <sentence>More fuel, more fun.</sentence>
+  </add-fill>
+  <add-repair>
+    <sentence>Perhaps you need to fix something.</sentence>
+    <sentence>Something went wrong with us.</sentence>
+    <sentence>Almost as good as new.</sentence>
+  </add-repair>
+  <cancel>
+    <sentence>Going back to previous screen.</sentence>
+  </cancel>
+  <try-it-again>
+    <sentence>Try it again.</sentence>
+    <sentence>Repeat your request.</sentence>
+  </try-it-again>
+  <have-time-to-think>
+    <sentence>I'll be quiet and let you time to think.</sentence>
+  </have-time-to-think>
+  <say-value>
+    <sentence>Say value.</sentence>
+  </say-value>
+  <more-then-fifty>
+    <sentence>You have exceeded at fifty kilometres an hour.</sentence>
+    <sentence>Watch your speed.</sentence>
+  </more-then-fifty>
+  <cannot-save>
+    <sentence>Cannot save record. There are mising data to fill.</sentence>
+    <sentence>Your record is incomplete. Fill all fields.</sentence>
+  </cannot-save>
+  <save-ok>
+    <sentence>Record saved.</sentence>
+    <sentence>Saved.</sentence>
+    <sentence>Record added.</sentence>
+  </save-ok>
+  <writing>
+    <sentence>Writing </sentence>
+  </writing>
+</speech>
