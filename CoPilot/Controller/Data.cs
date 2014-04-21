@@ -629,6 +629,22 @@ namespace CoPilot.CoPilot.Controller
 
         #endregion
 
+        #region Spaces
+
+        /// <summary>
+        /// AvailableSpace
+        /// </summary>
+        public String AvailableSpace
+        {
+            get
+            {
+                return Storage.GetAvailableSpace();
+            }
+        }
+
+
+        #endregion
+
         /// <summary>
         /// Data collector
         /// </summary>
@@ -666,6 +682,7 @@ namespace CoPilot.CoPilot.Controller
                 saved = DateTime.Now;
                 data.Change = DateTime.Now;
                 data.Save(DATA_FILE, Storage.Get());
+                OnPropertyChanged("AvailableSpace");
             }
         }
 
@@ -811,6 +828,7 @@ namespace CoPilot.CoPilot.Controller
             this.Save();
             OnPropertyChanged("VideosCount");
             OnPropertyChanged("Videos");
+            OnPropertyChanged("AvailableSpace");
         }
 
         /// <summary>
@@ -823,6 +841,7 @@ namespace CoPilot.CoPilot.Controller
             this.Save();
             OnPropertyChanged("VideosCount");
             OnPropertyChanged("Videos");
+            OnPropertyChanged("AvailableSpace");
         }
 
         #endregion
@@ -839,6 +858,7 @@ namespace CoPilot.CoPilot.Controller
             this.Save();
             OnPropertyChanged("PicturesCount");
             OnPropertyChanged("Pictures");
+            OnPropertyChanged("AvailableSpace");
         }
 
         /// <summary>
@@ -851,6 +871,7 @@ namespace CoPilot.CoPilot.Controller
             this.Save();
             OnPropertyChanged("PicturesCount");
             OnPropertyChanged("Pictures");
+            OnPropertyChanged("AvailableSpace");
         }
 
         #endregion
@@ -867,6 +888,7 @@ namespace CoPilot.CoPilot.Controller
             this.Save();
             OnPropertyChanged("Fills");
             OnPropertyChanged("AverageConsumption");
+            OnPropertyChanged("AvailableSpace");
         }
 
         /// <summary>
@@ -879,6 +901,7 @@ namespace CoPilot.CoPilot.Controller
             this.Save();
             OnPropertyChanged("Fills");
             OnPropertyChanged("AverageConsumption");
+            OnPropertyChanged("AvailableSpace");
         }
 
         #endregion
@@ -894,6 +917,7 @@ namespace CoPilot.CoPilot.Controller
             data.Repairs.Insert(0, repair);
             this.Save();
             OnPropertyChanged("Repairs");
+            OnPropertyChanged("AvailableSpace");
         }
 
         /// <summary>
@@ -905,6 +929,7 @@ namespace CoPilot.CoPilot.Controller
             data.Repairs.Remove(repair);
             this.Save();
             OnPropertyChanged("Repairs");
+            OnPropertyChanged("AvailableSpace");
         }
 
         #endregion

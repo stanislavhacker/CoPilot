@@ -261,6 +261,7 @@ namespace CoPilot.CoPilot.View
                         case BluetoothErrorType.NotFound:
                         case BluetoothErrorType.NoDevice:
                         case BluetoothErrorType.OutOfRange:
+                        case BluetoothErrorType.FatalError:
                             BluetoothController.Scan();
                             break;
                         case BluetoothErrorType.None:
@@ -840,6 +841,12 @@ namespace CoPilot.CoPilot.View
                     e.PropertyName == "Distance")
                 {
                     TileController.Update();
+                }
+
+                if (e.PropertyName == "AvailableSpace")
+                {
+                    CameraController.OnPropertyChanged("IsSupported");
+                    CameraController.OnPropertyChanged("IsShotEnabled");
                 }
             };
         }

@@ -122,6 +122,14 @@ namespace CoPilot
                 message.AppendLine(Environment.NewLine);
                 message.AppendLine(e.ExceptionObject.StackTrace);
 
+                if (e.ExceptionObject.InnerException != null)
+                {
+                    message.AppendLine(Environment.NewLine);
+                    message.AppendLine(e.ExceptionObject.InnerException.Message);
+                    message.AppendLine(Environment.NewLine);
+                    message.AppendLine(e.ExceptionObject.InnerException.StackTrace);
+                }
+
                 //save to isolated storage
                 Settings.Add("error", message.ToString());
 

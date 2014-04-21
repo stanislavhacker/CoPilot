@@ -23,6 +23,7 @@ namespace CoPilot.CoPilot.Controller
         OutOfRange,
         NotSelected,
         NotAllowed,
+        FatalError,
         Unknown
     }
 
@@ -314,6 +315,10 @@ namespace CoPilot.CoPilot.Controller
                 if ((uint)ex.HResult == 0x8007048F)
                 {
                     ErrorType = BluetoothErrorType.NotEnabled;
+                }
+                else
+                {
+                    ErrorType = BluetoothErrorType.FatalError;
                 }
                 IsError = true;
                 this.clearCachedConnections();

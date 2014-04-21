@@ -10,6 +10,8 @@ namespace CoPilot.Utils
 {
     public static class Storage
     {
+        private static String lastFreeSpaceString = "";
+        private static long lastFreeSpace = 0;
         private static IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication();
 
         /// <summary>
@@ -52,6 +54,34 @@ namespace CoPilot.Utils
         public static IsolatedStorageFile Get()
         {
             return storage;
+        }
+
+        /// <summary>
+        /// Get free space size
+        /// </summary>
+        /// <returns></returns>
+        public static String GetAvailableSpace()
+        {
+            //cached
+            long len = storage.AvailableFreeSpace;
+            if (len == lastFreeSpace) 
+            {
+                return lastFreeSpaceString;
+            }
+
+            //return new size
+            string[] sizes = { "B", "KB", "MB", "GB" };
+            int order = 0;
+            while (len >= 1024 && order + 1 < sizes.Length)
+            {
+                order++;
+                len = len / 1024;
+            }
+
+            lastFreeSpace = len;
+            lastFreeSpaceString = String.Format("{0:0.##} {1}", len, sizes[order]);
+
+            return lastFreeSpaceString;
         }
     }
 }

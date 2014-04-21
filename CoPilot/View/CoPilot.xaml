@@ -528,6 +528,7 @@
                                     <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_off.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NotEnabled'}" />
                                     <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_off.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NotAllowed'}" />
                                     <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_off.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='Unknown'}" />
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_off.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='FatalError'}" />
                                     <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_disconnected.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='OutOfRange'}" />
                                     <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_connected.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='None'}" />
                                     
@@ -540,6 +541,7 @@
                                     <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.ReceivingDataFromObd, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='None'}" />
                                     <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.MoreDevices, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NotSelected'}" />
                                     <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.OutOfRangeOfDevice, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='OutOfRange'}" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.ObdFatalError, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='FatalError'}" />
                                     <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.Searching, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.IsFinding, Converter={StaticResource BooleanToVisibilityConvertor}}" />
 
                                     <CheckBox VerticalAlignment="Center" IsChecked="{Binding BluetoothController.IsObdAllowed, Mode=OneWay}" Command="{Binding ObdToggleCommand}" HorizontalAlignment="Right" Margin="-10" />
@@ -573,6 +575,18 @@
                                 <Grid>
                                     <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/backup.png" />
                                     <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.OpenBackup, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button  
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/storage.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.FreeSpaceAvailable, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                    <TextBlock Margin="0" Text="{Binding DataController.AvailableSpace, Mode=OneWay}" TextAlignment="Right" VerticalAlignment="Center" Foreground="Gray" />
                                 </Grid>
                             </Button>
                             <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />

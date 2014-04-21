@@ -430,6 +430,15 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available space.
+        /// </summary>
+        public static string FreeSpaceAvailable {
+            get {
+                return ResourceManager.GetString("FreeSpaceAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fueled.
         /// </summary>
         public static string Fueled {
@@ -561,6 +570,15 @@ namespace CoPilot.Resources {
         public static string ObdEngineReferenceTorque {
             get {
                 return ResourceManager.GetString("ObdEngineReferenceTorque", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something terrible has happened.
+        /// </summary>
+        public static string ObdFatalError {
+            get {
+                return ResourceManager.GetString("ObdFatalError", resourceCulture);
             }
         }
         

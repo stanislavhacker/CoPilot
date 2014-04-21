@@ -80,7 +80,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return camera != null;
+                return camera != null && IsAvailableSpaceForVideo;
             }
         }
 
@@ -91,7 +91,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return camera != null && !this.IsRecording;
+                return camera != null && !this.IsRecording && IsAvailableSpaceForPhoto;
             }
         }
 
@@ -240,6 +240,31 @@ namespace CoPilot.CoPilot.Controller
             {
                 this.rotation = value;
                 RaisePropertyChanged();
+            }
+        }
+
+
+        /// <summary>
+        /// Space for photo
+        /// </summary>
+        public Boolean IsAvailableSpaceForPhoto
+        {
+            get
+            {
+                var max = 5 * 1024 * 1024;
+                return Storage.Get().AvailableFreeSpace > max;
+            }
+        }
+
+        /// <summary>
+        /// Space for video
+        /// </summary>
+        public Boolean IsAvailableSpaceForVideo
+        {
+            get
+            {
+                var max = 1024 * 1024 * 1024;
+                return Storage.Get().AvailableFreeSpace > max;
             }
         }
 

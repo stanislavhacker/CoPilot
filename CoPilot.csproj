@@ -271,6 +271,7 @@
     <Content Include="Resources\Images\Buttons\Social\Twitter.png" />
     <Content Include="Resources\Images\Buttons\spark.png" />
     <Content Include="Resources\Images\Buttons\stop.png" />
+    <Content Include="Resources\Images\Buttons\storage.png" />
     <Content Include="Resources\Images\Buttons\tutorial.png" />
     <Content Include="Resources\Images\Info\cheap.png" />
     <Content Include="Resources\Images\Info\date.png" />

@@ -542,4 +542,10 @@
   <data name="Tile_Small" xml:space="preserve">
     <value>Spotřeba {0}, oprav {1}</value>
   </data>
+  <data name="FreeSpaceAvailable" xml:space="preserve">
+    <value>Dostupné místo</value>
+  </data>
+  <data name="ObdFatalError" xml:space="preserve">
+    <value>Něco strašného se stalo</value>
+  </data>
 </root>
