@@ -250,6 +250,15 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Buy application.
+        /// </summary>
+        public static string BuyApp {
+            get {
+                return ResourceManager.GetString("BuyApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Count of files.
         /// </summary>
         public static string CountOfSelectedFiled {
@@ -777,6 +786,15 @@ namespace CoPilot.Resources {
         public static string PrivacyPolicy {
             get {
                 return ResourceManager.GetString("PrivacyPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rate and review.
+        /// </summary>
+        public static string RateApp {
+            get {
+                return ResourceManager.GetString("RateApp", resourceCulture);
             }
         }
         

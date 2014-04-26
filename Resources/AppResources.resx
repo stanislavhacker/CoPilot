@@ -548,4 +548,10 @@
   <data name="ObdFatalError" xml:space="preserve">
     <value>Something terrible has happened</value>
   </data>
+  <data name="BuyApp" xml:space="preserve">
+    <value>Buy application</value>
+  </data>
+  <data name="RateApp" xml:space="preserve">
+    <value>Rate and review</value>
+  </data>
 </root>

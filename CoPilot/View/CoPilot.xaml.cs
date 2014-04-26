@@ -469,6 +469,21 @@ namespace CoPilot.CoPilot.View
             }
         }
 
+        /// <summary>
+        /// Rate Command
+        /// </summary>
+        public ICommand RateCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    MarketplaceReviewTask review = new MarketplaceReviewTask();
+                    review.Show();
+                }, param => true);
+            }
+        }
+
         #endregion
 
         #region PROPERTY CAMERA
@@ -640,6 +655,81 @@ namespace CoPilot.CoPilot.View
 
         #endregion
 
+        #region TRIAL DATA
+
+        /// <summary>
+        /// Is ad visible
+        /// </summary>
+        private Boolean isAdVisible = false;
+        public Boolean IsAdVisible
+        {
+            get
+            {
+                return isAdVisible && this.IsTrial;
+            }
+            set
+            {
+                isAdVisible = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Is trial
+        /// </summary>
+        public Boolean IsTrial
+        {
+            get
+            {
+                return License.IsTrial;
+            }
+        }
+
+        /// <summary>
+        /// AdRefreshedCommand
+        /// </summary>
+        public ICommand AdRefreshedCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    this.IsAdVisible = true;
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// AdErrorCommand
+        /// </summary>
+        public ICommand AdErrorCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    this.IsAdVisible = false;
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// Buy command
+        /// </summary>
+        public ICommand BuyCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    MarketplaceDetailTask marketPlaceDetailTask = new MarketplaceDetailTask();
+                    marketPlaceDetailTask.Show();
+                }, param => true);
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// Create copilot app
         /// </summary>
@@ -707,12 +797,24 @@ namespace CoPilot.CoPilot.View
             //init
             InitializeEvents();
             InitializeControllers();
+            ResolveLicense();
 
             this.Dispatcher.BeginInvoke(() => {
                 this.setupControllers();
                 NavigationService.Navigated += triggerNavigated;
                 this.DataContext = this;
             });
+        }
+
+        /// <summary>
+        /// Resolve license
+        /// </summary>
+        private void ResolveLicense()
+        {
+            //Resovle license
+            License.ResolveLicense();
+            OnPropertyChanged("IsTrial");
+            OnPropertyChanged("IsAdVisible");
         }
 
         #endregion
@@ -1535,6 +1637,7 @@ namespace CoPilot.CoPilot.View
                 BluetoothController.Scan();
             }
             App.IsInactiveMode = false;
+            ResolveLicense();
             base.OnNavigatedTo(e);
         }
 

@@ -177,6 +177,7 @@
     <Compile Include="Utils\Events\OdbEventArgs.cs" />
     <Compile Include="Utils\Events\PictureSaveEventArgs.cs" />
     <Compile Include="Utils\Events\VideoSaveEventArgs.cs" />
+    <Compile Include="Utils\License.cs" />
     <Compile Include="Utils\Sentences.cs" />
     <Compile Include="Utils\Settings.cs" />
     <Compile Include="Utils\Storage.cs" />
@@ -246,6 +247,7 @@
     <Content Include="Resources\Images\Buttons\Bt\bt_disconnected.png" />
     <Content Include="Resources\Images\Buttons\Bt\bt_off.png" />
     <Content Include="Resources\Images\Buttons\Bt\bt_on.png" />
+    <Content Include="Resources\Images\Buttons\buy.png" />
     <Content Include="Resources\Images\Buttons\camcorder.png" />
     <Content Include="Resources\Images\Buttons\cancel.png" />
     <Content Include="Resources\Images\Buttons\delete.png" />
@@ -263,6 +265,7 @@
     <Content Include="Resources\Images\Buttons\play-button.png" />
     <Content Include="Resources\Images\Buttons\previous.png" />
     <Content Include="Resources\Images\Buttons\privacy_policy.png" />
+    <Content Include="Resources\Images\Buttons\rate.png" />
     <Content Include="Resources\Images\Buttons\record.png" />
     <Content Include="Resources\Images\Buttons\sendEmail.png" />
     <Content Include="Resources\Images\Buttons\Social\Donate.png" />
@@ -347,14 +350,20 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="microsoft.advertising.mobile.ui, Version=6.2.960.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Expression.Interactions, Version=3.9.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Controls.Maps, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=8.0.1.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=3.9.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="MSAdvertising, Version=6.1">
+      <Name>Microsoft Advertising SDK for Windows Phone 8 %28XAML%29</Name>
+    </SDKReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
