@@ -50,6 +50,10 @@ namespace CoPilot
             // Language display initialization
             InitializeLanguage();
 
+            //Disable lock
+            PhoneApplicationService.Current.ApplicationIdleDetectionMode = IdleDetectionMode.Disabled;
+            PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
+
             // Show graphics profiling information while debugging.
             if (Debugger.IsAttached)
             {

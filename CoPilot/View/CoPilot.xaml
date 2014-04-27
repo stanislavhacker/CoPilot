@@ -289,7 +289,7 @@
                         <StackPanel Orientation="Vertical">
 
                             <Button 
-                                IsEnabled="{Binding CameraController.IsSupported}"
+                                IsEnabled="{Binding CameraController.IsCameraEnabled}"
                                 Command="{Binding CameraController.RecordCommand}" 
                                 Style="{StaticResource MenuButton}" 
                                 HorizontalContentAlignment="Stretch" 

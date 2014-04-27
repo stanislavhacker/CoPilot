@@ -27,6 +27,7 @@ namespace CoPilot.CoPilot.Controller
 
         #region EVENTS
 
+        public event EventHandler<Interfaces.EventArgs.ExceptionEventArgs> onError;
         public event EventHandler<Interfaces.EventArgs.UploadEventArgs> onUploaded;
         public event EventHandler<Interfaces.EventArgs.UriEventArgs> onUrl;
         public event EventHandler<Interfaces.EventArgs.StreamEventArgs> onDownloaded;
@@ -248,6 +249,16 @@ namespace CoPilot.CoPilot.Controller
             };
             client.UploadError += (object sender, Interfaces.EventArgs.ExceptionEventArgs e) =>
             {
+                updater.IsIndetermine = false;
+                updater.Eta = "";
+                updater.Percent = 100;
+                updater.Speed = 0;
+
+                if (onError != null)
+                {
+                    onError.Invoke(state, e);
+                }
+
                 this.IsUpload = false;
             };
         }

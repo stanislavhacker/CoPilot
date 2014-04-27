@@ -117,7 +117,9 @@ namespace CoPilot.CoPilot.View
                             FtpController.ProcessBackup(this.Pictures);
                             break;
                         case "Videos":
-                            FtpController.ProcessBackup(getVideosArray());
+                            var videos = this.getVideosArray();
+                            this.Videos.Clear();
+                            FtpController.ProcessBackup(videos);
                             break;
                         default:
                             break;

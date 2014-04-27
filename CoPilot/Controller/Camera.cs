@@ -11,6 +11,7 @@ using CoPilot.Core.Data;
 using CoPilot.Utils.Events;
 using System.Collections.ObjectModel;
 using CoPilot.Core.Utils;
+using System.Threading.Tasks;
 
 namespace CoPilot.CoPilot.Controller
 {
@@ -81,6 +82,17 @@ namespace CoPilot.CoPilot.Controller
             get
             {
                 return camera != null && IsAvailableSpaceForVideo;
+            }
+        }
+
+        /// <summary>
+        /// Is camera enable
+        /// </summary>
+        public bool IsCameraEnabled
+        {
+            get
+            {
+                return IsSupported && !this.startRecording && !this.stopRecording;
             }
         }
 
@@ -325,6 +337,7 @@ namespace CoPilot.CoPilot.Controller
                 source.Start();
             }
             OnPropertyChanged("IsSupported");
+            OnPropertyChanged("IsCameraEnabled");
         }
 
         /// <summary>
@@ -346,7 +359,7 @@ namespace CoPilot.CoPilot.Controller
         /// <summary>
         /// Start of recording
         /// </summary>
-        public void RecordStart()
+        public async void RecordStart()
         {
             if (source == null || source.VideoCaptureDevice == null)
             {
@@ -354,6 +367,8 @@ namespace CoPilot.CoPilot.Controller
             }
 
             this.startRecording = true;
+            OnPropertyChanged("IsCameraEnabled");
+            await Task.Delay(500);
             this.triggerRecordChange();
             this.source.CaptureImageAsync();
         }
@@ -361,7 +376,7 @@ namespace CoPilot.CoPilot.Controller
         /// <summary>
         /// Stop of recording
         /// </summary>
-        public void RecordStop(bool force = false)
+        public async void RecordStop(bool force = false)
         {
             if (source == null || source.VideoCaptureDevice == null)
             {
@@ -370,6 +385,8 @@ namespace CoPilot.CoPilot.Controller
             this.isForceStop = force;
 
             this.stopRecording = true;
+            OnPropertyChanged("IsCameraEnabled");
+            await Task.Delay(500);
             this.triggerRecordChange();
         }
 
@@ -410,6 +427,7 @@ namespace CoPilot.CoPilot.Controller
                 video.Rotated = this.Orientation == PageOrientation.LandscapeRight;
                 video.Duration = TimeSpan.Zero;
                 video.VideoBackups = new ObservableCollection<BackupInfo>();
+                video.PreviewBackups = new ObservableCollection<BackupInfo>();
 
                 this.createCamera(video.Path);
 

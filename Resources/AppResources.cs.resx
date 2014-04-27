@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -237,13 +237,13 @@
     <value>Použít OBD zařízení</value>
   </data>
   <data name="BluetoothIsNotAllowed" xml:space="preserve">
-    <value>Obd není povoleno k používání</value>
+    <value>OBD není povoleno k používání</value>
   </data>
   <data name="DeviceNotFound" xml:space="preserve">
     <value>Zařízení nebylo nalezeno, klikněte pro obnovení</value>
   </data>
   <data name="MoreDevices" xml:space="preserve">
-    <value>Více obd zařízení, klikněte pro výběr</value>
+    <value>Více OBD zařízení, klikněte pro výběr jednoho</value>
   </data>
   <data name="OutOfRangeOfDevice" xml:space="preserve">
     <value>Zařízení mimo dosah, klikněte pro obnovení</value>
@@ -258,13 +258,13 @@
     <value>Zapněte prosím bluetooth kliknutím</value>
   </data>
   <data name="SelectObdDevice" xml:space="preserve">
-    <value>Vyberte odb zařízení</value>
+    <value>Vyberte OBD zařízení</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Ochrana osobních údajů</value>
   </data>
   <data name="Social" xml:space="preserve">
-    <value>Síťe</value>
+    <value>Sítě</value>
   </data>
   <data name="Donate" xml:space="preserve">
     <value>Přispějte</value>
@@ -315,7 +315,7 @@
     <value>Stáhnout zálohu</value>
   </data>
   <data name="EnterFileId" xml:space="preserve">
-    <value>File id</value>
+    <value>Id zálohy</value>
   </data>
   <data name="SendByEmail" xml:space="preserve">
     <value>Poslat odkaz na zálohu emailem</value>
@@ -336,7 +336,7 @@
     <value>nezálohováno</value>
   </data>
   <data name="BackupApplyDescription" xml:space="preserve">
-    <value>Opravdu chcete použít tuto zálohu dat? Tato akce není vratná!</value>
+    <value>Opravdu chcete použít tuto zálohu dat? Tato akce je nevratná!</value>
   </data>
   <data name="BackupApplyTitle" xml:space="preserve">
     <value>Použít zálohu z {0}?</value>
@@ -345,7 +345,7 @@
     <value>neznám</value>
   </data>
   <data name="BackupNotFoundDescription" xml:space="preserve">
-    <value>Záložní soubor s poskytnutým id nebyl nalezen na serveru.</value>
+    <value>Záložní soubor s poskytnutým id nebyl na serveru nalezen.</value>
   </data>
   <data name="BackupNotFoundTitle" xml:space="preserve">
     <value>Záloha nebyla nalezena</value>
@@ -366,13 +366,13 @@
     <value>Nahrávání souborů ...</value>
   </data>
   <data name="BackupDescription" xml:space="preserve">
-    <value>Při zvolení automatické zálohy po startu dojde pouze k zálohování hlavního souboru s nastavením a daty. Videa a fotografie nejsou v automatické záloze zahrnuty a je nutné je zálohovat ručně vždy pouze na WiFi připojení. Záloha video souborů může trvat dlouho!</value>
+    <value>Při zvolení automatické zálohy po startu dojde pouze k zálohování hlavního souboru s nastavením a daty. Videa a fotografie nejsou v automatické záloze zahrnuta a je nutné je zálohovat ručně. To je možné pouze na WiFi připojení. Záloha videí může trvat dlouho!</value>
   </data>
   <data name="UnknownSize" xml:space="preserve">
     <value>neznámé velikost</value>
   </data>
   <data name="ErrorDescription" xml:space="preserve">
-    <value>Omlouváme se, ale v aplikaci došlo k neočekávané chybě. Prosím, pomožte mi aplikaci vylepšit a odešlete mi email s chybovým hlášením po dalším startu. Aplikace bude nyní zavřena.</value>
+    <value>Omlouváme se, ale v aplikaci došlo k neočekávané chybě. Prosím, pomožte mi aplikaci vylepšit a odešlete mi email s chybovým hlášením po dalším startu aplikace. Aplikace bude nyní zavřena.</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>A je to dole :(</value>
@@ -396,7 +396,7 @@
     <value>zobraz</value>
   </data>
   <data name="DownloadInProgress" xml:space="preserve">
-    <value>Souor se stahuje ...</value>
+    <value>Soubor se stahuje ...</value>
   </data>
   <data name="PhotoNotFoundDescription" xml:space="preserve">
     <value>Fotografie nebyla nalezen na vašem zařízení. Pokud jste tento obrázek zálohovali, můžete se na něj podívat na níže uvedené adrese. V opačném případě není možné již obrázek získat zpět.</value>
@@ -459,34 +459,34 @@
     <value>Menu pro zálohu hlavního souboru</value>
   </data>
   <data name="Tutorial_BackupFileMenu_Description" xml:space="preserve">
-    <value>V tomto menu jsou zobrazeny čtyři tlačítka. 1) Slouží pro spuštění zílohy hlavního souboru. 2) Pokud je záloha vytvořena, toto tlačítko slouží pro její zobrazení v prohlížeči nebo 3) poslání na email. Pokud máte k dispozici starou zálohu, můžete zadat její identifikátor 4) a poté kliknout na tlačítko pro stažení.</value>
+    <value>V tomto menu jsou zobrazeny čtyři tlačítka. 1) Slouží pro spuštění zálohy hlavního souboru. 2) Pokud je záloha vytvořena, toto tlačítko slouží pro její zobrazení v prohlížeči nebo 3) poslání na email. Pokud máte k dispozici starou zálohu, můžete zadat její identifikátor 4) a poté kliknout na tlačítko pro stažení.</value>
   </data>
   <data name="Tutorial_BackupMenu" xml:space="preserve">
     <value>Menu zálohy</value>
   </data>
   <data name="Tutorial_BackupMenu_Description" xml:space="preserve">
-    <value>V menu zálohy můžete vidět tři tlačítka. 1) Slouží pro zálohu hlavního souboru aplikace, 2) zálohuje obrázky a 3) zálohuje videa. pokud zvolíte automatickou zálohu po startu apliakce, je zálohovát pouze hlavní soubor. Videa a obrázku je nutné zálohovat manuálně. V seznamu médií pak vidíte, které obrázky nebo videa nejsou zálohována.</value>
+    <value>V menu zálohy můžete vidět tři tlačítka. 1) Slouží pro zálohu hlavního souboru aplikace, 2) zálohuje obrázky a 3) zálohuje videa. Pokud zvolíte automatickou zálohu po startu aplikace, je zálohován pouze hlavní soubor. Videa a obrázky je nutné zálohovat manuálně. V seznamu médií pak vidíte, které obrázky nebo videa nejsou zazálohována.</value>
   </data>
   <data name="Tutorial_Backup_Description" xml:space="preserve">
-    <value>Po kliknutí na tlačíko "Záloha" v menu nastaveí se zobrazí stránka s informacemi o zálohách aplikace. Zde naleznete datum poslední zálohy, identifikátor zálohy a nastavení zálohy. 1) Slouží pro nastavení automatické zálohy po spuštění aplikace a 2) pokud chcete posílat zálohy na email.</value>
+    <value>Po kliknutí na tlačíko "Záloha" v menu nastavení se zobrazí stránka s informacemi o zálohách aplikace. Zde naleznete datum poslední zálohy, identifikátor zálohy a nastavení zálohy. 1) Slouží pro nastavení automatické zálohy po spuštění aplikace a 2) pokud chcete posílat zálohy na email.</value>
   </data>
   <data name="Tutorial_CameraMenu" xml:space="preserve">
     <value>Menu kamery</value>
   </data>
   <data name="Tutorial_CameraMenu_Description" xml:space="preserve">
-    <value>při kliknutí na tlačítko kamery se před vámo objeví čtyři prvky pro kameru. 1) Spustit / zastavit nahrávání, 2) Vyfotit, 3) Prohlížet nahrané videa, 4) Prohlížet pořízené fotky.</value>
+    <value>Při kliknutí na tlačítko kamery se před vámi objeví čtyři prvky pro kameru. 1) Spustit / zastavit nahrávání, 2) Vyfotit, 3) Prohlížet nahraná videa, 4) Prohlížet pořízené fotky.</value>
   </data>
   <data name="Tutorial_End" xml:space="preserve">
     <value>Zavřít tutoriál?</value>
   </data>
   <data name="Tutorial_End_Description" xml:space="preserve">
-    <value>Opravdu si přejete zavřít tutoriál? Tutoriál může být kdykoliv spuštěn z menu aplikace.</value>
+    <value>Opravdu si přejete zavřít tutoriál? Tutoriál může být kdykoliv spuštěn z hlavního menu aplikace.</value>
   </data>
   <data name="Tutorial_FuelMenu" xml:space="preserve">
     <value>Menu tankování</value>
   </data>
   <data name="Tutorial_FuelMenu_Description" xml:space="preserve">
-    <value>Pokud kliknete na menu pro tankování, před vám se zobrazí menu s dvěma prvky a seznamem všech tankování. 1) Slouží pro záznam nového tankování, 2) Slouží pro zobrazení průměrné spotřeby a slouží pro přepínání módů zobrazení, 3) Náhled na jeden záznam ze seznamu, po kliknutí se zobrazí detail tankování.</value>
+    <value>Pokud kliknete na menu pro tankování, před vám se zobrazí menu s dvěma prvky a seznamem všech tankování. 1) Slouží pro záznam nového tankování, 2) Slouží pro zobrazení průměrné spotřeby a slouží pro přepínání módů zobrazení, 3) Náhled na jeden záznam ze seznamu. Po kliknutí na něj se zobrazí detail.</value>
   </data>
   <data name="Tutorial_Information" xml:space="preserve">
     <value>Prosím, věnujte pár minut tomuto tutoriálu.</value>
@@ -498,25 +498,25 @@
     <value>Na hlavní obrazovce vidíte průhled kamerou a hlavní menu aplikace.</value>
   </data>
   <data name="Tutorial_MainScreen_Description_Two" xml:space="preserve">
-    <value>Hlavní menu obsahuje čyři základní tlačítka.  1) Kameru, 2) Tankování, 3) Opravy and 4) Nastavení a ostatní.</value>
+    <value>Hlavní menu obsahuje čyři základní tlačítka.  1) Kameru, 2) Tankování, 3) Opravy a 4) Nastavení a ostatní.</value>
   </data>
   <data name="Tutorial_MoreMenu" xml:space="preserve">
     <value>Menu nastavení a ostatní</value>
   </data>
   <data name="Tutorial_MoreMenu_Description" xml:space="preserve">
-    <value>Pokud kliknete na menu nastavené (tři tečky), před vámi se zobrazí seznam nastavení aplikace a další možnosti aplikace. 1) Slouží pro povolení používat GPS polohu, 2) Slouží pro připojení OBD modulu, pokud jich máte k dispozici více, slouží pro výběr jednpho, 3) Slouží pro zapnutí "Drive módu", ve kterém můžete aplikaci ovládat hlasem (pouze angličtina), 4) Je záloha aplikace, kde si můžete nastavit a zálohovat vše důležité. V tomto menu je také nastavení jednotek aplikace a odkazy na sociální sitě.</value>
+    <value>Pokud kliknete na menu nastavení (tři tečky), před vámi se zobrazí seznam nastavení aplikace a další možnosti aplikace. 1) Slouží pro povolení používat GPS polohu, 2) Slouží pro připojení OBD modulu, pokud jich máte k dispozici více, slouží pro výběr jednoho, 3) Slouží pro zapnutí "Drive módu", ve kterém můžete aplikaci ovládat hlasem (pouze angličtina), 4) Je záloha aplikace, kde si můžete nastavit a zálohovat vše důležité. V tomto menu je také nastavení jednotek aplikace a odkazy na sociální sitě.</value>
   </data>
   <data name="Tutorial_ObdPage" xml:space="preserve">
     <value>OBD informace</value>
   </data>
   <data name="Tutorial_ObdPage_Description" xml:space="preserve">
-    <value>Pokud kliknete na 1) tlačítko OBD v nastavení a máte připojené zařízení, zobrazí se vám informace z  řídící jednotky automobilu. Všechna data jsou ukládána do apliakce a slouží pro prohlížení stavu automobilu.</value>
+    <value>Pokud kliknete na 1) tlačítko OBD v nastavení a máte připojené zařízení, zobrazí se vám informace z řídící jednotky automobilu. Všechna data jsou ukládána do aplikace a slouží pro prohlížení stavu automobilu na počítači.</value>
   </data>
   <data name="Tutorial_RepairMenu" xml:space="preserve">
     <value>Menu oprav</value>
   </data>
   <data name="Tutorial_RepairMenu_Description" xml:space="preserve">
-    <value>Pokud kliknete na menu pro opravy, před vám se zobrazí menu s jedním prvkem a seznamem všech oprav.1) Slouží pro záznam nové opravy, 2) Náhled na jeden záznam ze seznamu, po kliknutí se zobrazí detail opravy.</value>
+    <value>Pokud kliknete na menu pro opravy, před vám se zobrazí menu s jedním prvkem a seznamem všech oprav. 1) Slouží pro záznam nové opravy, 2) Náhled na jeden záznam ze seznamu. Po kliknutí na něj se zobrazí detail.</value>
   </data>
   <data name="Tutorial_ThanksEnd" xml:space="preserve">
     <value>A to je vše</value>

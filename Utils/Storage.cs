@@ -44,7 +44,7 @@ namespace CoPilot.Utils
         /// <returns></returns>
         public static Boolean FileExists(string path)
         {
-            return storage.FileExists(path);
+            return path != null && storage.FileExists(path);
         }
 
         /// <summary>

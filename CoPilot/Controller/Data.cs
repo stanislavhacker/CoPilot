@@ -716,6 +716,10 @@ namespace CoPilot.CoPilot.Controller
         public void FromBackup(Records records)
         {
             this.data = records;
+            //set globals
+            RateExchange.CurrentCurrency = this.Currency;
+            DistanceExchange.CurrentDistance = this.Distance;
+            //refresh
             RaisePropertiesChanged();
         }
 
@@ -728,7 +732,7 @@ namespace CoPilot.CoPilot.Controller
         {
             State state = new State();
             state.Time = DateTime.Now;
-            state.Position = Position;
+            state.Position = Position.ToString();
             state.Rpm = Rpm;
             state.Speed = Speed;
             state.Temperature = Temperature;

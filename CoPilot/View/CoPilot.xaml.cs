@@ -845,6 +845,7 @@ namespace CoPilot.CoPilot.View
             //data
             DataController.StartTimer();
             RateExchange.CurrentCurrency = DataController.Currency;
+            DistanceExchange.CurrentDistance = DataController.Distance;
 
             //camera
             CameraController.Orientation = this.Orientation;
@@ -1030,6 +1031,10 @@ namespace CoPilot.CoPilot.View
             FtpController.onDownloaded += (object sender, Interfaces.EventArgs.StreamEventArgs e) =>
             {
                 processDownloaded(sender, e != null ? e.Stream : null);
+            };
+            FtpController.onError += (object sender, Interfaces.EventArgs.ExceptionEventArgs e) =>
+            {
+                processError(sender, e);
             };
         }
 
@@ -1231,12 +1236,14 @@ namespace CoPilot.CoPilot.View
             if (media.Picture != null)
             {
                 Data.Picture picture = media.Picture;
-                this.Dispatcher.BeginInvoke(() =>
+                this.Dispatcher.BeginInvoke(async () =>
                 {
                     media.IsChecked = false;
                     media.CallPropertyChangedOnAll();
                     picture.Backups.Insert(0, info);
                     this.deleteOldBackups(picture.Backups);
+
+                    await Task.Delay(1000);
                     FtpController.NextMedia();
                 });
             }
@@ -1245,12 +1252,14 @@ namespace CoPilot.CoPilot.View
             if (media.Video != null)
             {
                 Data.Video video = media.Video;
-                this.Dispatcher.BeginInvoke(() =>
+                this.Dispatcher.BeginInvoke(async () =>
                 {
                     media.IsChecked = false;
                     media.CallPropertyChangedOnAll();
                     video.VideoBackups.Insert(0, info);
                     this.deleteOldBackups(video.VideoBackups);
+
+                    await Task.Delay(1000);
                     FtpController.NextMedia();
                 });
             }
@@ -1259,12 +1268,14 @@ namespace CoPilot.CoPilot.View
             if (media.Preview != null)
             {
                 Data.Video preview = media.Preview;
-                this.Dispatcher.BeginInvoke(() =>
+                this.Dispatcher.BeginInvoke(async () =>
                 {
                     media.IsChecked = false;
                     media.CallPropertyChangedOnAll();
                     preview.PreviewBackups.Insert(0, info);
                     this.deleteOldBackups(preview.PreviewBackups);
+
+                    await Task.Delay(1000);
                     FtpController.NextMedia();
                 });
             }
@@ -1291,6 +1302,42 @@ namespace CoPilot.CoPilot.View
         }
 
 
+
+
+
+
+        /// <summary>
+        /// Process error
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void processError(object sender, Interfaces.EventArgs.ExceptionEventArgs e)
+        {
+            //media
+            if (sender.GetType() == typeof(MediaWithProgress))
+            {
+                processErrorMedia(sender, e.Exception);
+            }
+        }
+
+        /// <summary>
+        /// Error on media
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="exception"></param>
+        private void processErrorMedia(object sender, Exception exception)
+        {
+            MediaWithProgress media = (MediaWithProgress)sender;
+
+            this.Dispatcher.BeginInvoke(async () =>
+            {
+                media.IsChecked = false;
+                media.CallPropertyChangedOnAll();
+
+                await Task.Delay(1000);
+                FtpController.NextMedia();
+            });
+        }
 
 
 

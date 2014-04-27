@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -255,7 +255,7 @@
     <value>Searching ...</value>
   </data>
   <data name="TurnOnBluetooth" xml:space="preserve">
-    <value>Turn on your bluetooth by tap</value>
+    <value>Turn on your bluetooth by tap here</value>
   </data>
   <data name="SelectObdDevice" xml:space="preserve">
     <value>Select obd device</value>
@@ -366,7 +366,7 @@
     <value>Upload in progress ...</value>
   </data>
   <data name="BackupDescription" xml:space="preserve">
-    <value>When selecting automatic backups, backup only save the main configuration file with settings and data. Videos and photos are not automatically included in the backup and you must manually back up only on WiFi connection. Backup video files can take a long time!</value>
+    <value>When selecting automatic backups, backup only save the main configuration file with settings and data. Videos and photos are not automatically included in the backup and you must manually back up it . That's possible only on WiFi network. Backup video files can take a long time!</value>
   </data>
   <data name="UnknownSize" xml:space="preserve">
     <value>unknown size</value>
@@ -375,10 +375,10 @@
     <value>Sorry, but the application has encountered an unexpected error. Please help me improve the application and send me an email with an error message after next start. The application will be closed now.</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>And it's down: (</value>
+    <value>And it's down :(</value>
   </data>
   <data name="ReportDescription" xml:space="preserve">
-    <value>The application was last closed with an error. Want to help us improve application and report a bug?</value>
+    <value>Last termination of application caused by error. Want to help me improve an application and report a bug?</value>
   </data>
   <data name="ReportTitle" xml:space="preserve">
     <value>Application crash report</value>
@@ -459,22 +459,22 @@
     <value>Backup main file menu</value>
   </data>
   <data name="Tutorial_BackupFileMenu_Description" xml:space="preserve">
-    <value>In advance of the main file displays the following menu. 1) Use this button to back up the main file 2) If the backup is created, you can refer to it in the browser (and store) or 3) let it send the email. If you have a backup identifier, you can enter 4) and then click this button to download.</value>
+    <value>There are four important buttons in the menu. 1) Use this button to back up the main file 2) If the backup is created, you can refer to it in the browser (and store) or 3) let it send the email. If you have a backup identifier, you can enter 4) and then click on this button to download it.</value>
   </data>
   <data name="Tutorial_BackupMenu" xml:space="preserve">
     <value>Backup menu</value>
   </data>
   <data name="Tutorial_BackupMenu_Description" xml:space="preserve">
-    <value>In the side menu, you see three buttons. These are 1) a general backup, which backs up the main data file, 2) backup files and 3) backup videos. If you select automatic backup after launch, it is only a backup of the master file! Videos and pictures can be advanced manually. In the list you can see which items have not been backed up.</value>
+    <value>There are three important buttons in the side menu. These are 1) a general backup, which backs up the main data file, 2) backup images and 3) backup videos. If you select automatic backup after launch, it is only a backup the main data file! Videos and pictures can be backuped only manually. You can see which items have not been backed up in the lists of media.</value>
   </data>
   <data name="Tutorial_Backup_Description" xml:space="preserve">
-    <value>After clicking on the "Backup" in the settings page will be displayed with information about the backup. Here you will find the date of the last backup, the backup identifier and settings. 1) Whether you want to do a backup after starting the application and 2) if you want the link to send backup to email.</value>
+    <value>After clicking on the "Backup" in the settings page, you will see information about the backup. Here you will find the date of the last backup, the backup identifier and settings. 1) Whether you want to do a backup after starting the application and 2) if you want the link to send backup to email.</value>
   </data>
   <data name="Tutorial_CameraMenu" xml:space="preserve">
     <value>Camera menu</value>
   </data>
   <data name="Tutorial_CameraMenu_Description" xml:space="preserve">
-    <value>If you click on the camera menu is displayed in front of you four menu. 1) Start and stop recording, 2) Take a photo, 3) Viewing your saved videos, 4) Viewing your saved photos.</value>
+    <value>If you click on the camera menu you will see four buttons in front of you. 1) Start and stop recording, 2) Take a photo, 3) Viewing your saved videos, 4) Viewing your saved photos.</value>
   </data>
   <data name="Tutorial_End" xml:space="preserve">
     <value>Close tutorial?</value>
@@ -486,7 +486,7 @@
     <value>Fuel menu</value>
   </data>
   <data name="Tutorial_FuelMenu_Description" xml:space="preserve">
-    <value>If you click on the menu for refueling, appears in front of you two buttons and a list of tanking. 1) Used to record new refueling, 2) To show the average consumption and can be used to switch the display mode, 3) One entry in the list, detail can be viewed by clicking.</value>
+    <value>If you click on the menu for refueling, there are appears two buttons and a list of tanking in front of you. 1) Used to record new refueling, 2) To show the average consumption and can be used to switch the display mode, 3) One entry in the list, detail can be viewed by clicking.</value>
   </data>
   <data name="Tutorial_Information" xml:space="preserve">
     <value>Please take a few minutes to this tutorial.</value>
@@ -498,31 +498,31 @@
     <value>On the main screen you can see the view of the camera and the main menu.</value>
   </data>
   <data name="Tutorial_MainScreen_Description_Two" xml:space="preserve">
-    <value>The main menu contains four main controls.  1) Camera, 2) Refueling, 3) Repairs and 4) Settings and others.</value>
+    <value>The main menu contains four main buttons. 1) Camera, 2) Refueling, 3) Repairs and 4) Settings and others.</value>
   </data>
   <data name="Tutorial_MoreMenu" xml:space="preserve">
     <value>Setting menu</value>
   </data>
   <data name="Tutorial_MoreMenu_Description" xml:space="preserve">
-    <value>If you click on the other menu (three dots), there appears in front of you a list of other settings. 1) Used to enable GPS, 2) Connect the OBD module if there are more, you can select them, 3) Is used to turn drive mode that accepts voice commands, 4) Is used for uploading or sending backup. In this menu are also buttons to set the units, links to social networks and more.</value>
+    <value>If you click on the other menu (three dots), there appears a list of other settings in front of you. 1) Used to enable GPS, 2) Connect the OBD module if there are more, you can select one, 3) Is used to turn drive mode that accepts voice commands, 4) Is used for uploading or sending backup. In this menu are also buttons to set the units, links to social networks and more.</value>
   </data>
   <data name="Tutorial_ObdPage" xml:space="preserve">
     <value>Obd page</value>
   </data>
   <data name="Tutorial_ObdPage_Description" xml:space="preserve">
-    <value>If you click on 1) OBD button when device is connected to your mobile, you will see the actual data from the OBD module to display. All data are stored for later visualization and browsing condition of the car.</value>
+    <value>If you click on 1) OBD button when device is connected to your mobile, you will see the actual data from the OBD module on display. All data are stored for later visualization and browsing condition of the car.</value>
   </data>
   <data name="Tutorial_RepairMenu" xml:space="preserve">
     <value>Repair menu</value>
   </data>
   <data name="Tutorial_RepairMenu_Description" xml:space="preserve">
-    <value>If you click on the menu for repairs, the button in front of you and a list of repairs. 1) Used to record new repair record, 2) One entry in the list can be viewed by clicking detail.</value>
+    <value>If you click on the menu for repairs, you will see the button and a list of repairs in front of you . 1) Used to create new repair record, 2) One entry in the list, detail can be viewed by clicking on it.</value>
   </data>
   <data name="Tutorial_ThanksEnd" xml:space="preserve">
     <value>And that's all</value>
   </data>
   <data name="Tutorial_ThanksEnd_Description" xml:space="preserve">
-    <value>The tutorial is over and you can always run the application menu.</value>
+    <value>The tutorial is over and you can always run the tutorial again from application menu.</value>
   </data>
   <data name="Tutorial_ThankYou" xml:space="preserve">
     <value>Thank you for installing CoPilot.</value>
@@ -534,7 +534,7 @@
     <value>What is CoPilot?</value>
   </data>
   <data name="Tutorial_WhatIsIt_Description" xml:space="preserve">
-    <value>CoPilot is an application that is used to record any information about the car. You can record video, take photos, keep records of refueling and repairs. When you connect the OBD also collect important data and then view them.</value>
+    <value>CoPilot is an application that is used to record any information about your car. You can record videos, take photos, keep records of refueling and repairs. When you connect the OBD also collect important data and then view them on desktop device.</value>
   </data>
   <data name="Tile" xml:space="preserve">
     <value>Car has average consumption of {0} and underwent {1} repairs.</value>
