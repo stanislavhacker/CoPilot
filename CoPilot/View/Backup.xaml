@@ -68,28 +68,36 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- ROW 1 -->
-                <StackPanel Grid.Row="0" Margin="0" Orientation="Horizontal" Grid.ColumnSpan="2">
+                <TextBlock Grid.Row="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.UsedAccounts, StringFormat='{}{0}:', Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,20" Grid.ColumnSpan="2" />
+                <StackPanel Grid.Row="0" Grid.Column="2" Margin="0" Orientation="Horizontal" Grid.ColumnSpan="2">
+                    <Button 
+                        Command="{Binding OneDriveCommand}"
+                        IsEnabled="{Binding FtpController.IsOneDriveAvailable}" 
+                        Style="{StaticResource MenuButton}" 
+                        Width="70" 
+                        Height="70">
+                        <Image Source="/Resources/Images/Info/onedrive.png" Margin="-20" />
+                    </Button>
+                </StackPanel>                
+                
+                
+                <!-- ROW 2 -->
+                <StackPanel Grid.Row="1" Margin="0" Orientation="Horizontal" Grid.ColumnSpan="2">
                     <Image Width="30" Margin="0,0,10,0" Source="/Resources/Images/Info/date.png"  />
                     <TextBlock Style="{StaticResource Row}" Text="{Binding LocalizedResources.LastBackup, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0" />
                 </StackPanel>
-                <TextBlock Grid.Row="0" Grid.Column="2" Visibility="{Binding DataController.IsBackupAvailable, Converter={StaticResource BooleanToVisibilityConvertor}}" Style="{StaticResource RowValue}" Text="{Binding DataController.Backup.Date}" Foreground="Gray" />
-                <TextBlock Grid.Row="0" Grid.Column="2" Visibility="{Binding DataController.IsBackupAvailable, Converter={StaticResource BooleanToCollapsedConvertor}}" Style="{StaticResource RowValue}" Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Foreground="Gray" />
-
-                <!-- ROW 2 -->
-                <TextBlock Grid.Row="1" Style="{StaticResource Row}" Text="{Binding LocalizedResources.BackupCurrentId, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,20" Grid.ColumnSpan="2" />
-                <TextBlock Grid.Row="1" Grid.Column="2" Visibility="{Binding DataController.IsBackupAvailable, Converter={StaticResource BooleanToVisibilityConvertor}}" Style="{StaticResource RowValue}" Text="{Binding DataController.Backup.Id}" Foreground="Gray" />
-                <TextBlock Grid.Row="1" Grid.Column="2" Visibility="{Binding DataController.IsBackupAvailable, Converter={StaticResource BooleanToCollapsedConvertor}}" Style="{StaticResource RowValue}" Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Foreground="Gray" />
+                <TextBlock Grid.Row="1" Grid.Column="2" Visibility="{Binding DataController.IsBackupAvailable, Converter={StaticResource BooleanToVisibilityConvertor}}" Style="{StaticResource RowValue}" Text="{Binding DataController.Backup.Date}" Foreground="Gray" TextAlignment="Right" />
+                <TextBlock Grid.Row="1" Grid.Column="2" Visibility="{Binding DataController.IsBackupAvailable, Converter={StaticResource BooleanToCollapsedConvertor}}" Style="{StaticResource RowValue}" Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Foreground="Gray" TextAlignment="Right" />
 
                 <!-- ROW 3 -->
-                <CheckBox IsChecked="{Binding DataController.IsBackupOnStart, Mode=TwoWay, FallbackValue=False}" Grid.Row="2" Grid.Column="0" />
-                <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource Row}" Text="{Binding LocalizedResources.BackupAllowOnStart, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,20" Grid.ColumnSpan="2" />
+                <TextBlock Grid.Row="2" Style="{StaticResource Row}" Text="{Binding LocalizedResources.BackupCurrentId, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,20" Grid.ColumnSpan="2" />
+                <TextBlock Grid.Row="2" Grid.Column="2" Margin="-100,0,10,0" Visibility="{Binding DataController.IsBackupAvailable, Converter={StaticResource BooleanToVisibilityConvertor}}" Style="{StaticResource RowValue}" Text="{Binding DataController.Backup.Id}" Foreground="Gray" TextAlignment="Right" />
+                <TextBlock Grid.Row="2" Grid.Column="2" Margin="-100,0,10,0" Visibility="{Binding DataController.IsBackupAvailable, Converter={StaticResource BooleanToCollapsedConvertor}}" Style="{StaticResource RowValue}" Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" TextAlignment="Right" Foreground="Gray" />
 
                 <!-- ROW 4 -->
-                <CheckBox IsChecked="{Binding DataController.IsEmailOnBackup, Mode=TwoWay, FallbackValue=False}" Grid.Row="3" Grid.Column="0" />
-                <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource Row}" Text="{Binding LocalizedResources.BackupAllowSendEmail, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,20" />
-                <TextBox Text="{Binding DataController.BackupEmail, Mode=TwoWay}" IsEnabled="{Binding DataController.IsEmailOnBackup, FallbackValue=False}" Grid.Row="3" Grid.Column="2" Style="{StaticResource Value}" Margin="0,-8,0,0" VerticalAlignment="Top" />
-                <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource Tip}" Text="{Binding LocalizedResources.BackupAllowSendEmailText, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="12,2" VerticalAlignment="Bottom" />
-                
+                <CheckBox IsChecked="{Binding DataController.IsBackupOnStart, Mode=TwoWay, FallbackValue=False}" Grid.Row="3" Grid.Column="0" />
+                <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource Row}" Text="{Binding LocalizedResources.BackupAllowOnStart, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,20" Grid.ColumnSpan="2" />
+
                 <!-- ROW 5 -->
                 <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource RowText}" Text="{Binding LocalizedResources.BackupDescription, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="10" VerticalAlignment="Top" Grid.ColumnSpan="3" />
 
@@ -175,6 +183,7 @@
                 </Grid.RowDefinitions>
 
                 <Button 
+                    IsEnabled="{Binding FtpController.IsLogged}"
                     Command="{Binding MainBackupTap}" 
                     Grid.Row="0" 
                     Style="{StaticResource MenuButton}">
@@ -182,7 +191,7 @@
                 </Button>
                 <Rectangle VerticalAlignment="Bottom" Grid.Row="0" Fill="{StaticResource LineColor}" Height="1" />
                 <Button 
-                    IsEnabled="{Binding FtpController.IsWifiEnabled}"
+                    IsEnabled="{Binding FtpController.IsLogged}"
                     Command="{Binding PhotoBackupTap}"
                     Grid.Row="1" 
                     Style="{StaticResource MenuButton}">
@@ -190,7 +199,7 @@
                 </Button>
                 <Rectangle VerticalAlignment="Bottom" Grid.Row="1" Fill="{StaticResource LineColor}" Height="1" />
                 <Button 
-                    IsEnabled="{Binding FtpController.IsWifiEnabled}"
+                    IsEnabled="{Binding FtpController.IsLogged}"
                     Command="{Binding VideoBackupTap}"
                     Grid.Row="2" 
                     Style="{StaticResource MenuButton}">
@@ -225,23 +234,21 @@
 
                                     <!-- NORMAL -->
                                     <TextBlock Margin="80,0,0,0" 
-                                               Text="{Binding FtpController.MainDataFile.Size, StringFormat='{}{0} MB', FallbackValue='--'}" 
-                                               Visibility="{Binding FtpController.IsUpload, Converter={StaticResource BooleanToCollapsedConvertor}}" 
+                                               Text="{Binding DataController.Size, StringFormat='{}{0} MB', FallbackValue='--'}" 
+                                               Visibility="{Binding UploadProgress.InProgress, Converter={StaticResource BooleanToCollapsedConvertor}}" 
                                                VerticalAlignment="Bottom" 
                                                TextAlignment="Left" 
                                                FontSize="16"
                                                Foreground="Gray" />
 
                                     <!-- PROGRESS -->
-                                    <Grid Margin="80,0,0,0" Visibility="{Binding FtpController.IsUpload, Converter={StaticResource BooleanToVisibilityConvertor}}">
-                                        <TextBlock Text="{Binding FtpController.MainDataFile.Eta, FallbackValue='00:00:00'}" Margin="5,0" FontSize="22" Foreground="Gray"  VerticalAlignment="Top" HorizontalAlignment="Right" />
+                                    <Grid Margin="80,0,0,0" Visibility="{Binding UploadProgress.InProgress, Converter={StaticResource BooleanToVisibilityConvertor}}">
                                         <ProgressBar 
-                                            IsIndeterminate="{Binding FtpController.MainDataFile.IsIndetermine}"
-                                            Value="{Binding FtpController.MainDataFile.Percent}"
+                                            IsIndeterminate="{Binding UploadProgress.BytesTransferred, Converter={StaticResource ZeroToBooleanConvertor}}"
+                                            Value="{Binding UploadProgress.ProgressPercentage}"
                                             VerticalAlignment="Bottom" 
                                             Margin="0" 
                                             Grid.ColumnSpan="2" />
-                                        <TextBlock Text="{Binding FtpController.MainDataFile.Speed, FallbackValue='0', StringFormat='{}{0} kB/s'}" Style="{StaticResource Tip}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,3" />
                                     </Grid>
 
                                 </Grid>
@@ -277,7 +284,7 @@
                             <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
 
                             <Button 
-                                IsEnabled="{Binding FtpController.IsUpload, Converter={StaticResource TrueToFalseConvertor}}"
+                                IsEnabled="{Binding UploadProgress.InProgress, Converter={StaticResource TrueToFalseConvertor}}"
                                 Command="{Binding DownloadCommand}" 
                                 CommandParameter="MainData"
                                 Style="{StaticResource MenuButton}" 
@@ -290,33 +297,16 @@
                                     <!-- NORMAL -->
                                     <TextBlock Margin="80,0,0,0" 
                                                Text="{Binding LocalizedResources.DownloadBackupHelp, Mode=OneWay, Source={StaticResource LocalizedStrings}}" 
-                                               Visibility="{Binding FtpController.IsDownload, Converter={StaticResource BooleanToCollapsedConvertor}}" 
+                                               Visibility="{Binding DownloadProgress.InProgress, Converter={StaticResource BooleanToCollapsedConvertor}}" 
                                                VerticalAlignment="Bottom" 
                                                TextAlignment="Left" 
                                                FontSize="16"
                                                Foreground="Gray" />
-                                    <TextBox 
-                                        Visibility="{Binding FtpController.IsDownload, Converter={StaticResource BooleanToCollapsedConvertor}}" 
-                                        VerticalAlignment="Center" 
-                                        HorizontalAlignment="Right" 
-                                        Style="{Binding FileIdStyle}" 
-                                        Text="{Binding FileId, Mode=TwoWay}" 
-                                        Width="200" 
-                                        Margin="-8">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="GotFocus">
-                                                <i:InvokeCommandAction Command="{Binding FocusFileIdCommand}" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="LostFocus">
-                                                <i:InvokeCommandAction Command="{Binding BlurFileIdCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </TextBox>
 
                                     <!-- PROGRESS -->
                                     <ProgressBar 
                                             Margin="80,0,0,0"
-                                            Visibility="{Binding FtpController.IsDownload, Converter={StaticResource BooleanToVisibilityConvertor}}"
+                                            Visibility="{Binding DownloadProgress.InProgress, Converter={StaticResource BooleanToVisibilityConvertor}}"
                                             IsIndeterminate="true"
                                             VerticalAlignment="Bottom" />
                                 </Grid>
@@ -344,13 +334,13 @@
                                     <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.BackupSelectedFiles, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
 
                                     <!-- NORMAL -->
-                                    <StackPanel Orientation="Horizontal" Margin="80,0,0,0" Visibility="{Binding FtpController.IsMediaBackup, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
+                                    <StackPanel Orientation="Horizontal" Margin="80,0,0,0" Visibility="{Binding IsImageBackup, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
                                         <TextBlock Margin="0,0,5,0" Text="{Binding LocalizedResources.CountOfSelectedFiled, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" TextAlignment="Left" FontSize="16" Foreground="Gray" />
                                         <TextBlock Text="{Binding Pictures.Count}" TextAlignment="Left" FontSize="16" Foreground="Gray" />
                                     </StackPanel>
 
                                     <!-- PROGRESS -->
-                                    <Grid Margin="80,0,0,0" Visibility="{Binding FtpController.IsMediaBackup, Converter={StaticResource BooleanToVisibilityConvertor}}" VerticalAlignment="Bottom" >
+                                    <Grid Margin="80,0,0,0" Visibility="{Binding IsImageBackup, Converter={StaticResource BooleanToVisibilityConvertor}}" VerticalAlignment="Bottom" >
                                         <TextBlock Margin="0,0,5,0" Text="{Binding LocalizedResources.UploadInProgress, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" TextAlignment="Left" FontSize="16" Foreground="Gray" />
                                     </Grid>
 
@@ -372,33 +362,31 @@
                                         <StackPanel Orientation="Vertical">
                                             <Button 
                                                 Command="{Binding ElementName=BackupRoot, Path=DataContext.ViewPictureCommand}"
-                                                CommandParameter="{Binding Picture}"
+                                                CommandParameter="{Binding Data}"
                                                 Style="{StaticResource MenuButton}" 
                                                 HorizontalContentAlignment="Stretch"
                                                 Width="620"
                                                 Height="100">
                                                 <Grid>
                                                     <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
-                                                        <TextBlock Margin="0" Text="{Binding Picture.Time}" />
+                                                        <TextBlock Margin="0" Text="{Binding Data.Time}" />
                                                         <TextBlock Margin="0" Text="{Binding Size, StringFormat=' - {0}'}" Foreground="Gray" />
                                                     </StackPanel>
                                                     
                                                     <!-- NORMAL -->
-                                                    <Grid Margin="0" Visibility="{Binding ElementName=BackupRoot, Path=DataContext.FtpController.IsMediaBackup, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
-                                                        <TextBlock Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" Visibility="{Binding Picture.Backups.Count, Converter={StaticResource CountToCollapsedConvertor}, ConverterParameter='0'}" />
-                                                        <TextBlock Text="{Binding Picture.Backups[0].Date, FallbackValue='-'}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding Picture.Backups.Count, Converter={StaticResource CountToVisibilityConvertor}, ConverterParameter='0'}" />
-                                                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsChecked, Mode=TwoWay}" Command="{Binding ElementName=BackupRoot, Path=DataContext.ChekcPictureCommand}" CommandParameter="{Binding}" HorizontalAlignment="Right" Margin="-10" />
+                                                    <Grid Margin="0" Visibility="{Binding InProgress, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
+                                                        <TextBlock Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" Visibility="{Binding Data.Backup.Id, Converter={StaticResource BooleanToCollapsedConvertor}}" />
+                                                        <TextBlock Text="{Binding Data.Backup.Date, FallbackValue='-'}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding Data.Backup.Id, Converter={StaticResource BooleanToVisibilityConvertor}}" />
+                                                        <CheckBox VerticalAlignment="Center" IsEnabled="{Binding ElementName=BackupRoot, Path=DataContext.IsImageBackup, Converter={StaticResource TrueToFalseConvertor}}" IsChecked="{Binding Selected, Mode=TwoWay}" Command="{Binding ElementName=BackupRoot, Path=DataContext.ChekcPictureCommand}" CommandParameter="{Binding}" HorizontalAlignment="Right" Margin="-10" />
                                                     </Grid>
 
                                                     <!-- PROGRESS -->
-                                                    <Grid Margin="0" Visibility="{Binding ElementName=BackupRoot, Path=DataContext.FtpController.IsMediaBackup, Converter={StaticResource BooleanToVisibilityConvertor}}" Height="60">
-                                                        <TextBlock Text="{Binding Progress.Eta, FallbackValue='00:00:00'}" Margin="5,0" FontSize="22" Foreground="Gray"  VerticalAlignment="Top" HorizontalAlignment="Right" />
+                                                    <Grid Margin="0" Visibility="{Binding InProgress, Converter={StaticResource BooleanToVisibilityConvertor}}" Height="60">
                                                         <ProgressBar 
-                                                            IsIndeterminate="{Binding Progress.IsIndetermine}"
-                                                            Value="{Binding Progress.Percent}"
+                                                            IsIndeterminate="{Binding BytesTransferred, Converter={StaticResource ZeroToBooleanConvertor}}"
+                                                            Value="{Binding ProgressPercentage}"
                                                             VerticalAlignment="Bottom" 
                                                             Margin="0" />
-                                                        <TextBlock Text="{Binding Progress.Speed, FallbackValue='0', StringFormat='{}{0} kB/s'}" Style="{StaticResource Tip}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,10" />
                                                     </Grid>
 
                                                 </Grid>
@@ -430,13 +418,13 @@
                                     <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.BackupSelectedFiles, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
 
                                     <!-- NORMAL -->
-                                    <StackPanel Orientation="Horizontal" Margin="80,0,0,0" Visibility="{Binding FtpController.IsMediaBackup, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
+                                    <StackPanel Orientation="Horizontal" Margin="80,0,0,0" Visibility="{Binding IsVideoBackup, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
                                         <TextBlock Margin="0,0,5,0" Text="{Binding LocalizedResources.CountOfSelectedFiled, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" TextAlignment="Left" FontSize="16" Foreground="Gray" />
                                         <TextBlock Text="{Binding Videos.Count}" TextAlignment="Left" FontSize="16" Foreground="Gray" />
                                     </StackPanel>
 
                                     <!-- PROGRESS -->
-                                    <Grid Margin="80,0,0,0" Visibility="{Binding FtpController.IsMediaBackup, Converter={StaticResource BooleanToVisibilityConvertor}}" VerticalAlignment="Bottom" >
+                                    <Grid Margin="80,0,0,0" Visibility="{Binding IsVideoBackup, Converter={StaticResource BooleanToVisibilityConvertor}}" VerticalAlignment="Bottom" >
                                         <TextBlock Margin="0,0,5,0" Text="{Binding LocalizedResources.UploadInProgress, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" TextAlignment="Left" FontSize="16" Foreground="Gray" />
                                     </Grid>
 
@@ -458,33 +446,31 @@
                                         <StackPanel Orientation="Vertical">
                                             <Button 
                                                 Command="{Binding ElementName=BackupRoot, Path=DataContext.ViewVideoCommand}"
-                                                CommandParameter="{Binding Video}"
+                                                CommandParameter="{Binding Data}"
                                                 Style="{StaticResource MenuButton}" 
                                                 HorizontalContentAlignment="Stretch"
                                                 Width="620"
                                                 Height="100">
                                                 <Grid>
                                                     <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
-                                                        <TextBlock Margin="0" Text="{Binding Video.Time}" />
+                                                        <TextBlock Margin="0" Text="{Binding Data.Time}" />
                                                         <TextBlock Margin="0" Text="{Binding Size, StringFormat=' - {0}'}" Foreground="Gray" />
                                                     </StackPanel> 
 
                                                     <!-- NORMAL -->
-                                                    <Grid Margin="0" Visibility="{Binding ElementName=BackupRoot, Path=DataContext.FtpController.IsMediaBackup, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
-                                                        <TextBlock Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" Visibility="{Binding Video.VideoBackups.Count, Converter={StaticResource CountToCollapsedConvertor}, ConverterParameter='0'}" />
-                                                        <TextBlock Text="{Binding Video.VideoBackups[0].Date, FallbackValue='-'}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding Video.VideoBackups.Count, Converter={StaticResource CountToVisibilityConvertor}, ConverterParameter='0'}" />
-                                                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsChecked, Mode=TwoWay}" Command="{Binding ElementName=BackupRoot, Path=DataContext.ChekcVideoCommand}" CommandParameter="{Binding}" HorizontalAlignment="Right" Margin="-10" />
+                                                    <Grid Margin="0" Visibility="{Binding InProgress, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
+                                                        <TextBlock Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" Visibility="{Binding Data.VideoBackup.Id, Converter={StaticResource BooleanToCollapsedConvertor}}" />
+                                                        <TextBlock Text="{Binding Data.VideoBackup.Date, FallbackValue='-'}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding Data.VideoBackup.Id, Converter={StaticResource BooleanToVisibilityConvertor}}" />
+                                                        <CheckBox VerticalAlignment="Center" IsEnabled="{Binding ElementName=BackupRoot, Path=DataContext.IsVideoBackup, Converter={StaticResource TrueToFalseConvertor}}" IsChecked="{Binding Selected, Mode=TwoWay}" Command="{Binding ElementName=BackupRoot, Path=DataContext.ChekcVideoCommand}" CommandParameter="{Binding}" HorizontalAlignment="Right" Margin="-10" />
                                                     </Grid>
 
                                                     <!-- PROGRESS -->
-                                                    <Grid Margin="0" Visibility="{Binding ElementName=BackupRoot, Path=DataContext.FtpController.IsMediaBackup, Converter={StaticResource BooleanToVisibilityConvertor}}" Height="60">
-                                                        <TextBlock Text="{Binding Progress.Eta, FallbackValue='00:00:00'}" Margin="5,0" FontSize="22" Foreground="Gray"  VerticalAlignment="Top" HorizontalAlignment="Right" />
+                                                    <Grid Margin="0" Visibility="{Binding InProgress, Converter={StaticResource BooleanToVisibilityConvertor}}" Height="60">
                                                         <ProgressBar 
-                                                            IsIndeterminate="{Binding Progress.IsIndetermine}"
-                                                            Value="{Binding Progress.Percent}"
+                                                            IsIndeterminate="{Binding BytesTransferred, Converter={StaticResource ZeroToBooleanConvertor}}"
+                                                            Value="{Binding ProgressPercentage}"
                                                             VerticalAlignment="Bottom" 
                                                             Margin="0" />
-                                                        <TextBlock Text="{Binding Progress.Speed, FallbackValue='0', StringFormat='{}{0} kB/s'}" Style="{StaticResource Tip}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,10" />
                                                     </Grid>
 
                                                 </Grid>

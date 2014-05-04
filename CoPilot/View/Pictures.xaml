@@ -40,7 +40,7 @@
     <Grid>
 
         <!-- PICTURE -->
-        <Grid Visibility="{Binding NotFound, Converter={StaticResource BooleanToCollapsedConvertor}}" RenderTransformOrigin="0.5,0.5">
+        <Grid RenderTransformOrigin="0.5,0.5">
             <Grid.Background>
                 <ImageBrush ImageSource="{Binding Brush}" Stretch="UniformToFill"/>
             </Grid.Background>
@@ -52,59 +52,53 @@
                     <i:InvokeCommandAction Command="{Binding TapCommand}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-        </Grid>
-        <Grid Visibility="{Binding NotFound, Converter={StaticResource BooleanToVisibilityConvertor}}" RenderTransformOrigin="0.5,0.5">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Tap">
-                    <i:InvokeCommandAction Command="{Binding TapCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
 
-            <Grid Margin="20,10,130,10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="65"/>
-                    <RowDefinition Height="90"/>
-                    <RowDefinition Height="240"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Style="{StaticResource Title}" Text="{Binding LocalizedResources.PhotoNotFoundTitle, Mode=OneWay, Source={StaticResource LocalizedStrings}}" TextAlignment="Center" />
-                <TextBlock Grid.Row="1" Style="{StaticResource RowText}" Text="{Binding LocalizedResources.PhotoNotFoundDescription, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Center" Margin="60,10,60,0" />
-
-                <StackPanel Orientation="Horizontal" Visibility="{Binding Image.Backups.Count, Converter={StaticResource CountToVisibilityConvertor}, ConverterParameter='0'}" HorizontalAlignment="Center" Grid.Row="2">
-                    <Button 
-                        Command="{Binding OpenUrlCommand}"
-                        Visibility="{Binding Progress.IsChecked, Converter={StaticResource BooleanToCollapsedConvertor}}"
-                        Style="{StaticResource MenuButton}" 
-                        VerticalContentAlignment="Stretch"
-                        HorizontalContentAlignment="Stretch"
-                        Height="210" Width="210" Margin="10">
-                        <Grid Background="{StaticResource PhoneAccentBrush}" Margin="-10">
-                            <Image Width="70" Height="70" Source="/Resources/Images/Buttons/link.png"  Stretch="UniformToFill" />
-                            <TextBlock Style="{StaticResource Odometer}" Text="{Binding LocalizedResources.BackupView, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="12" FontSize="16" FontWeight="Normal" VerticalAlignment="Bottom"  HorizontalAlignment="Left" />
-                        </Grid>
-                    </Button>
-                    <Button 
-                        IsEnabled="{Binding FtpController.IsWifiEnabled}"
-                        Command="{Binding DownloadCommand}"
-                        Visibility="{Binding Progress.IsChecked, Converter={StaticResource BooleanToCollapsedConvertor}}"
-                        Style="{StaticResource MenuButton}" 
-                        VerticalContentAlignment="Stretch"
-                        HorizontalContentAlignment="Stretch"
-                        Height="210" Width="210" Margin="10">
-                        <Grid Background="{StaticResource PhoneAccentBrush}" Margin="-10">
-                            <Image Width="70" Height="70" Source="/Resources/Images/Buttons/download.png"  Stretch="UniformToFill" />
-                            <TextBlock Style="{StaticResource Odometer}" Text="{Binding LocalizedResources.BackupDownload, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="12" FontSize="16" FontWeight="Normal" VerticalAlignment="Bottom"  HorizontalAlignment="Left" />
-                        </Grid>
-                    </Button>
-                </StackPanel>
-                <Grid Visibility="{Binding Image.Backups.Count, Converter={StaticResource CountToVisibilityConvertor}, ConverterParameter='0'}" Grid.Row="2">
-                    <Grid Visibility="{Binding Progress.IsChecked, FallbackValue='Collapsed', Converter={StaticResource BooleanToVisibilityConvertor}}">
-                        <ProgressBar VerticalAlignment="Center" IsIndeterminate="true" Margin="100,0" />
-                        <TextBlock Text="{Binding LocalizedResources.DownloadInProgress, Mode=OneWay, Source={StaticResource LocalizedStrings}}" TextAlignment="Center" VerticalAlignment="Bottom" Margin="0,90" />
-                    </Grid>
-                </Grid>
-
+            <!-- PROGRESS ON DOWNLOAD-->
+            <Grid 
+                Background="{StaticResource ErrorBackground}"
+                Visibility="{Binding Progress, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                <ProgressBar 
+                    Foreground="{StaticResource ProgressBackground}"
+                    VerticalAlignment="Center"
+                    Margin="30,0,150,0"
+                    IsIndeterminate="{Binding Progress.BytesTransferred, Converter={StaticResource ZeroToBooleanConvertor}}"
+                    Value="{Binding Progress.ProgressPercentage}"/>
             </Grid>
+
+
+            <!-- IF DOWNLAOD IS UNSUCESSFULL -->
+            <Grid
+                Background="{StaticResource ErrorBackground}"
+                Visibility="{Binding Error, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                <StackPanel 
+                    Margin="30,20,150,20"
+                    VerticalAlignment="Center">
+
+                    <RichTextBox TextWrapping="Wrap" FontSize="22" TextAlignment="Center">
+                        <Paragraph>
+                            <Run Text="{Binding LocalizedResources.StorageInfo_Part1, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                            <Hyperlink Foreground="{StaticResource HyperlinkBackground}" Command="{Binding CommandLogin}">
+                                <Run Text="{Binding LocalizedResources.StorageInfo_Login, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                            </Hyperlink>
+                            <Run Text="{Binding LocalizedResources.StorageInfo_Part2, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                            <Hyperlink Foreground="{StaticResource HyperlinkBackground}" Command="{Binding CommandConnection}">
+                                <Run Text="{Binding LocalizedResources.StorageInfo_Connection, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                            </Hyperlink>
+                            <Run Text="{Binding LocalizedResources.StorageInfo_Part3, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                            <Hyperlink Foreground="{StaticResource HyperlinkBackground}" Command="{Binding DownloadCommand}">
+                                <Run Text="{Binding LocalizedResources.StorageInfo_Again, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                            </Hyperlink>
+                            <Run Text="{Binding LocalizedResources.StorageInfo_Part4, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                            <Hyperlink Foreground="{StaticResource HyperlinkBackground}" Command="{Binding ConfirmDeleteCommand}">
+                                <Run Text="{Binding LocalizedResources.StorageInfo_Delete, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                            </Hyperlink>
+                            <Run Text="{Binding LocalizedResources.StorageInfo_Part5, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                        </Paragraph>
+                    </RichTextBox>
+
+                </StackPanel>
+            </Grid>
+
         </Grid>
 
         <!-- STATUS -->

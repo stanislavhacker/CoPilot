@@ -18,6 +18,8 @@ using System.IO.IsolatedStorage;
 using System.Windows.Input;
 using CoPilot.Core.Utils;
 using Microsoft.Phone.Tasks;
+using CoPilot.Interfaces;
+using System.Threading.Tasks;
 
 namespace CoPilot.CoPilot.View
 {
@@ -119,20 +121,6 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
-        /// Oprn url Command
-        /// </summary>
-        public ICommand OpenUrlCommand
-        {
-            get
-            {
-                return new RelayCommand((param) =>
-                {
-                    this.openBackupInBrowser();
-                }, param => true);
-            }
-        }
-
-        /// <summary>
         /// Download Command
         /// </summary>
         public ICommand DownloadCommand
@@ -142,6 +130,36 @@ namespace CoPilot.CoPilot.View
                 return new RelayCommand((param) =>
                 {
                     this.downloadBackup();
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// Command login
+        /// </summary>
+        public ICommand CommandLogin
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    NavigationService.Navigate("/CoPilot/View/Backup.xaml", this.GetDefaultDataContainer());
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// Connetion
+        /// </summary>
+        public ICommand CommandConnection
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    ConnectionSettingsTask connectionSettingsTask = new ConnectionSettingsTask();
+                    connectionSettingsTask.ConnectionSettingsType = ConnectionSettingsType.WiFi;
+                    connectionSettingsTask.Show();
                 }, param => true);
             }
         }
@@ -293,22 +311,18 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
-        /// NotFound
+        /// Error
         /// </summary>
-        private Boolean notFound = false;
-        public Boolean NotFound
+        private Boolean error = false;
+        public Boolean Error
         {
             get
             {
-                return notFound;
+                return error;
             }
             set
             {
-                if (notFound == value)
-                {
-                    return;
-                }
-                notFound = value;
+                error = value;
                 RaisePropertyChanged();
             }
         }
@@ -379,8 +393,8 @@ namespace CoPilot.CoPilot.View
         /// <summary>
         /// Progress
         /// </summary>
-        private MediaWithProgress progress;
-        public MediaWithProgress Progress
+        private Progress progress;
+        public Progress Progress
         {
             get
             {
@@ -397,7 +411,7 @@ namespace CoPilot.CoPilot.View
 
         #region PRIVATE
 
-        private Dictionary<string, MediaWithProgress> progresses = new Dictionary<string, MediaWithProgress>();
+        private Dictionary<string, Progress> progresses = new Dictionary<string, Progress>();
 
         #endregion 
 
@@ -416,6 +430,14 @@ namespace CoPilot.CoPilot.View
         #region PICTURES
 
         /// <summary>
+        /// Image change
+        /// </summary>
+        private void imageChange()
+        {
+            this.Error = false;
+        }
+
+        /// <summary>
         /// Get next picture
         /// </summary>
         private void getNextPicture()
@@ -427,6 +449,7 @@ namespace CoPilot.CoPilot.View
             {
                 Position = 1;
             }
+            this.imageChange();
             this.Image = pictures.ElementAt(Position - 1);
         }
 
@@ -441,6 +464,7 @@ namespace CoPilot.CoPilot.View
             {
                 Position = pictures.Count;
             }
+            this.imageChange();
             this.Image = pictures.ElementAt(Position - 1);
         }
 
@@ -463,6 +487,7 @@ namespace CoPilot.CoPilot.View
         {
             var picture = dataController.Pictures.ElementAt(Position - 1);
             dataController.RemovePicture(picture);
+            this.imageChange();
             this.Max = Convert.ToInt32(dataController.PicturesCount);
         }
 
@@ -476,47 +501,69 @@ namespace CoPilot.CoPilot.View
             if (Storage.FileExists(value.Path)) 
             {
                 var stream = Storage.OpenFile(value.Path, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
-                img = new BitmapImage();
-                img.SetSource(stream);
-                this.NotFound = false;
+                try
+                {
+                    img = new BitmapImage();
+                    img.SetSource(stream);
+                }
+                catch
+                {
+                    stream.Dispose();
+                    this.downloadBackup();
+                }
             }
             else
             {
-                this.NotFound = true;
+                this.downloadBackup();
             }
             this.Brush = img;
         }
 
         /// <summary>
-        /// Open backup in browse
-        /// </summary>
-        private void openBackupInBrowser()
-        {
-            WebBrowserTask browser = new WebBrowserTask();
-            browser.Uri = new Uri(this.Image.Backups.First().DownloadUrl);
-            browser.Show();
-        }
-
-        /// <summary>
         /// Download backup
         /// </summary>
-        private void downloadBackup()
+        private async void downloadBackup()
         {
+            this.Error = false;
+
             var image = this.Image;
-            var id = image.Backups.First().Id;
+            var id = image.Backup.Id;
 
-            this.Progress = new MediaWithProgress();
-            this.Progress.Progress = new ProgressUpdater();
-            this.Progress.Progress.IsIndetermine = true;
-            this.Progress.Picture = this.Image;
-            this.Progress.IsChecked = true;
-
+            //progress
             if (progresses.ContainsKey(image.Path))
             {
-                progresses.Remove(image.Path);
+                return;
             }
+
+            this.Progress = new Progress();
+            this.Progress.Cancel = new System.Threading.CancellationToken();
+            this.Progress.Selected = true;
+            this.Progress.Type = Interfaces.Types.FileType.Photo;
+            this.Progress.Url = new Uri(image.Path, UriKind.Relative);
+            this.Progress.Data = this.Image;
+            this.Progress.InProgress = true;
+
+            //download
             progresses.Add(image.Path, this.Progress);
-            FtpController.Download(id, this.Progress);
+            await Task.Delay(200);
+            DownloadStatus success = await FtpController.Download(id, this.Progress);
+            progresses.Remove(image.Path);
+
+            //not this image
+            if (image != this.Image) 
+            {
+                return;
+            }
+
+            if (success == DownloadStatus.Complete )
+            {
+                this.Image = image;
+            }
+            else if (success == DownloadStatus.Fail)
+            {
+                this.Error = true;
+            }
+            this.Progress = null;
         }
 
         /// <summary>
@@ -556,6 +603,25 @@ namespace CoPilot.CoPilot.View
                 CameraController.RecordStop(true);
             }
         }
+
+
+        #region DATA CONTAINER
+
+        /// <summary>
+        /// Get default data container
+        /// </summary>
+        /// <returns></returns>
+        private DataContainer GetDefaultDataContainer()
+        {
+            DataContainer data = new DataContainer();
+            data.DataController = this.DataController;
+            data.FtpController = this.FtpController;
+            data.CameraController = this.CameraController;
+            data.DriveModeController = this.DriveModeController;
+            return data;
+        }
+
+        #endregion
 
         #region CONTROLLERS
 

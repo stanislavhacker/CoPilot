@@ -13,7 +13,19 @@ namespace CoPilot.Utils.Convertors
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Boolean val = (Boolean)value;
+            Boolean val;
+            if (value == null)
+            {
+                val = false;
+            }
+            else if (value.GetType() == typeof(Boolean))
+            {
+                val = (Boolean)value;
+            }
+            else
+            {
+                val = true;
+            }
             return val ? Visibility.Visible : Visibility.Collapsed;
         }
 

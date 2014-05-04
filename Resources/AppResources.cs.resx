@@ -314,9 +314,6 @@
   <data name="DownloadBackup" xml:space="preserve">
     <value>Stáhnout zálohu</value>
   </data>
-  <data name="EnterFileId" xml:space="preserve">
-    <value>Id zálohy</value>
-  </data>
   <data name="SendByEmail" xml:space="preserve">
     <value>Poslat odkaz na zálohu emailem</value>
   </data>
@@ -327,7 +324,7 @@
     <value>Odkaz na vaši zálohu</value>
   </data>
   <data name="DownloadBackupHelp" xml:space="preserve">
-    <value>Vložte id vaší zálohy a klikněte na tlačítko</value>
+    <value>Klikněte zde pro stáhnutí zálohy z úložiště</value>
   </data>
   <data name="LastBackup" xml:space="preserve">
     <value>Poslední záloha</value>
@@ -336,16 +333,16 @@
     <value>nezálohováno</value>
   </data>
   <data name="BackupApplyDescription" xml:space="preserve">
-    <value>Opravdu chcete použít tuto zálohu dat? Tato akce je nevratná!</value>
+    <value>Opravdu chcete použít tuto zálohu z úložiště? Tato akce je nevratná!</value>
   </data>
   <data name="BackupApplyTitle" xml:space="preserve">
-    <value>Použít zálohu z {0}?</value>
+    <value>Použít zálohu?</value>
   </data>
   <data name="Unknown" xml:space="preserve">
     <value>neznám</value>
   </data>
   <data name="BackupNotFoundDescription" xml:space="preserve">
-    <value>Záložní soubor s poskytnutým id nebyl na serveru nalezen.</value>
+    <value>Záložní soubor nebyl na serveru nalezen.</value>
   </data>
   <data name="BackupNotFoundTitle" xml:space="preserve">
     <value>Záloha nebyla nalezena</value>
@@ -383,12 +380,6 @@
   <data name="ReportTitle" xml:space="preserve">
     <value>Nahlášení chyby aplikace</value>
   </data>
-  <data name="BackupAllowSendEmail" xml:space="preserve">
-    <value>Poslat email při záloze</value>
-  </data>
-  <data name="BackupAllowSendEmailText" xml:space="preserve">
-    <value>Zadejte vaši emailovou adresu</value>
-  </data>
   <data name="BackupDownload" xml:space="preserve">
     <value>stáhnout do zařízení</value>
   </data>
@@ -397,18 +388,6 @@
   </data>
   <data name="DownloadInProgress" xml:space="preserve">
     <value>Soubor se stahuje ...</value>
-  </data>
-  <data name="PhotoNotFoundDescription" xml:space="preserve">
-    <value>Fotografie nebyla nalezen na vašem zařízení. Pokud jste tento obrázek zálohovali, můžete se na něj podívat na níže uvedené adrese. V opačném případě není možné již obrázek získat zpět.</value>
-  </data>
-  <data name="PhotoNotFoundTitle" xml:space="preserve">
-    <value>Fotografie nebyla nalezena.</value>
-  </data>
-  <data name="VideoNotFoundDescription" xml:space="preserve">
-    <value>Video nebylo nalezeno na vašem zařízení. Pokud jste tento obrázek zálohovali, můžete se na něj podívat na níže uvedené adrese. V opačném případě není možné již video získat zpět.</value>
-  </data>
-  <data name="VideoNotFoundTitle" xml:space="preserve">
-    <value>Video nebylo nalezeno.</value>
   </data>
   <data name="ObdAcceleratorPedalPosition" xml:space="preserve">
     <value>Poloha plynového pedálu</value>
@@ -459,7 +438,7 @@
     <value>Menu pro zálohu hlavního souboru</value>
   </data>
   <data name="Tutorial_BackupFileMenu_Description" xml:space="preserve">
-    <value>V tomto menu jsou zobrazeny čtyři tlačítka. 1) Slouží pro spuštění zálohy hlavního souboru. 2) Pokud je záloha vytvořena, toto tlačítko slouží pro její zobrazení v prohlížeči nebo 3) poslání na email. Pokud máte k dispozici starou zálohu, můžete zadat její identifikátor 4) a poté kliknout na tlačítko pro stažení.</value>
+    <value>V tomto menu jsou zobrazeny čtyři tlačítka. 1) Slouží pro spuštění zálohy hlavního souboru. 2) Pokud je záloha vytvořena, toto tlačítko slouží pro její zobrazení v prohlížeči nebo 3) poslání na email. Pokud máte k dispozici starou zálohu na cloudovém úložišti, 4) můžete ji stáhnout.</value>
   </data>
   <data name="Tutorial_BackupMenu" xml:space="preserve">
     <value>Menu zálohy</value>
@@ -468,7 +447,7 @@
     <value>V menu zálohy můžete vidět tři tlačítka. 1) Slouží pro zálohu hlavního souboru aplikace, 2) zálohuje obrázky a 3) zálohuje videa. Pokud zvolíte automatickou zálohu po startu aplikace, je zálohován pouze hlavní soubor. Videa a obrázky je nutné zálohovat manuálně. V seznamu médií pak vidíte, které obrázky nebo videa nejsou zazálohována.</value>
   </data>
   <data name="Tutorial_Backup_Description" xml:space="preserve">
-    <value>Po kliknutí na tlačíko "Záloha" v menu nastavení se zobrazí stránka s informacemi o zálohách aplikace. Zde naleznete datum poslední zálohy, identifikátor zálohy a nastavení zálohy. 1) Slouží pro nastavení automatické zálohy po spuštění aplikace a 2) pokud chcete posílat zálohy na email.</value>
+    <value>Po kliknutí na tlačíko "Záloha" v menu nastavení se zobrazí stránka s informacemi o zálohách aplikace. Zde naleznete datum poslední zálohy, identifikátor zálohy a nastavení zálohy. 1) Slouží pro nastavení automatické zálohy po spuštění aplikace a 2) musíte se přihlásit do cloudového úložiště, pokud chcete data zálohovat.</value>
   </data>
   <data name="Tutorial_CameraMenu" xml:space="preserve">
     <value>Menu kamery</value>
@@ -553,5 +532,47 @@
   </data>
   <data name="RateApp" xml:space="preserve">
     <value>Ohodnotit</value>
+  </data>
+  <data name="UsedAccounts" xml:space="preserve">
+    <value>Účty použité pro zálohu</value>
+  </data>
+  <data name="Backup_NotSignedIn" xml:space="preserve">
+    <value>Nejste přihlášeni</value>
+  </data>
+  <data name="Backup_NotSignedIn_Description" xml:space="preserve">
+    <value>Nejste přihlášeni do žádného cloudového úložiště. Pro správné fungování záloh je nutné se přihlásit.</value>
+  </data>
+  <data name="StorageInfo_Again" xml:space="preserve">
+    <value>stáhnout znovu</value>
+  </data>
+  <data name="StorageInfo_Connection" xml:space="preserve">
+    <value>internetové připojení</value>
+  </data>
+  <data name="StorageInfo_Delete" xml:space="preserve">
+    <value>záznam smazat</value>
+  </data>
+  <data name="StorageInfo_Login" xml:space="preserve">
+    <value>přihlásit do vašeho úložiště</value>
+  </data>
+  <data name="StorageInfo_Part1" xml:space="preserve">
+    <value>Soubor nebylo možné stáhnout, zkuste se </value>
+  </data>
+  <data name="StorageInfo_Part2" xml:space="preserve">
+    <value> a zkontrolujte </value>
+  </data>
+  <data name="StorageInfo_Part3" xml:space="preserve">
+    <value>. Pokud jste to zkontrolovali, zkuste soubor </value>
+  </data>
+  <data name="StorageInfo_Part4" xml:space="preserve">
+    <value>. Pokud jste ho z úložiště smazali, soubor již není možné získat a můžete tento </value>
+  </data>
+  <data name="StorageInfo_Part5" xml:space="preserve">
+    <value>.</value>
+  </data>
+  <data name="FromStorage" xml:space="preserve">
+    <value>this video is on cloud storage</value>
+  </data>
+  <data name="Buffering" xml:space="preserve">
+    <value>Načítání</value>
   </data>
 </root>

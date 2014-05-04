@@ -18,6 +18,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using CoPilot.Core.Utils;
 using Microsoft.Phone.Tasks;
+using CoPilot.Interfaces;
+using CoPilot.Interfaces.Types;
+using System.Threading.Tasks;
 
 namespace CoPilot.CoPilot.View
 {
@@ -116,24 +119,10 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    if (!this.closeMenuIfItsNecessary()) 
+                    if (!this.closeMenuIfItsNecessary() && this.IsPlayEnabled) 
                     {
                         this.IsPlaying = !this.isPlaying;
                     }
-                }, param => true);
-            }
-        }
-
-        /// <summary>
-        /// Oprn url Command
-        /// </summary>
-        public ICommand OpenUrlCommand
-        {
-            get
-            {
-                return new RelayCommand((param) =>
-                {
-                    this.openBackupInBrowser();
                 }, param => true);
             }
         }
@@ -147,7 +136,88 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    this.downloadBackup();
+                    this.downloadBackupPreview();
+                }, param => true);
+            }
+        }
+
+
+        /// <summary>
+        /// Command login
+        /// </summary>
+        public ICommand CommandLogin
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    NavigationService.Navigate("/CoPilot/View/Backup.xaml", this.GetDefaultDataContainer());
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// Connetion
+        /// </summary>
+        public ICommand CommandConnection
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    ConnectionSettingsTask connectionSettingsTask = new ConnectionSettingsTask();
+                    connectionSettingsTask.ConnectionSettingsType = ConnectionSettingsType.WiFi;
+                    connectionSettingsTask.Show();
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// Open video command
+        /// </summary>
+        public ICommand OpenVideoCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    WebBrowserTask task = new WebBrowserTask();
+                    task.Uri = new Uri(this.Video.VideoBackup.Url);
+                    task.Show();
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// BufferingCommando command
+        /// </summary>
+        public ICommand BufferingCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    MediaElement media = param as MediaElement;
+                    this.BufferingProgress = Math.Round(media.BufferingProgress * 100);
+                    if (this.BufferingProgress == 100)
+                    {
+                        this.BufferingProgress = 0;
+                    }
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// MediaOpenedCommand command
+        /// </summary>
+        public ICommand MediaOpenedCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    MediaElement media = param as MediaElement;
+                    this.IsPlayEnabled = true;
                 }, param => true);
             }
         }
@@ -266,6 +336,7 @@ namespace CoPilot.CoPilot.View
 
                 //update brush and rotation
                 setBrush(value);
+                setVideoPath(value);
                 this.Rotation = value.Rotated ? 180 : 0;
 
                 //update progresss
@@ -300,22 +371,35 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
-        /// NotFound
+        /// Error
         /// </summary>
-        private Boolean notFound = false;
-        public Boolean NotFound
+        private Boolean error = false;
+        public Boolean Error
         {
             get
             {
-                return notFound;
+                return error;
             }
             set
             {
-                if (notFound == value)
-                {
-                    return;
-                }
-                notFound = value;
+                error = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Completed
+        /// </summary>
+        private Boolean completed = true;
+        public Boolean Completed
+        {
+            get
+            {
+                return completed;
+            }
+            set
+            {
+                completed = value;
                 RaisePropertyChanged();
             }
         }
@@ -384,6 +468,40 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
+        /// BufferingProgress
+        /// </summary>
+        private Double bufferingProgress = 0;
+        public Double BufferingProgress
+        {
+            get
+            {
+                return bufferingProgress;
+            }
+            set
+            {
+                bufferingProgress = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Video path
+        /// </summary>
+        private string videoPath = "";
+        public string VideoPath
+        {
+            get
+            {
+                return videoPath;
+            }
+            set
+            {
+                videoPath = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Timer video
         /// </summary>
         public string Time
@@ -413,6 +531,40 @@ namespace CoPilot.CoPilot.View
 
                 isPlaying = value;
                 TextOpacity = isPlaying ? 0.3 : 1;
+                RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Is video playing
+        /// </summary>
+        private bool isPlayEnabled = true;
+        public bool IsPlayEnabled
+        {
+            get
+            {
+                return isPlayEnabled;
+            }
+            set
+            {
+                isPlayEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Is from cloud
+        /// </summary>
+        private bool isFromCloud = true;
+        public bool IsFromCloud
+        {
+            get
+            {
+                return isFromCloud;
+            }
+            set
+            {
+                isFromCloud = value;
                 RaisePropertyChanged();
             }
         }
@@ -458,8 +610,8 @@ namespace CoPilot.CoPilot.View
         /// <summary>
         /// Progress
         /// </summary>
-        private MediaWithProgress progress;
-        public MediaWithProgress Progress
+        private Progress progress;
+        public Progress Progress
         {
             get
             {
@@ -476,7 +628,7 @@ namespace CoPilot.CoPilot.View
 
         #region PRIVATE
 
-        private Dictionary<string, MediaWithProgress> progresses = new Dictionary<string, MediaWithProgress>();
+        private Dictionary<string, Progress> progresses = new Dictionary<string, Progress>();
 
         #endregion 
 
@@ -495,6 +647,16 @@ namespace CoPilot.CoPilot.View
         #region VIDEOS
 
         /// <summary>
+        /// Video change
+        /// </summary>
+        private void videoChange()
+        {
+            this.Error = false;
+            this.IsPlayEnabled = false;
+            this.BufferingProgress = 0;
+        }
+
+        /// <summary>
         /// Get next video
         /// </summary>
         private void getNextVideo()
@@ -506,6 +668,7 @@ namespace CoPilot.CoPilot.View
             {
                 Position = 1;
             }
+            this.videoChange();
             this.Video = videos.ElementAt(Position - 1);
         }
 
@@ -521,6 +684,7 @@ namespace CoPilot.CoPilot.View
             {
                 Position = videos.Count;
             }
+            this.videoChange();
             this.Video = videos.ElementAt(Position - 1);
         }
 
@@ -543,6 +707,7 @@ namespace CoPilot.CoPilot.View
         {
             var video = dataController.Videos.ElementAt(Position - 1);
             dataController.RemoveVideo(video);
+            this.videoChange();
             this.Max = Convert.ToInt32(dataController.VideosCount);
         }
 
@@ -556,48 +721,117 @@ namespace CoPilot.CoPilot.View
             if (Storage.FileExists(value.Preview))
             {
                 var stream = Storage.OpenFile(value.Preview, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
-                img = new BitmapImage();
-                img.SetSource(stream);
-                stream.Close();
-                this.NotFound = false;
+                try
+                {
+                    img = new BitmapImage();
+                    img.SetSource(stream);
+                    this.Completed = true;
+                }
+                catch
+                {
+                    stream.Dispose();
+                    this.downloadBackupPreview();
+                }
             }
             else
             {
-                this.NotFound = true;
+                this.downloadBackupPreview();
             }
             this.Brush = img;
         }
 
         /// <summary>
-        /// Open backup in browse
+        /// Set video path
         /// </summary>
-        private void openBackupInBrowser()
+        /// <param name="value"></param>
+        private void setVideoPath(Video value)
         {
-            WebBrowserTask browser = new WebBrowserTask();
-            browser.Uri = new Uri(this.Video.VideoBackups.First().DownloadUrl);
-            browser.Show();
+            if (Storage.FileExists(value.Path))
+            {
+                this.IsFromCloud = false;
+                this.VideoPath = value.Path;
+            }
+            else
+            {
+                this.IsFromCloud = true;
+                downloadBackupVideo();
+            }
         }
 
         /// <summary>
         /// Download backup
         /// </summary>
-        private void downloadBackup()
+        private async void downloadBackupPreview()
         {
+            this.Completed = false;
+            this.Error = false;
+
             var video = this.Video;
-            var videoId = video.VideoBackups.First().Id;
+            var id = video.VideoBackup.Id;
 
-            this.Progress = new MediaWithProgress();
-            this.Progress.Progress = new ProgressUpdater();
-            this.Progress.Progress.IsIndetermine = true;
-            this.Progress.Video = video;
-            this.Progress.IsChecked = true;
-
+            //progress
             if (progresses.ContainsKey(video.Path))
             {
-                progresses.Remove(video.Path);
+                return;
             }
+
+            this.Progress = new Progress();
+            this.Progress.Cancel = new System.Threading.CancellationToken();
+            this.Progress.Selected = true;
+            this.Progress.Type = FileType.Video;
+            this.Progress.Url = new Uri(video.Preview, UriKind.Relative);
+            this.Progress.Data = this.video;
+            this.Progress.InProgress = true;
+
+            //download
             progresses.Add(video.Path, this.Progress);
-            FtpController.Download(videoId, this.Progress);
+            await Task.Delay(200);
+            DownloadStatus success = await FtpController.Preview(id, this.Progress);
+            progresses.Remove(video.Path);
+
+            //not this video
+            if (video != this.Video)
+            {
+                return;
+            }
+
+            if (success == DownloadStatus.Complete)
+            {
+                this.Video = video;
+            }
+            else if (success == DownloadStatus.Fail)
+            {
+                this.Error = true;
+            }
+            this.Progress = null;
+        }
+
+        /// <summary>
+        /// Download backup
+        /// </summary>
+        private async void downloadBackupVideo()
+        {
+            //video
+            var video = this.Video;
+            var tries = 6;
+            this.IsPlayEnabled = false;
+
+            //not logged, try to wait
+            while (!FtpController.IsLogged && tries > 0)
+            {
+                await Task.Delay(500);
+                tries--;
+            }
+
+            //download
+            Response success = await FtpController.VideoUrl(this.Video.VideoBackup.Id);
+            var url = success != null ? success.Url : "";
+
+            //save
+            if (video == this.Video)
+            {
+                this.VideoPath = url;
+            }
         }
 
         /// <summary>
@@ -636,6 +870,24 @@ namespace CoPilot.CoPilot.View
                 CameraController.RecordStop(true);
             }
         }
+
+        #region DATA CONTAINER
+
+        /// <summary>
+        /// Get default data container
+        /// </summary>
+        /// <returns></returns>
+        private DataContainer GetDefaultDataContainer()
+        {
+            DataContainer data = new DataContainer();
+            data.DataController = this.DataController;
+            data.FtpController = this.FtpController;
+            data.CameraController = this.CameraController;
+            data.DriveModeController = this.DriveModeController;
+            return data;
+        }
+
+        #endregion
 
         #region CONTROLLERS
 

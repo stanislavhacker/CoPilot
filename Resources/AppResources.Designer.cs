@@ -106,6 +106,24 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your are not sign in.
+        /// </summary>
+        public static string Backup_NotSignedIn {
+            get {
+                return ResourceManager.GetString("Backup_NotSignedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not logged into any cloud storage service. For proper operation of backups you need to login..
+        /// </summary>
+        public static string Backup_NotSignedIn_Description {
+            get {
+                return ResourceManager.GetString("Backup_NotSignedIn_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allow backup on start.
         /// </summary>
         public static string BackupAllowOnStart {
@@ -115,25 +133,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send email after backup.
-        /// </summary>
-        public static string BackupAllowSendEmail {
-            get {
-                return ResourceManager.GetString("BackupAllowSendEmail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter your email adress.
-        /// </summary>
-        public static string BackupAllowSendEmailText {
-            get {
-                return ResourceManager.GetString("BackupAllowSendEmailText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do you really wan to load this backup? This action is not reversable!.
+        ///   Looks up a localized string similar to Do you really wan to load backup from cloud storage? This action is not reversable!.
         /// </summary>
         public static string BackupApplyDescription {
             get {
@@ -142,7 +142,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply backup from {0}?.
+        ///   Looks up a localized string similar to Load backup?.
         /// </summary>
         public static string BackupApplyTitle {
             get {
@@ -160,7 +160,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When selecting automatic backups, backup only save the main configuration file with settings and data. Videos and photos are not automatically included in the backup and you must manually back up only on WiFi connection. Backup video files can take a long time!.
+        ///   Looks up a localized string similar to When selecting automatic backups, backup only save the main configuration file with settings and data. Videos and photos are not automatically included in the backup and you must manually back up it . That&apos;s possible only on WiFi network. Backup video files can take a long time!.
         /// </summary>
         public static string BackupDescription {
             get {
@@ -187,7 +187,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Backup file with given id not found on server..
+        ///   Looks up a localized string similar to Backup file not found on server..
         /// </summary>
         public static string BackupNotFoundDescription {
             get {
@@ -246,6 +246,15 @@ namespace CoPilot.Resources {
         public static string BluetoothIsNotAllowed {
             get {
                 return ResourceManager.GetString("BluetoothIsNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buffering.
+        /// </summary>
+        public static string Buffering {
+            get {
+                return ResourceManager.GetString("Buffering", resourceCulture);
             }
         }
         
@@ -349,7 +358,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your backup id and click on button.
+        ///   Looks up a localized string similar to Click here to download bacup from your storage.
         /// </summary>
         public static string DownloadBackupHelp {
             get {
@@ -412,15 +421,6 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File id.
-        /// </summary>
-        public static string EnterFileId {
-            get {
-                return ResourceManager.GetString("EnterFileId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sorry, but the application has encountered an unexpected error. Please help me improve the application and send me an email with an error message after next start. The application will be closed now..
         /// </summary>
         public static string ErrorDescription {
@@ -430,7 +430,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to And it&apos;s down: (.
+        ///   Looks up a localized string similar to And it&apos;s down :(.
         /// </summary>
         public static string ErrorTitle {
             get {
@@ -444,6 +444,15 @@ namespace CoPilot.Resources {
         public static string FreeSpaceAvailable {
             get {
                 return ResourceManager.GetString("FreeSpaceAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to this video is on cloud storage.
+        /// </summary>
+        public static string FromStorage {
+            get {
+                return ResourceManager.GetString("FromStorage", resourceCulture);
             }
         }
         
@@ -718,24 +727,6 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Photo not found on your device. If you have this file backed up, you can see him at the address below. Otherwise, the file can no longer be recovered..
-        /// </summary>
-        public static string PhotoNotFoundDescription {
-            get {
-                return ResourceManager.GetString("PhotoNotFoundDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Photo not found on your mobile..
-        /// </summary>
-        public static string PhotoNotFoundTitle {
-            get {
-                return ResourceManager.GetString("PhotoNotFoundTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Photos.
         /// </summary>
         public static string Photos {
@@ -835,7 +826,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The application was last closed with an error. Want to help us improve application and report a bug?.
+        ///   Looks up a localized string similar to Last termination of application caused by error. Want to help me improve an application and report a bug?.
         /// </summary>
         public static string ReportDescription {
             get {
@@ -961,6 +952,87 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to download it again.
+        /// </summary>
+        public static string StorageInfo_Again {
+            get {
+                return ResourceManager.GetString("StorageInfo_Again", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the Internet connection.
+        /// </summary>
+        public static string StorageInfo_Connection {
+            get {
+                return ResourceManager.GetString("StorageInfo_Connection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to delete this record.
+        /// </summary>
+        public static string StorageInfo_Delete {
+            get {
+                return ResourceManager.GetString("StorageInfo_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to log in to your storage.
+        /// </summary>
+        public static string StorageInfo_Login {
+            get {
+                return ResourceManager.GetString("StorageInfo_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file could not be downloaded, try to .
+        /// </summary>
+        public static string StorageInfo_Part1 {
+            get {
+                return ResourceManager.GetString("StorageInfo_Part1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  and check .
+        /// </summary>
+        public static string StorageInfo_Part2 {
+            get {
+                return ResourceManager.GetString("StorageInfo_Part2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to . If you check it, try to .
+        /// </summary>
+        public static string StorageInfo_Part3 {
+            get {
+                return ResourceManager.GetString("StorageInfo_Part3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to . If you delete it from the repository, the file can not be obtained and you can .
+        /// </summary>
+        public static string StorageInfo_Part4 {
+            get {
+                return ResourceManager.GetString("StorageInfo_Part4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ..
+        /// </summary>
+        public static string StorageInfo_Part5 {
+            get {
+                return ResourceManager.GetString("StorageInfo_Part5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Take a picture.
         /// </summary>
         public static string TakePicture {
@@ -1006,7 +1078,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turn on your bluetooth by tap.
+        ///   Looks up a localized string similar to Turn on your bluetooth by tap here.
         /// </summary>
         public static string TurnOnBluetooth {
             get {
@@ -1024,7 +1096,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to After clicking on the &quot;Backup&quot; in the settings page will be displayed with information about the backup. Here you will find the date of the last backup, the backup identifier and settings. 1) Whether you want to do a backup after starting the application and 2) if you want the link to send backup to email..
+        ///   Looks up a localized string similar to After clicking on the &quot;Backup&quot; in the settings page, you will see information about the backup. Here you will find the date of the last backup, the backup identifier and settings. 1) Whether you want to do a backup after starting the application and 2) when you want to backup your data, you must login into cloud storage..
         /// </summary>
         public static string Tutorial_Backup_Description {
             get {
@@ -1042,7 +1114,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In advance of the main file displays the following menu. 1) Use this button to back up the main file 2) If the backup is created, you can refer to it in the browser (and store) or 3) let it send the email. If you have a backup identifier, you can enter 4) and then click this button to download..
+        ///   Looks up a localized string similar to There are four important buttons in the menu. 1) Use this button to back up the main file 2) If the backup is created, you can refer to it in the browser (and store) or 3) let it send the email. If you have a backup on cloud storage 4) you can download it by click on this button..
         /// </summary>
         public static string Tutorial_BackupFileMenu_Description {
             get {
@@ -1060,7 +1132,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In the side menu, you see three buttons. These are 1) a general backup, which backs up the main data file, 2) backup files and 3) backup videos. If you select automatic backup after launch, it is only a backup of the master file! Videos and pictures can be advanced manually. In the list you can see which items have not been backed up..
+        ///   Looks up a localized string similar to There are three important buttons in the side menu. These are 1) a general backup, which backs up the main data file, 2) backup images and 3) backup videos. If you select automatic backup after launch, it is only a backup the main data file! Videos and pictures can be backuped only manually. You can see which items have not been backed up in the lists of media..
         /// </summary>
         public static string Tutorial_BackupMenu_Description {
             get {
@@ -1078,7 +1150,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you click on the camera menu is displayed in front of you four menu. 1) Start and stop recording, 2) Take a photo, 3) Viewing your saved videos, 4) Viewing your saved photos..
+        ///   Looks up a localized string similar to If you click on the camera menu you will see four buttons in front of you. 1) Start and stop recording, 2) Take a photo, 3) Viewing your saved videos, 4) Viewing your saved photos..
         /// </summary>
         public static string Tutorial_CameraMenu_Description {
             get {
@@ -1114,7 +1186,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you click on the menu for refueling, appears in front of you two buttons and a list of tanking. 1) Used to record new refueling, 2) To show the average consumption and can be used to switch the display mode, 3) One entry in the list, detail can be viewed by clicking..
+        ///   Looks up a localized string similar to If you click on the menu for refueling, there are appears two buttons and a list of tanking in front of you. 1) Used to record new refueling, 2) To show the average consumption and can be used to switch the display mode, 3) One entry in the list, detail can be viewed by clicking..
         /// </summary>
         public static string Tutorial_FuelMenu_Description {
             get {
@@ -1150,7 +1222,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The main menu contains four main controls.  1) Camera, 2) Refueling, 3) Repairs and 4) Settings and others..
+        ///   Looks up a localized string similar to The main menu contains four main buttons. 1) Camera, 2) Refueling, 3) Repairs and 4) Settings and others..
         /// </summary>
         public static string Tutorial_MainScreen_Description_Two {
             get {
@@ -1168,7 +1240,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you click on the other menu (three dots), there appears in front of you a list of other settings. 1) Used to enable GPS, 2) Connect the OBD module if there are more, you can select them, 3) Is used to turn drive mode that accepts voice commands, 4) Is used for uploading or sending backup. In this menu are also buttons to set the units, links to social networks and more..
+        ///   Looks up a localized string similar to If you click on the other menu (three dots), there appears a list of other settings in front of you. 1) Used to enable GPS, 2) Connect the OBD module if there are more, you can select one, 3) Is used to turn drive mode that accepts voice commands, 4) Is used for uploading or sending backup. In this menu are also buttons to set the units, links to social networks and more..
         /// </summary>
         public static string Tutorial_MoreMenu_Description {
             get {
@@ -1186,7 +1258,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you click on 1) OBD button when device is connected to your mobile, you will see the actual data from the OBD module to display. All data are stored for later visualization and browsing condition of the car..
+        ///   Looks up a localized string similar to If you click on 1) OBD button when device is connected to your mobile, you will see the actual data from the OBD module on display. All data are stored for later visualization and browsing condition of the car..
         /// </summary>
         public static string Tutorial_ObdPage_Description {
             get {
@@ -1204,7 +1276,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you click on the menu for repairs, the button in front of you and a list of repairs. 1) Used to record new repair record, 2) One entry in the list can be viewed by clicking detail..
+        ///   Looks up a localized string similar to If you click on the menu for repairs, you will see the button and a list of repairs in front of you . 1) Used to create new repair record, 2) One entry in the list, detail can be viewed by clicking on it..
         /// </summary>
         public static string Tutorial_RepairMenu_Description {
             get {
@@ -1222,7 +1294,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The tutorial is over and you can always run the application menu..
+        ///   Looks up a localized string similar to The tutorial is over and you can always run the tutorial again from application menu..
         /// </summary>
         public static string Tutorial_ThanksEnd_Description {
             get {
@@ -1258,7 +1330,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CoPilot is an application that is used to record any information about the car. You can record video, take photos, keep records of refueling and repairs. When you connect the OBD also collect important data and then view them..
+        ///   Looks up a localized string similar to CoPilot is an application that is used to record any information about your car. You can record videos, take photos, keep records of refueling and repairs. When you connect the OBD also collect important data and then view them on desktop device..
         /// </summary>
         public static string Tutorial_WhatIsIt_Description {
             get {
@@ -1294,6 +1366,15 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Used accounts on backup.
+        /// </summary>
+        public static string UsedAccounts {
+            get {
+                return ResourceManager.GetString("UsedAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use gps senzor.
         /// </summary>
         public static string UseGpsSenzor {
@@ -1308,24 +1389,6 @@ namespace CoPilot.Resources {
         public static string UseObdDevice {
             get {
                 return ResourceManager.GetString("UseObdDevice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Video not found on your device. If you have this file backed up, you can see him at the address below. Otherwise, the file can no longer be recovered..
-        /// </summary>
-        public static string VideoNotFoundDescription {
-            get {
-                return ResourceManager.GetString("VideoNotFoundDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Video not found on your mobile..
-        /// </summary>
-        public static string VideoNotFoundTitle {
-            get {
-                return ResourceManager.GetString("VideoNotFoundTitle", resourceCulture);
             }
         }
         

@@ -28,8 +28,15 @@ namespace CoPilot.Utils.Dependencies
                 if (player.Source == null)
                 {
                     var videoPath = player.GetValue(VideoPathProperty) as String;
-                    stream = Storage.OpenFile(videoPath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Write);
-                    player.SetSource(stream);
+                    try
+                    {
+                        stream = Storage.OpenFile(videoPath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Write);
+                        player.SetSource(stream);
+                    }
+                    catch
+                    {
+                        FromUrl(player, videoPath);
+                    }
                 }
 
                 player.MediaEnded += MediaEnded;
@@ -60,7 +67,7 @@ namespace CoPilot.Utils.Dependencies
                 }
                 catch
                 {
-                    player.Source = null;
+                    FromUrl(player, videoPath);
                 }
             }
         }
@@ -81,6 +88,24 @@ namespace CoPilot.Utils.Dependencies
                 player.MediaEnded -= MediaEnded;
                 player.Source = null;
                 stream.Close();
+            }
+        }
+
+        /// <summary>
+        /// From Url
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="videoPath"></param>
+        private static void FromUrl(MediaElement player, string videoPath)
+        {
+            Uri url;
+            if (Uri.TryCreate(videoPath, UriKind.Absolute, out url))
+            {
+                player.Source = url;
+            }
+            else
+            {
+                player.Source = null;
             }
         }
 

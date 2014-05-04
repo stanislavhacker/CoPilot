@@ -16,7 +16,8 @@ namespace CoPilot.CoPilot.Controller
 {
     public class Data : Base
     {
-        public const string DATA_FILE = "co-pilot.xml";
+        public const string DATA_FILE_NAME = "co-pilot.xml";
+        public const string DATA_FILE = "/shared/transfers/" + DATA_FILE_NAME;
 
         //PRIVATE
         private Boolean changed = true;
@@ -50,7 +51,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Backup != null && !String.IsNullOrEmpty(data.Backup.DownloadUrl);
+                return data.Backup != null && !String.IsNullOrEmpty(data.Backup.Id);
             }
         }
 
@@ -402,40 +403,6 @@ namespace CoPilot.CoPilot.Controller
         }
 
         /// <summary>
-        /// Is email on backp
-        /// </summary>
-        public bool IsEmailOnBackup
-        {
-            get
-            {
-                return data.EmailOnBackup;
-            }
-            set
-            {
-                data.EmailOnBackup = value;
-                RaisePropertyChanged();
-                this.Save();
-            }
-        }
-
-        /// <summary>
-        /// Backup email
-        /// </summary>
-        public String BackupEmail
-        {
-            get
-            {
-                return data.BackupEmail;
-            }
-            set
-            {
-                data.BackupEmail = value;
-                RaisePropertyChanged();
-                this.Save();
-            }
-        }
-
-        /// <summary>
         /// Currency
         /// </summary>
         public Currency Currency
@@ -643,6 +610,18 @@ namespace CoPilot.CoPilot.Controller
         }
 
 
+        /// <summary>
+        /// Size
+        /// </summary>
+        public Double Size
+        {
+            get
+            {
+                return Math.Round(data.Size / 1048576, 3);
+            }
+        }
+
+
         #endregion
 
         /// <summary>
@@ -683,44 +662,34 @@ namespace CoPilot.CoPilot.Controller
                 data.Change = DateTime.Now;
                 data.Save(DATA_FILE, Storage.Get());
                 OnPropertyChanged("AvailableSpace");
+                OnPropertyChanged("Size");
             }
-        }
-
-        /// <summary>
-        /// Copy
-        /// </summary>
-        public void Copy(Stream stream)
-        {
-            data.Save(stream);
-        }
-
-        /// <summary>
-        /// Size
-        /// </summary>
-        public Double Size()
-        {
-            MemoryStream stream = new MemoryStream();
-            data.Save(stream);
-
-            Double size = stream.Length;
-
-            stream.Close();
-            stream.Dispose();
-
-            return Math.Round(size / 1048576, 3);
         }
 
         /// <summary>
         /// From backup
         /// </summary>
-        public void FromBackup(Records records)
+        public void FromBackup()
         {
-            this.data = records;
+            this.data = Records.Load(DATA_FILE, Storage.Get());
             //set globals
             RateExchange.CurrentCurrency = this.Currency;
             DistanceExchange.CurrentDistance = this.Distance;
             //refresh
             RaisePropertiesChanged();
+            //Start timer again
+            StartTimer();
+        }
+
+        /// <summary>
+        /// Stop timer
+        /// </summary>
+        public void Stop()
+        {
+            if (this.timer != null && this.timer.IsEnabled)
+            {
+                this.timer.Stop();
+            }
         }
 
         #region PRIVATES

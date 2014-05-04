@@ -172,6 +172,7 @@
     <Compile Include="Utils\Convertors\StepToVisibility.cs" />
     <Compile Include="Utils\Convertors\TrueToFalse.cs" />
     <Compile Include="Utils\Convertors\TutorialContextToVisibility.cs" />
+    <Compile Include="Utils\Convertors\ZeroToBoolean.cs" />
     <Compile Include="Utils\DataContainer.cs" />
     <Compile Include="Utils\Dependencies\MediaPlayerDependency.cs" />
     <Compile Include="Utils\Events\OdbEventArgs.cs" />
@@ -196,10 +197,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\AppResources.cs.resx" />
+    <EmbeddedResource Include="Resources\AppResources.cs.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +229,10 @@
       <Project>{56A546F8-D004-4B9D-9F8C-4A8C992DABDF}</Project>
       <Name>CoPilot.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CoPilot.OneDrive\CoPilot.OneDrive.csproj">
+      <Project>{14F476EB-B2E5-4E1E-839C-854B8F99A2FC}</Project>
+      <Name>CoPilot.OneDrive</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GpsCalculation\GpsCalculation.csproj">
       <Project>{F1A58417-2B01-45BD-8276-AE9B5727E252}</Project>
       <Name>GpsCalculation</Name>
@@ -232,10 +240,6 @@
     <ProjectReference Include="..\OdbCommunicator\OdbCommunicator.csproj">
       <Project>{9B015567-30FD-4966-B269-B9873B3ECE69}</Project>
       <Name>OdbCommunicator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SendSpace\SendSpace.csproj">
-      <Project>{7596BDAD-ECE5-463A-B75F-80AC5309AB91}</Project>
-      <Name>SendSpace</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -279,6 +283,7 @@
     <Content Include="Resources\Images\Info\cheap.png" />
     <Content Include="Resources\Images\Info\date.png" />
     <Content Include="Resources\Images\Info\money.png" />
+    <Content Include="Resources\Images\Info\onedrive.png" />
     <Content Include="Resources\Images\Info\refueled.png" />
     <Content Include="Resources\Images\Info\service.png" />
     <Content Include="Resources\Images\Info\speech.png" />

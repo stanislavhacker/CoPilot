@@ -1,5 +1,7 @@
 ﻿using CoPilot.Core.Data;
 using CoPilot.Core.Utils;
+using CoPilot.Interfaces;
+using CoPilot.Interfaces.Types;
 using CoPilot.Resources;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.Globalization;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
@@ -22,16 +25,19 @@ namespace CoPilot.Utils.Convertors
             if (type == typeof(ObservableCollection<Picture>)) 
             {
                 ObservableCollection<Picture> pictures = (ObservableCollection<Picture>)value;
-                var sorted = pictures.Select<Picture, MediaWithProgress>((e) =>
+                var sorted = pictures.OrderBy((e) =>
                 {
-                    var progress = new MediaWithProgress();
-                    progress.Picture = e;
-                    progress.Progress = new ProgressUpdater();
+                    return e.Backup != null;
+                }).Select<Picture, Progress>((e) =>
+                {
+                    var progress = new Progress();
+                    progress.Cancel = new CancellationToken();
+                    progress.Selected = false;
+                    progress.Type = FileType.Photo;
+                    progress.Url = new Uri(e.Path, UriKind.Relative);
+                    progress.Data = e;
                     this.getFileSize(progress);
                     return progress;
-                }).OrderBy((e) =>
-                {
-                    return e.Picture.Backups.Count;
                 });
                 return sorted;
             }
@@ -39,16 +45,19 @@ namespace CoPilot.Utils.Convertors
             if (type == typeof(ObservableCollection<Video>))
             {
                 ObservableCollection<Video> videos = (ObservableCollection<Video>)value;
-                var sorted = videos.Select<Video, MediaWithProgress>((e) =>
+                var sorted = videos.OrderBy((e) =>
                 {
-                    var progress = new MediaWithProgress();
-                    progress.Video = e;
-                    progress.Progress = new ProgressUpdater();
+                    return e.VideoBackup != null;
+                }).Select<Video, Progress>((e) =>
+                {
+                    var progress = new Progress();
+                    progress.Cancel = new CancellationToken();
+                    progress.Selected = false;
+                    progress.Type = FileType.Video;
+                    progress.Url = new Uri(e.Path, UriKind.Relative);
+                    progress.Data = e;
                     this.getFileSize(progress);
                     return progress;
-                }).OrderBy((e) =>
-                {
-                    return e.Video.VideoBackups.Count;
                 });
                 return sorted;
             }
@@ -64,30 +73,33 @@ namespace CoPilot.Utils.Convertors
         /// Get file size
         /// </summary>
         /// <param name="progress"></param>
-        private async Task getFileSize(MediaWithProgress progress)
+        private async Task getFileSize(Progress progress)
         {
-            if (progress.Size != null)
+            if (!string.IsNullOrEmpty(progress.Size))
             {
                 return;
             }
 
+            Random r = new Random();
+
+            //unknown
+            progress.Size = AppResources.UnknownSize;
+
+            await Task.Delay(r.Next(20, 200));
             await Task.Run(() =>
             {
-                progress.Size = AppResources.UnknownSize;
-
-                IsolatedStorageFileStream file = null;
-                if (progress.Picture != null)
+                //check size
+                try 
                 {
-                    file = Storage.OpenFile(progress.Picture.Path, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
-                }
-                if (progress.Video != null)
-                {
-                    file = Storage.OpenFile(progress.Video.Path, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
-                }
-
-                Double size = (int)file.Length / 1048576.0;
-                progress.Size = Math.Round(size, size < 1 ? 3 : 1) + " MB";
-                file.Dispose();
+                    IsolatedStorageFileStream file = Storage.OpenFile(progress.Url.OriginalString, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
+                    Double size = (int)file.Length / 1048576.0;
+                    file.Dispose();
+                    App.RootFrame.Dispatcher.BeginInvoke(() =>
+                    {
+                        progress.Size = Math.Round(size, size < 1 ? 3 : 1) + " MB";
+                    });
+                } 
+                catch {}
             });
         }
     }

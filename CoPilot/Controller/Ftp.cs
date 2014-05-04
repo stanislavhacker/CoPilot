@@ -1,8 +1,6 @@
 ﻿using CoPilot.Core.Utils;
 using Interfaces = CoPilot.Interfaces;
 using CoPilot.Utils;
-using SendSpace;
-using SendSpace.Responses;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,23 +12,21 @@ using System.Text;
 using System.Threading.Tasks;
 using Controllers = CoPilot.CoPilot.Controller;
 using CoPilot.Resources;
+using CoPilot.Interfaces.EventArgs;
+using CoPilot.OneDrive;
+using CoPilot.Interfaces.Types;
+using CoPilot.Interfaces;
+using System.Threading;
+using CoPilot.Core.Data;
 
 namespace CoPilot.CoPilot.Controller
 {
     public class Ftp : Base
     {
-        #region PRIVATE
-
-        private const String SEND_SHARE_CLIENT_ID = "3ULHVRPN1L";
-
-        #endregion
-
         #region EVENTS
 
-        public event EventHandler<Interfaces.EventArgs.ExceptionEventArgs> onError;
-        public event EventHandler<Interfaces.EventArgs.UploadEventArgs> onUploaded;
-        public event EventHandler<Interfaces.EventArgs.UriEventArgs> onUrl;
-        public event EventHandler<Interfaces.EventArgs.StreamEventArgs> onDownloaded;
+        public event EventHandler<StateEventArgs> OnStateChange;
+        public event EventHandler<ErrorEventArgs> Error;
 
         #endregion
 
@@ -50,6 +46,7 @@ namespace CoPilot.CoPilot.Controller
             {
                 isWifiEnabled = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("IsOneDriveAvailable");
             }
         }
 
@@ -61,46 +58,11 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return isNetEnabled;
+                return isNetEnabled && isLogged;
             }
             set
             {
                 isNetEnabled = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Is progress
-        /// </summary>
-        private Boolean isUpload = false;
-        public Boolean IsUpload
-        {
-            get
-            {
-                return isUpload;
-            }
-            set
-            {
-                isUpload = value;
-                RaisePropertyChanged();
-            }
-        }
-
-
-        /// <summary>
-        /// Is download
-        /// </summary>
-        private Boolean isDownload = false;
-        public Boolean IsDownload
-        {
-            get
-            {
-                return isDownload;
-            }
-            set
-            {
-                isDownload = value;
                 RaisePropertyChanged();
             }
         }
@@ -122,54 +84,37 @@ namespace CoPilot.CoPilot.Controller
             }
         }
 
+
         /// <summary>
-        /// Main data file
+        /// IsLogged
         /// </summary>
-        private ProgressUpdater mainDataFile;
-        public ProgressUpdater MainDataFile
+        public Boolean isLogged = false;
+        public Boolean IsLogged
         {
             get
             {
-                return mainDataFile;
+                return isLogged;
             }
             set
             {
-                mainDataFile = value;
+                isLogged = value;
+
                 RaisePropertyChanged();
+                RaisePropertyChanged("IsWifiEnabled");
+                RaisePropertyChanged("IsNetEnabled");
+                RaisePropertyChanged("IsOneDriveAvailable");
             }
         }
 
         /// <summary>
-        /// Is media backup
+        /// Is OneDrive available
         /// </summary>
-        private Boolean isMediaBackup = false;
-        public Boolean IsMediaBackup
+        public Boolean isOneDriveAvailable = false;
+        public Boolean IsOneDriveAvailable
         {
             get
             {
-                return isMediaBackup;
-            }
-            set
-            {
-                isMediaBackup = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// Backup front
-        /// </summary>
-        private ObservableCollection<MediaWithProgress> backupFront = new ObservableCollection<MediaWithProgress>();
-        public ObservableCollection<MediaWithProgress> BackupFront
-        {
-            get
-            {
-                return backupFront;
-            }
-            set
-            {
-                backupFront = value;
-                RaisePropertyChanged();
+                return !IsLogged && Settings.Get("StorageConnected") != true.ToString() && IsWifiEnabled;
             }
         }
 
@@ -196,139 +141,123 @@ namespace CoPilot.CoPilot.Controller
 
         #endregion
 
+        #region PRIVATE
+
+        private NetClient client = null;
+
+        #endregion
+
         /// <summary>
         /// Ftp controller
         /// </summary>
         public Ftp()
         {
-            //progresses
-            this.MainDataFile = new ProgressUpdater();
+            this.client = new OneDriveClient();
+
+            ///State change
+            this.client.State += (object sender, StateEventArgs e) =>
+            {
+                this.IsLogged = e.State == ConnectionStatus.Connected;
+                if (OnStateChange != null)
+                {
+                    OnStateChange.Invoke(this, e);
+                }
+            };
+
+            ///Error
+            this.client.Error += (object sender, ErrorEventArgs e) =>
+            {
+                if (Error != null)
+                {
+                    Error.Invoke(this, e);
+                }
+            };
         }
 
         /// <summary>
-        /// Upload file to stream
+        /// Try login
         /// </summary>
-        /// <param name="file"></param>
-        public void Upload(String name, String contentType, Stream file, ProgressUpdater updater, object state, bool sendEmail = false)
+        public void TryLogin()
         {
-            this.IsUpload = true;
-            updater.IsIndetermine = true;
-
-            Interfaces.NetClient client = this.getClient();
-
-            //send email
-            if (DataController.IsEmailOnBackup && DataController.BackupEmail != "" && sendEmail)
-            {
-                client.Email(DataController.BackupEmail, AppResources.SendByEmailSubject);
-            }
-
-            client.Upload(name, contentType, file);
-            client.UploadProgress += (object sender, Interfaces.EventArgs.ProgressEventArgs e) =>
-            {
-                if (e.Progress.Status == "ok")
-                {
-                    updater.Eta = e.Progress.Eta;
-                    updater.Percent = e.Progress.Percent;
-                    updater.Speed = e.Progress.Speed;
-                    updater.IsIndetermine = false;
-                }
-            };
-            client.UploadComplete += (object sender, Interfaces.EventArgs.UploadEventArgs e) =>
-            {
-                updater.IsIndetermine = false;
-                updater.Eta = "";
-                updater.Percent = 100;
-                updater.Speed = 0;
-
-                if (onUploaded != null)
-                {
-                    onUploaded.Invoke(state, e);
-                }
-
-                this.IsUpload = false;
-            };
-            client.UploadError += (object sender, Interfaces.EventArgs.ExceptionEventArgs e) =>
-            {
-                updater.IsIndetermine = false;
-                updater.Eta = "";
-                updater.Percent = 100;
-                updater.Speed = 0;
-
-                if (onError != null)
-                {
-                    onError.Invoke(state, e);
-                }
-
-                this.IsUpload = false;
-            };
+            this.client.TryLogin();
         }
 
         /// <summary>
-        /// Open url
+        /// Login into service
         /// </summary>
-        /// <param name="url"></param>
-        public void Open(string url)
+        /// <param name="serviceType"></param>
+        public async Task Login()
         {
-            this.IsOpen = true;
-
-            Interfaces.NetClient client = this.getClient();
-            client.Get(url);
-            client.GetComplete += (object sender, Interfaces.EventArgs.UriEventArgs e) =>
-            {
-                if (e != null && onUrl != null)
-                {
-                    onUrl.Invoke(this, e);
-                }
-                this.IsOpen = false;
-            };
+            await this.client.Login();
         }
 
         /// <summary>
-        /// Delete file
+        /// Upload
         /// </summary>
-        /// <param name="url"></param>
-        public void Delete(string url)
+        /// <param name="location"></param>
+        /// <param name="type"></param>
+        /// <param name="token"></param>
+        /// <param name="bar"></param>
+        /// <returns></returns>
+        public async Task<Response> Upload(Progress bar)
         {
-            Interfaces.NetClient client = this.getClient();
-            client.Delete(url);
-            client.DeleteComplete += (object sender, EventArgs e) =>
-            {
-                System.Diagnostics.Debug.WriteLine("Deleted old backup on " + url);
-            };
+            Response response = await client.Upload(bar);
+            return response;
         }
 
         /// <summary>
-        /// Download by id
+        /// get video url
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="state"></param>
-        public void Download(string id, object state)
+        /// <returns></returns>
+        public async Task<Response> VideoUrl(String id)
         {
-            this.IsDownload = true;
-
-            Interfaces.NetClient client = this.getClient();
-            client.Download(id);
-            client.DownloadComplete += (object sender, Interfaces.EventArgs.StreamEventArgs e) =>
-            {
-                this.IsDownload = false;
-                if (e != null && onDownloaded != null)
-                {
-                    onDownloaded.Invoke(state, e);
-                }
-            };
-            client.DownloadError += (object sender, Interfaces.EventArgs.ExceptionEventArgs e) =>
-            {
-                this.IsDownload = false;
-                onDownloaded.Invoke(state, null);
-            };
+            Response response = await client.Url(id);
+            return response;
         }
 
         /// <summary>
-        /// Update sizes
+        /// Download
         /// </summary>
-        public void UpdateSizes()
+        /// <param name="id"></param>
+        /// <param name="location"></param>
+        /// <param name="type"></param>
+        /// <param name="token"></param>
+        /// <param name="bar"></param>
+        /// <returns></returns>
+        public async Task<DownloadStatus> Download(String id, Progress bar)
         {
-            this.MainDataFile.Size = DataController.Size();
+            DownloadStatus response = await client.Download(id, bar);
+            return response;
+        }
+
+        /// <summary>
+        /// Download main backup
+        /// </summary>
+        /// <param name="DownloadProgress"></param>
+        /// <returns></returns>
+        public async Task<DownloadStatus> Download(Progress bar)
+        {
+            bar.InProgress = true;
+            var response = await client.BackupId(Data.DATA_FILE_NAME);
+            if (response != null)
+            {
+                return await client.Download(response.Id, bar);
+            }
+            else
+            {
+                return DownloadStatus.Fail;
+            }
+        }
+
+        /// <summary>
+        /// Download video preview
+        /// </summary>
+        /// <param name="DownloadProgress"></param>
+        /// <returns></returns>
+        public async Task<DownloadStatus> Preview(String id, Progress bar)
+        {
+            return await client.Preview(id, bar);
         }
 
         /// <summary>
@@ -340,7 +269,17 @@ namespace CoPilot.CoPilot.Controller
             if (canBackup) 
             {
                 await Task.Delay(3000);
-                this.ProcessBackup("MainData");
+
+                var progress = new Progress();
+                progress.BytesTransferred = 0;
+                progress.ProgressPercentage = 0;
+                progress.Selected = true;
+                progress.TotalBytes = 0;
+                progress.Url = new Uri(Controllers.Data.DATA_FILE, UriKind.Relative);
+                progress.Cancel = new System.Threading.CancellationToken();
+                progress.Type = Interfaces.Types.FileType.Data;
+
+                await this.ProcessBackup(progress);
             }
         }
 
@@ -350,115 +289,42 @@ namespace CoPilot.CoPilot.Controller
         /// Process backup
         /// </summary>
         /// <param name="p"></param>
-        public void ProcessBackup(string name)
+        public async Task<Response> ProcessBackup(Interfaces.Progress progress)
         {
-            if (this.IsUpload)
-            {
-                return;
-            }
-
-            switch (name)
-            {
-                case "MainData":
-                    MemoryStream stream = new MemoryStream();
-                    DataController.Copy(stream);
-                    var file = Controllers.Data.DATA_FILE;
-                    this.Upload(file, "text/xml", stream, this.MainDataFile, file, true);
-                    break;
-                default:
-                    break;
-            }
+            return await this.Upload(progress);
         }
 
         /// <summary>
         /// Process media backup
         /// </summary>
         /// <param name="observableCollection"></param>
-        public void ProcessBackup(ObservableCollection<MediaWithProgress> media)
+        public async Task ProcessBackup(ObservableCollection<Progress> data)
         {
-            //add all
-            foreach (MediaWithProgress medium in media) 
+            foreach (Progress progress in data) 
             {
-                this.BackupFront.Add(medium);
+                //response
+                Response response = await this.Upload(progress);
+
+                //info
+                BackupInfo info = new BackupInfo();
+                info.Date = DateTime.Now;
+                info.Id = response.Id;
+                info.Url = response.Url;
+
+                //save
+                if (progress.Data.GetType() == typeof(Video))
+                {
+                    (progress.Data as Video).VideoBackup = info;
+                    (progress.Data as Video).CallPropertyChangedOnAll();
+                }
+                if (progress.Data.GetType() == typeof(Picture))
+                {
+                    (progress.Data as Picture).Backup = info;
+                    (progress.Data as Picture).CallPropertyChangedOnAll();
+                }
             }
 
-            //clear all
-            media.Clear();
-
-            if (!this.IsMediaBackup)
-            {
-                this.IsMediaBackup = true;
-                //call first
-                this.NextMedia();
-            }
-        }
-
-        /// <summary>
-        /// Next media upload
-        /// </summary>
-        public void NextMedia()
-        {
-            //end of front
-            if (BackupFront.Count == 0)
-            {
-                this.IsMediaBackup = false;
-                this.BackupFront = new ObservableCollection<MediaWithProgress>();
-                return;
-            }
-
-            MediaWithProgress first = BackupFront.ElementAt(0);
-            BackupFront.RemoveAt(0);
-
-            //for picture
-            if (first.Picture != null) {
-                var stream = Storage.OpenFile(first.Picture.Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                this.Upload(first.Picture.Path, "image/jpeg", stream, first.Progress, first);
-            }
-
-            //for video preview
-            if (first.Preview != null)
-            {
-                var previewStream = Storage.OpenFile(first.Preview.Preview, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                this.Upload(first.Preview.Preview, "image/jpeg", previewStream, first.Progress, first);
-            }
-
-            //for video
-            if (first.Video != null)
-            {
-                var videoStream = Storage.OpenFile(first.Video.Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                this.Upload(first.Video.Path, "video/mp4", videoStream, first.Progress, first);
-            }
-        }
-
-
-
-        /// <summary>
-        /// Process show
-        /// </summary>
-        /// <param name="name"></param>
-        public void ProcessShow(string name)
-        {
-            switch (name)
-            {
-                case "MainData":
-                    this.Open(DataController.Backup.DownloadUrl);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        #endregion
-
-        #region PRIVATE
-
-        /// <summary>
-        /// Get net client
-        /// </summary>
-        /// <returns></returns>
-        private Interfaces.NetClient getClient()
-        {
-            return new SendSpaceClient(SEND_SHARE_CLIENT_ID);
+            data.Clear();
         }
 
         #endregion

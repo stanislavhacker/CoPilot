@@ -103,7 +103,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return camera != null && !this.IsRecording && IsAvailableSpaceForPhoto;
+                return camera != null && !this.IsRecording && this.IsCameraEnabled && this.IsAvailableSpaceForPhoto;
             }
         }
 
@@ -338,6 +338,7 @@ namespace CoPilot.CoPilot.Controller
             }
             OnPropertyChanged("IsSupported");
             OnPropertyChanged("IsCameraEnabled");
+            OnPropertyChanged("IsShotEnabled");
         }
 
         /// <summary>
@@ -368,6 +369,7 @@ namespace CoPilot.CoPilot.Controller
 
             this.startRecording = true;
             OnPropertyChanged("IsCameraEnabled");
+            OnPropertyChanged("IsShotEnabled");
             await Task.Delay(500);
             this.triggerRecordChange();
             this.source.CaptureImageAsync();
@@ -386,6 +388,7 @@ namespace CoPilot.CoPilot.Controller
 
             this.stopRecording = true;
             OnPropertyChanged("IsCameraEnabled");
+            OnPropertyChanged("IsShotEnabled");
             await Task.Delay(500);
             this.triggerRecordChange();
         }
@@ -426,9 +429,8 @@ namespace CoPilot.CoPilot.Controller
                 video.Time = DateTime.Now;
                 video.Rotated = this.Orientation == PageOrientation.LandscapeRight;
                 video.Duration = TimeSpan.Zero;
-                video.VideoBackups = new ObservableCollection<BackupInfo>();
-                video.PreviewBackups = new ObservableCollection<BackupInfo>();
-
+                video.VideoBackup = new BackupInfo();
+   
                 this.createCamera(video.Path);
 
                 this.startRecording = false;
@@ -471,16 +473,12 @@ namespace CoPilot.CoPilot.Controller
         /// <summary>
         /// Picture save event
         /// </summary>
-        private void triggerPictureSave(String name)
+        private void triggerPictureSave(Picture picture)
         {
             if (this.PictureSave != null)
             {
                 PictureSaveEventArgs args = new PictureSaveEventArgs();
-                args.Picture = new Picture();
-                args.Picture.Path = name;
-                args.Picture.Time = DateTime.Now;
-                args.Picture.Rotated = this.Orientation == PageOrientation.LandscapeRight;
-                args.Picture.Backups = new ObservableCollection<BackupInfo>();
+                args.Picture = picture;
 
                 this.PictureSave.Invoke(this, args);
             }
@@ -499,16 +497,22 @@ namespace CoPilot.CoPilot.Controller
                 return;
             }
 
-            var wb = e.Result;
             var name = this.getFileName("jpg");
-            var stream = Storage.CreateFile(name);
+            Picture picture = new Picture();
+            picture.Path = name;
+            picture.Time = DateTime.Now;
+            picture.Rotated = this.Orientation == PageOrientation.LandscapeRight;
+            picture.Backup = new BackupInfo();
+
+            var wb = e.Result;
+            var stream = Storage.CreateFile(picture.Path);
             wb.SaveJpeg(stream, wb.PixelWidth, wb.PixelHeight, 0, 60);
             stream.Close();
 
             if (this.IsRecording) {
                 this.video.Preview = name;
             } else {
-                this.triggerPictureSave(name);
+                this.triggerPictureSave(picture);
             }
         }
 

@@ -18,6 +18,10 @@ using Microsoft.Phone.Tasks;
 using Data = CoPilot.Core.Data;
 using System.Collections.ObjectModel;
 using CoPilot.Core.Utils;
+using CoPilot.Interfaces;
+using CoPilot.CoPilot.Controller;
+using System.Threading.Tasks;
+using CoPilot.Core.Data;
 
 namespace CoPilot.CoPilot.View
 {
@@ -35,8 +39,8 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    MediaWithProgress picture = (MediaWithProgress)param;
-                    if (picture.IsChecked)
+                    Progress picture = (Progress)param;
+                    if (picture.Selected)
                     {
                         Pictures.Add(picture);
                     }
@@ -57,8 +61,8 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    MediaWithProgress video = (MediaWithProgress)param;
-                    if (video.IsChecked)
+                    Progress video = (Progress)param;
+                    if (video.Selected)
                     {
                         Videos.Add(video);
                     }
@@ -80,7 +84,7 @@ namespace CoPilot.CoPilot.View
                 return new RelayCommand((param) =>
                 {
                     NavigationService.Navigate("/CoPilot/View/Pictures.xaml", this.GetPictureDataContainer(param as Data.Picture));
-                }, param => !this.FtpController.IsMediaBackup);
+                }, param => true);
             }
         }
 
@@ -94,7 +98,7 @@ namespace CoPilot.CoPilot.View
                 return new RelayCommand((param) =>
                 {
                     NavigationService.Navigate("/CoPilot/View/Videos.xaml", this.GetVideoDataContainer(param as Data.Video));
-                }, param => !this.FtpController.IsMediaBackup);
+                }, param => true);
             }
         }
 
@@ -105,21 +109,41 @@ namespace CoPilot.CoPilot.View
         {
             get
             {
-                return new RelayCommand((param) =>
+                return new RelayCommand(async (param) =>
                 {
                     String name = (String)param;
                     switch (name)
                     {
                         case "MainData":
-                            FtpController.ProcessBackup(name);
+
+                            if (UploadProgress.InProgress)
+                            {
+                                return;
+                            }
+
+                            await ProcessBackupUpload();
                             break;
                         case "Images":
-                            FtpController.ProcessBackup(this.Pictures);
+
+                            if (this.IsImageBackup)
+                            {
+                                return;
+                            }
+
+                            this.IsImageBackup = true;
+                            await FtpController.ProcessBackup(this.Pictures);
+                            this.IsImageBackup = false;
                             break;
                         case "Videos":
-                            var videos = this.getVideosArray();
-                            this.Videos.Clear();
-                            FtpController.ProcessBackup(videos);
+
+                            if (this.IsVideoBackup)
+                            {
+                                return;
+                            }
+
+                            this.IsVideoBackup = true;
+                            await FtpController.ProcessBackup(this.Videos);
+                            this.IsVideoBackup = false;
                             break;
                         default:
                             break;
@@ -137,7 +161,7 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    FtpController.ProcessShow((String)param);
+                    this.ProcessShow((String)param);
                 }, param => true);
             }
         }
@@ -227,33 +251,15 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
-        /// Focus file id Command
+        /// OneDriveCommand Command
         /// </summary>
-        public ICommand FocusFileIdCommand
+        public ICommand OneDriveCommand
         {
             get
             {
-                return new RelayCommand((param) =>
+                return new RelayCommand(async (param) =>
                 {
-                    if (this.FileId == AppResources.EnterFileId)
-                    {
-                        this.FileId = "";
-                    }
-                    this.FileIdStyle = App.Current.Resources["Value"] as Style;
-                }, param => true);
-            }
-        }
-
-        /// <summary>
-        /// Blur file id Command
-        /// </summary>
-        public ICommand BlurFileIdCommand
-        {
-            get
-            {
-                return new RelayCommand((param) =>
-                {
-                    updateFileIdField();
+                    await showLoginScreen();
                 }, param => true);
             }
         }
@@ -286,8 +292,8 @@ namespace CoPilot.CoPilot.View
         /// <summary>
         /// Pictures with progress
         /// </summary>
-        private ObservableCollection<MediaWithProgress> pictures = new ObservableCollection<MediaWithProgress>();
-        public ObservableCollection<MediaWithProgress> Pictures
+        private ObservableCollection<Progress> pictures = new ObservableCollection<Progress>();
+        public ObservableCollection<Progress> Pictures
         {
             get
             {
@@ -298,8 +304,8 @@ namespace CoPilot.CoPilot.View
         /// <summary>
         /// Videos with progress
         /// </summary>
-        private ObservableCollection<MediaWithProgress> videos = new ObservableCollection<MediaWithProgress>();
-        public ObservableCollection<MediaWithProgress> Videos
+        private ObservableCollection<Progress> videos = new ObservableCollection<Progress>();
+        public ObservableCollection<Progress> Videos
         {
             get
             {
@@ -308,40 +314,72 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
-        /// File id style
+        /// IsImageBackup
         /// </summary>
-        private Style fileIdStyle = App.Current.Resources["ValueEmpty"] as Style;
-        public Style FileIdStyle
+        public Boolean isImageBackup = false;
+        public Boolean IsImageBackup
         {
             get
             {
-                return fileIdStyle;
+                return isImageBackup;
             }
             set
             {
-                fileIdStyle = value;
+                isImageBackup = value;
                 RaisePropertyChanged();
             }
         }
 
         /// <summary>
-        /// File id
+        /// IsVideoBackup
         /// </summary>
-        private String fileId = null;
-        public String FileId
+        public Boolean isVideoBackup = false;
+        public Boolean IsVideoBackup
         {
             get
             {
-                return fileId;
+                return isVideoBackup;
             }
             set
             {
-                fileId = value;
+                isVideoBackup = value;
                 RaisePropertyChanged();
             }
         }
 
+        /// <summary>
+        /// Download progress
+        /// </summary>
+        public Progress downloadProgress = new Progress();
+        public Progress DownloadProgress
+        {
+            get
+            {
+                return downloadProgress;
+            }
+            set
+            {
+                downloadProgress = value;
+                RaisePropertyChanged();
+            }
+        }
 
+        /// <summary>
+        /// Upload progress
+        /// </summary>
+        public Progress uploadProgress = new Progress();
+        public Progress UploadProgress
+        {
+            get
+            {
+                return uploadProgress;
+            }
+            set
+            {
+                uploadProgress = value;
+                RaisePropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Ftp controller
@@ -421,8 +459,6 @@ namespace CoPilot.CoPilot.View
             InitializeComponent();
             InitializeControllers();
 
-            updateFileIdField();
-
             this.DataContext = this;
         }
 
@@ -462,18 +498,41 @@ namespace CoPilot.CoPilot.View
         #region PRIVATE
 
         /// <summary>
-        /// Update file id fields
+        /// Show login screen
         /// </summary>
-        private void updateFileIdField()
+        /// <returns></returns>
+        private async Task showLoginScreen()
         {
-            if (String.IsNullOrEmpty(this.FileId))
+            //visibility
+            this.Visibility = System.Windows.Visibility.Collapsed;
+            
+            this.SupportedOrientations = SupportedPageOrientation.Portrait;
+            await this.FtpController.Login();
+            this.SupportedOrientations = SupportedPageOrientation.Landscape;
+            
+            //show
+            await Task.Delay(500);
+            this.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Process show
+        /// </summary>
+        /// <param name="name"></param>
+        private void ProcessShow(string name)
+        {
+            switch (name)
             {
-                this.FileId = AppResources.EnterFileId;
-                this.FileIdStyle = App.Current.Resources["ValueEmpty"] as Style;
-            }
-            else
-            {
-                this.FileIdStyle = App.Current.Resources["Value"] as Style;
+                case "MainData":
+                    if (!String.IsNullOrEmpty(this.DataController.Backup.Url))
+                    {
+                        WebBrowserTask task = new WebBrowserTask();
+                        task.Uri = new Uri(DataController.Backup.Url);
+                        task.Show();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -481,17 +540,12 @@ namespace CoPilot.CoPilot.View
         /// Downlaod backup
         /// </summary>
         /// <param name="name"></param>
-        private void downloadBackup(string name)
+        private async void downloadBackup(string name)
         {
             switch (name)
             {
                 case "MainData":
-                    if (this.FileId != AppResources.EnterFileId && !String.IsNullOrEmpty(this.FileId))
-                    {
-                        FtpController.Download(this.FileId, "MainData");
-                        this.FileId = null;
-                        this.updateFileIdField();
-                    }
+                    await ProcessBackupDownload();
                     break;
                 default:
                     break;
@@ -509,7 +563,7 @@ namespace CoPilot.CoPilot.View
             switch (name)
             {
                 case "MainData":
-                    url = DataController.Backup.DownloadUrl;
+                    url = DataController.Backup.Url;
                     id = DataController.Backup.Id;
                     break;
                 default:
@@ -552,28 +606,91 @@ namespace CoPilot.CoPilot.View
             MenuController.Context = Controllers.MenuContext.VideoBackup;
         }
 
+
+
         /// <summary>
-        /// Get videos
+        /// ProcessBackupDownload
         /// </summary>
         /// <returns></returns>
-        private ObservableCollection<MediaWithProgress> getVideosArray()
+        private async Task ProcessBackupDownload()
         {
-            var videos = this.Videos;
-            var collection = new ObservableCollection<MediaWithProgress>();
-
-            foreach (MediaWithProgress video in videos) 
+            if (DownloadProgress.InProgress)
             {
-                var preview = new MediaWithProgress();
-                preview.IsChecked = video.IsChecked;
-                preview.Preview = video.Video;
-                preview.Progress = video.Progress;
-                preview.Size = "0";
-
-                collection.Add(preview);
-                collection.Add(video);
+                return;
             }
 
-            return collection;
+            //check backup
+            var result = MessageBox.Show(AppResources.BackupApplyDescription, AppResources.BackupApplyTitle, MessageBoxButton.OKCancel);
+            if (result != MessageBoxResult.OK)
+            {
+                return;
+            }
+
+            DownloadProgress.BytesTransferred = 0;
+            DownloadProgress.Cancel = new System.Threading.CancellationToken();
+            DownloadProgress.ProgressPercentage = 0;
+            DownloadProgress.Selected = true;
+            DownloadProgress.TotalBytes = 0;
+            DownloadProgress.Type = Interfaces.Types.FileType.Data;
+            DownloadProgress.Url = new Uri(Controllers.Data.DATA_FILE, UriKind.Relative);
+
+            //stop saving data
+            DataController.Stop();
+
+            //download and apply backup
+            DownloadStatus state = await FtpController.Download(DownloadProgress);
+
+            //unselect
+            DownloadProgress.Selected = false;
+            DownloadProgress.InProgress = false;
+
+            if (state == DownloadStatus.Complete)
+            {
+                //load data
+                DataController.FromBackup();
+            }
+            else
+            {
+                MessageBox.Show(AppResources.BackupNotFoundDescription, AppResources.BackupNotFoundTitle, MessageBoxButton.OK);
+            }
+        }
+
+        /// <summary>
+        /// ProcessBackupUpload
+        /// </summary>
+        /// <returns></returns>
+        private async Task ProcessBackupUpload()
+        {
+            UploadProgress.BytesTransferred = 0;
+            UploadProgress.ProgressPercentage = 0;
+            UploadProgress.Selected = true;
+            UploadProgress.TotalBytes = 0;
+            UploadProgress.Url = new Uri(Controllers.Data.DATA_FILE, UriKind.Relative);
+            UploadProgress.Cancel = new System.Threading.CancellationToken();
+            UploadProgress.Type = Interfaces.Types.FileType.Data;
+
+            //upload and save backup
+            Response response = await FtpController.ProcessBackup(UploadProgress);
+            DataController.Backup = createBackupInfo(response);
+
+            //unselect
+            UploadProgress.Selected = false;
+            UploadProgress.InProgress = false;
+        }
+
+        /// <summary>
+        /// createBackupInfo
+        /// </summary>
+        /// <param name="response"></param>
+        private static Data.BackupInfo createBackupInfo(Response response)
+        {
+            //create new
+            Data.BackupInfo info = new Data.BackupInfo();
+            info.Url = response.Url;
+            info.Date = DateTime.Now;
+            info.Id = response.Id;
+
+            return info;
         }
 
         #endregion 
@@ -666,7 +783,11 @@ namespace CoPilot.CoPilot.View
                 this.DataController = container.DataController;
             }
 
-            this.FtpController.UpdateSizes();
+            //show message
+            if (FtpController.IsOneDriveAvailable)
+            {
+                MessageBox.Show(AppResources.Backup_NotSignedIn_Description, AppResources.Backup_NotSignedIn, MessageBoxButton.OK);
+            }
 
             if (App.IsInactiveMode)
             {

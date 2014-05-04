@@ -314,9 +314,6 @@
   <data name="DownloadBackup" xml:space="preserve">
     <value>Download backup</value>
   </data>
-  <data name="EnterFileId" xml:space="preserve">
-    <value>File id</value>
-  </data>
   <data name="SendByEmail" xml:space="preserve">
     <value>Send backup link by email</value>
   </data>
@@ -327,7 +324,7 @@
     <value>Link on your backup</value>
   </data>
   <data name="DownloadBackupHelp" xml:space="preserve">
-    <value>Enter your backup id and click on button</value>
+    <value>Click here to download bacup from your storage</value>
   </data>
   <data name="LastBackup" xml:space="preserve">
     <value>Last backup</value>
@@ -336,19 +333,13 @@
     <value>no backup</value>
   </data>
   <data name="BackupApplyDescription" xml:space="preserve">
-    <value>Do you really wan to load this backup? This action is not reversable!</value>
+    <value>Do you really wan to load backup from cloud storage? This action is not reversable!</value>
   </data>
   <data name="BackupApplyTitle" xml:space="preserve">
-    <value>Apply backup from {0}?</value>
+    <value>Load backup?</value>
   </data>
   <data name="Unknown" xml:space="preserve">
     <value>unknown</value>
-  </data>
-  <data name="BackupNotFoundDescription" xml:space="preserve">
-    <value>Backup file with given id not found on server.</value>
-  </data>
-  <data name="BackupNotFoundTitle" xml:space="preserve">
-    <value>Backup not found</value>
   </data>
   <data name="BackupCurrentId" xml:space="preserve">
     <value>Current backup id</value>
@@ -383,12 +374,6 @@
   <data name="ReportTitle" xml:space="preserve">
     <value>Application crash report</value>
   </data>
-  <data name="BackupAllowSendEmail" xml:space="preserve">
-    <value>Send email after backup</value>
-  </data>
-  <data name="BackupAllowSendEmailText" xml:space="preserve">
-    <value>Enter your email adress</value>
-  </data>
   <data name="BackupDownload" xml:space="preserve">
     <value>download into device</value>
   </data>
@@ -397,18 +382,6 @@
   </data>
   <data name="DownloadInProgress" xml:space="preserve">
     <value>Download in progress ...</value>
-  </data>
-  <data name="PhotoNotFoundDescription" xml:space="preserve">
-    <value>Photo not found on your device. If you have this file backed up, you can see him at the address below. Otherwise, the file can no longer be recovered.</value>
-  </data>
-  <data name="PhotoNotFoundTitle" xml:space="preserve">
-    <value>Photo not found on your mobile.</value>
-  </data>
-  <data name="VideoNotFoundDescription" xml:space="preserve">
-    <value>Video not found on your device. If you have this file backed up, you can see him at the address below. Otherwise, the file can no longer be recovered.</value>
-  </data>
-  <data name="VideoNotFoundTitle" xml:space="preserve">
-    <value>Video not found on your mobile.</value>
   </data>
   <data name="ObdAcceleratorPedalPosition" xml:space="preserve">
     <value>Accelerator pedal position</value>
@@ -459,7 +432,7 @@
     <value>Backup main file menu</value>
   </data>
   <data name="Tutorial_BackupFileMenu_Description" xml:space="preserve">
-    <value>There are four important buttons in the menu. 1) Use this button to back up the main file 2) If the backup is created, you can refer to it in the browser (and store) or 3) let it send the email. If you have a backup identifier, you can enter 4) and then click on this button to download it.</value>
+    <value>There are four important buttons in the menu. 1) Use this button to back up the main file 2) If the backup is created, you can refer to it in the browser (and store) or 3) let it send the email. If you have a backup on cloud storage 4) you can download it by click on this button.</value>
   </data>
   <data name="Tutorial_BackupMenu" xml:space="preserve">
     <value>Backup menu</value>
@@ -468,7 +441,7 @@
     <value>There are three important buttons in the side menu. These are 1) a general backup, which backs up the main data file, 2) backup images and 3) backup videos. If you select automatic backup after launch, it is only a backup the main data file! Videos and pictures can be backuped only manually. You can see which items have not been backed up in the lists of media.</value>
   </data>
   <data name="Tutorial_Backup_Description" xml:space="preserve">
-    <value>After clicking on the "Backup" in the settings page, you will see information about the backup. Here you will find the date of the last backup, the backup identifier and settings. 1) Whether you want to do a backup after starting the application and 2) if you want the link to send backup to email.</value>
+    <value>After clicking on the "Backup" in the settings page, you will see information about the backup. Here you will find the date of the last backup, the backup identifier and settings. 1) Whether you want to do a backup after starting the application and 2) when you want to backup your data, you must login into cloud storage.</value>
   </data>
   <data name="Tutorial_CameraMenu" xml:space="preserve">
     <value>Camera menu</value>
@@ -553,5 +526,53 @@
   </data>
   <data name="RateApp" xml:space="preserve">
     <value>Rate and review</value>
+  </data>
+  <data name="UsedAccounts" xml:space="preserve">
+    <value>Used accounts on backup</value>
+  </data>
+  <data name="Backup_NotSignedIn" xml:space="preserve">
+    <value>Your are not sign in</value>
+  </data>
+  <data name="Backup_NotSignedIn_Description" xml:space="preserve">
+    <value>You are not logged into any cloud storage service. For proper operation of backups you need to login.</value>
+  </data>
+  <data name="BackupNotFoundDescription" xml:space="preserve">
+    <value>Backup file not found on server.</value>
+  </data>
+  <data name="BackupNotFoundTitle" xml:space="preserve">
+    <value>Backup not found</value>
+  </data>
+  <data name="StorageInfo_Again" xml:space="preserve">
+    <value>download it again</value>
+  </data>
+  <data name="StorageInfo_Connection" xml:space="preserve">
+    <value>the Internet connection</value>
+  </data>
+  <data name="StorageInfo_Delete" xml:space="preserve">
+    <value>delete this record</value>
+  </data>
+  <data name="StorageInfo_Login" xml:space="preserve">
+    <value>log in to your storage</value>
+  </data>
+  <data name="StorageInfo_Part1" xml:space="preserve">
+    <value>The file could not be downloaded, try to </value>
+  </data>
+  <data name="StorageInfo_Part2" xml:space="preserve">
+    <value> and check </value>
+  </data>
+  <data name="StorageInfo_Part3" xml:space="preserve">
+    <value>. If you check it, try to </value>
+  </data>
+  <data name="StorageInfo_Part4" xml:space="preserve">
+    <value>. If you delete it from the repository, the file can not be obtained and you can </value>
+  </data>
+  <data name="StorageInfo_Part5" xml:space="preserve">
+    <value>.</value>
+  </data>
+  <data name="FromStorage" xml:space="preserve">
+    <value>this video is on cloud storage</value>
+  </data>
+  <data name="Buffering" xml:space="preserve">
+    <value>Buffering</value>
   </data>
 </root>

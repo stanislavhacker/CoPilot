@@ -514,13 +514,16 @@
 						Grid.Column="1"
 						BorderThickness="2"
 						BorderBrush="{StaticResource PhoneAccentBrush}">
-                        <Grid>
+                        <Grid Margin="0,25,0,0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="7*"/>
-                                <ColumnDefinition Width="40*"/>
+                                <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
-                            <CheckBox VerticalAlignment="Bottom" Grid.Column="0" />
-                            <TextBlock VerticalAlignment="Bottom" Grid.Column="1"  Style="{StaticResource Row}" Text="{Binding LocalizedResources.BackupAllowSendEmail, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,22" />
+                            <TextBlock Grid.Row="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.UsedAccounts, StringFormat='{}{0}:', Mode=OneWay, Source={StaticResource LocalizedStrings}}" Grid.ColumnSpan="2" />
+                            <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Margin="0" Orientation="Horizontal" Grid.ColumnSpan="2">
+                                <Button Style="{StaticResource MenuButton}" Width="70" Height="70">
+                                    <Image Source="/Resources/Images/Info/onedrive.png" Margin="-20" />
+                                </Button>
+                            </StackPanel>
                         </Grid>
                     </Border>
 

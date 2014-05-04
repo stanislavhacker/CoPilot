@@ -293,5 +293,8 @@
     <SolidColorBrush Color="#454545" x:Key="LineColor" />
     <SolidColorBrush Color="#B2000000" x:Key="SpeechBackground" />
     <SolidColorBrush Color="#647687" x:Key="IconBackground" />
+    <SolidColorBrush Color="CornflowerBlue" x:Key="HyperlinkBackground" />
+    <SolidColorBrush Color="#B2701100" x:Key="ErrorBackground" />
+    <SolidColorBrush Color="White" x:Key="ProgressBackground" />
 
 </ResourceDictionary>

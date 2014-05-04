@@ -33,6 +33,7 @@
             <convertors:CountToCollapsed x:Key="CountToCollapsedConvertor" />
             <convertors:StepToVisibility x:Key="StepToVisibilityConvertor" />
             <convertors:TutorialContextToVisibility x:Key="TutorialContextToVisibilityConvertor" />
+            <convertors:ZeroToBoolean x:Key="ZeroToBooleanConvertor" />
         </ResourceDictionary>
     </Application.Resources>
 

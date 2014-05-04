@@ -855,7 +855,7 @@ namespace CoPilot.CoPilot.View
             FtpController.IsWifiEnabled = DeviceNetworkInformation.IsNetworkAvailable && DeviceNetworkInformation.IsWiFiEnabled;
             FtpController.IsNetEnabled = DeviceNetworkInformation.IsNetworkAvailable;
             FtpController.DataController = this.DataController;
-            FtpController.BackupNow(DeviceNetworkInformation.IsNetworkAvailable && DataController.IsBackupOnStart);
+            FtpController.TryLogin();
 
             //gps
             GpsController.IsGpsAllowed = DataController.IsGpsAllowed;
@@ -1019,22 +1019,24 @@ namespace CoPilot.CoPilot.View
             ///CONTROLLER
             FtpController = new Controllers.Ftp();
 
-            //Events
-            FtpController.onUploaded += (object sender, Interfaces.EventArgs.UploadEventArgs e) =>
+            //state change
+            FtpController.OnStateChange += async (object sender, Interfaces.EventArgs.StateEventArgs e) =>
             {
-                processUploaded(sender, e);
+                if (e.State == Interfaces.EventArgs.ConnectionStatus.Connected)
+                {
+                    //try backup now
+                    await FtpController.BackupNow(DeviceNetworkInformation.IsNetworkAvailable && DataController.IsBackupOnStart);
+
+                    //save data
+                    Settings.Add("StorageConnected", (e.State == Interfaces.EventArgs.ConnectionStatus.Connected).ToString());
+                }
             };
-            FtpController.onUrl += (object sender, Interfaces.EventArgs.UriEventArgs e) =>
+
+            FtpController.Error += (object sender, Interfaces.EventArgs.ErrorEventArgs e) =>
             {
-                this.openUrl(e.Uri.OriginalString);
-            };
-            FtpController.onDownloaded += (object sender, Interfaces.EventArgs.StreamEventArgs e) =>
-            {
-                processDownloaded(sender, e != null ? e.Stream : null);
-            };
-            FtpController.onError += (object sender, Interfaces.EventArgs.ExceptionEventArgs e) =>
-            {
-                processError(sender, e);
+                //save data
+                Settings.Add("StorageConnected", false.ToString());
+                FtpController.IsLogged = false;
             };
         }
 
@@ -1194,277 +1196,6 @@ namespace CoPilot.CoPilot.View
                 resource = App.GetResourceStream(uri);
             }
             NavigationService.Navigate("/CoPilot/View/WebBrowser.xaml", this.GetUriDataContainer(uri));
-        }
-
-
-        /// <summary>
-        /// Process uploaded
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void processUploaded(object sender, Interfaces.EventArgs.UploadEventArgs e)
-        {
-            //create new
-            Data.BackupInfo info = new Data.BackupInfo();
-            info.DeleteUrl = e.UploadDone.DeleteUrl;
-            info.DownloadUrl = e.UploadDone.DownloadUrl;
-            info.Date = DateTime.Now;
-            info.Id = e.UploadDone.FileId;
-
-            //string
-            if (sender.GetType() == typeof(String))
-            {
-                processUploadedBackup(sender, info);
-            }
-            //media
-            if (sender.GetType() == typeof(MediaWithProgress))
-            {
-                processUploadedMedia(sender, info);
-            }
-        }
-
-        /// <summary>
-        /// Process uploaded media
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="info"></param>
-        private void processUploadedMedia(object sender, Data.BackupInfo info)
-        {
-            MediaWithProgress media = (MediaWithProgress)sender;
-
-            //picture
-            if (media.Picture != null)
-            {
-                Data.Picture picture = media.Picture;
-                this.Dispatcher.BeginInvoke(async () =>
-                {
-                    media.IsChecked = false;
-                    media.CallPropertyChangedOnAll();
-                    picture.Backups.Insert(0, info);
-                    this.deleteOldBackups(picture.Backups);
-
-                    await Task.Delay(1000);
-                    FtpController.NextMedia();
-                });
-            }
-
-            //video
-            if (media.Video != null)
-            {
-                Data.Video video = media.Video;
-                this.Dispatcher.BeginInvoke(async () =>
-                {
-                    media.IsChecked = false;
-                    media.CallPropertyChangedOnAll();
-                    video.VideoBackups.Insert(0, info);
-                    this.deleteOldBackups(video.VideoBackups);
-
-                    await Task.Delay(1000);
-                    FtpController.NextMedia();
-                });
-            }
-
-            //preview
-            if (media.Preview != null)
-            {
-                Data.Video preview = media.Preview;
-                this.Dispatcher.BeginInvoke(async () =>
-                {
-                    media.IsChecked = false;
-                    media.CallPropertyChangedOnAll();
-                    preview.PreviewBackups.Insert(0, info);
-                    this.deleteOldBackups(preview.PreviewBackups);
-
-                    await Task.Delay(1000);
-                    FtpController.NextMedia();
-                });
-            }
-        }
-
-        /// <summary>
-        /// Process uploaded backup
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="info"></param>
-        private void processUploadedBackup(object sender, Data.BackupInfo info)
-        {
-            String file = (String)sender;
-            //main file
-            if (file == Controllers.Data.DATA_FILE)
-            {
-                //delete old backup
-                if (DataController.Backup != null && !String.IsNullOrEmpty(DataController.Backup.DeleteUrl))
-                {
-                    FtpController.Delete(DataController.Backup.DeleteUrl);
-                }
-                DataController.Backup = info;
-            }
-        }
-
-
-
-
-
-
-        /// <summary>
-        /// Process error
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void processError(object sender, Interfaces.EventArgs.ExceptionEventArgs e)
-        {
-            //media
-            if (sender.GetType() == typeof(MediaWithProgress))
-            {
-                processErrorMedia(sender, e.Exception);
-            }
-        }
-
-        /// <summary>
-        /// Error on media
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="exception"></param>
-        private void processErrorMedia(object sender, Exception exception)
-        {
-            MediaWithProgress media = (MediaWithProgress)sender;
-
-            this.Dispatcher.BeginInvoke(async () =>
-            {
-                media.IsChecked = false;
-                media.CallPropertyChangedOnAll();
-
-                await Task.Delay(1000);
-                FtpController.NextMedia();
-            });
-        }
-
-
-
-        /// <summary>
-        /// Process downloaded
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async Task processDownloaded(object sender, Stream e)
-        {
-            //main backup
-            if (sender.GetType() == typeof(String))
-            {
-                processDownloadedBackup(e);
-            }
-            //backuped image or video
-            if (sender.GetType() == typeof(MediaWithProgress))
-            {
-                await processDownloadedMedium((MediaWithProgress)sender, e);
-            }
-        }
-
-        /// <summary>
-        /// Process downloaded backup
-        /// </summary>
-        /// <param name="e"></param>
-        private void processDownloadedBackup(Stream e)
-        {
-            Data.Records records = Data.Records.Deserialize(e);
-            this.Dispatcher.BeginInvoke(() =>
-            {
-                if (records != null)
-                {
-                    String from = records.Change != null ? records.Change.ToString() : AppResources.Unknown;
-                    var result = MessageBox.Show(AppResources.BackupApplyDescription, String.Format(AppResources.BackupApplyTitle, from), MessageBoxButton.OKCancel);
-                    if (result == MessageBoxResult.OK)
-                    {
-                        DataController.FromBackup(records);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(AppResources.BackupNotFoundDescription, AppResources.BackupNotFoundTitle, MessageBoxButton.OK);
-                }
-            });
-        }
-
-        /// <summary>
-        /// Process backped image
-        /// </summary>
-        /// <param name="progress"></param>
-        /// <param name="e"></param>
-        private async Task processDownloadedMedium(MediaWithProgress progress, Stream e)
-        {
-            //image
-            if (e != null && progress.Picture != null)
-            {
-                if (!Storage.FileExists(progress.Picture.Path))
-                {
-                    var file = Storage.CreateFile(progress.Picture.Path);
-                    await e.CopyToAsync(file);
-                    file.Close();
-                }
-
-                this.Dispatcher.BeginInvoke(() =>
-                {
-                    progress.Picture.CallPropertyChangedOnAll();
-                    progress.IsChecked = false;
-                    progress.CallPropertyChangedOnAll();
-                });
-                return;
-            }
-
-            //video
-            if (e != null && progress.Video != null)
-            {
-                if (!Storage.FileExists(progress.Video.Path))
-                {
-                    var file = Storage.CreateFile(progress.Video.Path);
-                    await e.CopyToAsync(file);
-                    file.Close();
-                }
-
-                progress.Preview = progress.Video;
-                progress.Video = null;
-                FtpController.Download(progress.Preview.PreviewBackups.First().Id, progress);
-                return;
-            }
-
-            //preview
-            if (e != null && progress.Preview != null)
-            {
-                if (!Storage.FileExists(progress.Preview.Preview))
-                {
-                    var file = Storage.CreateFile(progress.Preview.Preview);
-                    await e.CopyToAsync(file);
-                    file.Close();
-                }
-
-                this.Dispatcher.BeginInvoke(() =>
-                {
-                    progress.Preview.CallPropertyChangedOnAll();
-                    progress.IsChecked = false;
-                    progress.CallPropertyChangedOnAll();
-                });
-                return;
-            }
-
-
-            //else
-            this.Dispatcher.BeginInvoke(() =>
-            {
-                progress.IsChecked = false;
-                progress.CallPropertyChangedOnAll();
-            });
-        }
-
-        /// <summary>
-        /// Delete old backups
-        /// </summary>
-        /// <param name="observableCollection"></param>
-        private void deleteOldBackups(ObservableCollection<Data.BackupInfo> observableCollection)
-        {
-            for (var i = observableCollection.Count - 1; i >= 5; i--)
-            {
-                observableCollection.RemoveAt(i);
-            }
         }
 
         /// <summary>
