@@ -671,7 +671,10 @@ namespace CoPilot.CoPilot.View
 
             //upload and save backup
             Response response = await FtpController.ProcessBackup(UploadProgress);
-            DataController.Backup = createBackupInfo(response);
+            if (response != null)
+            {
+                DataController.Backup = createBackupInfo(response);
+            }
 
             //unselect
             UploadProgress.Selected = false;

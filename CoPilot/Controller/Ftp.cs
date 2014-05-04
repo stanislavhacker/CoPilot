@@ -304,23 +304,25 @@ namespace CoPilot.CoPilot.Controller
             {
                 //response
                 Response response = await this.Upload(progress);
-
-                //info
-                BackupInfo info = new BackupInfo();
-                info.Date = DateTime.Now;
-                info.Id = response.Id;
-                info.Url = response.Url;
-
-                //save
-                if (progress.Data.GetType() == typeof(Video))
+                if (response != null)
                 {
-                    (progress.Data as Video).VideoBackup = info;
-                    (progress.Data as Video).CallPropertyChangedOnAll();
-                }
-                if (progress.Data.GetType() == typeof(Picture))
-                {
-                    (progress.Data as Picture).Backup = info;
-                    (progress.Data as Picture).CallPropertyChangedOnAll();
+                    //info
+                    BackupInfo info = new BackupInfo();
+                    info.Date = DateTime.Now;
+                    info.Id = response.Id;
+                    info.Url = response.Url;
+
+                    //save
+                    if (progress.Data.GetType() == typeof(Video))
+                    {
+                        (progress.Data as Video).VideoBackup = info;
+                        (progress.Data as Video).CallPropertyChangedOnAll();
+                    }
+                    if (progress.Data.GetType() == typeof(Picture))
+                    {
+                        (progress.Data as Picture).Backup = info;
+                        (progress.Data as Picture).CallPropertyChangedOnAll();
+                    }
                 }
             }
 
