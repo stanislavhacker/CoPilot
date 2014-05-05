@@ -21,6 +21,8 @@ using Microsoft.Phone.Tasks;
 using CoPilot.Interfaces;
 using CoPilot.Interfaces.Types;
 using System.Threading.Tasks;
+using CoPilot.CoPilot.Controller;
+using CoPilot.Resources;
 
 namespace CoPilot.CoPilot.View
 {
@@ -61,14 +63,33 @@ namespace CoPilot.CoPilot.View
         /// <summary>
         /// Delete Command
         /// </summary>
-        public ICommand DeleteCommand
+        public ICommand SoftDeleteCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    if (!string.IsNullOrEmpty(this.Video.VideoBackup.Id))
+                    {
+                        this.IsPlaying = false;
+                        this.deleteVideo(RemoveType.SoftDelete);
+                        this.getCurrentVideo();
+                    }
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// Delete Command
+        /// </summary>
+        public ICommand HardDeleteCommand
         {
             get
             {
                 return new RelayCommand((param) =>
                 {
                     this.IsPlaying = false;
-                    this.deleteVideo();
+                    this.deleteVideo(RemoveType.HardDelete);
                     if (this.Max == 0)
                     {
                         NavigationService.GoBack();
@@ -222,6 +243,21 @@ namespace CoPilot.CoPilot.View
             }
         }
 
+        /// <summary>
+        /// MediaFailedCommand command
+        /// </summary>
+        public ICommand MediaFailedCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    this.IsPlayEnabled = false;
+                    MessageBox.Show(AppResources.VideoError_Description, AppResources.VideoError_Title, MessageBoxButton.OK);
+                }, param => true);
+            }
+        }
+
         #endregion
 
         #region PROPERTY MENU
@@ -350,6 +386,8 @@ namespace CoPilot.CoPilot.View
                 }
 
                 RaisePropertyChanged();
+                RaisePropertyChanged("IsSoftDeleteEnabled");
+                RaisePropertyChanged("IsHardDeleteEnabled");
             }
         }
 
@@ -538,7 +576,7 @@ namespace CoPilot.CoPilot.View
         /// <summary>
         /// Is video playing
         /// </summary>
-        private bool isPlayEnabled = true;
+        private bool isPlayEnabled = false;
         public bool IsPlayEnabled
         {
             get
@@ -624,6 +662,31 @@ namespace CoPilot.CoPilot.View
             }
         }
 
+        /// <summary>
+        /// IsSoftDeleteEnabled
+        /// </summary>
+        public bool IsSoftDeleteEnabled
+        {
+            get
+            {
+                var progress = this.FtpController.Progress(new Uri(this.Video.Path, UriKind.Relative));
+                var backup = !string.IsNullOrEmpty(this.Video.VideoBackup.Id);
+                return !progress && backup;
+            }
+        }
+
+        /// <summary>
+        /// IsHardDeleteEnabled
+        /// </summary>
+        public bool IsHardDeleteEnabled
+        {
+            get
+            {
+                var progress = this.FtpController.Progress(new Uri(this.Video.Path, UriKind.Relative));
+                return !progress;
+            }
+        }
+
         #endregion
 
         #region PRIVATE
@@ -703,10 +766,10 @@ namespace CoPilot.CoPilot.View
         /// <summary>
         /// Delete video
         /// </summary>
-        private void deleteVideo()
+        private void deleteVideo(RemoveType type)
         {
             var video = dataController.Videos.ElementAt(Position - 1);
-            dataController.RemoveVideo(video);
+            dataController.RemoveVideo(video, type);
             this.videoChange();
             this.Max = Convert.ToInt32(dataController.VideosCount);
         }

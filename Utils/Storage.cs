@@ -38,6 +38,17 @@ namespace CoPilot.Utils
         }
 
         /// <summary>
+        /// Delete file
+        /// </summary>
+        /// <param name="path"></param>
+        public static void DeleteFile(string path)
+        {
+            if (FileExists(path)) {
+                storage.DeleteFile(path);
+            }
+        }
+
+        /// <summary>
         /// File exists
         /// </summary>
         /// <param name="path"></param>

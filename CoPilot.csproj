@@ -162,6 +162,7 @@
     <Compile Include="Utils\Convertors\CurrencyToStyle.cs" />
     <Compile Include="Utils\Convertors\DistanceToConsumptionString.cs" />
     <Compile Include="Utils\Convertors\DistanceToStyle.cs" />
+    <Compile Include="Utils\Convertors\EmptyStringToBoolean.cs" />
     <Compile Include="Utils\Convertors\NotBackuped.cs" />
     <Compile Include="Utils\Convertors\OdometerToRealOdometer.cs" />
     <Compile Include="Utils\Convertors\PageToVisibility.cs" />

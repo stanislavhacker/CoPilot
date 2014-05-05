@@ -230,6 +230,7 @@
                         <StackPanel Orientation="Vertical">
 
                             <Button 
+                                IsEnabled="{Binding IsDeleteEnabled}"
                                 Command="{Binding DeleteCommand}" 
                                 Style="{StaticResource MenuButton}" 
                                 HorizontalContentAlignment="Stretch" 

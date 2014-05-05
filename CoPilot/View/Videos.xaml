@@ -66,6 +66,9 @@
                         <i:EventTrigger EventName="MediaOpened">
                             <i:InvokeCommandAction Command="{Binding MediaOpenedCommand}" CommandParameter="{Binding ElementName=VidePlayer}" />
                         </i:EventTrigger>
+                        <i:EventTrigger EventName="MediaFailed">
+                            <i:InvokeCommandAction Command="{Binding MediaFailedCommand}" CommandParameter="{Binding ElementName=VidePlayer}" />
+                        </i:EventTrigger>
                     </i:Interaction.Triggers>
 
                 </MediaElement>
@@ -98,11 +101,12 @@
                 </StackPanel>
             </Grid>
 
+            <!-- BUFFERING ADN CLOUD -->
             <Grid Background="{StaticResource SpeechBackground}" VerticalAlignment="Top">
             
                 <!-- CLOUD -->
                 <Grid 
-                    Visibility="{Binding IsFromCloud, Converter={StaticResource BooleanToVisibilityConvertor}}" 
+                    Visibility="{Binding IsFromCloud, Converter={StaticResource BooleanToVisibilityConvertor}, FallbackValue='Collapsed'}" 
                     VerticalAlignment="Top" 
                     HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal">
@@ -112,7 +116,7 @@
                 </Grid>
 
                 <!-- BUFFERING -->
-                <Grid Visibility="{Binding BufferingProgress, Converter={StaticResource CountToVisibilityConvertor}, ConverterParameter='0'}" VerticalAlignment="Top" HorizontalAlignment="Right">
+                <Grid Visibility="{Binding BufferingProgress, Converter={StaticResource CountToVisibilityConvertor}, ConverterParameter='0', FallbackValue='Collapsed'}" VerticalAlignment="Top" HorizontalAlignment="Right">
                     <StackPanel Orientation="Horizontal" Margin="0,0,120,0" >
                         <TextBlock Text="{Binding LocalizedResources.Buffering, StringFormat='{}{0}:', Mode=OneWay, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Row}" />
                         <TextBlock Text="{Binding BufferingProgress}" Style="{StaticResource Row}" />
@@ -122,7 +126,6 @@
 
             </Grid>
         </Grid>
-
 
         <!-- PROGRESS ON DOWNLOAD-->
         <Grid 
@@ -291,16 +294,33 @@
                         <StackPanel Orientation="Vertical">
 
                             <Button 
-                                Command="{Binding DeleteCommand}" 
+                                IsEnabled="{Binding IsSoftDeleteEnabled}"
+                                Command="{Binding SoftDeleteCommand}" 
                                 Style="{StaticResource MenuButton}" 
                                 HorizontalContentAlignment="Stretch" 
                                 Height="100">
-                                <Grid>
+                                <Grid Height="50">
                                     <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/ok.png" />
-                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.Yes, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.VideoDeleteSoft, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.VideoDeleteSoft_Description, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" />
                                 </Grid>
                             </Button>
                             <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                IsEnabled="{Binding IsHardDeleteEnabled}"
+                                Command="{Binding HardDeleteCommand}" 
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid Height="50">
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/ok.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.VideoDeleteHard, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.VideoDeleteHard_Description, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
 
                             <Button 
                                 Command="{Binding CancelCommand}" 
@@ -309,7 +329,7 @@
                                 Height="100">
                                 <Grid>
                                     <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/cancel.png" />
-                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.No, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.Cancel, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
                                 </Grid>
                             </Button>
                             <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />

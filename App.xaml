@@ -34,6 +34,7 @@
             <convertors:StepToVisibility x:Key="StepToVisibilityConvertor" />
             <convertors:TutorialContextToVisibility x:Key="TutorialContextToVisibilityConvertor" />
             <convertors:ZeroToBoolean x:Key="ZeroToBooleanConvertor" />
+            <convertors:EmptyStringToBoolean x:Key="EmptyStringToBooleanConvertor" />
         </ResourceDictionary>
     </Application.Resources>
 

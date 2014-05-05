@@ -192,6 +192,16 @@ namespace CoPilot.CoPilot.Controller
         }
 
         /// <summary>
+        /// Check if is progress
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public Boolean Progress(Uri url)
+        {
+            return client.Progress(url);
+        }
+
+        /// <summary>
         /// Upload
         /// </summary>
         /// <param name="location"></param>

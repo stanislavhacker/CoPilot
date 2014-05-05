@@ -20,6 +20,7 @@ using CoPilot.Core.Utils;
 using Microsoft.Phone.Tasks;
 using CoPilot.Interfaces;
 using System.Threading.Tasks;
+using CoPilot.CoPilot.Controller;
 
 namespace CoPilot.CoPilot.View
 {
@@ -290,6 +291,7 @@ namespace CoPilot.CoPilot.View
                 }
 
                 RaisePropertyChanged();
+                RaisePropertyChanged("IsSoftDeleteEnabled");
             }
         }
 
@@ -407,6 +409,18 @@ namespace CoPilot.CoPilot.View
             }
         }
 
+        /// <summary>
+        /// IsDeleteEnabled
+        /// </summary>
+        public bool IsDeleteEnabled
+        {
+            get
+            {
+                var progress = this.FtpController.Progress(new Uri(this.Image.Path, UriKind.Relative));
+                return !progress;
+            }
+        }
+
         #endregion
 
         #region PRIVATE
@@ -486,7 +500,7 @@ namespace CoPilot.CoPilot.View
         private void deletePicture()
         {
             var picture = dataController.Pictures.ElementAt(Position - 1);
-            dataController.RemovePicture(picture);
+            dataController.RemovePicture(picture, RemoveType.HardDelete);
             this.imageChange();
             this.Max = Convert.ToInt32(dataController.PicturesCount);
         }

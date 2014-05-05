@@ -14,6 +14,12 @@ using System.Windows.Threading;
 
 namespace CoPilot.CoPilot.Controller
 {
+    public enum RemoveType 
+    {
+        SoftDelete,
+        HardDelete
+    }
+
     public class Data : Base
     {
         public const string DATA_FILE_NAME = "co-pilot.xml";
@@ -808,12 +814,21 @@ namespace CoPilot.CoPilot.Controller
         /// Remvoe video
         /// </summary>
         /// <param name="video"></param>
-        public void RemoveVideo(Video video)
+        public void RemoveVideo(Video video, RemoveType type)
         {
-            data.Videos.Remove(video);
-            this.Save();
-            OnPropertyChanged("VideosCount");
-            OnPropertyChanged("Videos");
+            //delete files
+            Storage.DeleteFile(video.Path);
+            Storage.DeleteFile(video.Preview);
+
+            if (type == RemoveType.HardDelete)
+            {
+                //delete record
+                data.Videos.Remove(video);
+                this.Save();
+                OnPropertyChanged("VideosCount");
+                OnPropertyChanged("Videos");
+            }
+
             OnPropertyChanged("AvailableSpace");
         }
 
@@ -838,12 +853,20 @@ namespace CoPilot.CoPilot.Controller
         /// Remvoe picture
         /// </summary>
         /// <param name="picture"></param>
-        public void RemovePicture(Picture picture)
+        public void RemovePicture(Picture picture, RemoveType type)
         {
-            data.Pictures.Remove(picture);
-            this.Save();
-            OnPropertyChanged("PicturesCount");
-            OnPropertyChanged("Pictures");
+            //delete files
+            Storage.DeleteFile(picture.Path);
+
+            if (type == RemoveType.HardDelete)
+            {
+                //delete record
+                data.Pictures.Remove(picture);
+                this.Save();
+                OnPropertyChanged("PicturesCount");
+                OnPropertyChanged("Pictures");
+            }
+
             OnPropertyChanged("AvailableSpace");
         }
 
