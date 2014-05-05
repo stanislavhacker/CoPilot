@@ -41,11 +41,20 @@ namespace CoPilot.Utils
         /// Delete file
         /// </summary>
         /// <param name="path"></param>
-        public static void DeleteFile(string path)
+        public static Boolean DeleteFile(string path)
         {
             if (FileExists(path)) {
-                storage.DeleteFile(path);
+                try
+                {
+                    storage.DeleteFile(path);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
+            return false;
         }
 
         /// <summary>
@@ -93,6 +102,19 @@ namespace CoPilot.Utils
             lastFreeSpaceString = String.Format("{0:0.##} {1}", len, sizes[order]);
 
             return lastFreeSpaceString;
+        }
+
+        /// <summary>
+        /// Get file size
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static long GetSize(string path) 
+        {
+            var stream = storage.OpenFile(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            var length = stream.Length;
+            stream.Close();
+            return length;
         }
     }
 }

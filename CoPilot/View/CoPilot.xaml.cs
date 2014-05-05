@@ -628,6 +628,7 @@ namespace CoPilot.CoPilot.View
             set
             {
                 ftpController = value;
+                App.FtpController = value;
                 RaisePropertyChanged();
             }
         }

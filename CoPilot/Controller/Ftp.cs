@@ -202,6 +202,20 @@ namespace CoPilot.CoPilot.Controller
         }
 
         /// <summary>
+        /// Connect
+        /// </summary>
+        /// <param name="progress"></param>
+        /// <returns></returns>
+        public async void Connect(Progress progress)
+        {
+            var exists = this.Progress(progress.Url);
+            if (exists)
+            {
+                await this.Upload(progress);
+            }
+        }
+
+        /// <summary>
         /// Upload
         /// </summary>
         /// <param name="location"></param>
@@ -299,9 +313,29 @@ namespace CoPilot.CoPilot.Controller
         /// Process backup
         /// </summary>
         /// <param name="p"></param>
-        public async Task<Response> ProcessBackup(Interfaces.Progress progress)
+        public async Task ProcessBackup(Interfaces.Progress progress)
         {
-            return await this.Upload(progress);
+            Response response = await this.Upload(progress);
+            if (response != null)
+            {
+                DataController.Backup = this.createBackupInfo(response);
+            }
+        }
+
+
+        /// <summary>
+        /// createBackupInfo
+        /// </summary>
+        /// <param name="response"></param>
+        private BackupInfo createBackupInfo(Response response)
+        {
+            //create new
+            BackupInfo info = new BackupInfo();
+            info.Url = response.Url;
+            info.Date = DateTime.Now;
+            info.Id = response.Id;
+
+            return info;
         }
 
         /// <summary>
@@ -314,29 +348,44 @@ namespace CoPilot.CoPilot.Controller
             {
                 //response
                 Response response = await this.Upload(progress);
-                if (response != null)
-                {
-                    //info
-                    BackupInfo info = new BackupInfo();
-                    info.Date = DateTime.Now;
-                    info.Id = response.Id;
-                    info.Url = response.Url;
-
-                    //save
-                    if (progress.Data.GetType() == typeof(Video))
-                    {
-                        (progress.Data as Video).VideoBackup = info;
-                        (progress.Data as Video).CallPropertyChangedOnAll();
-                    }
-                    if (progress.Data.GetType() == typeof(Picture))
-                    {
-                        (progress.Data as Picture).Backup = info;
-                        (progress.Data as Picture).CallPropertyChangedOnAll();
-                    }
-                }
+                Ftp.ProcessUploadResponse(progress, response);
             }
 
             data.Clear();
+        }
+
+        #endregion
+
+
+        #region PRIVATE STATIC
+
+        /// <summary>
+        /// Process upload response
+        /// </summary>
+        /// <param name="progress"></param>
+        /// <param name="response"></param>
+        private static void ProcessUploadResponse(Progress progress, Response response)
+        {
+            if (response != null)
+            {
+                //info
+                BackupInfo info = new BackupInfo();
+                info.Date = DateTime.Now;
+                info.Id = response.Id;
+                info.Url = response.Url;
+
+                //save
+                if (progress.Data.GetType() == typeof(Video))
+                {
+                    (progress.Data as Video).VideoBackup = info;
+                    (progress.Data as Video).CallPropertyChangedOnAll();
+                }
+                if (progress.Data.GetType() == typeof(Picture))
+                {
+                    (progress.Data as Picture).Backup = info;
+                    (progress.Data as Picture).CallPropertyChangedOnAll();
+                }
+            }
         }
 
         #endregion

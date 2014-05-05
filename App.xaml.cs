@@ -23,6 +23,11 @@ namespace CoPilot
         public static Data DataController { get; set; }
 
         /// <summary>
+        /// Ftp controller static
+        /// </summary>
+        public static Ftp FtpController { get; set; }
+
+        /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>

@@ -18,8 +18,17 @@ namespace CoPilot.Utils.Convertors
 {
     public class NotBackuped : IValueConverter
     {
+        /// <summary>
+        /// Convert
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            var ftp = App.FtpController;
             var type = value.GetType();
 
             if (type == typeof(ObservableCollection<Picture>)) 
@@ -30,13 +39,18 @@ namespace CoPilot.Utils.Convertors
                     return e.Backup != null;
                 }).Select<Picture, Progress>((e) =>
                 {
-                    var progress = new Progress();
+                    if (e.Data == null)
+                    {
+                        e.Data = new Progress();
+                    }
+                    Progress progress = e.Data as Progress;
                     progress.Cancel = new CancellationToken();
                     progress.Selected = false;
                     progress.Type = FileType.Photo;
                     progress.Url = new Uri(e.Path, UriKind.Relative);
                     progress.Data = e;
-                    this.getFileSize(progress);
+
+                    this.updateProgress(ftp, progress);
                     return progress;
                 });
                 return sorted;
@@ -50,13 +64,18 @@ namespace CoPilot.Utils.Convertors
                     return e.VideoBackup != null;
                 }).Select<Video, Progress>((e) =>
                 {
-                    var progress = new Progress();
+                    if (e.Data == null)
+                    {
+                        e.Data = new Progress();
+                    }
+                    Progress progress = e.Data as Progress;
                     progress.Cancel = new CancellationToken();
                     progress.Selected = false;
                     progress.Type = FileType.Video;
                     progress.Url = new Uri(e.Path, UriKind.Relative);
                     progress.Data = e;
-                    this.getFileSize(progress);
+
+                    this.updateProgress(ftp, progress);
                     return progress;
                 });
                 return sorted;
@@ -64,9 +83,31 @@ namespace CoPilot.Utils.Convertors
             return null;
         }
 
+        /// <summary>
+        /// Convert back
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return null;
+        }
+
+
+        /// <summary>
+        /// Update progress
+        /// </summary>
+        /// <param name="ftp"></param>
+        /// <param name="progress"></param>
+        private async void updateProgress(CoPilot.Controller.Ftp ftp, Progress progress)
+        {
+            //connect
+            ftp.Connect(progress);
+            //get file size
+            await this.getFileSize(progress);
         }
 
         /// <summary>
@@ -91,9 +132,7 @@ namespace CoPilot.Utils.Convertors
                 //check size
                 try 
                 {
-                    IsolatedStorageFileStream file = Storage.OpenFile(progress.Url.OriginalString, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
-                    Double size = (int)file.Length / 1048576.0;
-                    file.Dispose();
+                    Double size = (int)Storage.GetSize(progress.Url.OriginalString) / 1048576.0;
                     App.RootFrame.Dispatcher.BeginInvoke(() =>
                     {
                         progress.Size = Math.Round(size, size < 1 ? 3 : 1) + " MB";

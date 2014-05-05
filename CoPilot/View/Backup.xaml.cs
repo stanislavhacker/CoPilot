@@ -459,6 +459,7 @@ namespace CoPilot.CoPilot.View
             InitializeComponent();
             InitializeControllers();
 
+            this.createUploadProgress();
             this.DataContext = this;
         }
 
@@ -661,6 +662,15 @@ namespace CoPilot.CoPilot.View
         /// <returns></returns>
         private async Task ProcessBackupUpload()
         {
+            //upload and save backup
+            await FtpController.ProcessBackup(UploadProgress);
+        }
+
+        /// <summary>
+        /// Create uplaod progress
+        /// </summary>
+        private void createUploadProgress()
+        {
             UploadProgress.BytesTransferred = 0;
             UploadProgress.ProgressPercentage = 0;
             UploadProgress.Selected = true;
@@ -668,32 +678,6 @@ namespace CoPilot.CoPilot.View
             UploadProgress.Url = new Uri(Controllers.Data.DATA_FILE, UriKind.Relative);
             UploadProgress.Cancel = new System.Threading.CancellationToken();
             UploadProgress.Type = Interfaces.Types.FileType.Data;
-
-            //upload and save backup
-            Response response = await FtpController.ProcessBackup(UploadProgress);
-            if (response != null)
-            {
-                DataController.Backup = createBackupInfo(response);
-            }
-
-            //unselect
-            UploadProgress.Selected = false;
-            UploadProgress.InProgress = false;
-        }
-
-        /// <summary>
-        /// createBackupInfo
-        /// </summary>
-        /// <param name="response"></param>
-        private static Data.BackupInfo createBackupInfo(Response response)
-        {
-            //create new
-            Data.BackupInfo info = new Data.BackupInfo();
-            info.Url = response.Url;
-            info.Date = DateTime.Now;
-            info.Id = response.Id;
-
-            return info;
         }
 
         #endregion 
@@ -791,6 +775,9 @@ namespace CoPilot.CoPilot.View
             {
                 MessageBox.Show(AppResources.Backup_NotSignedIn_Description, AppResources.Backup_NotSignedIn, MessageBoxButton.OK);
             }
+
+            //connect upload
+            FtpController.Connect(this.UploadProgress);
 
             if (App.IsInactiveMode)
             {
