@@ -370,7 +370,7 @@
                                                 <Grid>
                                                     <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
                                                         <TextBlock Margin="0" Text="{Binding Data.Time}" />
-                                                        <TextBlock Margin="0" Text="{Binding Size, StringFormat=' - {0}'}" Foreground="Gray" />
+                                                        <TextBlock Margin="0" Text="{Binding Size, StringFormat=' - {0} MB'}" Foreground="Gray" />
                                                     </StackPanel>
                                                     
                                                     <!-- NORMAL -->
@@ -454,7 +454,7 @@
                                                 <Grid>
                                                     <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
                                                         <TextBlock Margin="0" Text="{Binding Data.Time}" />
-                                                        <TextBlock Margin="0" Text="{Binding Size, StringFormat=' - {0}'}" Foreground="Gray" />
+                                                        <TextBlock Margin="0" Text="{Binding Size, StringFormat=' - {0} MB'}" Foreground="Gray" />
                                                     </StackPanel> 
 
                                                     <!-- NORMAL -->

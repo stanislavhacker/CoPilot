@@ -634,6 +634,7 @@ namespace CoPilot.CoPilot.View
             DownloadProgress.TotalBytes = 0;
             DownloadProgress.Type = Interfaces.Types.FileType.Data;
             DownloadProgress.Url = new Uri(Controllers.Data.DATA_FILE, UriKind.Relative);
+            DownloadProgress.Preferences = ProgressPreferences.AllowOnCelluralAndBatery;
 
             //stop saving data
             DataController.Stop();
@@ -678,6 +679,7 @@ namespace CoPilot.CoPilot.View
             UploadProgress.Url = new Uri(Controllers.Data.DATA_FILE, UriKind.Relative);
             UploadProgress.Cancel = new System.Threading.CancellationToken();
             UploadProgress.Type = Interfaces.Types.FileType.Data;
+            UploadProgress.Preferences = ProgressPreferences.AllowOnCelluralAndBatery;
         }
 
         #endregion 

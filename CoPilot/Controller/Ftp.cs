@@ -302,6 +302,7 @@ namespace CoPilot.CoPilot.Controller
                 progress.Url = new Uri(Controllers.Data.DATA_FILE, UriKind.Relative);
                 progress.Cancel = new System.Threading.CancellationToken();
                 progress.Type = Interfaces.Types.FileType.Data;
+                progress.Preferences = ProgressPreferences.AllowOnCelluralAndBatery;
 
                 await this.ProcessBackup(progress);
             }

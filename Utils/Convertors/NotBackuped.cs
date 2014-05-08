@@ -49,6 +49,7 @@ namespace CoPilot.Utils.Convertors
                     progress.Type = FileType.Photo;
                     progress.Url = new Uri(e.Path, UriKind.Relative);
                     progress.Data = e;
+                    progress.Preferences = ProgressPreferences.AllowOnWifiAndBatery;
 
                     this.updateProgress(ftp, progress);
                     return progress;
@@ -74,6 +75,7 @@ namespace CoPilot.Utils.Convertors
                     progress.Type = FileType.Video;
                     progress.Url = new Uri(e.Path, UriKind.Relative);
                     progress.Data = e;
+                    progress.Preferences = ProgressPreferences.AllowOnWifiAndExternalPower;
 
                     this.updateProgress(ftp, progress);
                     return progress;
@@ -135,7 +137,7 @@ namespace CoPilot.Utils.Convertors
                     Double size = (int)Storage.GetSize(progress.Url.OriginalString) / 1048576.0;
                     App.RootFrame.Dispatcher.BeginInvoke(() =>
                     {
-                        progress.Size = Math.Round(size, size < 1 ? 3 : 1) + " MB";
+                        progress.Size = Math.Round(size, size < 1 ? 3 : 1).ToString();
                     });
                 } 
                 catch {}

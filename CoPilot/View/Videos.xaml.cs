@@ -845,6 +845,7 @@ namespace CoPilot.CoPilot.View
             this.Progress.Url = new Uri(video.Preview, UriKind.Relative);
             this.Progress.Data = this.video;
             this.Progress.InProgress = true;
+            this.Progress.Preferences = ProgressPreferences.AllowOnWifiAndBatery;
 
             //download
             progresses.Add(video.Path, this.Progress);

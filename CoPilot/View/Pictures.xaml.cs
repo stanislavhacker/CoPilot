@@ -556,6 +556,7 @@ namespace CoPilot.CoPilot.View
             this.Progress.Url = new Uri(image.Path, UriKind.Relative);
             this.Progress.Data = this.Image;
             this.Progress.InProgress = true;
+            this.Progress.Preferences = ProgressPreferences.AllowOnWifiAndBatery;
 
             //download
             progresses.Add(image.Path, this.Progress);
