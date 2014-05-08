@@ -35,6 +35,7 @@
             <convertors:TutorialContextToVisibility x:Key="TutorialContextToVisibilityConvertor" />
             <convertors:ZeroToBoolean x:Key="ZeroToBooleanConvertor" />
             <convertors:EmptyStringToBoolean x:Key="EmptyStringToBooleanConvertor" />
+            <convertors:PreferencesToText x:Key="PreferencesToTextConvertor" />
         </ResourceDictionary>
     </Application.Resources>
 

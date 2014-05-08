@@ -300,7 +300,7 @@ namespace CoPilot.CoPilot.Controller
                 progress.Selected = true;
                 progress.TotalBytes = 0;
                 progress.Url = new Uri(Controllers.Data.DATA_FILE, UriKind.Relative);
-                progress.Cancel = new System.Threading.CancellationToken();
+                progress.Cancel = new System.Threading.CancellationTokenSource();
                 progress.Type = Interfaces.Types.FileType.Data;
                 progress.Preferences = ProgressPreferences.AllowOnCelluralAndBatery;
 

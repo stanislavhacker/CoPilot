@@ -44,7 +44,7 @@ namespace CoPilot.Utils.Convertors
                         e.Data = new Progress();
                     }
                     Progress progress = e.Data as Progress;
-                    progress.Cancel = new CancellationToken();
+                    progress.Cancel = new CancellationTokenSource();
                     progress.Selected = false;
                     progress.Type = FileType.Photo;
                     progress.Url = new Uri(e.Path, UriKind.Relative);
@@ -70,7 +70,7 @@ namespace CoPilot.Utils.Convertors
                         e.Data = new Progress();
                     }
                     Progress progress = e.Data as Progress;
-                    progress.Cancel = new CancellationToken();
+                    progress.Cancel = new CancellationTokenSource();
                     progress.Selected = false;
                     progress.Type = FileType.Video;
                     progress.Url = new Uri(e.Path, UriKind.Relative);

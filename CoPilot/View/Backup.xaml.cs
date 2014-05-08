@@ -264,6 +264,26 @@ namespace CoPilot.CoPilot.View
             }
         }
 
+        /// <summary>
+        /// CancelCommand
+        /// </summary>
+        public ICommand CancelCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    Progress prg = param as Progress;
+                    if (prg != null && !prg.Cancel.IsCancellationRequested && prg.Cancel.Token.CanBeCanceled)
+                    {
+                        prg.Cancel.Cancel();
+                        prg.InProgress = false;
+                        prg.Selected = false;
+                    }
+                }, param => true);
+            }
+        }
+
         #endregion
 
         #region PROPERTY MENU
@@ -460,6 +480,7 @@ namespace CoPilot.CoPilot.View
             InitializeControllers();
 
             this.createUploadProgress();
+            this.createDownloadProgress();
             this.DataContext = this;
         }
 
@@ -628,13 +649,6 @@ namespace CoPilot.CoPilot.View
             }
 
             DownloadProgress.BytesTransferred = 0;
-            DownloadProgress.Cancel = new System.Threading.CancellationToken();
-            DownloadProgress.ProgressPercentage = 0;
-            DownloadProgress.Selected = true;
-            DownloadProgress.TotalBytes = 0;
-            DownloadProgress.Type = Interfaces.Types.FileType.Data;
-            DownloadProgress.Url = new Uri(Controllers.Data.DATA_FILE, UriKind.Relative);
-            DownloadProgress.Preferences = ProgressPreferences.AllowOnCelluralAndBatery;
 
             //stop saving data
             DataController.Stop();
@@ -663,6 +677,8 @@ namespace CoPilot.CoPilot.View
         /// <returns></returns>
         private async Task ProcessBackupUpload()
         {
+            UploadProgress.BytesTransferred = 0;
+
             //upload and save backup
             await FtpController.ProcessBackup(UploadProgress);
         }
@@ -677,9 +693,24 @@ namespace CoPilot.CoPilot.View
             UploadProgress.Selected = true;
             UploadProgress.TotalBytes = 0;
             UploadProgress.Url = new Uri(Controllers.Data.DATA_FILE, UriKind.Relative);
-            UploadProgress.Cancel = new System.Threading.CancellationToken();
+            UploadProgress.Cancel = new System.Threading.CancellationTokenSource();
             UploadProgress.Type = Interfaces.Types.FileType.Data;
             UploadProgress.Preferences = ProgressPreferences.AllowOnCelluralAndBatery;
+        }
+
+        /// <summary>
+        /// Create downlaod progress
+        /// </summary>
+        private void createDownloadProgress()
+        {
+            DownloadProgress.BytesTransferred = 0;
+            DownloadProgress.Cancel = new System.Threading.CancellationTokenSource();
+            DownloadProgress.ProgressPercentage = 0;
+            DownloadProgress.Selected = true;
+            DownloadProgress.TotalBytes = 0;
+            DownloadProgress.Type = Interfaces.Types.FileType.Data;
+            DownloadProgress.Url = new Uri(Controllers.Data.DATA_FILE, UriKind.Relative);
+            DownloadProgress.Preferences = ProgressPreferences.AllowOnCelluralAndBatery;
         }
 
         #endregion 

@@ -166,6 +166,7 @@
     <Compile Include="Utils\Convertors\NotBackuped.cs" />
     <Compile Include="Utils\Convertors\OdometerToRealOdometer.cs" />
     <Compile Include="Utils\Convertors\PageToVisibility.cs" />
+    <Compile Include="Utils\Convertors\PreferencesToText.cs" />
     <Compile Include="Utils\Convertors\PriceToRealPrice.cs" />
     <Compile Include="Utils\Convertors\RealConsumptionToString.cs" />
     <Compile Include="Utils\Convertors\RecordingToImage.cs" />

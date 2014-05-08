@@ -839,7 +839,7 @@ namespace CoPilot.CoPilot.View
             }
 
             this.Progress = new Progress();
-            this.Progress.Cancel = new System.Threading.CancellationToken();
+            this.Progress.Cancel = new System.Threading.CancellationTokenSource();
             this.Progress.Selected = true;
             this.Progress.Type = FileType.Video;
             this.Progress.Url = new Uri(video.Preview, UriKind.Relative);

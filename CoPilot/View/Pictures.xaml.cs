@@ -550,7 +550,7 @@ namespace CoPilot.CoPilot.View
             }
 
             this.Progress = new Progress();
-            this.Progress.Cancel = new System.Threading.CancellationToken();
+            this.Progress.Cancel = new System.Threading.CancellationTokenSource();
             this.Progress.Selected = true;
             this.Progress.Type = Interfaces.Types.FileType.Photo;
             this.Progress.Url = new Uri(image.Path, UriKind.Relative);

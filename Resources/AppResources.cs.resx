@@ -596,4 +596,13 @@
   <data name="VideoError_Title" xml:space="preserve">
     <value>Chyba videa</value>
   </data>
+  <data name="AllowOnCelluralAndBatery" xml:space="preserve">
+    <value>Čekám na spojení ...</value>
+  </data>
+  <data name="AllowOnWifiAndBatery" xml:space="preserve">
+    <value>Čekám na Wi-Fi ...</value>
+  </data>
+  <data name="AllowOnWifiAndExternalPower" xml:space="preserve">
+    <value>Zapojte napájení a Wi-Fi ...</value>
+  </data>
 </root>

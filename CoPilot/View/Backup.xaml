@@ -243,12 +243,22 @@
 
                                     <!-- PROGRESS -->
                                     <Grid Margin="80,0,0,0" Visibility="{Binding UploadProgress.InProgress, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                                        <TextBlock 
+                                            Visibility="{Binding UploadProgress.BytesTransferred, Converter={StaticResource CountToCollapsedConvertor}, ConverterParameter='0'}"
+                                            Text="{Binding UploadProgress.Preferences, Converter={StaticResource PreferencesToTextConvertor}}" 
+                                            VerticalAlignment="Bottom" 
+                                            TextAlignment="Left" 
+                                            Margin="0,0,0,4" 
+                                            FontSize="16" 
+                                            Foreground="Gray"/>
                                         <ProgressBar 
                                             IsIndeterminate="{Binding UploadProgress.BytesTransferred, Converter={StaticResource ZeroToBooleanConvertor}}"
                                             Value="{Binding UploadProgress.ProgressPercentage}"
                                             VerticalAlignment="Bottom" 
-                                            Margin="0" 
-                                            Grid.ColumnSpan="2" />
+                                            Margin="0,0,50,0" />
+                                        <Button Command="{Binding CancelCommand}" CommandParameter="{Binding UploadProgress}" HorizontalAlignment="Right" Style="{StaticResource MenuButton}">
+                                            <Image Source="/Resources/Images/Buttons/cancel.png" />
+                                        </Button>
                                     </Grid>
 
                                 </Grid>
@@ -304,11 +314,25 @@
                                                Foreground="Gray" />
 
                                     <!-- PROGRESS -->
-                                    <ProgressBar 
-                                            Margin="80,0,0,0"
-                                            Visibility="{Binding DownloadProgress.InProgress, Converter={StaticResource BooleanToVisibilityConvertor}}"
-                                            IsIndeterminate="true"
+                                    <Grid Margin="80,0,0,0" Visibility="{Binding DownloadProgress.InProgress, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                                        <TextBlock 
+                                            Visibility="{Binding DownloadProgress.BytesTransferred, Converter={StaticResource CountToCollapsedConvertor}, ConverterParameter='0'}"
+                                            Text="{Binding DownloadProgress.Preferences, Converter={StaticResource PreferencesToTextConvertor}}" 
+                                            VerticalAlignment="Bottom" 
+                                            TextAlignment="Left" 
+                                            Margin="0,0,0,4" 
+                                            FontSize="16" 
+                                            Foreground="Gray"/>
+                                        <ProgressBar 
+                                            Margin="0,0,50,0"
+                                            IsIndeterminate="{Binding DownloadProgress.BytesTransferred, Converter={StaticResource ZeroToBooleanConvertor}}"
+                                            Value="{Binding DownloadProgress.ProgressPercentage}"
                                             VerticalAlignment="Bottom" />
+                                        <Button Command="{Binding CancelCommand}" CommandParameter="{Binding DownloadProgress}" HorizontalAlignment="Right" Style="{StaticResource MenuButton}">
+                                            <Image Source="/Resources/Images/Buttons/cancel.png" />
+                                        </Button>
+                                    </Grid>
+
                                 </Grid>
                             </Button>
                             <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
@@ -382,11 +406,22 @@
 
                                                     <!-- PROGRESS -->
                                                     <Grid Margin="0" Visibility="{Binding InProgress, Converter={StaticResource BooleanToVisibilityConvertor}}" Height="60">
+                                                        <TextBlock 
+                                                            Visibility="{Binding BytesTransferred, Converter={StaticResource CountToCollapsedConvertor}, ConverterParameter='0'}"
+                                                            Text="{Binding Preferences, Converter={StaticResource PreferencesToTextConvertor}}" 
+                                                            VerticalAlignment="Bottom" 
+                                                            TextAlignment="Left" 
+                                                            Margin="0,0,0,4" 
+                                                            FontSize="16" 
+                                                            Foreground="Gray"/>
                                                         <ProgressBar 
                                                             IsIndeterminate="{Binding BytesTransferred, Converter={StaticResource ZeroToBooleanConvertor}}"
                                                             Value="{Binding ProgressPercentage}"
                                                             VerticalAlignment="Bottom" 
-                                                            Margin="0" />
+                                                            Margin="0,0,50,0" />
+                                                        <Button Command="{Binding ElementName=BackupRoot, Path=DataContext.CancelCommand}" CommandParameter="{Binding}" HorizontalAlignment="Right" Style="{StaticResource MenuButton}">
+                                                            <Image Source="/Resources/Images/Buttons/cancel.png" />
+                                                        </Button>
                                                     </Grid>
 
                                                 </Grid>
@@ -466,11 +501,22 @@
 
                                                     <!-- PROGRESS -->
                                                     <Grid Margin="0" Visibility="{Binding InProgress, Converter={StaticResource BooleanToVisibilityConvertor}}" Height="60">
+                                                        <TextBlock 
+                                                            Visibility="{Binding BytesTransferred, Converter={StaticResource CountToCollapsedConvertor}, ConverterParameter='0'}"
+                                                            Text="{Binding Preferences, Converter={StaticResource PreferencesToTextConvertor}}" 
+                                                            VerticalAlignment="Bottom" 
+                                                            TextAlignment="Left" 
+                                                            Margin="0,0,0,4" 
+                                                            FontSize="16" 
+                                                            Foreground="Gray"/>
                                                         <ProgressBar 
                                                             IsIndeterminate="{Binding BytesTransferred, Converter={StaticResource ZeroToBooleanConvertor}}"
                                                             Value="{Binding ProgressPercentage}"
                                                             VerticalAlignment="Bottom" 
-                                                            Margin="0" />
+                                                            Margin="0,0,50,0" />
+                                                        <Button Command="{Binding ElementName=BackupRoot, Path=DataContext.CancelCommand}" CommandParameter="{Binding}" HorizontalAlignment="Right" Style="{StaticResource MenuButton}">
+                                                            <Image Source="/Resources/Images/Buttons/cancel.png" />
+                                                        </Button>
                                                     </Grid>
 
                                                 </Grid>

@@ -111,7 +111,7 @@ namespace CoPilot.Utils
         /// <returns></returns>
         public static long GetSize(string path) 
         {
-            var stream = storage.OpenFile(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            var stream = storage.OpenFile(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             var length = stream.Length;
             stream.Close();
             return length;

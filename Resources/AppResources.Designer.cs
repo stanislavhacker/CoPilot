@@ -79,6 +79,33 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waiting for connection ....
+        /// </summary>
+        public static string AllowOnCelluralAndBatery {
+            get {
+                return ResourceManager.GetString("AllowOnCelluralAndBatery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for Wi-Fi network ....
+        /// </summary>
+        public static string AllowOnWifiAndBatery {
+            get {
+                return ResourceManager.GetString("AllowOnWifiAndBatery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plugin external power and Wi-Fi ....
+        /// </summary>
+        public static string AllowOnWifiAndExternalPower {
+            get {
+                return ResourceManager.GetString("AllowOnWifiAndExternalPower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to really end application? Video recording will be finished!.
         /// </summary>
         public static string AppEndDescription {
