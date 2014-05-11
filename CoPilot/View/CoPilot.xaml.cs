@@ -29,6 +29,7 @@ using System.Text;
 using CoPilot.Core.Utils;
 using System.Threading.Tasks;
 using OdbCommunicator.OdbCommon;
+using CoPilot.Core.Data;
 
 namespace CoPilot.CoPilot.View
 {
@@ -480,6 +481,23 @@ namespace CoPilot.CoPilot.View
                 {
                     MarketplaceReviewTask review = new MarketplaceReviewTask();
                     review.Show();
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// ChangeVideoQuality Command
+        /// </summary>
+        public ICommand ChangeVideoQualityCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    Quality q = (Quality)Enum.Parse(typeof(Quality), (String)param);
+                    DataController.Quality = q;
+                    CameraController.Quality = q;
+                    CameraController.CameraStart();
                 }, param => true);
             }
         }
@@ -951,6 +969,11 @@ namespace CoPilot.CoPilot.View
                 {
                     CameraController.OnPropertyChanged("IsSupported");
                     CameraController.OnPropertyChanged("IsShotEnabled");
+                }
+
+                if (e.PropertyName == "Quality")
+                {
+                    CameraController.Quality = DataController.Quality;
                 }
             };
         }

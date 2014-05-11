@@ -298,6 +298,23 @@
                                     <Image Width="40" HorizontalAlignment="Left" Source="{Binding CameraController.IsRecording, Converter={StaticResource RecordingToImageConvertor}}" />
                                     <TextBlock Margin="80,0,0,0" Visibility="{Binding CameraController.IsRecording, Converter={StaticResource BooleanToCollapsedConvertor}}" Text="{Binding LocalizedResources.StartRecording, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
                                     <TextBlock Margin="80,0,0,0" Visibility="{Binding CameraController.IsRecording, Converter={StaticResource BooleanToVisibilityConvertor}}" Text="{Binding LocalizedResources.StopRecording, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button 
+                                            Command="{Binding ChangeVideoQualityCommand}" 
+                                            IsEnabled="{Binding CameraController.IsRecording, Converter={StaticResource TrueToFalseConvertor}}"
+                                            Width="60"
+                                            CommandParameter="SD"
+                                            Style="{Binding DataController.Quality, Converter={StaticResource QualityToStyleConvertor}, ConverterParameter='SD'}"
+                                            Content="SD"/>
+                                        <Button 
+                                            Command="{Binding ChangeVideoQualityCommand}" 
+                                            IsEnabled="{Binding CameraController.IsRecording, Converter={StaticResource TrueToFalseConvertor}}"
+                                            Width="60"
+                                            CommandParameter="HD"
+                                            Style="{Binding DataController.Quality, Converter={StaticResource QualityToStyleConvertor}, ConverterParameter='HD'}"
+                                            Content="HD"/>
+                                    </StackPanel>
                                 </Grid>
                             </Button>
                             <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />

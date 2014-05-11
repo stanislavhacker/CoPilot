@@ -44,9 +44,13 @@ namespace CoPilot.CoPilot.Controller
         /// </summary>
         public Double AverageConsumption
         {
-            get
+            get 
             {
-                return this.getAverageConsumption();
+                if (this.data == null) 
+                {
+                    return 0;
+                }
+                return this.data.AverageConsumption();
             }
         }
 
@@ -457,6 +461,23 @@ namespace CoPilot.CoPilot.Controller
         }
 
         /// <summary>
+        /// Quality
+        /// </summary>
+        public Quality Quality
+        {
+            get
+            {
+                return data.Quality;
+            }
+            set
+            {
+                data.Quality = value;
+                RaisePropertyChanged();
+                this.Save();
+            }
+        }
+
+        /// <summary>
         /// Consumption
         /// </summary>
         public Consumption Consumption
@@ -635,7 +656,8 @@ namespace CoPilot.CoPilot.Controller
         /// </summary>
         public Data()
         {
-            data = Records.Load(DATA_FILE, Storage.Get());
+            var stream = this.openStreamForRead(DATA_FILE);
+            data = Records.Load(stream);
         }
 
         /// <summary>
@@ -664,9 +686,10 @@ namespace CoPilot.CoPilot.Controller
             var seconds = DateTime.Now.Subtract(saved).TotalSeconds;
             if (seconds > 15 || force)
             {
+                var stream = this.openStreamForWrite(DATA_FILE);
                 saved = DateTime.Now;
                 data.Change = DateTime.Now;
-                data.Save(DATA_FILE, Storage.Get());
+                data.Save(stream);
                 OnPropertyChanged("AvailableSpace");
                 OnPropertyChanged("Size");
             }
@@ -677,7 +700,8 @@ namespace CoPilot.CoPilot.Controller
         /// </summary>
         public void FromBackup()
         {
-            this.data = Records.Load(DATA_FILE, Storage.Get());
+            var stream = this.openStreamForRead(DATA_FILE);
+            this.data = Records.Load(stream);
             //set globals
             RateExchange.CurrentCurrency = this.Currency;
             DistanceExchange.CurrentDistance = this.Distance;
@@ -699,6 +723,41 @@ namespace CoPilot.CoPilot.Controller
         }
 
         #region PRIVATES
+
+        /// <summary>
+        /// Open stream for read
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private Stream openStreamForRead(String name)
+        {
+            var fileExists = Storage.FileExists(name);
+            if (fileExists)
+            {
+                //stream
+                return Storage.OpenFile(name, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Open stream for read
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private Stream openStreamForWrite(String name)
+        {
+            Stream stream;
+            if (Storage.FileExists(name))
+            {
+                stream = Storage.OpenFile(name, FileMode.Truncate, FileAccess.ReadWrite, FileShare.Read);
+            }
+            else
+            {
+                stream = Storage.OpenFile(name, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
+            }
+            return stream;
+        }
 
         /// <summary>
         /// Create record
@@ -751,46 +810,6 @@ namespace CoPilot.CoPilot.Controller
 
             OnPropertyChanged("AverageConsumption");
             OnPropertyChanged("Consumption");
-        }
-
-        /// <summary>
-        /// Get average consuption
-        /// </summary>
-        /// <returns></returns>
-        private Double getAverageConsumption()
-        {
-            var distanceSum = 0.0;
-            var fuelSum = 0.0;
-
-            var distanceSumFull = 0.0;
-            var fuelSumFull = 0.0;
-
-            if (this.Fills.Count < 2)
-            {
-                return 0;
-            }
-
-            for (var i = this.Fills.Count - 1; i > 0; i--)
-            {
-                var current = this.Fills[i];
-                var next = this.Fills[i - 1];
-
-                var distance = DistanceExchange.GetOdometerWithRightDistance(next.Odometer) - DistanceExchange.GetOdometerWithRightDistance(current.Odometer);
-                var l = current.Refueled;
-
-                if (current.Full)
-                {
-                    distanceSumFull += distance;
-                    fuelSumFull += l;
-                }
-                else
-                {
-                    distanceSum += distance;
-                    fuelSum += l;
-                }
-            }
-
-            return Math.Round((fuelSum + fuelSumFull) / (distanceSum + distanceSumFull), 4);
         }
 
         #endregion

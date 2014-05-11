@@ -168,6 +168,7 @@
     <Compile Include="Utils\Convertors\PageToVisibility.cs" />
     <Compile Include="Utils\Convertors\PreferencesToText.cs" />
     <Compile Include="Utils\Convertors\PriceToRealPrice.cs" />
+    <Compile Include="Utils\Convertors\QualityToStyle.cs" />
     <Compile Include="Utils\Convertors\RealConsumptionToString.cs" />
     <Compile Include="Utils\Convertors\RecordingToImage.cs" />
     <Compile Include="Utils\Convertors\SpeechContextToVisibility.cs" />
