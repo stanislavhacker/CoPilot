@@ -36,7 +36,6 @@
             <convertors:ZeroToBoolean x:Key="ZeroToBooleanConvertor" />
             <convertors:EmptyStringToBoolean x:Key="EmptyStringToBooleanConvertor" />
             <convertors:PreferencesToText x:Key="PreferencesToTextConvertor" />
-            <convertors:QualityToStyle x:Key="QualityToStyleConvertor" />
         </ResourceDictionary>
     </Application.Resources>
 

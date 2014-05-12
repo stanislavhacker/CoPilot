@@ -461,23 +461,6 @@ namespace CoPilot.CoPilot.Controller
         }
 
         /// <summary>
-        /// Quality
-        /// </summary>
-        public Quality Quality
-        {
-            get
-            {
-                return data.Quality;
-            }
-            set
-            {
-                data.Quality = value;
-                RaisePropertyChanged();
-                this.Save();
-            }
-        }
-
-        /// <summary>
         /// Consumption
         /// </summary>
         public Consumption Consumption

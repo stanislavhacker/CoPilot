@@ -190,23 +190,6 @@ namespace CoPilot.CoPilot.Controller
         }
 
         /// <summary>
-        /// Quality
-        /// </summary>
-        private Quality quality = Quality.SD;
-        public Quality Quality
-        {
-            get
-            {
-                return quality;
-            }
-            set
-            {
-                quality = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        /// <summary>
         /// Get record time
         /// </summary>
         /// <returns></returns>
@@ -335,19 +318,8 @@ namespace CoPilot.CoPilot.Controller
 
             if (camera != null)
             {
-                VideoFormat selected;
-                if (this.Quality == Core.Data.Quality.SD)
-                {
-                    var supported = camera.SupportedFormats.Where(item => item.PixelFormat == PixelFormatType.Format8bppGrayscale).OrderBy(item => item.PixelWidth);
-                    selected = supported.ElementAt(0);
-                }
-                else
-                {
-                    var supported = camera.SupportedFormats.Where(item => item.PixelFormat == PixelFormatType.Format32bppArgb).OrderBy(item => item.PixelWidth);
-                    selected = supported.ElementAt(0);
-                }
-
-                source.VideoCaptureDevice.DesiredFormat = selected;
+                var supported = camera.SupportedFormats.Where(item => item.PixelFormat == PixelFormatType.Format32bppArgb).OrderBy(item => item.PixelWidth);
+                source.VideoCaptureDevice.DesiredFormat = supported.ElementAt(0);
 
                 if (videoSink != null)
                 {

@@ -485,23 +485,6 @@ namespace CoPilot.CoPilot.View
             }
         }
 
-        /// <summary>
-        /// ChangeVideoQuality Command
-        /// </summary>
-        public ICommand ChangeVideoQualityCommand
-        {
-            get
-            {
-                return new RelayCommand((param) =>
-                {
-                    Quality q = (Quality)Enum.Parse(typeof(Quality), (String)param);
-                    DataController.Quality = q;
-                    CameraController.Quality = q;
-                    CameraController.CameraStart();
-                }, param => true);
-            }
-        }
-
         #endregion
 
         #region PROPERTY CAMERA
@@ -969,11 +952,6 @@ namespace CoPilot.CoPilot.View
                 {
                     CameraController.OnPropertyChanged("IsSupported");
                     CameraController.OnPropertyChanged("IsShotEnabled");
-                }
-
-                if (e.PropertyName == "Quality")
-                {
-                    CameraController.Quality = DataController.Quality;
                 }
             };
         }
