@@ -669,7 +669,7 @@ namespace CoPilot.CoPilot.View
         {
             get
             {
-                var progress = this.FtpController.Progress(new Uri(this.Video.Path, UriKind.Relative));
+                var progress = this.FtpController.Progress(new Uri(this.Video.Path, UriKind.Relative)).Result;
                 var backup = !string.IsNullOrEmpty(this.Video.VideoBackup.Id);
                 return !progress && backup;
             }
@@ -682,7 +682,7 @@ namespace CoPilot.CoPilot.View
         {
             get
             {
-                var progress = this.FtpController.Progress(new Uri(this.Video.Path, UriKind.Relative));
+                var progress = this.FtpController.Progress(new Uri(this.Video.Path, UriKind.Relative)).Result;
                 return !progress;
             }
         }

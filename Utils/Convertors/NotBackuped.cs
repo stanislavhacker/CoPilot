@@ -50,6 +50,7 @@ namespace CoPilot.Utils.Convertors
                     progress.Url = new Uri(e.Path, UriKind.Relative);
                     progress.Data = e;
                     progress.Preferences = ProgressPreferences.AllowOnWifiAndBatery;
+                    progress.IsEnabled = true;
 
                     this.updateProgress(ftp, progress);
                     return progress;
@@ -76,6 +77,7 @@ namespace CoPilot.Utils.Convertors
                     progress.Url = new Uri(e.Path, UriKind.Relative);
                     progress.Data = e;
                     progress.Preferences = ProgressPreferences.AllowOnWifiAndExternalPower;
+                    progress.IsEnabled = Storage.FileExists(e.Path);
 
                     this.updateProgress(ftp, progress);
                     return progress;

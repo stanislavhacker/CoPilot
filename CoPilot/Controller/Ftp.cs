@@ -196,9 +196,9 @@ namespace CoPilot.CoPilot.Controller
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public Boolean Progress(Uri url)
+        public async Task<Boolean> Progress(Uri url)
         {
-            return client.Progress(url);
+            return await client.Progress(url);
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace CoPilot.CoPilot.Controller
         /// <returns></returns>
         public async void Connect(Progress progress)
         {
-            var exists = this.Progress(progress.Url);
+            var exists = await this.Progress(progress.Url);
             if (exists)
             {
                 await this.Upload(progress);

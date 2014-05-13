@@ -398,7 +398,7 @@
                                                     </StackPanel>
                                                     
                                                     <!-- NORMAL -->
-                                                    <Grid Margin="0" Visibility="{Binding InProgress, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
+                                                    <Grid Height="60" Margin="0" Visibility="{Binding InProgress, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
                                                         <TextBlock Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" Visibility="{Binding Data.Backup.Id, Converter={StaticResource BooleanToCollapsedConvertor}}" />
                                                         <TextBlock Text="{Binding Data.Backup.Date, FallbackValue='-'}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding Data.Backup.Id, Converter={StaticResource BooleanToVisibilityConvertor}}" />
                                                         <CheckBox VerticalAlignment="Center" IsEnabled="{Binding ElementName=BackupRoot, Path=DataContext.IsImageBackup, Converter={StaticResource TrueToFalseConvertor}}" IsChecked="{Binding Selected, Mode=TwoWay}" Command="{Binding ElementName=BackupRoot, Path=DataContext.ChekcPictureCommand}" CommandParameter="{Binding}" HorizontalAlignment="Right" Margin="-10" />
@@ -493,10 +493,18 @@
                                                     </StackPanel> 
 
                                                     <!-- NORMAL -->
-                                                    <Grid Margin="0" Visibility="{Binding InProgress, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
+                                                    <Grid Height="60" Margin="0" Visibility="{Binding InProgress, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
                                                         <TextBlock Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" Visibility="{Binding Data.VideoBackup.Id, Converter={StaticResource BooleanToCollapsedConvertor}}" />
                                                         <TextBlock Text="{Binding Data.VideoBackup.Date, FallbackValue='-'}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding Data.VideoBackup.Id, Converter={StaticResource BooleanToVisibilityConvertor}}" />
-                                                        <CheckBox VerticalAlignment="Center" IsEnabled="{Binding ElementName=BackupRoot, Path=DataContext.IsVideoBackup, Converter={StaticResource TrueToFalseConvertor}}" IsChecked="{Binding Selected, Mode=TwoWay}" Command="{Binding ElementName=BackupRoot, Path=DataContext.ChekcVideoCommand}" CommandParameter="{Binding}" HorizontalAlignment="Right" Margin="-10" />
+                                                        <CheckBox 
+                                                            VerticalAlignment="Center" 
+                                                            Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConvertor}}"
+                                                            IsEnabled="{Binding ElementName=BackupRoot, Path=DataContext.IsVideoBackup, Converter={StaticResource TrueToFalseConvertor}}" 
+                                                            IsChecked="{Binding Selected, Mode=TwoWay}" 
+                                                            Command="{Binding ElementName=BackupRoot, Path=DataContext.ChekcVideoCommand}" 
+                                                            CommandParameter="{Binding}" 
+                                                            HorizontalAlignment="Right" 
+                                                            Margin="-10" />
                                                     </Grid>
 
                                                     <!-- PROGRESS -->
