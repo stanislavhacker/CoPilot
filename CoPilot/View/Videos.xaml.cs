@@ -671,7 +671,7 @@ namespace CoPilot.CoPilot.View
             {
                 var progress = this.FtpController.Progress(new Uri(this.Video.Path, UriKind.Relative)).Result;
                 var backup = !string.IsNullOrEmpty(this.Video.VideoBackup.Id);
-                return !progress && backup;
+                return !progress && backup && Storage.FileExists(this.Video.Path);
             }
         }
 
