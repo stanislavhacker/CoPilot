@@ -74,7 +74,9 @@ namespace CoPilot.CoPilot.Controller
             if (appTile != null)
             {
                 FlipTileData data = new FlipTileData();
-                String consumption = DataController.AverageConsumption + " " +  RealConsumptionToString.Convert(DataController.Consumption, DataController.Distance);
+                DistanceToConsumptionString convertor = new DistanceToConsumptionString();
+                String consumprionString = convertor.Convert(DataController.AverageConsumption, typeof(Double), null, null) as String;
+                String consumption = consumprionString + " " + RealConsumptionToString.Convert(DataController.Consumption, DataController.Distance);
 
                 data.BackTitle = "Co-Pilot";
                 data.BackContent = String.Format(AppResources.Tile_Small, consumption, DataController.Repairs.Count);
