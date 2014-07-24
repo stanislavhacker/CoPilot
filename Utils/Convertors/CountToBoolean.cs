@@ -12,8 +12,8 @@ namespace CoPilot.Utils.Convertors
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            double val = Double.Parse(value.ToString());
-            double min = Double.Parse((string)parameter);
+            double val = Double.Parse(value.ToString(), CultureInfo.InvariantCulture);
+            double min = Double.Parse((string)parameter, CultureInfo.InvariantCulture);
             return val > min;
         }
 

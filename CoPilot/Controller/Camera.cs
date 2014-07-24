@@ -81,7 +81,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return camera != null && IsAvailableSpaceForVideo;
+                return camera != null;
             }
         }
 
@@ -92,7 +92,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return IsSupported && !this.startRecording && !this.stopRecording;
+                return IsSupported && IsAvailableSpaceForVideo && !this.startRecording && !this.stopRecording;
             }
         }
 
@@ -103,7 +103,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return camera != null && !this.IsRecording && this.IsCameraEnabled && this.IsAvailableSpaceForPhoto;
+                return IsSupported && !this.IsRecording && this.IsAvailableSpaceForPhoto;
             }
         }
 

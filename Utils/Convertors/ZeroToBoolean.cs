@@ -12,7 +12,7 @@ namespace CoPilot.Utils.Convertors
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            double val = Double.Parse(value.ToString());
+            double val = Double.Parse(value.ToString(), CultureInfo.InvariantCulture);
             return val == 0;
         }
 
