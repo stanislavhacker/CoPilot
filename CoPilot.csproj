@@ -151,39 +151,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Utils\Commands.cs" />
-    <Compile Include="Utils\Convertors\BluetoothErrorTypeToVisibility.cs" />
-    <Compile Include="Utils\Convertors\BooleanToCollapsed.cs" />
-    <Compile Include="Utils\Convertors\BooleanToVisibility.cs" />
-    <Compile Include="Utils\Convertors\ContextMenuToVisibility.cs" />
-    <Compile Include="Utils\Convertors\CountToBoolean.cs" />
-    <Compile Include="Utils\Convertors\CountToCollapsed.cs" />
-    <Compile Include="Utils\Convertors\CountToVisibility.cs" />
-    <Compile Include="Utils\Convertors\CurrencyToStyle.cs" />
-    <Compile Include="Utils\Convertors\DistanceToConsumptionString.cs" />
-    <Compile Include="Utils\Convertors\DistanceToStyle.cs" />
-    <Compile Include="Utils\Convertors\EmptyStringToBoolean.cs" />
-    <Compile Include="Utils\Convertors\NotBackuped.cs" />
-    <Compile Include="Utils\Convertors\OdometerToRealOdometer.cs" />
-    <Compile Include="Utils\Convertors\PageToVisibility.cs" />
-    <Compile Include="Utils\Convertors\PreferencesToText.cs" />
-    <Compile Include="Utils\Convertors\PriceToRealPrice.cs" />
-    <Compile Include="Utils\Convertors\RealConsumptionToString.cs" />
-    <Compile Include="Utils\Convertors\RecordingToImage.cs" />
-    <Compile Include="Utils\Convertors\SpeechContextToVisibility.cs" />
-    <Compile Include="Utils\Convertors\StepToVisibility.cs" />
-    <Compile Include="Utils\Convertors\TrueToFalse.cs" />
-    <Compile Include="Utils\Convertors\TutorialContextToVisibility.cs" />
-    <Compile Include="Utils\Convertors\ZeroToBoolean.cs" />
-    <Compile Include="Utils\DataContainer.cs" />
-    <Compile Include="Utils\Dependencies\MediaPlayerDependency.cs" />
-    <Compile Include="Utils\Events\OdbEventArgs.cs" />
-    <Compile Include="Utils\Events\PictureSaveEventArgs.cs" />
-    <Compile Include="Utils\Events\VideoSaveEventArgs.cs" />
-    <Compile Include="Utils\License.cs" />
-    <Compile Include="Utils\Sentences.cs" />
-    <Compile Include="Utils\Settings.cs" />
-    <Compile Include="Utils\Storage.cs" />
+    <Compile Include="Data\Commands.cs" />
+    <Compile Include="Data\Convertors\ContextMenuToVisibility.cs" />
+    <Compile Include="Data\Convertors\CurrencyToStyle.cs" />
+    <Compile Include="Data\Convertors\DistanceToConsumptionString.cs" />
+    <Compile Include="Data\Convertors\DistanceToStyle.cs" />
+    <Compile Include="Data\Convertors\NotBackuped.cs" />
+    <Compile Include="Data\Convertors\PreferencesToText.cs" />
+    <Compile Include="Data\Convertors\RealConsumptionToString.cs" />
+    <Compile Include="Data\Convertors\SpeechContextToVisibility.cs" />
+    <Compile Include="Data\DataContainer.cs" />
+    <Compile Include="Data\Sentences.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -234,6 +212,11 @@
     <ProjectReference Include="..\CoPilot.OneDrive\CoPilot.OneDrive.csproj">
       <Project>{14F476EB-B2E5-4E1E-839C-854B8F99A2FC}</Project>
       <Name>CoPilot.OneDrive</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CoPilot.Utils\CoPilot.Utils.csproj">
+      <Project>{d0f2b2e0-7a2a-4700-9b89-6b11cd17a6e8}</Project>
+      <Name>CoPilot.Utils</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\GpsCalculation\GpsCalculation.csproj">
       <Project>{F1A58417-2B01-45BD-8276-AE9B5727E252}</Project>

@@ -23,6 +23,7 @@ using CoPilot.Interfaces.Types;
 using System.Threading.Tasks;
 using CoPilot.CoPilot.Controller;
 using CoPilot.Resources;
+using CoPilot.Data;
 
 namespace CoPilot.CoPilot.View
 {

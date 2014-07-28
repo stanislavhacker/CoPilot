@@ -10,11 +10,12 @@ using Microsoft.Phone.Shell;
 using System.ComponentModel;
 using CoPilot.Utils;
 using Controllers = CoPilot.CoPilot.Controller;
-using Data = CoPilot.Core.Data;
+using CoreData = CoPilot.Core.Data;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Globalization;
 using CoPilot.Core.Utils;
+using CoPilot.Data;
 
 namespace CoPilot.CoPilot.View
 {
@@ -251,11 +252,11 @@ namespace CoPilot.CoPilot.View
         /// </summary>
         private void saveRepair()
         {
-            Data.Repair repair = new Data.Repair();
-            repair.Odometer = new Data.Odometer(this.odometer, DataController.Distance);
+            CoreData.Repair repair = new CoreData.Repair();
+            repair.Odometer = new CoreData.Odometer(this.odometer, DataController.Distance);
             repair.Date = DateTime.Now;
             repair.ServiceName = this.serviceName;
-            repair.Price = new Data.Price(this.repairPrice, DataController.Currency);
+            repair.Price = new CoreData.Price(this.repairPrice, DataController.Currency);
             repair.Description = this.description;
             DataController.AddRepair(repair);
         }

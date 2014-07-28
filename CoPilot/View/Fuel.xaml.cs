@@ -13,8 +13,9 @@ using Controllers = CoPilot.CoPilot.Controller;
 using CoPilot.Utils;
 using System.Globalization;
 using System.Windows.Input;
-using Data = CoPilot.Core.Data;
+using CoreData = CoPilot.Core.Data;
 using CoPilot.Core.Utils;
+using CoPilot.Data;
 
 namespace CoPilot.CoPilot.View
 {
@@ -567,13 +568,13 @@ namespace CoPilot.CoPilot.View
         /// </summary>
         private void saveFuel()
         {
-            Data.Fill fill = new Data.Fill();
-            fill.Odometer = new Data.Odometer(this.odometer, DataController.Distance);
+            CoreData.Fill fill = new CoreData.Fill();
+            fill.Odometer = new CoreData.Odometer(this.odometer, DataController.Distance);
             fill.Date = DateTime.Now;
             fill.Full = this.isTankFull;
-            fill.Price = new Data.Price(this.fuelPrice, DataController.Currency); 
+            fill.Price = new CoreData.Price(this.fuelPrice, DataController.Currency); 
             fill.Refueled = this.liters;
-            fill.UnitPrice = new Data.Price(this.pricePerLiter, DataController.Currency);
+            fill.UnitPrice = new CoreData.Price(this.pricePerLiter, DataController.Currency);
             DataController.AddFill(fill);
         }
 

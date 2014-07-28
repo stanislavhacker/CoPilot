@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:convertors="clr-namespace:CoPilot.Utils.Convertors">
+    xmlns:convertorsUtils="clr-namespace:CoPilot.Utils.Convertors;assembly=CoPilot.Utils"
+    xmlns:convertors="clr-namespace:CoPilot.Data.Convertors">
 
     <!--Application Resources-->
     <Application.Resources>
@@ -14,27 +15,27 @@
             </ResourceDictionary.MergedDictionaries>
             <local:LocalizedStrings xmlns:local="clr-namespace:CoPilot" x:Key="LocalizedStrings"/>
             <convertors:ContextMenuToVisibility x:Key="ContextMenuToVisibilityConvertor"/>
-            <convertors:BooleanToVisibility x:Key="BooleanToVisibilityConvertor"/>
-            <convertors:BooleanToCollapsed x:Key="BooleanToCollapsedConvertor"/>
-            <convertors:RecordingToImage x:Key="RecordingToImageConvertor"/>
-            <convertors:TrueToFalse x:Key="TrueToFalseConvertor"/>
-            <convertors:CountToBoolean x:Key="CountToBooleanConvertor"/>
+            <convertorsUtils:BooleanToVisibility x:Key="BooleanToVisibilityConvertor"/>
+            <convertorsUtils:BooleanToCollapsed x:Key="BooleanToCollapsedConvertor"/>
+            <convertorsUtils:RecordingToImage x:Key="RecordingToImageConvertor"/>
+            <convertorsUtils:TrueToFalse x:Key="TrueToFalseConvertor"/>
+            <convertorsUtils:CountToBoolean x:Key="CountToBooleanConvertor"/>
             <convertors:CurrencyToStyle x:Key="CurrencyToStyleConvertor"/>
             <convertors:DistanceToStyle x:Key="DistanceToStyleConvertor"/>
-            <convertors:PriceToRealPrice x:Key="PriceToRealPriceConvertor"/>
-            <convertors:OdometerToRealOdometer x:Key="OdometerToRealOdometerConvertor"/>
-            <convertors:BluetoothErrorTypeToVisibility x:Key="BluetoothErrorTypeToVisibilityConvertor"/>
+            <convertorsUtils:PriceToRealPrice x:Key="PriceToRealPriceConvertor"/>
+            <convertorsUtils:OdometerToRealOdometer x:Key="OdometerToRealOdometerConvertor"/>
+            <convertorsUtils:BluetoothErrorTypeToVisibility x:Key="BluetoothErrorTypeToVisibilityConvertor"/>
             <convertors:SpeechContextToVisibility x:Key="SpeechContextToVisibilityConvertor"/>
-            <convertors:PageToVisibility x:Key="PageToVisibilityConvertor" />
+            <convertorsUtils:PageToVisibility x:Key="PageToVisibilityConvertor" />
             <convertors:RealConsumptionToString x:Key="RealConsumptionToStringConvertor" />
             <convertors:DistanceToConsumptionString x:Key="DistanceToConsumptionStringConvertor" />
             <convertors:NotBackuped x:Key="NotBackupedConvertor" />
-            <convertors:CountToVisibility x:Key="CountToVisibilityConvertor" />
-            <convertors:CountToCollapsed x:Key="CountToCollapsedConvertor" />
-            <convertors:StepToVisibility x:Key="StepToVisibilityConvertor" />
-            <convertors:TutorialContextToVisibility x:Key="TutorialContextToVisibilityConvertor" />
-            <convertors:ZeroToBoolean x:Key="ZeroToBooleanConvertor" />
-            <convertors:EmptyStringToBoolean x:Key="EmptyStringToBooleanConvertor" />
+            <convertorsUtils:CountToVisibility x:Key="CountToVisibilityConvertor" />
+            <convertorsUtils:CountToCollapsed x:Key="CountToCollapsedConvertor" />
+            <convertorsUtils:StepToVisibility x:Key="StepToVisibilityConvertor" />
+            <convertorsUtils:TutorialContextToVisibility x:Key="TutorialContextToVisibilityConvertor" />
+            <convertorsUtils:ZeroToBoolean x:Key="ZeroToBooleanConvertor" />
+            <convertorsUtils:EmptyStringToBoolean x:Key="EmptyStringToBooleanConvertor" />
             <convertors:PreferencesToText x:Key="PreferencesToTextConvertor" />
         </ResourceDictionary>
     </Application.Resources>

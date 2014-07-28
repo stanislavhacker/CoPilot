@@ -9,7 +9,7 @@ using Microsoft.Phone.Info;
 using System.Windows.Input;
 using CoPilot.Utils;
 using CoPilot.Utils.Events;
-using Data = CoPilot.Core.Data;
+using CoreData = CoPilot.Core.Data;
 using PR = System.Windows.Controls.Primitives;
 using CoPilot.CoPilot.Controller;
 using OdbCommunicator.OdbEventArg;
@@ -30,6 +30,8 @@ using CoPilot.Core.Utils;
 using System.Threading.Tasks;
 using OdbCommunicator.OdbCommon;
 using CoPilot.Core.Data;
+using CoPilot.Utils.Enums;
+using CoPilot.Data;
 
 namespace CoPilot.CoPilot.View
 {
@@ -44,7 +46,7 @@ namespace CoPilot.CoPilot.View
         /// <param name="e"></param>
         public static void DriveModeEnd(DriveMode driveMode, CancelEventArgs e)
         {
-            if (driveMode.IsOpen)
+            if (driveMode != null && driveMode.IsOpen)
             {
                 var result = MessageBox.Show(AppResources.DriveModeEndDescription, AppResources.DriveModeEndTitle, MessageBoxButton.OKCancel);
                 if (result == MessageBoxResult.OK)
@@ -341,7 +343,7 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    NavigationService.Navigate("/CoPilot/View/FuelView.xaml", this.GetFillDataContainer(param as Data.Fill));
+                    NavigationService.Navigate("/CoPilot/View/FuelView.xaml", this.GetFillDataContainer(param as CoreData.Fill));
                 }, param => true);
             }
         }
@@ -355,7 +357,7 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    NavigationService.Navigate("/CoPilot/View/RepairView.xaml", this.GetRepairDataContainer(param as Data.Repair));
+                    NavigationService.Navigate("/CoPilot/View/RepairView.xaml", this.GetRepairDataContainer(param as CoreData.Repair));
                 }, param => true);
             }
         }
@@ -369,7 +371,7 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    Data.Currency currency = (Data.Currency)Enum.Parse(typeof(Data.Currency), (String)param);
+                    CoreData.Currency currency = (CoreData.Currency)Enum.Parse(typeof(CoreData.Currency), (String)param);
                     DataController.Currency = currency;
                 }, param => true);
             }
@@ -384,7 +386,7 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    Data.Distance currency = (Data.Distance)Enum.Parse(typeof(Data.Distance), (String)param);
+                    CoreData.Distance currency = (CoreData.Distance)Enum.Parse(typeof(CoreData.Distance), (String)param);
                     DataController.Distance = currency;
                 }, param => true);
             }
@@ -444,7 +446,7 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    var values = Enum.GetValues(typeof(Data.Consumption)).Cast<Data.Consumption>();
+                    var values = Enum.GetValues(typeof(CoreData.Consumption)).Cast<CoreData.Consumption>();
                     var index = values.ToList().IndexOf(DataController.Consumption);
                     index++;
                     if (index >= values.Count())
@@ -1066,7 +1068,7 @@ namespace CoPilot.CoPilot.View
         /// </summary>
         /// <param name="fill"></param>
         /// <returns></returns>
-        private DataContainer GetFillDataContainer(Data.Fill fill)
+        private DataContainer GetFillDataContainer(CoreData.Fill fill)
         {
             DataContainer data = this.GetDefaultDataContainer();
             data.Fill = fill;
@@ -1078,7 +1080,7 @@ namespace CoPilot.CoPilot.View
         /// </summary>
         /// <param name="repair"></param>
         /// <returns></returns>
-        private DataContainer GetRepairDataContainer(Data.Repair repair)
+        private DataContainer GetRepairDataContainer(CoreData.Repair repair)
         {
             DataContainer data = this.GetDefaultDataContainer();
             data.Repair = repair;

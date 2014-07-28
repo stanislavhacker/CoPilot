@@ -21,6 +21,7 @@ using Microsoft.Phone.Tasks;
 using CoPilot.Interfaces;
 using System.Threading.Tasks;
 using CoPilot.CoPilot.Controller;
+using CoPilot.Data;
 
 namespace CoPilot.CoPilot.View
 {

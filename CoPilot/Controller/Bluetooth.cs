@@ -1,4 +1,4 @@
-﻿using CoPilot.Utils;
+﻿using CoPilot.Utils.Enums;
 using OdbCommunicator;
 using OdbCommunicator.OdbEventArg;
 using System;
@@ -14,18 +14,6 @@ using Windows.System;
 
 namespace CoPilot.CoPilot.Controller
 {
-    public enum BluetoothErrorType
-    {
-        None,
-        NotEnabled,
-        NotFound,
-        NoDevice,
-        OutOfRange,
-        NotSelected,
-        NotAllowed,
-        FatalError,
-        Unknown
-    }
 
     public class Bluetooth : Base
     {

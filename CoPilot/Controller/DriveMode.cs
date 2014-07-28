@@ -1,4 +1,5 @@
 ﻿using CoPilot.Core.Utils;
+using CoPilot.Data;
 using CoPilot.Resources;
 using CoPilot.Utils;
 using Microsoft.Phone.Controls;

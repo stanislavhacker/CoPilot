@@ -1,4 +1,5 @@
-﻿using CoPilot.Resources;
+﻿using CoPilot.Data.Convertors;
+using CoPilot.Resources;
 using CoPilot.Utils.Convertors;
 using Microsoft.Phone.Shell;
 using System;

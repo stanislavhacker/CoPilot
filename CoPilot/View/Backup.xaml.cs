@@ -15,13 +15,14 @@ using System.Windows.Input;
 using System.IO;
 using CoPilot.Resources;
 using Microsoft.Phone.Tasks;
-using Data = CoPilot.Core.Data;
+using CoreData = CoPilot.Core.Data;
 using System.Collections.ObjectModel;
 using CoPilot.Core.Utils;
 using CoPilot.Interfaces;
 using CoPilot.CoPilot.Controller;
 using System.Threading.Tasks;
 using CoPilot.Core.Data;
+using CoPilot.Data;
 
 namespace CoPilot.CoPilot.View
 {
@@ -83,7 +84,7 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    NavigationService.Navigate("/CoPilot/View/Pictures.xaml", this.GetPictureDataContainer(param as Data.Picture));
+                    NavigationService.Navigate("/CoPilot/View/Pictures.xaml", this.GetPictureDataContainer(param as CoreData.Picture));
                 }, param => true);
             }
         }
@@ -97,7 +98,7 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    NavigationService.Navigate("/CoPilot/View/Videos.xaml", this.GetVideoDataContainer(param as Data.Video));
+                    NavigationService.Navigate("/CoPilot/View/Videos.xaml", this.GetVideoDataContainer(param as CoreData.Video));
                 }, param => true);
             }
         }
@@ -736,7 +737,7 @@ namespace CoPilot.CoPilot.View
         /// </summary>
         /// <param name="fill"></param>
         /// <returns></returns>
-        private DataContainer GetPictureDataContainer(Data.Picture picture)
+        private DataContainer GetPictureDataContainer(CoreData.Picture picture)
         {
             DataContainer data = this.GetDefaultDataContainer();
             data.Picture = picture;
@@ -748,7 +749,7 @@ namespace CoPilot.CoPilot.View
         /// </summary>
         /// <param name="video"></param>
         /// <returns></returns>
-        private DataContainer GetVideoDataContainer(Data.Video video)
+        private DataContainer GetVideoDataContainer(CoreData.Video video)
         {
             DataContainer data = this.GetDefaultDataContainer();
             data.Video = video;

@@ -10,11 +10,12 @@ using Microsoft.Phone.Shell;
 using System.ComponentModel;
 using System.IO.IsolatedStorage;
 using System.Windows.Input;
-using Data = CoPilot.Core.Data;
+using CoreData = CoPilot.Core.Data;
 using CoPilot.Utils;
 using Controllers = CoPilot.CoPilot.Controller;
 using System.Runtime.CompilerServices;
 using CoPilot.Core.Utils;
+using CoPilot.Data;
 
 namespace CoPilot.CoPilot.View
 {
@@ -195,8 +196,8 @@ namespace CoPilot.CoPilot.View
         /// <summary>
         /// Repair
         /// </summary>
-        private Data.Repair repair;
-        public Data.Repair Repair
+        private CoreData.Repair repair;
+        public CoreData.Repair Repair
         {
             get
             {

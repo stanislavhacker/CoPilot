@@ -13,6 +13,7 @@ using Controllers = CoPilot.CoPilot.Controller;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.IO;
+using CoPilot.Data;
 
 namespace CoPilot.CoPilot.View
 {

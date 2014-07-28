@@ -10,6 +10,7 @@ using CoPilot.Resources;
 using CoPilot.CoPilot.Controller;
 using Microsoft.Phone.Tasks;
 using System.Text;
+using CR = CoPilot.CoPilot.Controller;
 using System.IO.IsolatedStorage;
 using CoPilot.Utils;
 
@@ -20,7 +21,7 @@ namespace CoPilot
         /// <summary>
         /// Data controller static
         /// </summary>
-        public static Data DataController { get; set; }
+        public static CR.Data DataController { get; set; }
 
         /// <summary>
         /// Ftp controller static

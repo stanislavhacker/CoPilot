@@ -10,6 +10,7 @@ using Controllers = CoPilot.CoPilot.Controller;
 using CoPilot.Core.Data;
 using System.Runtime.CompilerServices;
 using CoPilot.Core.Utils;
+using CoPilot.Data;
 
 namespace CoPilot.CoPilot.View
 {

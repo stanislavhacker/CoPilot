@@ -19,9 +19,7 @@ namespace CoPilot
 
         public static object GetLastNavigationData(this NavigationService service)
         {
-            object data = _navigationData;
-            _navigationData = null;
-            return data;
+            return _navigationData;
         }
     }
 }

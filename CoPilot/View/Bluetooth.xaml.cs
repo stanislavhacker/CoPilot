@@ -14,6 +14,7 @@ using System.Windows.Input;
 using Controllers = CoPilot.CoPilot.Controller;
 using Windows.Networking.Proximity;
 using CoPilot.Core.Utils;
+using CoPilot.Data;
 
 namespace CoPilot.CoPilot.View
 {
