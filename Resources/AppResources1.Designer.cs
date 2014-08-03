@@ -133,6 +133,15 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Avarage speed.
+        /// </summary>
+        public static string AverageSpeed {
+            get {
+                return ResourceManager.GetString("AverageSpeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your are not sign in.
         /// </summary>
         public static string Backup_NotSignedIn {
@@ -538,6 +547,15 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fuel price trend.
+        /// </summary>
+        public static string FuelPriceTrend {
+            get {
+                return ResourceManager.GetString("FuelPriceTrend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full tank?.
         /// </summary>
         public static string FullTank {
@@ -552,6 +570,15 @@ namespace CoPilot.Resources {
         public static string Gallon {
             get {
                 return ResourceManager.GetString("Gallon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h..
+        /// </summary>
+        public static string Hour {
+            get {
+                return ResourceManager.GetString("Hour", resourceCulture);
             }
         }
         
@@ -750,6 +777,24 @@ namespace CoPilot.Resources {
         public static string OutOfRangeOfDevice {
             get {
                 return ResourceManager.GetString("OutOfRangeOfDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paid for fuel.
+        /// </summary>
+        public static string PaidForFuel {
+            get {
+                return ResourceManager.GetString("PaidForFuel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paid for repairs.
+        /// </summary>
+        public static string PaidForRepairs {
+            get {
+                return ResourceManager.GetString("PaidForRepairs", resourceCulture);
             }
         }
         
@@ -1110,6 +1155,15 @@ namespace CoPilot.Resources {
         public static string Tile_Small {
             get {
                 return ResourceManager.GetString("Tile_Small", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refill trend.
+        /// </summary>
+        public static string TrendUnitsPerRefill {
+            get {
+                return ResourceManager.GetString("TrendUnitsPerRefill", resourceCulture);
             }
         }
         

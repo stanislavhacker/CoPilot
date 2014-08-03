@@ -605,4 +605,22 @@
   <data name="AllowOnWifiAndExternalPower" xml:space="preserve">
     <value>Plugin external power and Wi-Fi ...</value>
   </data>
+  <data name="AverageSpeed" xml:space="preserve">
+    <value>Avarage speed</value>
+  </data>
+  <data name="FuelPriceTrend" xml:space="preserve">
+    <value>Fuel price trend</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>h.</value>
+  </data>
+  <data name="PaidForFuel" xml:space="preserve">
+    <value>Paid for fuel</value>
+  </data>
+  <data name="PaidForRepairs" xml:space="preserve">
+    <value>Paid for repairs</value>
+  </data>
+  <data name="TrendUnitsPerRefill" xml:space="preserve">
+    <value>Refill trend</value>
+  </data>
 </root>

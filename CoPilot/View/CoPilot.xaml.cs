@@ -489,6 +489,28 @@ namespace CoPilot.CoPilot.View
 
         #endregion
 
+
+        #region PROPERTY STATS
+
+        /// <summary>
+        /// Stats controller
+        /// </summary>
+        private Controllers.Stats statsController;
+        public Controllers.Stats StatsController
+        {
+            get
+            {
+                return statsController;
+            }
+            set
+            {
+                statsController = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region PROPERTY CAMERA
 
         /// <summary>
@@ -839,6 +861,7 @@ namespace CoPilot.CoPilot.View
             this.createDriveModeController();
             this.createFtpController();
             this.createTileController();
+            this.createStatsController();
         }
 
         /// <summary>
@@ -1042,6 +1065,16 @@ namespace CoPilot.CoPilot.View
                 Settings.Add("StorageConnected", false.ToString());
                 FtpController.IsLogged = false;
             };
+        }
+
+
+        /// <summary>
+        /// Create stats controller
+        /// </summary>
+        private void createStatsController()
+        {
+            ///CONTROLLER
+            StatsController = new Controllers.Stats(this.dataController, this);
         }
 
         #endregion

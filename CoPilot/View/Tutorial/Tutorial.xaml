@@ -19,7 +19,7 @@
         <Grid Background="Black">
 
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Tap">
+                <i:EventTrigger EventName="MouseLeftButtonUp">
                     <i:InvokeCommandAction Command="{Binding NextCommand}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>

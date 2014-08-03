@@ -11,6 +11,7 @@
     xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:tutorial="clr-namespace:CoPilot.CoPilot.View.Tutorial"
+    xmlns:stats="clr-namespace:CoPilot.CoPilot.View.Controls"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -166,6 +167,16 @@
             </VisualStateManager.CustomVisualStateManager>
 
         </Grid>
+
+        <!-- STATS -->
+        <stats:Statistics DataContext="{Binding StatsController}" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConvertor}}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Tap">
+                    <i:InvokeCommandAction Command="{Binding CoPilot.TapCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </stats:Statistics>
+        <CheckBox IsChecked="{Binding StatsController.IsVisible, Mode=TwoWay}" Margin="-5,-10,0,0"  HorizontalAlignment="Left" VerticalAlignment="Top" />
 
         <!-- MENU -->
         <Grid 

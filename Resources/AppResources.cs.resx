@@ -605,4 +605,22 @@
   <data name="AllowOnWifiAndExternalPower" xml:space="preserve">
     <value>Zapojte napájení a Wi-Fi ...</value>
   </data>
+  <data name="AverageSpeed" xml:space="preserve">
+    <value>Průměrná rychlost</value>
+  </data>
+  <data name="FuelPriceTrend" xml:space="preserve">
+    <value>Trend vývoje ceny paliva</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>h</value>
+  </data>
+  <data name="PaidForFuel" xml:space="preserve">
+    <value>Zaplaceno za palivu</value>
+  </data>
+  <data name="PaidForRepairs" xml:space="preserve">
+    <value>Zaplaceno na opravách</value>
+  </data>
+  <data name="TrendUnitsPerRefill" xml:space="preserve">
+    <value>Trend tankování</value>
+  </data>
 </root>

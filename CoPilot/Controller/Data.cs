@@ -65,6 +65,17 @@ namespace CoPilot.CoPilot.Controller
             }
         }
 
+        /// <summary>
+        /// Records
+        /// </summary>
+        public Records Records
+        {
+            get
+            {
+                return data;
+            }
+        }
+
         #endregion
 
         #region State

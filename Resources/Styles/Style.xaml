@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     mc:Ignorable="d">
 
     <!-- BUTTONS -->
@@ -236,8 +237,8 @@
         <Setter Property="FontStyle" Value="Italic"/>
         <Setter Property="Margin" Value="0,0,0,0"/>
     </Style>
-    
-    
+
+
     <Style x:Key="Welcome" TargetType="TextBlock">
         <Setter Property="FontSize" Value="38"/>
         <Setter Property="TextWrapping" Value="NoWrap"/>
@@ -291,6 +292,7 @@
     <SolidColorBrush Color="#00ACED" x:Key="TwitterButtonColor" />
     <SolidColorBrush Color="#2A2927" x:Key="GoogleButtonColor" />
     <SolidColorBrush Color="#454545" x:Key="LineColor" />
+    <SolidColorBrush Color="#E5000000" x:Key="StatsBackground" />
     <SolidColorBrush Color="#B2000000" x:Key="SpeechBackground" />
     <SolidColorBrush Color="#647687" x:Key="IconBackground" />
     <SolidColorBrush Color="CornflowerBlue" x:Key="HyperlinkBackground" />
