@@ -70,6 +70,15 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add maintenance.
+        /// </summary>
+        public static string AddMaintenance {
+            get {
+                return ResourceManager.GetString("AddMaintenance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add repair.
         /// </summary>
         public static string AddRepair {
@@ -313,6 +322,15 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to tasks.
+        /// </summary>
+        public static string Count {
+            get {
+                return ResourceManager.GetString("Count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Count of files.
         /// </summary>
         public static string CountOfSelectedFiled {
@@ -327,6 +345,15 @@ namespace CoPilot.Resources {
         public static string Currency {
             get {
                 return ResourceManager.GetString("Currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
             }
         }
         
@@ -588,6 +615,78 @@ namespace CoPilot.Resources {
         public static string LastBackup {
             get {
                 return ResourceManager.GetString("LastBackup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maintenance.
+        /// </summary>
+        public static string Maintenance {
+            get {
+                return ResourceManager.GetString("Maintenance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maintenance tasks.
+        /// </summary>
+        public static string MaintenanceTasks {
+            get {
+                return ResourceManager.GetString("MaintenanceTasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string MaintenanceType {
+            get {
+                return ResourceManager.GetString("MaintenanceType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filters.
+        /// </summary>
+        public static string MaintenanceType_Filters {
+            get {
+                return ResourceManager.GetString("MaintenanceType_Filters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insurance.
+        /// </summary>
+        public static string MaintenanceType_Insurance {
+            get {
+                return ResourceManager.GetString("MaintenanceType_Insurance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maintenance.
+        /// </summary>
+        public static string MaintenanceType_Maintenance {
+            get {
+                return ResourceManager.GetString("MaintenanceType_Maintenance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oil.
+        /// </summary>
+        public static string MaintenanceType_Oil {
+            get {
+                return ResourceManager.GetString("MaintenanceType_Oil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technical inspection.
+        /// </summary>
+        public static string MaintenanceType_TechnicalInspection {
+            get {
+                return ResourceManager.GetString("MaintenanceType_TechnicalInspection", resourceCulture);
             }
         }
         
@@ -880,7 +979,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Descripiton.
+        ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string RepairDescription {
             get {
@@ -903,6 +1002,15 @@ namespace CoPilot.Resources {
         public static string RepairPriceExample {
             get {
                 return ResourceManager.GetString("RepairPriceExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repairs.
+        /// </summary>
+        public static string Repairs {
+            get {
+                return ResourceManager.GetString("Repairs", resourceCulture);
             }
         }
         
@@ -1555,11 +1663,65 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View maintenance.
+        /// </summary>
+        public static string ViewMaintenance {
+            get {
+                return ResourceManager.GetString("ViewMaintenance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View repair.
         /// </summary>
         public static string ViewRepair {
             get {
                 return ResourceManager.GetString("ViewRepair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to days before.
+        /// </summary>
+        public static string WarningDays {
+            get {
+                return ResourceManager.GetString("WarningDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Example: 7.
+        /// </summary>
+        public static string WarningDaysExample {
+            get {
+                return ResourceManager.GetString("WarningDaysExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to before.
+        /// </summary>
+        public static string WarningDistance {
+            get {
+                return ResourceManager.GetString("WarningDistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Example: 20.
+        /// </summary>
+        public static string WarningDistanceExample {
+            get {
+                return ResourceManager.GetString("WarningDistanceExample", resourceCulture);
             }
         }
         

@@ -60,7 +60,7 @@
 
         <!-- STATUS -->
         <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left">
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical" Margin="40,0,0,0">
                 <TextBlock Visibility="{Binding CameraController.IsRecording, Converter={StaticResource BooleanToVisibilityConvertor}}" Text="{Binding CameraController.RecordLength}" Style="{StaticResource Duration}" />
             </StackPanel>
         </Grid>
@@ -84,7 +84,7 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </UI:AdControl>
-        
+
         <!-- FLASH -->
         <Grid Name="Flash" Visibility="Collapsed" Background="White">
 
@@ -169,14 +169,163 @@
         </Grid>
 
         <!-- STATS -->
-        <stats:Statistics DataContext="{Binding StatsController}" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConvertor}}">
+        <Grid Name="StatsHud" Background="Black">
+            <Grid Name="StatsUserControl">
+                <Grid.Projection>
+                    <PlaneProjection GlobalOffsetX="0"/>
+                </Grid.Projection>
+
+                <!-- property watcher for visual states -->
+                <i:Interaction.Behaviors>
+                    <ec:DataStateBehavior Binding="{Binding StatsController.IsVisible}" Value="True" TrueState="StatsUserControlOpen"/>
+                    <ec:DataStateBehavior Binding="{Binding StatsController.IsVisible}" Value="False" TrueState="StatsUserControlClose"/>
+                </i:Interaction.Behaviors>
+
+                <!-- visual states -->
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup>
+                        <VisualStateGroup.Transitions>
+                            <VisualTransition To="StatsUserControlClose" GeneratedDuration="0:0:0.5">
+                                <Storyboard>
+                                    <DoubleAnimation 
+							        Storyboard.TargetName="StatsUserControl"
+							        Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							        To="-1000"
+							        Duration="0:0:0.5"/>
+                                </Storyboard>
+                            </VisualTransition>
+                            <VisualTransition To="StatsUserControlOpen" GeneratedDuration="0:0:0.5">
+                                <Storyboard>
+                                    <DoubleAnimation 
+							        Storyboard.TargetName="StatsUserControl"
+							        Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							        To="0"
+							        Duration="0:0:0.5"/>
+                                </Storyboard>
+                            </VisualTransition>
+                        </VisualStateGroup.Transitions>
+
+                        <VisualState x:Name="StatsUserControlClose">
+                            <Storyboard>
+                                <DoubleAnimation 
+							    Storyboard.TargetName="StatsUserControl"
+							    Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							    To="-1000"
+							    Duration="0"/>
+                            </Storyboard>
+                        </VisualState>
+
+                        <VisualState x:Name="StatsUserControlOpen">
+                            <Storyboard>
+                                <DoubleAnimation 
+							    Storyboard.TargetName="StatsUserControl"
+							    Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
+							    To="0"
+							    Duration="0"/>
+                            </Storyboard>
+                        </VisualState>
+
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <VisualStateManager.CustomVisualStateManager>
+                    <ec:ExtendedVisualStateManager/>
+                </VisualStateManager.CustomVisualStateManager>
+
+                <stats:Statistics DataContext="{Binding StatsController}" />
+            </Grid>
+            
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Tap">
-                    <i:InvokeCommandAction Command="{Binding CoPilot.TapCommand}" />
+                    <i:InvokeCommandAction Command="{Binding TapCommand}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-        </stats:Statistics>
-        <CheckBox IsChecked="{Binding StatsController.IsVisible, Mode=TwoWay}" Margin="-5,-10,0,0"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+            <!-- property watcher for visual states -->
+            <i:Interaction.Behaviors>
+                <ec:DataStateBehavior Binding="{Binding StatsController.IsVisible}" Value="True" TrueState="StatsOpen"/>
+                <ec:DataStateBehavior Binding="{Binding StatsController.IsVisible}" Value="False" TrueState="StatsClose"/>
+            </i:Interaction.Behaviors>
+
+            <!-- visual states -->
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup>
+                    <VisualStateGroup.Transitions>
+                        <VisualTransition To="StatsClose" GeneratedDuration="0:0:0.5">
+                            <Storyboard>
+                                <DoubleAnimation 
+							        Storyboard.TargetName="StatsHud"
+							        Storyboard.TargetProperty="(Grid.Opacity)"
+							        To="0"
+							        Duration="0:0:0.5"/>
+                            </Storyboard>
+                        </VisualTransition>
+                        <VisualTransition To="StatsOpen" GeneratedDuration="0:0:0.5">
+                            <Storyboard>
+                                <DoubleAnimation 
+							        Storyboard.TargetName="StatsHud"
+							        Storyboard.TargetProperty="(Grid.Opacity)"
+							        To="1"
+							        Duration="0:0:0.5"/>
+                            </Storyboard>
+                        </VisualTransition>
+                    </VisualStateGroup.Transitions>
+
+                    <VisualState x:Name="StatsClose">
+                        <Storyboard>
+                            <DoubleAnimation 
+							    Storyboard.TargetName="StatsHud"
+							    Storyboard.TargetProperty="(Grid.Opacity)"
+							    To="0"
+							    Duration="0"/>
+                            <ObjectAnimationUsingKeyFrames 
+							    Storyboard.TargetName="StatsHud"
+							    Storyboard.TargetProperty="(Grid.Visibility)" 
+							    Duration="0">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+
+                    <VisualState x:Name="StatsOpen">
+                        <Storyboard>
+                            <DoubleAnimation 
+							    Storyboard.TargetName="StatsHud"
+							    Storyboard.TargetProperty="(Grid.Opacity)"
+							    To="1"
+							    Duration="0"/>
+                            <ObjectAnimationUsingKeyFrames 
+							    Storyboard.TargetName="StatsHud"
+							    Storyboard.TargetProperty="(Grid.Visibility)" 
+							    Duration="0">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <VisualStateManager.CustomVisualStateManager>
+                <ec:ExtendedVisualStateManager/>
+            </VisualStateManager.CustomVisualStateManager>
+        </Grid>
+        <Grid Margin="-5" Width="40" VerticalAlignment="Stretch" HorizontalAlignment="Left" Background="{StaticResource PhoneChromeBrush}">
+            <Image Source="/Resources/Images/Buttons/rollup.png" Margin="8" RenderTransformOrigin="0.5,0.5" Visibility="{Binding StatsController.IsVisible, Converter={StaticResource BooleanToCollapsedConvertor}}">
+                <Image.RenderTransform>
+                    <CompositeTransform Rotation="0"/>
+                </Image.RenderTransform>
+            </Image>
+            <Image Source="/Resources/Images/Buttons/rollup.png" Margin="8" RenderTransformOrigin="0.5,0.5" Visibility="{Binding StatsController.IsVisible, Converter={StaticResource BooleanToVisibilityConvertor}}" >
+                <Image.RenderTransform>
+                    <CompositeTransform Rotation="180"/>
+                </Image.RenderTransform>
+            </Image>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Tap">
+                    <i:InvokeCommandAction Command="{Binding StatsCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Grid>
 
         <!-- MENU -->
         <Grid 
@@ -458,31 +607,62 @@
                     <ScrollViewer>
                         <StackPanel Orientation="Vertical">
 
-                            <Button 
-                                Command="{Binding AddRepairCommand}"
-                                Style="{StaticResource MenuButton}" 
-                                HorizontalContentAlignment="Stretch" 
-                                Height="100">
-                                <Grid>
-                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/add.png" />
-                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.AddRepair, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
-                                </Grid>
-                            </Button>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Button 
+                                    Height="80"
+                                    FontSize="22"
+                                    Command="{Binding ChangeMaintenanceTypeCommand}"
+                                    CommandParameter="Repairs"
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Style="{Binding MaintenanceType, Converter={StaticResource MaintenanceTypeToStyleConvertor}, ConverterParameter='Repairs'}"
+                                    Content="{Binding LocalizedResources.Repairs, Mode=OneWay, Source={StaticResource LocalizedStrings}}"/>
+                                <Button 
+                                    Height="80"
+                                    FontSize="22"
+                                    Command="{Binding ChangeMaintenanceTypeCommand}"
+                                    CommandParameter="Maintenance"
+                                    Grid.Column="1"
+                                    Grid.Row="0"
+                                    Style="{Binding MaintenanceType, Converter={StaticResource MaintenanceTypeToStyleConvertor}, ConverterParameter='Maintenance'}"
+                                    Content="{Binding LocalizedResources.Maintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}"/>
+                            </Grid>
                             <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
 
-                            <ListBox 
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                ItemsSource="{Binding DataController.Repairs}">
-                                <ListBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Vertical"/>
-                                    </ItemsPanelTemplate>
-                                </ListBox.ItemsPanel>
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Vertical">
-                                            <Button 
+                            <StackPanel Orientation="Vertical" Visibility="{Binding IsRepairs, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                                <Button 
+                                    Command="{Binding AddRepairCommand}"
+                                    Style="{StaticResource MenuButton}" 
+                                    HorizontalContentAlignment="Stretch" 
+                                    Height="100">
+                                    <Grid>
+                                        <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/add.png" />
+                                        <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.AddRepair, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                    </Grid>
+                                </Button>
+                                <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                                <ListBox 
+                                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                    ItemsSource="{Binding DataController.Repairs}">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Vertical"/>
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Vertical">
+                                                <Button 
                                                 Command="{Binding ElementName=CoPilotRoot, Path=DataContext.ViewRepairCommand}" 
                                                 CommandParameter="{Binding}"
                                                 Style="{StaticResource MenuButton}" 
@@ -490,41 +670,122 @@
                                                 Height="90"
                                                 Margin="0">
 
-                                                <Grid   
+                                                    <Grid   
                                                     Margin="-12"
                                                     Width="460"
                                                     Height="80">
 
-                                                    <StackPanel Margin="10,4" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
-                                                        <Image Width="30" Height="30" Source="/Resources/Images/Info/speedometer.png" Stretch="UniformToFill" />
-                                                        <TextBlock Style="{StaticResource Odometer}" Text="{Binding Odometer, Converter={StaticResource OdometerToRealOdometerConvertor}}" Margin="5,0" />
-                                                    </StackPanel>
-                                                    <TextBlock Margin="10,4" Style="{StaticResource Date}" Text="{Binding Date}" />
+                                                        <StackPanel Margin="10,4" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                                                            <Image Width="30" Height="30" Source="/Resources/Images/Info/speedometer.png" Stretch="UniformToFill" />
+                                                            <TextBlock Style="{StaticResource Odometer}" Text="{Binding Odometer, Converter={StaticResource OdometerToRealOdometerConvertor}}" Margin="5,0" />
+                                                        </StackPanel>
+                                                        <TextBlock Margin="10,4" Style="{StaticResource Date}" Text="{Binding Date}" />
 
-                                                    <Grid Margin="0,0,10,0">
-                                                        <StackPanel Margin="10,15,0,2" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal">
-                                                            <TextBlock 
+                                                        <Grid Margin="0,0,10,0">
+                                                            <StackPanel Margin="10,15,0,2" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal">
+                                                                <TextBlock 
                                                                 Style="{StaticResource Info}" 
                                                                 Text="{Binding Price, Converter={StaticResource PriceToRealPriceConvertor}}" 
                                                                 Margin="5,0" />
-                                                            <Image Width="20" Height="20" Source="/Resources/Images/Info/money.png" Stretch="UniformToFill" />
-                                                        </StackPanel>
-                                                        <StackPanel Margin="10,0,0,15" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
-                                                            <TextBlock Style="{StaticResource Info}" Text="{Binding ServiceName}" Margin="5,0" />
-                                                            <Image Width="20" Height="20" Source="/Resources/Images/Info/service.png" Stretch="UniformToFill" />
-                                                        </StackPanel>
+                                                                <Image Width="20" Height="20" Source="/Resources/Images/Info/money.png" Stretch="UniformToFill" />
+                                                            </StackPanel>
+                                                            <StackPanel Margin="10,0,0,15" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+                                                                <TextBlock Style="{StaticResource Info}" Text="{Binding ServiceName}" Margin="5,0" />
+                                                                <Image Width="20" Height="20" Source="/Resources/Images/Info/service.png" Stretch="UniformToFill" />
+                                                            </StackPanel>
+                                                        </Grid>
                                                     </Grid>
-                                                </Grid>
 
-                                            </Button>
-                                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                                                </Button>
+                                                <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Visibility="{Binding IsMaintenance, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                                <Button 
+                                    Command="{Binding AddMaintenanceCommand}"
+                                    Style="{StaticResource MenuButton}" 
+                                    HorizontalContentAlignment="Stretch" 
+                                    Height="100">
+                                    <Grid>
+                                        <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/add.png" />
+                                        <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.AddMaintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                    </Grid>
+                                </Button>
+                                <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                                <ListBox 
+                                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                    ItemsSource="{Binding DataController.Maintenances}">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Vertical"/>
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Vertical">
+                                                <Button 
+                                                Command="{Binding ElementName=CoPilotRoot, Path=DataContext.ViewMaintenanceCommand}" 
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource MenuButton}" 
+                                                Width="480"
+                                                Height="90"
+                                                Margin="0">
+
+                                                    <Grid   
+                                                    Margin="-12"
+                                                    Width="460"
+                                                    Height="80">
+
+                                                        <Grid Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                                                            <StackPanel Margin="10,4" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                                                                <Image Width="30" Height="30" Source="/Resources/Images/Info/speedometer.png" Stretch="UniformToFill" />
+                                                                <TextBlock Style="{StaticResource Odometer}" Text="{Binding Odometer, Converter={StaticResource OdometerToRealOdometerConvertor}}" Margin="5,0" />
+                                                            </StackPanel>
+                                                            <StackPanel Orientation="Horizontal" Margin="15,4" VerticalAlignment="Bottom">
+                                                                <TextBlock Style="{StaticResource Date}" Margin="0,0,10,0" Text="{Binding Type, Converter={StaticResource MaintenanceTypeToStringConvertor}}" Foreground="{StaticResource PhoneAccentBrush}" />
+                                                                <TextBlock Style="{StaticResource Date}" Text="{Binding Description}" />
+                                                            </StackPanel>
+                                                            <StackPanel Orientation="Horizontal" Margin="10,4" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                                                <TextBlock Margin="3" Style="{StaticResource Date}" Text="{Binding LocalizedResources.Warning, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                                                                <TextBlock Margin="3" Style="{StaticResource Date}" Text="{Binding WarningDistance}" />
+                                                                <TextBlock Margin="3" Style="{StaticResource Date}" Text="{Binding ElementName=CoPilotRoot, Path=DataContext.DataController.Distance}" />
+                                                                <TextBlock Margin="3" Style="{StaticResource Date}" Text="{Binding LocalizedResources.WarningDistance, Mode=OneWay, Source={StaticResource LocalizedStrings}}"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                        <Grid Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToCollapsedConvertor}}">
+                                                            <StackPanel Margin="10,4" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                                                                <Image Width="22" Height="22" Margin="4" Source="/Resources/Images/Info/date.png" Stretch="UniformToFill" />
+                                                                <TextBlock Style="{StaticResource Odometer}" Text="{Binding Date, StringFormat='{}{0:MM/dd/yyyy}'}" Margin="5,0" />
+                                                            </StackPanel>
+                                                            <StackPanel Orientation="Horizontal" Margin="15,4" VerticalAlignment="Bottom">
+                                                                <TextBlock Style="{StaticResource Date}" Margin="0,0,10,0" Text="{Binding Type, Converter={StaticResource MaintenanceTypeToStringConvertor}}" Foreground="{StaticResource PhoneAccentBrush}" />
+                                                                <TextBlock Style="{StaticResource Date}" Text="{Binding Description}" />
+                                                            </StackPanel>
+                                                            <StackPanel Orientation="Horizontal" Margin="10,4" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                                                <TextBlock Margin="3" Style="{StaticResource Date}" Text="{Binding LocalizedResources.Warning, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                                                                <TextBlock Margin="3" Style="{StaticResource Date}" Text="{Binding WarningDays}" />
+                                                                <TextBlock Margin="3" Style="{StaticResource Date}" Text="{Binding LocalizedResources.WarningDays, Mode=OneWay, Source={StaticResource LocalizedStrings}}"/>
+                                                            </StackPanel>
+                                                        </Grid>
+
+                                                    </Grid>
+
+                                                </Button>
+                                                <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
 
                         </StackPanel>
-                    </ScrollViewer>                    
+                    </ScrollViewer>
                 </Grid>
                 <!-- MORE -->
                 <Grid Visibility="{Binding MenuController.Context, ConverterParameter='Other', Converter={StaticResource ContextMenuToVisibilityConvertor}}">
@@ -563,7 +824,7 @@
                                     <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_off.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='FatalError'}" />
                                     <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_disconnected.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='OutOfRange'}" />
                                     <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_connected.png" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='None'}" />
-                                    
+
                                     <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.UseObdDevice, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
 
                                     <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.BluetoothIsNotAllowed, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='NotAllowed'}" />
@@ -706,7 +967,7 @@
                                 HorizontalContentAlignment="Stretch" 
                                 Height="120">
                                 <Grid>
- 
+
                                     <TextBlock Text="{Binding LocalizedResources.Social, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" HorizontalAlignment="Left" />
 
                                     <StackPanel 
@@ -828,7 +1089,7 @@
 
             </Grid>
         </Grid>
-        
+
         <!-- TUTORIAL -->
         <tutorial:Tutorial />
 

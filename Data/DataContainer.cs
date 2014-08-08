@@ -21,6 +21,7 @@ namespace CoPilot.Data
         public Repair Repair { get; set; }
         public Picture Picture { get; set; }
         public Video Video { get; set; }
+        public Maintenance Maintenance { get; set; }
         public Uri Uri { get; set; }
     }
 }

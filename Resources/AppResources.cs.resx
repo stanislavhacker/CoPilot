@@ -623,4 +623,58 @@
   <data name="TrendUnitsPerRefill" xml:space="preserve">
     <value>Trend tankování</value>
   </data>
+  <data name="AddMaintenance" xml:space="preserve">
+    <value>Přidat údržbu</value>
+  </data>
+  <data name="Maintenance" xml:space="preserve">
+    <value>Údržba</value>
+  </data>
+  <data name="Repairs" xml:space="preserve">
+    <value>Opravy</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="MaintenanceType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="MaintenanceType_Filters" xml:space="preserve">
+    <value>Filtry</value>
+  </data>
+  <data name="MaintenanceType_Insurance" xml:space="preserve">
+    <value>Pojištění</value>
+  </data>
+  <data name="MaintenanceType_Maintenance" xml:space="preserve">
+    <value>Údržba</value>
+  </data>
+  <data name="MaintenanceType_Oil" xml:space="preserve">
+    <value>Olej</value>
+  </data>
+  <data name="MaintenanceType_TechnicalInspection" xml:space="preserve">
+    <value>Technická kontrola</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Varovat</value>
+  </data>
+  <data name="WarningDays" xml:space="preserve">
+    <value>dní předem</value>
+  </data>
+  <data name="WarningDaysExample" xml:space="preserve">
+    <value>Příklad: 7</value>
+  </data>
+  <data name="WarningDistance" xml:space="preserve">
+    <value>předem</value>
+  </data>
+  <data name="WarningDistanceExample" xml:space="preserve">
+    <value>Příklad: 20</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>úkolů</value>
+  </data>
+  <data name="MaintenanceTasks" xml:space="preserve">
+    <value>Úkoly na údržbu</value>
+  </data>
+  <data name="ViewMaintenance" xml:space="preserve">
+    <value>Zobrazit údržbu</value>
+  </data>
 </root>

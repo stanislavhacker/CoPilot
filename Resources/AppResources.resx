@@ -192,7 +192,7 @@
     <value>Add repair</value>
   </data>
   <data name="RepairDescription" xml:space="preserve">
-    <value>Descripiton</value>
+    <value>Description</value>
   </data>
   <data name="RepairPrice" xml:space="preserve">
     <value>Repair price</value>
@@ -622,5 +622,59 @@
   </data>
   <data name="TrendUnitsPerRefill" xml:space="preserve">
     <value>Refill trend</value>
+  </data>
+  <data name="AddMaintenance" xml:space="preserve">
+    <value>Add maintenance</value>
+  </data>
+  <data name="Maintenance" xml:space="preserve">
+    <value>Maintenance</value>
+  </data>
+  <data name="Repairs" xml:space="preserve">
+    <value>Repairs</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="MaintenanceType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="MaintenanceType_Filters" xml:space="preserve">
+    <value>Filters</value>
+  </data>
+  <data name="MaintenanceType_Insurance" xml:space="preserve">
+    <value>Insurance</value>
+  </data>
+  <data name="MaintenanceType_Maintenance" xml:space="preserve">
+    <value>Maintenance</value>
+  </data>
+  <data name="MaintenanceType_Oil" xml:space="preserve">
+    <value>Oil</value>
+  </data>
+  <data name="MaintenanceType_TechnicalInspection" xml:space="preserve">
+    <value>Technical inspection</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="WarningDays" xml:space="preserve">
+    <value>days before</value>
+  </data>
+  <data name="WarningDaysExample" xml:space="preserve">
+    <value>Example: 7</value>
+  </data>
+  <data name="WarningDistance" xml:space="preserve">
+    <value>before</value>
+  </data>
+  <data name="WarningDistanceExample" xml:space="preserve">
+    <value>Example: 20</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>tasks</value>
+  </data>
+  <data name="MaintenanceTasks" xml:space="preserve">
+    <value>Maintenance tasks</value>
+  </data>
+  <data name="ViewMaintenance" xml:space="preserve">
+    <value>View maintenance</value>
   </data>
 </root>

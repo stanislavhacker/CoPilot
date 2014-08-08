@@ -10,11 +10,12 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="800">
 
-    <Grid Background="{StaticResource StatsBackground}">
+    <Grid>
 
         <ScrollViewer>
             <Grid Margin="60,20,160,30">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
                     <RowDefinition Height="50" />
                     <RowDefinition Height="50" />
                     <RowDefinition Height="50" />
@@ -24,7 +25,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding LocalizedResources.AverageConsumption, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" />
@@ -61,7 +62,17 @@
                     <Image Width="20" Source="/Resources/Images/Info/service.png" />
                 </StackPanel>
 
-                <Controls:Pivot Margin="-20,0,0,0" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4">
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="{Binding LocalizedResources.MaintenanceTasks, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" />
+                <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding DataController.MaintenanceCount}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                    <TextBlock Text="{Binding LocalizedResources.Count, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <HyperlinkButton Command="{Binding CoPilot.AddMaintenanceCommand}" Content="{Binding LocalizedResources.AddMaintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    <Image Width="20" Source="/Resources/Images/Buttons/spark.png" />
+                </StackPanel>
+
+                <Controls:Pivot Margin="-20,0,0,0" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5">
                     <!--Pivot item one-->
                     <Controls:PivotItem>
                         <Controls:PivotItem.Header>

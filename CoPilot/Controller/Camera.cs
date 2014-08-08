@@ -122,6 +122,10 @@ namespace CoPilot.CoPilot.Controller
                 this.timeStartRecording = DateTime.Now;
                 this.isRecording = value;
                 OnPropertyChanged("IsShotEnabled");
+                if (RecordingStateChange != null)
+                {
+                    RecordingStateChange.Invoke(this, EventArgs.Empty);
+                }
                 RaisePropertyChanged();
             }
         }
@@ -286,6 +290,7 @@ namespace CoPilot.CoPilot.Controller
 
         public event EventHandler<VideoSaveEventArgs> VideoSave;
         public event EventHandler<PictureSaveEventArgs> PictureSave;
+        public event EventHandler<EventArgs> RecordingStateChange;
 
         #endregion
 

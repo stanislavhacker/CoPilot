@@ -20,6 +20,7 @@
             <convertorsUtils:RecordingToImage x:Key="RecordingToImageConvertor"/>
             <convertorsUtils:TrueToFalse x:Key="TrueToFalseConvertor"/>
             <convertorsUtils:CountToBoolean x:Key="CountToBooleanConvertor"/>
+            <convertors:MaintenanceTypeToString x:Key="MaintenanceTypeToStringConvertor" />
             <convertors:CurrencyToStyle x:Key="CurrencyToStyleConvertor"/>
             <convertors:DistanceToStyle x:Key="DistanceToStyleConvertor"/>
             <convertorsUtils:PriceToRealPrice x:Key="PriceToRealPriceConvertor"/>
@@ -37,6 +38,7 @@
             <convertorsUtils:ZeroToBoolean x:Key="ZeroToBooleanConvertor" />
             <convertorsUtils:EmptyStringToBoolean x:Key="EmptyStringToBooleanConvertor" />
             <convertors:PreferencesToText x:Key="PreferencesToTextConvertor" />
+            <convertors:MaintenanceTypeToStyle x:Key="MaintenanceTypeToStyleConvertor" />
         </ResourceDictionary>
     </Application.Resources>
 

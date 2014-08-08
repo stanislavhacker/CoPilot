@@ -571,6 +571,17 @@ namespace CoPilot.CoPilot.Controller
         }
 
         /// <summary>
+        /// Maintenance count
+        /// </summary>
+        public Double MaintenanceCount
+        {
+            get
+            {
+                return data.Maintenances.Count;
+            }
+        }
+
+        /// <summary>
         /// Videos
         /// </summary>
         public ObservableCollection<Video> Videos
@@ -612,6 +623,17 @@ namespace CoPilot.CoPilot.Controller
             get
             {
                 return data.Repairs;
+            }
+        }
+
+        /// <summary>
+        /// Maintenance
+        /// </summary>
+        public ObservableCollection<Maintenance> Maintenances
+        {
+            get
+            {
+                return data.Maintenances;
             }
         }
 
@@ -938,6 +960,37 @@ namespace CoPilot.CoPilot.Controller
             data.Repairs.Remove(repair);
             this.Save();
             OnPropertyChanged("Repairs");
+            OnPropertyChanged("AvailableSpace");
+        }
+
+        #endregion
+
+        #region MAINTENANCE
+
+        /// <summary>
+        /// Add maintenance
+        /// </summary>
+        /// <param name="maintenance"></param>
+        public void AddMaintenance(Maintenance maintenance)
+        {
+            data.Maintenances.Insert(0, maintenance);
+            this.Save();
+            OnPropertyChanged("Maintenances");
+            OnPropertyChanged("MaintenanceCount");
+            OnPropertyChanged("AvailableSpace");
+        }
+
+
+        /// <summary>
+        /// Remove maintenance
+        /// </summary>
+        /// <param name="repair"></param>
+        public void RemoveMaintenance(Maintenance maintenance)
+        {
+            data.Maintenances.Remove(maintenance);
+            this.Save();
+            OnPropertyChanged("Maintenances");
+            OnPropertyChanged("MaintenanceCount");
             OnPropertyChanged("AvailableSpace");
         }
 

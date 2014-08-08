@@ -292,7 +292,6 @@
     <SolidColorBrush Color="#00ACED" x:Key="TwitterButtonColor" />
     <SolidColorBrush Color="#2A2927" x:Key="GoogleButtonColor" />
     <SolidColorBrush Color="#454545" x:Key="LineColor" />
-    <SolidColorBrush Color="#E5000000" x:Key="StatsBackground" />
     <SolidColorBrush Color="#B2000000" x:Key="SpeechBackground" />
     <SolidColorBrush Color="#647687" x:Key="IconBackground" />
     <SolidColorBrush Color="CornflowerBlue" x:Key="HyperlinkBackground" />

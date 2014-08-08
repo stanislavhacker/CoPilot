@@ -120,6 +120,12 @@
     <Compile Include="CoPilot\View\FuelView.xaml.cs">
       <DependentUpon>FuelView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CoPilot\View\Maintenance.xaml.cs">
+      <DependentUpon>Maintenance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoPilot\View\MaintenanceView.xaml.cs">
+      <DependentUpon>MaintenanceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CoPilot\View\Obd.xaml.cs">
       <DependentUpon>Obd.xaml</DependentUpon>
     </Compile>
@@ -147,6 +153,8 @@
     <Compile Include="CoPilot\View\WebBrowser.xaml.cs">
       <DependentUpon>WebBrowser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\Convertors\MaintenanceTypeToString.cs" />
+    <Compile Include="Data\Convertors\MaintenanceTypeToStyle.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="NavigationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -268,6 +276,7 @@
     <Content Include="Resources\Images\Buttons\privacy_policy.png" />
     <Content Include="Resources\Images\Buttons\rate.png" />
     <Content Include="Resources\Images\Buttons\record.png" />
+    <Content Include="Resources\Images\Buttons\rollup.png" />
     <Content Include="Resources\Images\Buttons\sendEmail.png" />
     <Content Include="Resources\Images\Buttons\Social\Donate.png" />
     <Content Include="Resources\Images\Buttons\Social\Facebook.png" />
@@ -302,11 +311,21 @@
     <Content Include="Resources\Speech\Say\en-gb.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Page Include="CoPilot\View\Fuel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CoPilot\View\FuelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CoPilot\View\Maintenance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CoPilot\View\MaintenanceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

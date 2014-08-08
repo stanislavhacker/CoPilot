@@ -64,7 +64,7 @@ namespace CoPilot.CoPilot.View
         private static void TutorialEnd(CancelEventArgs e)
         {
             var tutorial = Tutorial.Tutorial.Current;
-            if (tutorial.IsTutorial)
+            if (tutorial != null && tutorial.IsTutorial)
             {
                 tutorial.Close();
                 e.Cancel = true;
@@ -307,6 +307,20 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
+        /// Stats Command
+        /// </summary>
+        public ICommand StatsCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    StatsController.IsVisible = !StatsController.IsVisible;
+                }, param => true);
+            }
+        }
+
+        /// <summary>
         /// add fuel command
         /// </summary>
         public ICommand AddFuelCommand
@@ -335,6 +349,20 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
+        /// add maintenance command
+        /// </summary>
+        public ICommand AddMaintenanceCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    NavigationService.Navigate("/CoPilot/View/Maintenance.xaml", this.GetDefaultDataContainer());
+                }, param => true);
+            }
+        }
+
+        /// <summary>
         /// View fuel command
         /// </summary>
         public ICommand ViewFuelCommand
@@ -358,6 +386,34 @@ namespace CoPilot.CoPilot.View
                 return new RelayCommand((param) =>
                 {
                     NavigationService.Navigate("/CoPilot/View/RepairView.xaml", this.GetRepairDataContainer(param as CoreData.Repair));
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// Change maintenance type
+        /// </summary>
+        public ICommand ChangeMaintenanceTypeCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    MaintenanceType = param as String;
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// View maintenance command
+        /// </summary>
+        public ICommand ViewMaintenanceCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    NavigationService.Navigate("/CoPilot/View/MaintenanceView.xaml", this.GetMaintenanceDataContainer(param as CoreData.Maintenance));
                 }, param => true);
             }
         }
@@ -570,6 +626,48 @@ namespace CoPilot.CoPilot.View
                 dataController = value;
                 App.DataController = value;
                 RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Maintenance type
+        /// </summary>
+        private String maintenanceType = "Repairs";
+        public String MaintenanceType
+        {
+            get
+            {
+                return maintenanceType;
+            }
+            set
+            {
+                maintenanceType = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged("IsRepairs");
+                RaisePropertyChanged("IsMaintenance");
+
+            }
+        }
+
+        /// <summary>
+        /// Is repairs
+        /// </summary>
+        public Boolean IsRepairs
+        {
+            get
+            {
+                return MaintenanceType == "Repairs";
+            }
+        }
+
+        /// <summary>
+        /// Is maintenance
+        /// </summary>
+        public Boolean IsMaintenance
+        {
+            get
+            {
+                return MaintenanceType == "Maintenance";
             }
         }
 
@@ -931,6 +1029,10 @@ namespace CoPilot.CoPilot.View
             {
                 DataController.AddPicture(e.Picture);
             };
+            CameraController.RecordingStateChange += (object sender, EventArgs e) =>
+            {
+                StatsController.IsVisible = !CameraController.IsRecording;
+            };
         }
 
         /// <summary>
@@ -1117,6 +1219,18 @@ namespace CoPilot.CoPilot.View
         {
             DataContainer data = this.GetDefaultDataContainer();
             data.Repair = repair;
+            return data;
+        }
+
+        /// <summary>
+        /// Get maintenance data container
+        /// </summary>
+        /// <param name="repair"></param>
+        /// <returns></returns>
+        private DataContainer GetMaintenanceDataContainer(CoreData.Maintenance maintenance)
+        {
+            DataContainer data = this.GetDefaultDataContainer();
+            data.Maintenance = maintenance;
             return data;
         }
 
@@ -1401,9 +1515,16 @@ namespace CoPilot.CoPilot.View
             CoPilot.DriveModeEnd(this.DriveModeController, e);
 
             //close menu
-            if (e.Cancel == false && MenuController.IsOpen)
+            if (e.Cancel == false && MenuController != null && MenuController.IsOpen)
             {
                 MenuController.close();
+                e.Cancel = true;
+            }
+
+            //close stats
+            if (e.Cancel == false && StatsController != null && StatsController.IsVisible)
+            {
+                StatsController.IsVisible = false;
                 e.Cancel = true;
             }
 
