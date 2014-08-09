@@ -192,6 +192,23 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
+        /// Scheduler controller
+        /// </summary>
+        private Controllers.Scheduler schedulerController;
+        public Controllers.Scheduler SchedulerController
+        {
+            get
+            {
+                return schedulerController;
+            }
+            set
+            {
+                schedulerController = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Maintenance
         /// </summary>
         private CoreData.Maintenance maintenance;
@@ -316,6 +333,7 @@ namespace CoPilot.CoPilot.View
         private void deleteMaintenance()
         {
             var maintenance = dataController.Maintenances.ElementAt(Position - 1);
+            SchedulerController.Remove(maintenance);
             dataController.RemoveMaintenance(maintenance);
             this.Max = dataController.Maintenances.Count;
         }
@@ -398,6 +416,7 @@ namespace CoPilot.CoPilot.View
                 this.DataController = container.DataController;
                 this.CameraController = container.CameraController;
                 this.DriveModeController = container.DriveModeController;
+                this.SchedulerController = container.SchedulerController;
 
                 this.Maintenance = container.Maintenance;
                 this.Position = this.DataController.Maintenances.IndexOf(this.Maintenance) + 1;

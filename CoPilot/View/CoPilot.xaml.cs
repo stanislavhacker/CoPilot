@@ -779,6 +779,27 @@ namespace CoPilot.CoPilot.View
 
         #endregion
 
+        #region PROPERTY SCHEDULER
+
+        /// <summary>
+        /// Scheduler controller
+        /// </summary>
+        private Controllers.Scheduler schedulerController;
+        public Controllers.Scheduler SchedulerController
+        {
+            get
+            {
+                return schedulerController;
+            }
+            set
+            {
+                schedulerController = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region TRIAL DATA
 
         /// <summary>
@@ -959,6 +980,7 @@ namespace CoPilot.CoPilot.View
             this.createDriveModeController();
             this.createFtpController();
             this.createTileController();
+            this.createSchedulerController();
             this.createStatsController();
         }
 
@@ -999,6 +1021,9 @@ namespace CoPilot.CoPilot.View
             TileController.DataController = this.DataController;
             TileController.Update();
 
+            //scheduler
+            SchedulerController.Update();
+
             //send error
             this.sendErrorIfExists();
         }
@@ -1010,6 +1035,15 @@ namespace CoPilot.CoPilot.View
         {
             ///CONTROLLER
             TileController = new Controllers.Tile();
+        }
+
+        /// <summary>
+        /// Create scheduler controller
+        /// </summary>
+        private void createSchedulerController()
+        {
+            ///CONTROLLER
+            SchedulerController = new Controllers.Scheduler(this.dataController);
         }
 
         /// <summary>
@@ -1069,10 +1103,12 @@ namespace CoPilot.CoPilot.View
                 if (e.PropertyName == "AverageConsumption" ||
                     e.PropertyName == "Repairs" ||
                     e.PropertyName == "Fills" ||
+                    e.PropertyName == "Maintenances" ||
                     e.PropertyName == "Consumption" ||
                     e.PropertyName == "Distance")
                 {
                     TileController.Update();
+                    SchedulerController.Update();
                 }
 
                 if (e.PropertyName == "AvailableSpace")
@@ -1231,6 +1267,7 @@ namespace CoPilot.CoPilot.View
         {
             DataContainer data = this.GetDefaultDataContainer();
             data.Maintenance = maintenance;
+            data.SchedulerController = schedulerController;
             return data;
         }
 

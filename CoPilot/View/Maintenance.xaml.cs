@@ -359,6 +359,7 @@ namespace CoPilot.CoPilot.View
             CoreData.Maintenance maintenance = new CoreData.Maintenance();
             maintenance.Type = this.Type.Type;
             maintenance.Description = this.description;
+            maintenance.Id = Guid.NewGuid().ToString();
 
             if (this.IsOdometer)
             {
@@ -371,7 +372,7 @@ namespace CoPilot.CoPilot.View
             else
             {
                 //date type
-                maintenance.Date = DateTime.Now;
+                maintenance.Date = this.Date;
                 maintenance.WarningDays = this.warningDays;
                 maintenance.Odometer = new CoreData.Odometer(0, DataController.Distance);
                 maintenance.WarningDistance = this.warningDistance;

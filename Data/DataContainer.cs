@@ -16,6 +16,7 @@ namespace CoPilot.Data
         public Bluetooth BluetoothController { get; set; }
         public DriveMode DriveModeController { get; set; }
         public Ftp FtpController { get; set; }
+        public Scheduler SchedulerController { get; set; }
 
         public Fill Fill { get; set; }
         public Repair Repair { get; set; }
