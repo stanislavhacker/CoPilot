@@ -456,6 +456,13 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="e"></param>
         private void odbClientDataReceive(object sender, OdbEventArgs e)
         {
+            if (!this.odbClient.IsConnected)
+            {
+                ErrorType = BluetoothErrorType.NoDevice;
+                IsFinding = false;
+                this.Disconnect();
+                return;
+            }
             if (this.DataReceive != null)
             {
                 this.DataReceive.Invoke(this, e);
