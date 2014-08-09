@@ -468,7 +468,7 @@
     <value>Main screen</value>
   </data>
   <data name="Tutorial_MainScreen_Description_One" xml:space="preserve">
-    <value>On the main screen you can see the view of the camera and the main menu.</value>
+    <value>On the main screen you can see the statistics of application's data and after closing by an arrow on the left side you will see the view throught camera and the main application menu.</value>
   </data>
   <data name="Tutorial_MainScreen_Description_Two" xml:space="preserve">
     <value>The main menu contains four main buttons. 1) Camera, 2) Refueling, 3) Repairs and 4) Settings and others.</value>
@@ -489,7 +489,7 @@
     <value>Repair menu</value>
   </data>
   <data name="Tutorial_RepairMenu_Description" xml:space="preserve">
-    <value>If you click on the menu for repairs, you will see the button and a list of repairs in front of you . 1) Used to create new repair record, 2) One entry in the list, detail can be viewed by clicking on it.</value>
+    <value>If you click on the menu for repairs and you are switch into context 3) repairs, you will see the button and a list of repairs in front of you . 1) Used to create new repair record, 2) One entry in the list, detail can be viewed by clicking on it.</value>
   </data>
   <data name="Tutorial_ThanksEnd" xml:space="preserve">
     <value>And that's all</value>
@@ -676,5 +676,17 @@
   </data>
   <data name="ViewMaintenance" xml:space="preserve">
     <value>View maintenance</value>
+  </data>
+  <data name="Tutorial_MaintenanceMenu" xml:space="preserve">
+    <value>Maintenance menu</value>
+  </data>
+  <data name="Tutorial_MaintenanceMenu_Description" xml:space="preserve">
+    <value>If you click on the menu for repairs and you are switch into context 3) maintenance, you will see the button and a list of maitenances in front of you . 1) Used to create new maintenance or event record, 2) One entry in the list, detail can be viewed by clicking on it.</value>
+  </data>
+  <data name="Tutorial_StatsScreen" xml:space="preserve">
+    <value>Statistic screen</value>
+  </data>
+  <data name="Tutorial_StatsScreen_Description_One" xml:space="preserve">
+    <value>When you start the application you can see screen with basic statistic information. These are 1) the average fuel consumption, 2) the average speed, 3) the total price paid for fuel, 4) the total price paid for repairs and 5) the number of maintenance tasks (technical, insurance, checking oil, etc. ...). On this screen are also available some information graphs.</value>
   </data>
 </root>

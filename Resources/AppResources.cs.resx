@@ -474,7 +474,7 @@
     <value>Hlavní obrazovka</value>
   </data>
   <data name="Tutorial_MainScreen_Description_One" xml:space="preserve">
-    <value>Na hlavní obrazovce vidíte průhled kamerou a hlavní menu aplikace.</value>
+    <value>Na hlavní obrazovce vidíte statistiky aplikace a po zavření pomocí šipky na levé straně se zobrazí průhled kamerou a hlavní menu aplikace.</value>
   </data>
   <data name="Tutorial_MainScreen_Description_Two" xml:space="preserve">
     <value>Hlavní menu obsahuje čyři základní tlačítka.  1) Kameru, 2) Tankování, 3) Opravy a 4) Nastavení a ostatní.</value>
@@ -495,7 +495,7 @@
     <value>Menu oprav</value>
   </data>
   <data name="Tutorial_RepairMenu_Description" xml:space="preserve">
-    <value>Pokud kliknete na menu pro opravy, před vám se zobrazí menu s jedním prvkem a seznamem všech oprav. 1) Slouží pro záznam nové opravy, 2) Náhled na jeden záznam ze seznamu. Po kliknutí na něj se zobrazí detail.</value>
+    <value>Pokud kliknete na menu pro opravy a jste přepnutí do kontextu 3) opravy, před vámi se zobrazí menu s jedním prvkem a seznamem všech oprav. 1) Slouží pro záznam nové opravy, 2) Náhled na jeden záznam ze seznamu. Po kliknutí na něj se zobrazí detail.</value>
   </data>
   <data name="Tutorial_ThanksEnd" xml:space="preserve">
     <value>A to je vše</value>
@@ -676,5 +676,17 @@
   </data>
   <data name="ViewMaintenance" xml:space="preserve">
     <value>Zobrazit údržbu</value>
+  </data>
+  <data name="Tutorial_MaintenanceMenu" xml:space="preserve">
+    <value>Menu údržby</value>
+  </data>
+  <data name="Tutorial_MaintenanceMenu_Description" xml:space="preserve">
+    <value>Pokud kliknete na menu pro opravy a jste přepnutí do kontextu 3) údržby, před vámi se zobrazí menu s jedním prvkem a seznamem všech naplanovaných a minulých údržeb. 1) Slouží pro záznam nové údržby nebo události, 2) Náhled na jeden záznam ze seznamu. Po kliknutí na něj se zobrazí detail.</value>
+  </data>
+  <data name="Tutorial_StatsScreen" xml:space="preserve">
+    <value>Obrazovka statistik</value>
+  </data>
+  <data name="Tutorial_StatsScreen_Description_One" xml:space="preserve">
+    <value>Na této obrazovce se po spuštění zobrazí základní statistiky. Jedná se o 1) průměrnou spotřebu, 2) průměrnou rychlost, 3) celkově zaplacená cena za palivo, 4) celkově zaplacená cena za opravy a 5) počet údržbových úkolů (technická, pojištění, kontrola oleje, atd...). Na této obrazovcou jsou také k dispozici některé informační grafy.</value>
   </data>
 </root>

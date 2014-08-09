@@ -38,7 +38,7 @@ namespace CoPilot.CoPilot.View.Tutorial
                 return new RelayCommand((param) =>
                 {
                     Step++;
-                    if (Step > 13)
+                    if (Step > 15)
                     {
                         IsTutorial = false;
                     }

@@ -1411,7 +1411,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to On the main screen you can see the view of the camera and the main menu..
+        ///   Looks up a localized string similar to On the main screen you can see the statistics of application&apos;s data and after closing by an arrow on the left side you will see the view throught camera and the main application menu..
         /// </summary>
         public static string Tutorial_MainScreen_Description_One {
             get {
@@ -1425,6 +1425,24 @@ namespace CoPilot.Resources {
         public static string Tutorial_MainScreen_Description_Two {
             get {
                 return ResourceManager.GetString("Tutorial_MainScreen_Description_Two", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maintenance menu.
+        /// </summary>
+        public static string Tutorial_MaintenanceMenu {
+            get {
+                return ResourceManager.GetString("Tutorial_MaintenanceMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you click on the menu for repairs and you are switch into context 3) maintenance, you will see the button and a list of maitenances in front of you . 1) Used to create new maintenance or event record, 2) One entry in the list, detail can be viewed by clicking on it..
+        /// </summary>
+        public static string Tutorial_MaintenanceMenu_Description {
+            get {
+                return ResourceManager.GetString("Tutorial_MaintenanceMenu_Description", resourceCulture);
             }
         }
         
@@ -1474,11 +1492,29 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you click on the menu for repairs, you will see the button and a list of repairs in front of you . 1) Used to create new repair record, 2) One entry in the list, detail can be viewed by clicking on it..
+        ///   Looks up a localized string similar to If you click on the menu for repairs and you are switch into context 3) repairs, you will see the button and a list of repairs in front of you . 1) Used to create new repair record, 2) One entry in the list, detail can be viewed by clicking on it..
         /// </summary>
         public static string Tutorial_RepairMenu_Description {
             get {
                 return ResourceManager.GetString("Tutorial_RepairMenu_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statistic screen.
+        /// </summary>
+        public static string Tutorial_StatsScreen {
+            get {
+                return ResourceManager.GetString("Tutorial_StatsScreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When you start the application you can see screen with basic statistic information. These are 1) the average fuel consumption, 2) the average speed, 3) the total price paid for fuel, 4) the total price paid for repairs and 5) the number of maintenance tasks (technical, insurance, checking oil, etc. ...). On this screen are also available some information graphs..
+        /// </summary>
+        public static string Tutorial_StatsScreen_Description_One {
+            get {
+                return ResourceManager.GetString("Tutorial_StatsScreen_Description_One", resourceCulture);
             }
         }
         

@@ -106,11 +106,91 @@
             </Grid>
 
             <Grid Visibility="{Binding Step, ConverterParameter=5, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+                <StackPanel Margin="0,0,0,70" VerticalAlignment="Bottom">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_StatsScreen, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_StatsScreen_Description_One, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+
+                <Border
+					Margin="80,10"
+					VerticalAlignment="Top"
+					HorizontalAlignment="Stretch" 
+					BorderThickness="2"
+					BorderBrush="{StaticResource PhoneAccentBrush}">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="4*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="1)" Grid.Row="0" Margin="-30,-10,0,0"/>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding LocalizedResources.AverageConsumption, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" />
+                        <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock Text="12.88" VerticalAlignment="Center" Margin="0,0,5,0" />
+                            <TextBlock Text="liters per 100 Km" VerticalAlignment="Center" />
+                        </StackPanel>
+
+                        <TextBlock Text="2)" Grid.Row="1" Margin="-30,-10,0,0"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding LocalizedResources.AverageSpeed, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" />
+                        <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock Text="12" VerticalAlignment="Center" Margin="0,0,5,0" />
+                            <TextBlock Text="km" Margin="0,0,5,0" VerticalAlignment="Center" />
+                            <TextBlock Text="per" Margin="0,0,5,0" VerticalAlignment="Center" />
+                            <TextBlock Text="hour" VerticalAlignment="Center" />
+                        </StackPanel>
+
+                        <TextBlock Text="3)" Grid.Row="2" Margin="-30,-10,0,0"/>
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding LocalizedResources.PaidForFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" />
+                        <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock Text="2500" VerticalAlignment="Center" Margin="0,0,10,0" />
+                            <TextBlock Text="USD" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <HyperlinkButton Content="{Binding LocalizedResources.AddFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                            <Image Width="20" Source="/Resources/Images/Info/refueled.png" />
+                        </StackPanel>
+
+                        <TextBlock Text="4)" Grid.Row="3" Margin="-30,-10,0,0"/>
+                        <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding LocalizedResources.PaidForRepairs, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" />
+                        <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock Text="1600" VerticalAlignment="Center" Margin="0,0,10,0" />
+                            <TextBlock Text="USD" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <HyperlinkButton Content="{Binding LocalizedResources.AddRepair, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                            <Image Width="20" Source="/Resources/Images/Info/service.png" />
+                        </StackPanel>
+
+                        <TextBlock Text="5)" Grid.Row="4" Margin="-30,-10,0,0"/>
+                        <TextBlock Grid.Column="0" Grid.Row="4" Text="{Binding LocalizedResources.MaintenanceTasks, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" />
+                        <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock Text="2" VerticalAlignment="Center" Margin="0,0,10,0" />
+                            <TextBlock Text="{Binding LocalizedResources.Count, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <HyperlinkButton Content="{Binding LocalizedResources.AddMaintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                            <Image Width="20" Source="/Resources/Images/Buttons/spark.png" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=6, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
                 <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_CameraMenu, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_CameraMenu_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
                 </StackPanel>
 
+                
                 <Grid VerticalAlignment="Top">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="120"/>
@@ -198,7 +278,7 @@
                 </Grid>
             </Grid>
 
-            <Grid Visibility="{Binding Step, ConverterParameter=6, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+            <Grid Visibility="{Binding Step, ConverterParameter=7, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
                 <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_FuelMenu, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_FuelMenu_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
@@ -298,7 +378,7 @@
                 </Grid>
             </Grid>
 
-            <Grid Visibility="{Binding Step, ConverterParameter=7, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+            <Grid Visibility="{Binding Step, ConverterParameter=8, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
                 <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_RepairMenu, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_RepairMenu_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
@@ -374,10 +454,153 @@
                         </Button>
                     </Border>
 
+                    <Border
+						Margin="10"
+						Grid.Row="1"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Grid Margin="7">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button 
+                                    Height="80"
+                                    FontSize="22"
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Content="{Binding LocalizedResources.Repairs, Mode=OneWay, Source={StaticResource LocalizedStrings}}" 
+                                    Style="{StaticResource SelectedPriceButton}"/>
+                            <Button 
+                                    Height="80"
+                                    FontSize="22"
+                                    Grid.Column="1"
+                                    Grid.Row="0"
+                                    Style="{StaticResource PriceButton}"
+                                    Content="{Binding LocalizedResources.Maintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}"/>
+                        </Grid>
+                    </Border>
+                    <TextBlock Text="3)" Margin="20,15,0,0" Grid.Row="1" Grid.Column="0" />
+
                 </Grid>
             </Grid>
 
-            <Grid Visibility="{Binding Step, ConverterParameter=8, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+            <Grid Visibility="{Binding Step, ConverterParameter=9, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Visible}">
+                <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_MaintenanceMenu, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
+                    <TextBlock Text="{Binding LocalizedResources.Tutorial_MaintenanceMenu_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
+                </StackPanel>
+
+                <Grid VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="120"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="1)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="0" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+							Style="{StaticResource MenuButton}" 
+							HorizontalContentAlignment="Stretch" 
+							Height="100">
+                            <Grid>
+                                <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/add.png" />
+                                <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.AddMaintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                            </Grid>
+                        </Button>
+                    </Border>
+
+                    <TextBlock Text="2)" Margin="20,15,0,0" Grid.Row="0" Grid.Column="1" />
+                    <Border
+						Margin="10"
+						Grid.Row="0"
+						Grid.Column="1"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Button 
+                            Style="{StaticResource MenuButton}" 
+                            Width="380"
+                            Height="90"
+                            Margin="0">
+
+                            <Grid   
+                                Margin="-12"
+                                Width="350"
+                                Height="80">
+
+                                <Grid>
+                                    <StackPanel Margin="10,4" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                                        <Image Width="30" Height="30" Source="/Resources/Images/Info/speedometer.png" Stretch="UniformToFill" />
+                                        <TextBlock Style="{StaticResource Odometer}" Text="30000" Margin="5,0" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="15,4" VerticalAlignment="Bottom">
+                                        <TextBlock Style="{StaticResource Date}" Margin="0,0,10,0" Text="Filters" Foreground="{StaticResource PhoneAccentBrush}" />
+                                        <TextBlock Style="{StaticResource Date}" Text="Some description of task, eg. Change air filters." />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="10,4" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                        <TextBlock Margin="3" Style="{StaticResource Date}" Text="{Binding LocalizedResources.Warning, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                                        <TextBlock Margin="3" Style="{StaticResource Date}" Text="100" />
+                                        <TextBlock Margin="3" Style="{StaticResource Date}" Text="Km" />
+                                        <TextBlock Margin="3" Style="{StaticResource Date}" Text="{Binding LocalizedResources.WarningDistance, Mode=OneWay, Source={StaticResource LocalizedStrings}}"/>
+                                    </StackPanel>
+                                </Grid>
+
+                            </Grid>
+
+                        </Button>
+                    </Border>
+
+                    <Border
+						Margin="10"
+						Grid.Row="1"
+						Grid.Column="0"
+						BorderThickness="2"
+						BorderBrush="{StaticResource PhoneAccentBrush}">
+                        <Grid Margin="7">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                                    Height="80"
+                                    FontSize="22"
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Content="{Binding LocalizedResources.Repairs, Mode=OneWay, Source={StaticResource LocalizedStrings}}" 
+                                    Style="{StaticResource PriceButton}"/>
+                            <Button 
+                                    Height="80"
+                                    FontSize="22"
+                                    Grid.Column="1"
+                                    Grid.Row="0"
+                                    Style="{StaticResource SelectedPriceButton}"
+                                    Content="{Binding LocalizedResources.Maintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}"/>
+                        </Grid>
+                    </Border>
+                    <TextBlock Text="3)" Margin="20,15,0,0" Grid.Row="1" Grid.Column="0" />
+
+                </Grid>
+            </Grid>
+
+            <Grid Visibility="{Binding Step, ConverterParameter=10, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
                 <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_MoreMenu, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_MoreMenu_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
@@ -474,7 +697,7 @@
                 </Grid>
             </Grid>
 
-            <Grid Visibility="{Binding Step, ConverterParameter=9, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+            <Grid Visibility="{Binding Step, ConverterParameter=11, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
                 <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_Backup, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_Backup_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
@@ -530,7 +753,7 @@
                 </Grid>
             </Grid>
 
-            <Grid Visibility="{Binding Step, ConverterParameter=10, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+            <Grid Visibility="{Binding Step, ConverterParameter=12, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
                 <StackPanel Margin="0,0,170,0" VerticalAlignment="Center">
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_BackupMenu, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_BackupMenu_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
@@ -584,7 +807,7 @@
                 </Border>
             </Grid>
 
-            <Grid Visibility="{Binding Step, ConverterParameter=11, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+            <Grid Visibility="{Binding Step, ConverterParameter=13, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
                 <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_BackupFileMenu, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_BackupFileMenu_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
@@ -694,7 +917,7 @@
                 </Grid>
             </Grid>
 
-            <Grid Visibility="{Binding Step, ConverterParameter=12, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+            <Grid Visibility="{Binding Step, ConverterParameter=14, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
                 <StackPanel Margin="0" Height="250" VerticalAlignment="Bottom">
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_ObdPage, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Welcome}" />
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_ObdPage_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
@@ -733,7 +956,7 @@
                 </Grid>
             </Grid>
 
-            <Grid Visibility="{Binding Step, ConverterParameter=13, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
+            <Grid Visibility="{Binding Step, ConverterParameter=15, Converter={StaticResource StepToVisibilityConvertor}, FallbackValue=Collapsed}">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_ThanksEnd, Source={StaticResource LocalizedStrings}}" FontSize="56" Style="{StaticResource Welcome}" />
                     <TextBlock Text="{Binding LocalizedResources.Tutorial_ThanksEnd_Description, Source={StaticResource LocalizedStrings}}" Style="{StaticResource Information}" />
