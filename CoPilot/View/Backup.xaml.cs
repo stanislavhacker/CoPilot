@@ -643,12 +643,39 @@ namespace CoPilot.CoPilot.View
             }
 
             //check backup
-            var result = MessageBox.Show(AppResources.BackupApplyDescription, AppResources.BackupApplyTitle, MessageBoxButton.OKCancel);
-            if (result != MessageBoxResult.OK)
-            {
-                return;
-            }
+            Popup.MessageBox box = Popup.MessageBox.Create();
+            box.Caption = AppResources.BackupApplyTitle;
+            box.Message = AppResources.BackupApplyDescription;
+            box.ShowLeftButton = true;
+            box.ShowRightButton = true;
+            box.LeftButtonText = AppResources.Ok;
+            box.RightButtonText = AppResources.Cancel;
 
+            box.Dismiss += async (sender, e1) =>
+            {
+                switch (e1)
+                {
+                    case Popup.MessageBoxResult.RightButton:
+                    case Popup.MessageBoxResult.None:
+                        break;
+                    case Popup.MessageBoxResult.LeftButton:
+                        await this.downloadNow();
+                        break;
+                    default:
+                        break;
+                }
+            };
+
+            box.IsOpen = true;
+        }
+
+        /// <summary>
+        /// Download now
+        /// </summary>
+        /// <returns></returns>
+        private async Task downloadNow()
+        {
+            //update progress
             DownloadProgress.BytesTransferred = 0;
 
             //stop saving data
@@ -668,7 +695,13 @@ namespace CoPilot.CoPilot.View
             }
             else
             {
-                MessageBox.Show(AppResources.BackupNotFoundDescription, AppResources.BackupNotFoundTitle, MessageBoxButton.OK);
+                Popup.MessageBox box = Popup.MessageBox.Create();
+                box.Caption = AppResources.BackupNotFoundTitle;
+                box.Message = AppResources.BackupNotFoundDescription;
+                box.ShowLeftButton = true;
+                box.ShowRightButton = false;
+                box.LeftButtonText = AppResources.Ok;
+                box.IsOpen = true;
             }
         }
 
@@ -807,7 +840,13 @@ namespace CoPilot.CoPilot.View
             //show message
             if (FtpController.IsOneDriveAvailable)
             {
-                MessageBox.Show(AppResources.Backup_NotSignedIn_Description, AppResources.Backup_NotSignedIn, MessageBoxButton.OK);
+                Popup.MessageBox box = Popup.MessageBox.Create();
+                box.Caption = AppResources.Backup_NotSignedIn;
+                box.Message = AppResources.Backup_NotSignedIn_Description;
+                box.ShowLeftButton = true;
+                box.ShowRightButton = false;
+                box.LeftButtonText = AppResources.Ok;
+                box.IsOpen = true;
             }
 
             //connect upload
@@ -841,6 +880,12 @@ namespace CoPilot.CoPilot.View
         /// <param name="e"></param>
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
+            //popup
+            if (Popup.MessageBox.Hide())
+            {
+                e.Cancel = true;
+            }
+
             //try end drive mode
             CoPilot.DriveModeEnd(this.DriveModeController, e);
 

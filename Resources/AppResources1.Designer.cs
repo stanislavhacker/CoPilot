@@ -115,7 +115,7 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to really end application? Video recording will be finished!.
+        ///   Looks up a localized string similar to To close an applicationpress the back button again. The recording will be terminated..
         /// </summary>
         public static string AppEndDescription {
             get {
@@ -129,6 +129,15 @@ namespace CoPilot.Resources {
         public static string AppEndTitle {
             get {
                 return ResourceManager.GetString("AppEndTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CoPilot.
+        /// </summary>
+        public static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
             }
         }
         
@@ -349,6 +358,15 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data.
+        /// </summary>
+        public static string Data {
+            get {
+                return ResourceManager.GetString("Data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         public static string Date {
@@ -453,24 +471,6 @@ namespace CoPilot.Resources {
         public static string DriveModeActivated {
             get {
                 return ResourceManager.GetString("DriveModeActivated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do you want to really turn off drive mode?.
-        /// </summary>
-        public static string DriveModeEndDescription {
-            get {
-                return ResourceManager.GetString("DriveModeEndDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Turn off drive mode?.
-        /// </summary>
-        public static string DriveModeEndTitle {
-            get {
-                return ResourceManager.GetString("DriveModeEndTitle", resourceCulture);
             }
         }
         
@@ -583,6 +583,15 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fills.
+        /// </summary>
+        public static string Fuels {
+            get {
+                return ResourceManager.GetString("Fuels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full tank?.
         /// </summary>
         public static string FullTank {
@@ -606,6 +615,15 @@ namespace CoPilot.Resources {
         public static string Hour {
             get {
                 return ResourceManager.GetString("Hour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Images.
+        /// </summary>
+        public static string Images {
+            get {
+                return ResourceManager.GetString("Images", resourceCulture);
             }
         }
         
@@ -714,6 +732,15 @@ namespace CoPilot.Resources {
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to no wifi connection available.
+        /// </summary>
+        public static string NoWifi {
+            get {
+                return ResourceManager.GetString("NoWifi", resourceCulture);
             }
         }
         
@@ -849,6 +876,15 @@ namespace CoPilot.Resources {
         public static string OdometerStateExample {
             get {
                 return ResourceManager.GetString("OdometerStateExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ok.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
             }
         }
         
@@ -1069,6 +1105,15 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to send.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send backup link by email.
         /// </summary>
         public static string SendByEmail {
@@ -1128,6 +1173,15 @@ namespace CoPilot.Resources {
         public static string StartRecording {
             get {
                 return ResourceManager.GetString("StartRecording", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statistics.
+        /// </summary>
+        public static string Statistics {
+            get {
+                return ResourceManager.GetString("Statistics", resourceCulture);
             }
         }
         
@@ -1573,6 +1627,15 @@ namespace CoPilot.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to understood.
+        /// </summary>
+        public static string Understood {
+            get {
+                return ResourceManager.GetString("Understood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to unknown.
         /// </summary>
         public static string Unknown {
@@ -1758,6 +1821,33 @@ namespace CoPilot.Resources {
         public static string WarningDistanceExample {
             get {
                 return ResourceManager.GetString("WarningDistanceExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Web interface URL.
+        /// </summary>
+        public static string WebInterface {
+            get {
+                return ResourceManager.GetString("WebInterface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter this url into your web browser on a computer that is connected to the same WiFi network. You will be able to manage your data from user-friendly web applications. NOTE: Applications must be turned on during work in your browser!.
+        /// </summary>
+        public static string WebInterface_Description {
+            get {
+                return ResourceManager.GetString("WebInterface_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Web interface.
+        /// </summary>
+        public static string WebInterface_Title {
+            get {
+                return ResourceManager.GetString("WebInterface_Title", resourceCulture);
             }
         }
         

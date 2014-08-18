@@ -11,111 +11,131 @@
     d:DesignHeight="480" d:DesignWidth="800">
 
     <Grid>
+        <Grid Margin="40,0,160,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <ScrollViewer>
-            <Grid Margin="60,20,160,30">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="4*" />
-                </Grid.ColumnDefinitions>
+            <TextBlock Style="{StaticResource Title}" Text="{Binding LocalizedResources.Statistics, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" />
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding LocalizedResources.AverageConsumption, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" />
-                <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="{Binding DataController.AverageConsumption, Converter={StaticResource DistanceToConsumptionStringConvertor}}" VerticalAlignment="Center" Margin="0,0,5,0" />
-                    <TextBlock Text="{Binding DataController.Consumption, Converter={StaticResource RealConsumptionToStringConvertor}}" VerticalAlignment="Center" />           
-                </StackPanel>
+            <Controls:Pivot Margin="0,-10,0,0" Grid.Column="0" Grid.Row="1">
+                <!--Data-->
+                <Controls:PivotItem>
+                    <Controls:PivotItem.Header>
+                        <TextBlock Text="{Binding LocalizedResources.Data, Mode=OneWay, Source={StaticResource LocalizedStrings}}" FontSize="28" FontWeight="Bold" />
+                    </Controls:PivotItem.Header>
+                    <Grid Margin="0,-30,0,0">
+                        <ScrollViewer>
+                            <Grid Margin="10,10,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="4*" />
+                                </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding LocalizedResources.AverageSpeed, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" />
-                <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="{Binding AverageSpeed}" VerticalAlignment="Center" Margin="0,0,5,0" />
-                    <TextBlock Text="{Binding DataController.Distance}" Margin="0,0,5,0" VerticalAlignment="Center" />
-                    <TextBlock Text="{Binding LocalizedResources.Per, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,0,5,0" VerticalAlignment="Center" />
-                    <TextBlock Text="{Binding LocalizedResources.Hour, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" />
-                </StackPanel>
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding LocalizedResources.AverageConsumption, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                                <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock Text="{Binding DataController.AverageConsumption, Converter={StaticResource DistanceToConsumptionStringConvertor}}" VerticalAlignment="Center" Margin="0,0,5,0" />
+                                    <TextBlock Text="{Binding DataController.Consumption, Converter={StaticResource RealConsumptionToStringConvertor}}" VerticalAlignment="Center" />
+                                </StackPanel>
 
-                <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding LocalizedResources.PaidForFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" />
-                <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="{Binding PaidForFuel}" VerticalAlignment="Center" Margin="0,0,10,0" />
-                    <TextBlock Text="{Binding DataController.Currency}" VerticalAlignment="Center" />
-                </StackPanel>
-                <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <HyperlinkButton Command="{Binding CoPilot.AddFuelCommand}" Content="{Binding LocalizedResources.AddFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                    <Image Width="20" Source="/Resources/Images/Info/refueled.png" />
-                </StackPanel>
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding LocalizedResources.AverageSpeed, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                                <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock Text="{Binding AverageSpeed}" VerticalAlignment="Center" Margin="0,0,5,0" />
+                                    <TextBlock Text="{Binding DataController.Distance}" Margin="0,0,5,0" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding LocalizedResources.Per, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,0,5,0" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding LocalizedResources.Hour, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" />
+                                </StackPanel>
 
-                <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding LocalizedResources.PaidForRepairs, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" />
-                <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="{Binding PaidForRepairs}" VerticalAlignment="Center" Margin="0,0,10,0" />
-                    <TextBlock Text="{Binding DataController.Currency}" VerticalAlignment="Center" />
-                </StackPanel>
-                <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <HyperlinkButton Command="{Binding CoPilot.AddRepairCommand}" Content="{Binding LocalizedResources.AddRepair, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                    <Image Width="20" Source="/Resources/Images/Info/service.png" />
-                </StackPanel>
+                                <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding LocalizedResources.PaidForFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                                <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock Text="{Binding PaidForFuel}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                    <TextBlock Text="{Binding DataController.Currency}" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <HyperlinkButton Command="{Binding CoPilot.AddFuelCommand}" Content="{Binding LocalizedResources.AddFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                                    <Image Width="20" Source="/Resources/Images/Info/refueled.png" />
+                                </StackPanel>
 
-                <TextBlock Grid.Column="0" Grid.Row="4" Text="{Binding LocalizedResources.MaintenanceTasks, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" />
-                <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="{Binding DataController.MaintenanceCount}" VerticalAlignment="Center" Margin="0,0,10,0" />
-                    <TextBlock Text="{Binding LocalizedResources.Count, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" />
-                </StackPanel>
-                <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <HyperlinkButton Command="{Binding CoPilot.AddMaintenanceCommand}" Content="{Binding LocalizedResources.AddMaintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                    <Image Width="20" Source="/Resources/Images/Buttons/spark.png" />
-                </StackPanel>
+                                <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding LocalizedResources.PaidForRepairs, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                                <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock Text="{Binding PaidForRepairs}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                    <TextBlock Text="{Binding DataController.Currency}" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <HyperlinkButton Command="{Binding CoPilot.AddRepairCommand}" Content="{Binding LocalizedResources.AddRepair, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                                    <Image Width="20" Source="/Resources/Images/Info/service.png" />
+                                </StackPanel>
 
-                <Controls:Pivot Margin="-20,0,0,0" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5">
-                    <!--Pivot item one-->
-                    <Controls:PivotItem>
-                        <Controls:PivotItem.Header>
-                            <TextBlock Text="{Binding LocalizedResources.FuelPriceTrend, Mode=OneWay, Source={StaticResource LocalizedStrings}}" FontSize="32" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
-                        </Controls:PivotItem.Header>
-                        <Grid Margin="0,-10,0,0">
-                            <sparrow:SparrowChart Grid.Row="5" Grid.ColumnSpan="3" DataContext="{Binding}" Height="350">
-                                <sparrow:SparrowChart.XAxis>
-                                    <sparrow:DateTimeXAxis LabelAngle="90" Height="120" Interval="5" />
-                                </sparrow:SparrowChart.XAxis>
-                                <sparrow:SparrowChart.YAxis>
-                                    <sparrow:LinearYAxis/>
-                                </sparrow:SparrowChart.YAxis>
-                                <sparrow:LineSeries  StrokeThickness="3" Stroke="{StaticResource PhoneAccentBrush}" PointsSource="{Binding TrendFuelPrices}" XPath="X" YPath="Y"/>
-                            </sparrow:SparrowChart>
-                        </Grid>
-                    </Controls:PivotItem>
+                                <TextBlock Grid.Column="0" Grid.Row="4" Text="{Binding LocalizedResources.MaintenanceTasks, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                                <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock Text="{Binding DataController.MaintenanceCount}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                    <TextBlock Text="{Binding LocalizedResources.Count, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <HyperlinkButton Command="{Binding CoPilot.AddMaintenanceCommand}" Content="{Binding LocalizedResources.AddMaintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                                    <Image Width="20" Source="/Resources/Images/Buttons/spark.png" />
+                                </StackPanel>
 
-                    <!--Pivot item one-->
-                    <Controls:PivotItem>
-                        <Controls:PivotItem.Header>
-                            <TextBlock Text="{Binding LocalizedResources.TrendUnitsPerRefill, Mode=OneWay, Source={StaticResource LocalizedStrings}}" FontSize="32" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
-                        </Controls:PivotItem.Header>
-                        <Grid Margin="0,-10,0,0">
-                            <sparrow:SparrowChart  Grid.Row="5" Grid.ColumnSpan="3" DataContext="{Binding}" Height="350">
-                                <sparrow:SparrowChart.XAxis>
-                                    <sparrow:DateTimeXAxis LabelAngle="90" Height="120" Interval="5" />
-                                </sparrow:SparrowChart.XAxis>
-                                <sparrow:SparrowChart.YAxis>
-                                    <sparrow:LinearYAxis/>
-                                </sparrow:SparrowChart.YAxis>
-                                <sparrow:LineSeries StrokeThickness="3" Stroke="{StaticResource PhoneAccentBrush}" PointsSource="{Binding TrendUnitsPerRefill}" XPath="X" YPath="Y"/>
-                            </sparrow:SparrowChart>
-                        </Grid>
-                    </Controls:PivotItem>
-                </Controls:Pivot>
-                
+                                <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding LocalizedResources.WebInterface, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                                <StackPanel Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <HyperlinkButton Command="{Binding OpenInterfaceCommand}" Content="{Binding CoPilot.HttpServerController.Url}" Visibility="{Binding CoPilot.HttpServerController.IsIPAddress, Converter={StaticResource BooleanToVisibilityConvertor}}" />
+                                    <TextBlock Text="{Binding LocalizedResources.NoWifi, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" Visibility="{Binding CoPilot.HttpServerController.IsIPAddress, Converter={StaticResource BooleanToCollapsedConvertor}}" />
+                                </StackPanel>
+
+                            </Grid>
+                        </ScrollViewer>
+                    </Grid>
+                </Controls:PivotItem>
+
+                <!--Fuel graphs -->
+                <Controls:PivotItem>
+                    <Controls:PivotItem.Header>
+                        <TextBlock Text="{Binding LocalizedResources.FuelPriceTrend, Mode=OneWay, Source={StaticResource LocalizedStrings}}" FontSize="28" FontWeight="Bold"/>
+                    </Controls:PivotItem.Header>
+                    <Grid Margin="0,-30,0,0">
+                        <sparrow:SparrowChart Margin="0,10,0,0" DataContext="{Binding}">
+                            <sparrow:SparrowChart.XAxis>
+                                <sparrow:DateTimeXAxis LabelAngle="90" Height="120" Interval="5" />
+                            </sparrow:SparrowChart.XAxis>
+                            <sparrow:SparrowChart.YAxis>
+                                <sparrow:LinearYAxis/>
+                            </sparrow:SparrowChart.YAxis>
+                            <sparrow:LineSeries  StrokeThickness="3" Stroke="{StaticResource PhoneAccentBrush}" PointsSource="{Binding TrendFuelPrices}" XPath="X" YPath="Y"/>
+                        </sparrow:SparrowChart>
+                    </Grid>
+                </Controls:PivotItem>
+
+                <!--Fuel graphs -->
+                <Controls:PivotItem>
+                    <Controls:PivotItem.Header>
+                        <TextBlock Text="{Binding LocalizedResources.TrendUnitsPerRefill, Mode=OneWay, Source={StaticResource LocalizedStrings}}" FontSize="28" FontWeight="Bold"/>
+                    </Controls:PivotItem.Header>
+                    <Grid Margin="0,-30,0,0">
+                        <sparrow:SparrowChart Margin="0,10,0,0" DataContext="{Binding}">
+                            <sparrow:SparrowChart.XAxis>
+                                <sparrow:DateTimeXAxis LabelAngle="90" Height="120" Interval="5" />
+                            </sparrow:SparrowChart.XAxis>
+                            <sparrow:SparrowChart.YAxis>
+                                <sparrow:LinearYAxis/>
+                            </sparrow:SparrowChart.YAxis>
+                            <sparrow:LineSeries StrokeThickness="3" Stroke="{StaticResource PhoneAccentBrush}" PointsSource="{Binding TrendUnitsPerRefill}" XPath="X" YPath="Y"/>
+                        </sparrow:SparrowChart>
+                    </Grid>
+                </Controls:PivotItem>
+            </Controls:Pivot>
 
 
-            </Grid>            
-        </ScrollViewer>
-        
-
-        
+        </Grid>                 
     </Grid>
 </UserControl>

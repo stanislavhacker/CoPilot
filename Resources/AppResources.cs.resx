@@ -270,7 +270,7 @@
     <value>Přispějte</value>
   </data>
   <data name="AppEndDescription" xml:space="preserve">
-    <value>Opravdu chcete ukončit aplikaci? Nahrávání videa bude ukončeno!</value>
+    <value>Pro ukončení aplikace stiskněte znovu tlačítko zpět. Nahrávání bude ukončeno.</value>
   </data>
   <data name="AppEndTitle" xml:space="preserve">
     <value>Ukončit aplikaci?</value>
@@ -283,12 +283,6 @@
   </data>
   <data name="DrivingMode" xml:space="preserve">
     <value>Mód řízení</value>
-  </data>
-  <data name="DriveModeEndDescription" xml:space="preserve">
-    <value>Opravdu chcete vypnout mód pro řízení?</value>
-  </data>
-  <data name="DriveModeEndTitle" xml:space="preserve">
-    <value>Vypnout mód řízení?</value>
   </data>
   <data name="TapOnScreenToSpeak" xml:space="preserve">
     <value>Dotkněte se obrazovky a mluvte</value>
@@ -570,7 +564,7 @@
     <value>.</value>
   </data>
   <data name="FromStorage" xml:space="preserve">
-    <value>this video is on cloud storage</value>
+    <value>totot video je na webovém úložišti</value>
   </data>
   <data name="Buffering" xml:space="preserve">
     <value>Načítání</value>
@@ -688,5 +682,41 @@
   </data>
   <data name="Tutorial_StatsScreen_Description_One" xml:space="preserve">
     <value>Na této obrazovce se po spuštění zobrazí základní statistiky. Jedná se o 1) průměrnou spotřebu, 2) průměrnou rychlost, 3) celkově zaplacená cena za palivo, 4) celkově zaplacená cena za opravy a 5) počet údržbových úkolů (technická, pojištění, kontrola oleje, atd...). Na této obrazovcou jsou také k dispozici některé informační grafy.</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistiky</value>
+  </data>
+  <data name="NoWifi" xml:space="preserve">
+    <value>wifi připojení není k dispozici</value>
+  </data>
+  <data name="WebInterface" xml:space="preserve">
+    <value>Adresa webového rozhraní</value>
+  </data>
+  <data name="WebInterface_Description" xml:space="preserve">
+    <value>Zadejte tuto url do vašeho webové prohlíže v počítači, který je připojen na stejnou WiFi síť. Budete tak moci spravovat vaše data z přehledné webové aplikace. POZOR: Aplikace musí být zapnutá v průběhu práce v prohlížeči!</value>
+  </data>
+  <data name="WebInterface_Title" xml:space="preserve">
+    <value>Webové rozhraní</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>CoPilot</value>
+  </data>
+  <data name="Fuels" xml:space="preserve">
+    <value>Tankování</value>
+  </data>
+  <data name="Images" xml:space="preserve">
+    <value>Obrázky</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>ok</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>poslat</value>
+  </data>
+  <data name="Understood" xml:space="preserve">
+    <value>rozumím</value>
   </data>
 </root>

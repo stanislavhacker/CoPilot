@@ -99,6 +99,7 @@
     <Compile Include="CoPilot\Controller\DriveMode.cs" />
     <Compile Include="CoPilot\Controller\Ftp.cs" />
     <Compile Include="CoPilot\Controller\Gps.cs" />
+    <Compile Include="CoPilot\Controller\HttpServer.cs" />
     <Compile Include="CoPilot\Controller\Menu.cs" />
     <Compile Include="CoPilot\Controller\Scheduler.cs" />
     <Compile Include="CoPilot\Controller\Stats.cs" />
@@ -135,6 +136,9 @@
     </Compile>
     <Compile Include="CoPilot\View\Popup\DriveMode.xaml.cs">
       <DependentUpon>DriveMode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoPilot\View\Popup\MessageBox.xaml.cs">
+      <DependentUpon>MessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="CoPilot\View\Repair.xaml.cs">
       <DependentUpon>Repair.xaml</DependentUpon>
@@ -183,6 +187,15 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Interface\cp.css" />
+    <Content Include="Interface\cp.js" />
+    <Content Include="Interface\fonts\fontawesome-social-webfont.eot" />
+    <Content Include="Interface\fonts\fontawesome-social-webfont.ttf" />
+    <Content Include="Interface\fonts\fontawesome-social-webfont.woff" />
+    <Content Include="Interface\fonts\fontawesome-webfont.eot" />
+    <Content Include="Interface\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Interface\fonts\fontawesome-webfont.woff" />
+    <Content Include="Interface\fonts\FontAwesome.otf" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
@@ -196,7 +209,6 @@
     <EmbeddedResource Include="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>AppResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +261,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Interface\errors\404.html" />
+    <Content Include="Interface\fonts\fontawesome-social-webfont.svg" />
+    <Content Include="Interface\fonts\fontawesome-webfont.svg" />
+    <Content Include="Interface\images\logo.png" />
+    <Content Include="Interface\index.html" />
     <Content Include="Resources\Images\Buttons\add.png" />
     <Content Include="Resources\Images\Buttons\assistant.png" />
     <Content Include="Resources\Images\Buttons\avarage.png" />
@@ -342,6 +359,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CoPilot\View\Popup\MessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CoPilot\View\Repair.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -378,6 +399,12 @@
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=8.0.1.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleWebServer">
+      <HintPath>..\libs\SimpleWebServer\SimpleWebServer\obj\Release\SimpleWebServer.dll</HintPath>
     </Reference>
     <Reference Include="Sparrow.Chart.WP8.45">
       <HintPath>..\packages\Sparrow.Chart.WP8.13.1.0.113\lib\windowsphone8\Sparrow.Chart.WP8.45.dll</HintPath>

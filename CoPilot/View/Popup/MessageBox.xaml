@@ -1,0 +1,50 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone" x:Class="CoPilot.CoPilot.View.Popup.MessageBox"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+
+    <Grid Background="{StaticResource MessageBoxBackground}">
+
+        <StackPanel 
+            MinWidth="400"
+            Margin="100,0,100,0"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center">
+            <TextBlock Style="{StaticResource Welcome}" Text="{Binding Caption}" />
+            <TextBlock Style="{StaticResource Information}" FontSize="18" Text="{Binding Message}" />
+            <Grid Margin="0,40,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Margin="0,0,20,0"
+                    Command="{Binding LeftComand}"
+                    FontSize="32"
+                    Style="{StaticResource SelectedPriceButton}" 
+                    Visibility="{Binding ShowLeftButton, Converter={StaticResource BooleanToVisibilityConvertor}}" 
+                    Content="{Binding LeftButtonText}" 
+                    Grid.Column="0" />
+                <Button 
+                    Margin="20,0,0,0"
+                    Command="{Binding RightComand}"
+                    FontSize="32"
+                    Style="{StaticResource SelectedPriceButton}" 
+                    Visibility="{Binding ShowRightButton, Converter={StaticResource BooleanToVisibilityConvertor}}" 
+                    Content="{Binding RightButtonText}" 
+                    Grid.Column="1" />
+
+            </Grid>
+        </StackPanel>
+
+        
+    </Grid>
+</UserControl>

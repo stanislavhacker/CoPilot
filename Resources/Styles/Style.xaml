@@ -293,6 +293,7 @@
     <SolidColorBrush Color="#2A2927" x:Key="GoogleButtonColor" />
     <SolidColorBrush Color="#454545" x:Key="LineColor" />
     <SolidColorBrush Color="#B2000000" x:Key="SpeechBackground" />
+    <SolidColorBrush Color="#E5000000" x:Key="MessageBoxBackground" />
     <SolidColorBrush Color="#647687" x:Key="IconBackground" />
     <SolidColorBrush Color="CornflowerBlue" x:Key="HyperlinkBackground" />
     <SolidColorBrush Color="#B2701100" x:Key="ErrorBackground" />

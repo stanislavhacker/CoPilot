@@ -435,6 +435,12 @@ namespace CoPilot.CoPilot.View
         /// <param name="e"></param>
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
+            //popup
+            if (Popup.MessageBox.Hide())
+            {
+                e.Cancel = true;
+            }
+
             //try end drive mode
             CoPilot.DriveModeEnd(this.DriveModeController, e);
 

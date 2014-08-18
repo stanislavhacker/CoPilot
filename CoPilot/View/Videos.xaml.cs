@@ -254,7 +254,7 @@ namespace CoPilot.CoPilot.View
                 return new RelayCommand((param) =>
                 {
                     this.IsPlayEnabled = false;
-                    MessageBox.Show(AppResources.VideoError_Description, AppResources.VideoError_Title, MessageBoxButton.OK);
+                    this.errorMessageBox();
                 }, param => true);
             }
         }
@@ -936,6 +936,20 @@ namespace CoPilot.CoPilot.View
             }
         }
 
+        /// <summary>
+        /// Error message box
+        /// </summary>
+        private void errorMessageBox()
+        {
+            Popup.MessageBox box = Popup.MessageBox.Create();
+            box.Caption = AppResources.VideoError_Title;
+            box.Message = AppResources.VideoError_Description;
+            box.ShowLeftButton = true;
+            box.ShowRightButton = false;
+            box.LeftButtonText = AppResources.Ok;
+            box.IsOpen = true;
+        }
+
         #region DATA CONTAINER
 
         /// <summary>
@@ -1064,6 +1078,12 @@ namespace CoPilot.CoPilot.View
         /// <param name="e"></param>
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
+            //popup
+            if (Popup.MessageBox.Hide())
+            {
+                e.Cancel = true;
+            }
+
             //try end drive mode
             CoPilot.DriveModeEnd(this.DriveModeController, e);
 

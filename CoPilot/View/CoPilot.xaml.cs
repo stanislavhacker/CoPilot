@@ -48,11 +48,7 @@ namespace CoPilot.CoPilot.View
         {
             if (driveMode != null && driveMode.IsOpen)
             {
-                var result = MessageBox.Show(AppResources.DriveModeEndDescription, AppResources.DriveModeEndTitle, MessageBoxButton.OKCancel);
-                if (result == MessageBoxResult.OK)
-                {
-                    driveMode.StopDriveMode();
-                }
+                driveMode.StopDriveMode();
                 e.Cancel = true;
             }
         }
@@ -78,6 +74,7 @@ namespace CoPilot.CoPilot.View
         private PR.Popup popup;
         private SplashScreen screen;
         private BackgroundWorker backroungWorker;
+        private Popup.MessageBox messageBox = null;
 
         #endregion
 
@@ -800,6 +797,27 @@ namespace CoPilot.CoPilot.View
 
         #endregion
 
+        #region PROPERTY HTTP SERVER
+
+        /// <summary>
+        /// HttpServer controller
+        /// </summary>
+        private Controllers.HttpServer httpServerController;
+        public Controllers.HttpServer HttpServerController
+        {
+            get
+            {
+                return httpServerController;
+            }
+            set
+            {
+                httpServerController = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
         #region TRIAL DATA
 
         /// <summary>
@@ -982,6 +1000,7 @@ namespace CoPilot.CoPilot.View
             this.createTileController();
             this.createSchedulerController();
             this.createStatsController();
+            this.createHttpServerController();
         }
 
         /// <summary>
@@ -1024,6 +1043,10 @@ namespace CoPilot.CoPilot.View
             //scheduler
             SchedulerController.Update();
 
+            //http
+            HttpServerController.IdentifyDeviceIp();
+            HttpServerController.ResolveData();
+
             //send error
             this.sendErrorIfExists();
         }
@@ -1044,6 +1067,15 @@ namespace CoPilot.CoPilot.View
         {
             ///CONTROLLER
             SchedulerController = new Controllers.Scheduler(this.dataController);
+        }
+
+        /// <summary>
+        /// Create http server controller
+        /// </summary>
+        private void createHttpServerController()
+        {
+            ///CONTROLLER
+            HttpServerController = new HttpServer();
         }
 
         /// <summary>
@@ -1511,6 +1543,10 @@ namespace CoPilot.CoPilot.View
                 FtpController.IsWifiEnabled = DeviceNetworkInformation.IsNetworkAvailable && DeviceNetworkInformation.IsWiFiEnabled;
                 FtpController.IsNetEnabled = DeviceNetworkInformation.IsNetworkAvailable;
             }
+            if (HttpServerController != null)
+            {
+                HttpServerController.IdentifyDeviceIp();
+            }
         }
 
         /// <summary>
@@ -1546,6 +1582,12 @@ namespace CoPilot.CoPilot.View
         /// <param name="e"></param>
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
+            //popup
+            if (this.messageBox == null && Popup.MessageBox.Hide())
+            {
+                e.Cancel = true;
+            }
+
             //try end tutorial
             CoPilot.TutorialEnd(e);
             //try end drive mode
@@ -1566,13 +1608,10 @@ namespace CoPilot.CoPilot.View
             }
 
             //dialog before exit
-            if (e.Cancel == false)
+            if (e.Cancel == false && this.messageBox == null)
             {
-                var result = MessageBox.Show(AppResources.AppEndDescription, AppResources.AppEndTitle, MessageBoxButton.OKCancel);
-                if (result != MessageBoxResult.OK)
-                {
-                    e.Cancel = true;
-                }
+                e.Cancel = true;
+                this.exitConfirmMessageBox();
             }
 
             //stop all
@@ -1581,6 +1620,26 @@ namespace CoPilot.CoPilot.View
                 StopRecordingNow();
             }
             base.OnBackKeyPress(e);
+        }
+
+        /// <summary>
+        /// Exit confirm box
+        /// </summary>
+        private void exitConfirmMessageBox()
+        {
+            this.messageBox = Popup.MessageBox.Create();
+            this.messageBox.Caption = AppResources.AppEndTitle;
+            this.messageBox.Message = AppResources.AppEndDescription;
+            this.messageBox.ShowLeftButton = false;
+            this.messageBox.ShowRightButton = true;
+            this.messageBox.RightButtonText = AppResources.Cancel;
+
+            this.messageBox.Dismiss += (sender, e1) =>
+            {
+                this.messageBox = null;
+            };
+
+            this.messageBox.IsOpen = true;
         }
 
         /// <summary>

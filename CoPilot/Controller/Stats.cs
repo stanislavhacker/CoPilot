@@ -1,15 +1,41 @@
-﻿using System;
+﻿using CoPilot.CoPilot.View.Popup;
+using CoPilot.Core.Utils;
+using CoPilot.Resources;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CoPilot.CoPilot.Controller
 {
     public class Stats : Base
     {
+
+        #region COMMAND
+
+        /// <summary>
+        /// OpenInterface Command
+        /// </summary>
+        public ICommand OpenInterfaceCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    this.aboutInterfaceUrl();
+                },
+                param => true
+               );
+            }
+        }
+
+        #endregion
 
         #region PRIVATE
 
@@ -159,6 +185,44 @@ namespace CoPilot.CoPilot.Controller
             //stats
             this.stats = new Statistics.Statistics(DataController.Records);
         }
+
+        #region PRIVATE
+
+        /// <summary>
+        /// Open interface url
+        /// </summary>
+        private void aboutInterfaceUrl()
+        {
+            MessageBox box = MessageBox.Create();
+            box.Caption = AppResources.WebInterface_Title;
+            box.Message = AppResources.WebInterface_Description;
+            box.ShowLeftButton = true;
+            box.ShowRightButton = true;
+            box.LeftButtonText = AppResources.Understood;
+            box.RightButtonText = AppResources.Send;
+
+            box.Dismiss += (sender, e) =>
+            {
+                switch (e)
+                {
+                    case MessageBoxResult.LeftButton:
+                    case MessageBoxResult.None:
+                        break;
+                    case MessageBoxResult.RightButton:
+                        EmailComposeTask emailComposeTask = new EmailComposeTask();
+                        emailComposeTask.Subject = AppResources.WebInterface_Title;
+                        emailComposeTask.Body = CoPilot.HttpServerController.Url;
+                        emailComposeTask.Show();
+                        break;
+                    default:
+                        break;
+                }
+            };
+
+            box.IsOpen = true;
+        }
+
+        #endregion
 
         #region CHANGE
 

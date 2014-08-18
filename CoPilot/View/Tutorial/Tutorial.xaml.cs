@@ -124,11 +124,30 @@ namespace CoPilot.CoPilot.View.Tutorial
         /// </summary>
         public void Close()
         {
-            var close = MessageBox.Show(AppResources.Tutorial_End_Description, AppResources.Tutorial_End, MessageBoxButton.OKCancel);
-            if (close == MessageBoxResult.OK)
+            Popup.MessageBox box = Popup.MessageBox.Create();
+            box.Caption = AppResources.Tutorial_End;
+            box.Message = AppResources.Tutorial_End_Description;
+            box.ShowLeftButton = true;
+            box.ShowRightButton = true;
+            box.LeftButtonText = AppResources.Ok;
+            box.RightButtonText = AppResources.Cancel;
+
+            box.Dismiss += (sender, e1) =>
             {
-                this.IsTutorial = false;
-            }
+                switch (e1)
+                {
+                    case Popup.MessageBoxResult.RightButton:
+                    case Popup.MessageBoxResult.None:
+                        break;
+                    case Popup.MessageBoxResult.LeftButton:
+                        this.IsTutorial = false;
+                        break;
+                    default:
+                        break;
+                }
+            };
+
+            box.IsOpen = true;
         }
 
         #region NOTIFY

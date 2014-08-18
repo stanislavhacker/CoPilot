@@ -270,7 +270,7 @@
     <value>Donate</value>
   </data>
   <data name="AppEndDescription" xml:space="preserve">
-    <value>Do you want to really end application? Video recording will be finished!</value>
+    <value>To close an applicationpress the back button again. The recording will be terminated.</value>
   </data>
   <data name="AppEndTitle" xml:space="preserve">
     <value>Exit application?</value>
@@ -283,12 +283,6 @@
   </data>
   <data name="DrivingMode" xml:space="preserve">
     <value>Driving mode</value>
-  </data>
-  <data name="DriveModeEndDescription" xml:space="preserve">
-    <value>Do you want to really turn off drive mode?</value>
-  </data>
-  <data name="DriveModeEndTitle" xml:space="preserve">
-    <value>Turn off drive mode?</value>
   </data>
   <data name="TapOnScreenToSpeak" xml:space="preserve">
     <value>Tap on screen to speak</value>
@@ -688,5 +682,41 @@
   </data>
   <data name="Tutorial_StatsScreen_Description_One" xml:space="preserve">
     <value>When you start the application you can see screen with basic statistic information. These are 1) the average fuel consumption, 2) the average speed, 3) the total price paid for fuel, 4) the total price paid for repairs and 5) the number of maintenance tasks (technical, insurance, checking oil, etc. ...). On this screen are also available some information graphs.</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="NoWifi" xml:space="preserve">
+    <value>no wifi connection available</value>
+  </data>
+  <data name="WebInterface" xml:space="preserve">
+    <value>Web interface URL</value>
+  </data>
+  <data name="WebInterface_Description" xml:space="preserve">
+    <value>Enter this url into your web browser on a computer that is connected to the same WiFi network. You will be able to manage your data from user-friendly web applications. NOTE: Applications must be turned on during work in your browser!</value>
+  </data>
+  <data name="WebInterface_Title" xml:space="preserve">
+    <value>Web interface</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>CoPilot</value>
+  </data>
+  <data name="Fuels" xml:space="preserve">
+    <value>Fills</value>
+  </data>
+  <data name="Images" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>ok</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>send</value>
+  </data>
+  <data name="Understood" xml:space="preserve">
+    <value>understood</value>
   </data>
 </root>
