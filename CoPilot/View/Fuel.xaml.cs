@@ -497,7 +497,7 @@ namespace CoPilot.CoPilot.View
         private Boolean TryParseDouble(string value, out double outValue)
         {
             var style = NumberStyles.AllowDecimalPoint;
-            var culture = CultureInfo.CurrentCulture;
+            var culture = CultureInfo.InvariantCulture;
             var result = Double.TryParse(value.Replace(",", "."), style, culture, out outValue);
             return result;
         }
