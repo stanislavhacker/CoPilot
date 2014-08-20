@@ -86,14 +86,16 @@ namespace CoPilot.CoPilot.Controller
 
         private Boolean isServer = false;
         private Skin skinData;
+        private Data dataController;
 
         #endregion
 
         /// <summary>
         /// Initialize HttpServer class
         /// </summary>
-        public HttpServer()
+        public HttpServer(Data dataController)
         {
+            this.dataController = dataController;
         }
 
         /// <summary>
@@ -158,6 +160,9 @@ namespace CoPilot.CoPilot.Controller
                         return this.skin();
                     case "language":
                         return this.language();
+                    case "data":
+                        var url = new Uri(e.uri);
+                        return this.data(url.Query);
                     default:
                         return new IDCT.webResposne();
                 }
@@ -222,6 +227,33 @@ namespace CoPilot.CoPilot.Controller
 
             return response;
         }
+
+        /// <summary>
+        /// Data
+        /// </summary>
+        /// <returns></returns>
+        private webResposne data(String query)
+        {
+
+
+
+            //json
+            var json = JsonConvert.SerializeObject(this.dataController.Records);
+            var stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
+            writer.Write(json);
+            writer.Flush();
+            stream.Seek(0, SeekOrigin.Begin);
+
+            //response
+            var response = new IDCT.webResposne();
+            response.content = stream;
+            response.header = new Dictionary<string, string>();
+            response.header.Add("Content-Type", "text/json");
+
+            return response;
+        }
+
 
         /// <summary>
         /// Get color

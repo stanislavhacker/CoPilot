@@ -719,4 +719,13 @@
   <data name="Understood" xml:space="preserve">
     <value>understood</value>
   </data>
+  <data name="ContactEmail" xml:space="preserve">
+    <value>Contact email</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>Copyright (c) 2014 CoPilot. All rights reserved.</value>
+  </data>
+  <data name="DesignBy" xml:space="preserve">
+    <value>Design by</value>
+  </data>
 </root>

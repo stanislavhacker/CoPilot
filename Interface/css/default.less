@@ -1,0 +1,611 @@
+@color_default: #1F1F1F;
+@color_gray: #6c6c6c;
+@color_gray_dark: #454445;
+@color_gray_light: #D1CFCE;
+@color_highlight: #647687;
+@color_white: #FFFFFF;
+@color_ul: #525252;
+@color_li: #E5E5E5;
+@color_li_a: #3f3f3f;
+@color_h2: #323232;
+@color_byline: #6F6F6F;
+@color_menu: #ACCFFF;
+@color_banner: #F6F6F6;
+@color_banner_h2: #3E454C;
+@color_featured: #E8E8E8;
+@color_twitter: #2DAAE4;
+@color_facebook: #39599F;
+@color_dribble: #C4376B;
+@color_tumblr: #31516A;
+@color_rss: #F2600B;
+
+
+html, body
+{
+    height: 100%;
+}
+
+body
+{
+    min-width: 800px;
+    margin: 0;
+    padding: 0;
+    background: @color_default;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11pt;
+    font-weight: 300;
+    color: @color_gray
+}
+
+
+h1, h2, h3
+{
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+    color: @color_gray_dark;
+}
+
+p, ol, ul
+{
+    margin-top: 0;
+}
+
+ol, ul
+{
+    padding: 0;
+    list-style: none;
+}
+
+p
+{
+    line-height: 180%;
+}
+
+strong
+{
+}
+
+a
+{
+    color: @color_default;
+}
+
+a:hover
+{
+    text-decoration: none;
+}
+
+.container
+{
+    margin: 0 auto;
+    width: 1200px;
+}
+
+/*********************************************************************************/
+/* Image Style                                                                   */
+/*********************************************************************************/
+
+.image
+{
+    display: inline-block;
+}
+
+.image img
+{
+    display: block;
+    width: 100%;
+}
+
+.image-full
+{
+    display: block;
+    width: 100%;
+    margin: 0 0 2em 0;
+}
+
+.image-left
+{
+    float: left;
+    margin: 0 2em 2em 0;
+}
+
+.image-centered
+{
+    display: block;
+    margin: 0 0 2em 0;
+}
+
+.image-centered img
+{
+    margin: 0 auto;
+    width: auto;
+}
+
+/*********************************************************************************/
+/* List Styles                                                                   */
+/*********************************************************************************/
+
+ul.style1
+{
+    margin: 0;
+    padding: 0 0 0 0;
+    overflow: hidden;
+    list-style: none;
+    color: @color_gray;
+}
+
+ul.style1 li
+{
+    overflow: hidden;
+    display: block;
+    padding: 2.80em 0;
+    border-top: 1px solid @color_gray_light;
+}
+
+ul.style1 li:first-child
+{
+    padding-top: 0;
+    border-top: none;
+}
+
+ul.style1 .image-left
+{
+    margin-bottom: 0;
+}
+
+ul.style1 h3
+{
+    padding: 1.2em 0 1em 0;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: @color_gray_dark;
+}
+
+ul.style1 a
+{
+    text-decoration: none;
+    color: @color_ul;
+}
+
+ul.style1 a:hover
+{
+    text-decoration: underline;
+    color: @color_ul;
+}
+
+ul.style2
+{
+    margin: 0;
+    padding-top: 1em;
+    list-style: none;
+}
+
+ul.style2 li
+{
+    border-top: solid 1px @color_li;
+    padding: 0.80em 0;
+}
+
+ul.style2 li:first-child
+{
+    border-top: 0;
+    padding-top: 0;
+}
+
+/*********************************************************************************/
+/* Social Icon Styles                                                            */
+/*********************************************************************************/
+
+ul.contact
+{
+    margin: 0;
+    padding: 2em 0 0 0;
+    list-style: none;
+}
+
+ul.contact li
+{
+    display: inline-block;
+    padding: 0 0.30em;
+    font-size: 1em;
+}
+
+ul.contact li span
+{
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.contact li a
+{
+    color: @color_white;
+}
+
+ul.contact li a:before
+{
+    display: inline-block;
+    background: @color_li_a;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    color: @color_white;
+}
+
+ul.contact li a.icon-twitter:before { background: @color_twitter; }
+ul.contact li a.icon-facebook:before { background: @color_facebook; }
+ul.contact li a.icon-dribbble:before { background: @color_dribble;	}
+ul.contact li a.icon-tumblr:before { background: @color_tumblr; }
+ul.contact li a.icon-rss:before { background: @color_rss; }
+
+/*********************************************************************************/
+/* Button Style                                                                  */
+/*********************************************************************************/
+
+.button
+{
+    display: inline-block;
+    padding: 1em 3em;
+    background: @color_highlight;
+    -moz-transition: opacity 0.25s ease-in-out;
+    -webkit-transition: opacity 0.25s ease-in-out;
+    -o-transition: opacity 0.25s ease-in-out;
+    -ms-transition: opacity 0.25s ease-in-out;
+    transition: opacity 0.25s ease-in-out;
+    letter-spacing: 0.20em;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: @color_white;
+}
+
+    .button:hover
+    {
+    }
+
+    .button:active
+    {
+    }
+
+    .button-big
+    {
+        padding: 1.6em 4em;
+        font-size: 1.4em;
+        font-weight: 900;
+    }
+
+/*********************************************************************************/
+/* Heading Titles                                                                */
+/*********************************************************************************/
+
+.title
+{
+    margin-bottom: 3em;
+}
+
+.title h2
+{
+    font-weight: 400;
+    font-size: 2.8em;
+    color: @color_h2;
+}
+
+.title .byline
+{
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 1.1em;
+    color: @color_byline;
+}
+
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+
+#header-wrapper
+{
+}
+
+#header
+{
+    position: relative;
+    height: 150px;
+}
+
+/*********************************************************************************/
+/* Logo                                                                          */
+/*********************************************************************************/
+
+#logo
+{
+    position: absolute;
+    top: 3em;
+    left: 0;
+    width: 100%;
+}
+
+#logo h1
+{
+    display: inline-block;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: @color_white;
+}
+
+#logo a
+{
+    text-decoration: none;
+    color: @color_white;
+}
+
+#logo img
+{
+width: 56px;
+float: left;
+margin: 0 10px 0 0;
+border-radius: 8px;
+}
+
+/*********************************************************************************/
+/* Menu                                                                          */
+/*********************************************************************************/
+
+#menu
+{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#menu ul
+{
+    display: inline-block;
+}
+
+#menu li
+{
+    display: block;
+    float: left;
+    text-align: center;
+}
+
+#menu li a, #menu li span
+{
+    display: block;
+    padding: 0 1.5em;
+    height: 150px;
+    letter-spacing: 0.20em;
+    line-height: 150px;
+    text-decoration: none;
+    font-size: 0.90em;
+    font-weight: 600;
+    text-transform: uppercase;
+    outline: 0;
+    color: @color_menu;
+}
+
+#menu li:hover a, #menu li.active a, #menu li.active span
+{
+}
+
+#menu .current_page_item a
+{
+    background: @color_highlight;
+    color: @color_white;
+}
+
+/*********************************************************************************/
+/* Banner                                                                        */
+/*********************************************************************************/
+
+#banner-wrapper
+{
+    overflow: hidden;
+    padding: 5em 0;
+    background: @color_banner;
+}
+
+#banner .box-left
+{
+    float: left;
+}
+
+#banner .box-right
+{
+    float: right;
+}
+
+#banner h2
+{
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    font-size: 3em;
+    color: @color_banner_h2;
+}
+
+#banner span
+{
+    display: block;
+    padding-top: 0.50em;
+    font-size: 1.4em;
+    color: @color_default;
+}
+
+/*********************************************************************************/
+/* Page                                                                          */
+/*********************************************************************************/
+
+#wrapper
+{
+    background: @color_white;
+}
+
+#page
+{
+    overflow: hidden;
+    padding: 6em 0;
+}
+
+/*********************************************************************************/
+/* Content                                                                       */
+/*********************************************************************************/
+
+#content
+{
+    float: left;
+    width: 700px;
+}
+
+/*********************************************************************************/
+/* Sidebar                                                                       */
+/*********************************************************************************/
+
+#sidebar
+{
+    float: right;
+    width: 450px;
+}
+
+#stwo-col
+{
+    margin-top: 2em;
+}
+
+#stwo-col h2
+{
+    display: block;
+    padding-bottom: 1.5em;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: @color_gray_dark;
+}
+
+#stwo-col .sbox1
+{
+    float: left;
+    width: 210px;
+}
+
+#stwo-col .sbox2
+{
+    float: right;
+    width: 210px;
+}
+
+/*********************************************************************************/
+/* Copyright                                                                     */
+/*********************************************************************************/
+
+#copyright
+{
+    overflow: hidden;
+    padding: 5em 0;
+}
+
+#copyright p
+{
+    letter-spacing: 0.20em;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.80em;
+    color: @color_menu;
+}
+
+#copyright a
+{
+    text-decoration: none;
+    color: @color_menu;
+}
+
+/*********************************************************************************/
+/* Featured                                                                      */
+/*********************************************************************************/
+
+#featured-wrapper
+{
+    overflow: hidden;
+    padding: 5em 0;
+    background: @color_white;
+    text-align: center;
+}
+
+#featured .major
+{
+    overflow: hidden;
+    margin-bottom: 3em;
+    padding-bottom: 2em;
+    border-bottom: 1px solid @color_featured;
+}
+
+#featured .major h2
+{
+    font-size: 3em;
+}
+
+
+#featured .major .byline
+{
+    font-size: 1.3em;
+}
+
+#featured .title
+{
+    margin-bottom: 1em;
+}
+
+#featured .title h2
+{
+    font-size: 1.2em;
+}
+
+#featured h2
+{
+    text-align: center;
+}
+
+#featured .icon
+{
+    position: relative;
+    display: block;
+    margin: 0 auto 20px auto;
+    line-height:  normal;
+    font-size: 6em;
+    text-align: center;
+    color: @color_highlight;
+}
+
+.column1,
+.column2,
+.column3,
+.column4
+{
+    width: 282px;
+}
+
+.column1,
+.column2
+{
+    float: left;
+    margin-right: 24px;
+}
+
+.column3
+{
+    float: left;
+}
+
+.column4
+{
+    float: right;
+}
+

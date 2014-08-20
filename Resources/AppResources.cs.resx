@@ -719,4 +719,13 @@
   <data name="Understood" xml:space="preserve">
     <value>rozumím</value>
   </data>
+  <data name="ContactEmail" xml:space="preserve">
+    <value>Kontakní email</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>Copyright (c) 2014 CoPilot. Všechna práva vyhrazena.</value>
+  </data>
+  <data name="DesignBy" xml:space="preserve">
+    <value>Vzhled stránky od</value>
+  </data>
 </root>

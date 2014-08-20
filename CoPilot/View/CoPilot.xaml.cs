@@ -1075,7 +1075,7 @@ namespace CoPilot.CoPilot.View
         private void createHttpServerController()
         {
             ///CONTROLLER
-            HttpServerController = new HttpServer();
+            HttpServerController = new HttpServer(this.dataController);
         }
 
         /// <summary>
