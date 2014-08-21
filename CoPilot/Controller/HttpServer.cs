@@ -153,7 +153,8 @@ namespace CoPilot.CoPilot.Controller
             Dictionary<Regex, RuleDeletage> rules = new Dictionary<Regex, RuleDeletage>();
             rules.Add(new Regex("^/copilot/api/.*$"), (e) =>
             {
-                var request = e.uri.Replace("/copilot/api/", "");
+                var url = new Uri("http://test" + e.uri);
+                var request = url.LocalPath.Replace("/copilot/api/", "");
 
                 switch(request) {
                     case "skin":
@@ -161,8 +162,7 @@ namespace CoPilot.CoPilot.Controller
                     case "language":
                         return this.language();
                     case "data":
-                        var url = new Uri(e.uri);
-                        return this.data(url.Query);
+                        return this.data(url.Query.Substring(1));
                     default:
                         return new IDCT.webResposne();
                 }
@@ -187,6 +187,10 @@ namespace CoPilot.CoPilot.Controller
         private webResposne language()
         {
             var test = AppResources.ResourceManager.GetResourceSet(System.Globalization.CultureInfo.CurrentCulture, true, false);
+            if (test == null)
+            {
+                test = AppResources.ResourceManager.GetResourceSet(System.Globalization.CultureInfo.InvariantCulture, true, false);
+            }
 
             //json
             var json = JsonConvert.SerializeObject(test);
@@ -229,33 +233,6 @@ namespace CoPilot.CoPilot.Controller
         }
 
         /// <summary>
-        /// Data
-        /// </summary>
-        /// <returns></returns>
-        private webResposne data(String query)
-        {
-
-
-
-            //json
-            var json = JsonConvert.SerializeObject(this.dataController.Records);
-            var stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(json);
-            writer.Flush();
-            stream.Seek(0, SeekOrigin.Begin);
-
-            //response
-            var response = new IDCT.webResposne();
-            response.content = stream;
-            response.header = new Dictionary<string, string>();
-            response.header.Add("Content-Type", "text/json");
-
-            return response;
-        }
-
-
-        /// <summary>
         /// Get color
         /// </summary>
         /// <param name="name"></param>
@@ -265,6 +242,49 @@ namespace CoPilot.CoPilot.Controller
             var brush = (App.Current.Resources[name] as SolidColorBrush);
 
             return "#" + brush.Color.R.ToString("X2") + brush.Color.G.ToString("X2") + brush.Color.B.ToString("X2");
+        }
+
+        #endregion
+
+        #region DATA
+
+
+        /// <summary>
+        /// Data
+        /// </summary>
+        /// <returns></returns>
+        private webResposne data(String query)
+        {
+            //url: api/data?command=setting&from=&to=&page=
+
+            //data
+            var controller = this.dataController;
+            var stats = new Statistics.Statistics(controller.Records);
+            var data = parseQueryString(query);
+            var command = data.ContainsKey("command") ? data["command"] : "unknown";
+
+            switch (command)
+            {
+                case "setting":
+                    //settings
+                    var setting = new Settings();
+                    setting.Consumption = controller.Consumption.ToString();
+                    setting.Currency = controller.Currency.ToString();
+                    setting.Distance = controller.Distance.ToString();
+                    setting.Fills = controller.Fills.Count;
+                    setting.Maintenances = controller.Maintenances.Count;
+                    setting.Repairs = controller.Repairs.Count;
+                    setting.Videos = controller.Videos.Count;
+                    setting.Pictures = controller.Pictures.Count;
+                    setting.Paths = stats.getRoutes().Count;
+                    setting.SummaryFuelPrice = stats.getFuelStats().PaidForFuel(controller.Currency);
+                    setting.SummaryRepairPrice = stats.getRepairStats().PaidForRepairs(controller.Currency);
+                    setting.Liters = stats.getFuelStats().TotalRefueled();
+                    //send
+                    return createResponse(setting);
+                default:
+                    return new IDCT.webResposne();
+            }
         }
 
         #endregion
@@ -350,6 +370,49 @@ namespace CoPilot.CoPilot.Controller
                     break;
             }
             return type;
+        }
+
+        /// <summary>
+        /// Parse query
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        private static Dictionary<string, string> parseQueryString(string uri)
+        {
+            //parts
+            string[] pairs = uri.Split('&');
+            //dic
+            Dictionary<string, string> output = new Dictionary<string, string>();
+            foreach (string piece in pairs)
+            {
+                string[] pair = piece.Split('=');
+                output.Add(pair[0], pair[1]);
+            }
+            return output;
+        }
+
+        /// <summary>
+        /// Create response form object
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private static webResposne createResponse(object value)
+        {
+            //json
+            var json = JsonConvert.SerializeObject(value);
+            var stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
+            writer.Write(json);
+            writer.Flush();
+            stream.Seek(0, SeekOrigin.Begin);
+
+            //response
+            var response = new IDCT.webResposne();
+            response.content = stream;
+            response.header = new Dictionary<string, string>();
+            response.header.Add("Content-Type", "text/json");
+
+            return response;
         }
 
         #endregion

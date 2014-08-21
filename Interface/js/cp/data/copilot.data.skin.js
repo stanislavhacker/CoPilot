@@ -13,6 +13,8 @@
 	copilot.data.Skin = function () {
 		/** @type {boolean}*/
 		this.loading = true;
+		/** @type {boolean}*/
+		this.error = false;
 		/** @type {{}}*/
 		this.data = {};
 		//load skin
@@ -27,13 +29,15 @@
 
 		//loading
 		this.loading = true;
+		this.error = false;
 
 		//noinspection JSUnresolvedFunction
 		$.ajax(copilot.URL + "api/skin")
 			.done(function(data) {
 				self.data = data;
-			}).always(function () {
 				self.loading = false;
+			}).fail(function () {
+				self.error = true;
 			});
 	};
 

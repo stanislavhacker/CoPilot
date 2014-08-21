@@ -728,4 +728,25 @@
   <data name="DesignBy" xml:space="preserve">
     <value>Design by</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>When loading a page the error occurred. Please reload the page and try to load it again. Check if application CoPilot still running and WiFi network is available.</value>
+  </data>
+  <data name="Graphs" xml:space="preserve">
+    <value>Graphs</value>
+  </data>
+  <data name="NewItems" xml:space="preserve">
+    <value>New items</value>
+  </data>
+  <data name="Welcome_Chat" xml:space="preserve">
+    <value>CoPilot is an application that houses all data from your car. You're currently gained a total of {0} of fuel for which you have paid {1} {2}. The total number of refueling to date is {3}. For your car you have paid total {5} {2} for {4} repairs. At the current time, you have planned {6} manintenances. Thanks to the recording of video and taking photos is easy to maintain evidence of accidents or just record video from your roads. You currently have {7} videos and you took a {8} photos.</value>
+  </data>
+  <data name="Welcome_Motto" xml:space="preserve">
+    <value>Everything about your car in one place!</value>
+  </data>
+  <data name="Welcome_Title" xml:space="preserve">
+    <value>Welcome in CoPilot!</value>
+  </data>
+  <data name="Welcome_Warnings" xml:space="preserve">
+    <value>Show warnings</value>
+  </data>
 </root>

@@ -174,7 +174,7 @@
     <Compile Include="Data\Convertors\SpeechContextToVisibility.cs" />
     <Compile Include="Data\DataContainer.cs" />
     <Compile Include="Data\Sentences.cs" />
-    <Compile Include="Resources\AppResources1.Designer.cs">
+    <Compile Include="Resources\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>

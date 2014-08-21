@@ -13,10 +13,14 @@
 	copilot.data.Language = function () {
 		/** @type {boolean}*/
 		this.loading = true;
+		/** @type {boolean}*/
+		this.error = false;
 		/** @type {{}}*/
 		this.data = {};
 		/** @type {{}}*/
 		this.cache = {};
+		/** @type {copilot.data.Renderer}*/
+		this.renderer = null;
 		//load language
 		this.load();
 	};
@@ -29,13 +33,15 @@
 
 		//loading
 		this.loading = true;
+		this.error = false;
 
 		//noinspection JSUnresolvedFunction
 		$.ajax(copilot.URL + "api/language")
 			.done(function(data) {
 				self.applyLanguage(data);
-			}).always(function () {
 				self.loading = false;
+			}).fail(function () {
+				self.error = true;
 			});
 	};
 
@@ -48,11 +54,32 @@
 	};
 
 	/**
+	 * Apply data
+	 * @param {string} text
+	 * @param {Array.<string>} data
+	 * @returns {string}
+	 */
+	function applyData(text, data) {
+		var i;
+
+		if (!data || data.length === 0) {
+			return text;
+		}
+
+		for (i = 0; i < data.length; i++) {
+			text = text.replace(new RegExp("\\{" + i + "\\}", "g"), "<strong>" + data[i] + "</strong>");
+		}
+
+		return text;
+	}
+
+	/**
 	 * Apply language
 	 * @param {string} name
+	 * @param {Array.<string>=} data
 	 * @return {string}
 	 */
-	copilot.data.Language.prototype.getString = function (name) {
+	copilot.data.Language.prototype.getString = function (name, data) {
 		var i,
 			key,
 			value,
@@ -60,7 +87,7 @@
 
 		//from cache
 		if (this.cache[name]) {
-			return this.cache[name];
+			return applyData(this.cache[name], data);
 		}
 
 		//find
@@ -71,7 +98,7 @@
 				//noinspection JSUnresolvedVariable
 				value =  array[i].Value;
 				this.cache[key] = value;
-				return value;
+				return applyData(value, data);
 			}
 		}
 

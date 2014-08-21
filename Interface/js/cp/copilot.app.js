@@ -8,6 +8,7 @@ var copilot = {};
 	
 		//static variables
 		copilot.URL = "";
+		copilot.Hash = "";
 
 		/**
 		 * Main app
@@ -18,6 +19,7 @@ var copilot = {};
 			copilot.URL = this.getUrl();
 			//loader
 			this.startLoader();
+
 			//create and load skin
 			this.skin = new copilot.data.Skin();
 			//create and load language
@@ -26,7 +28,7 @@ var copilot = {};
 			this.data = new copilot.data.Data();
 
 			//renderer
-			this.renderer = new copilot.data.Renderer(this.language, this.skin);
+			this.renderer = new copilot.data.Renderer(this);
 		};
 
 		/**
@@ -34,8 +36,29 @@ var copilot = {};
 		 * @returns {string}
 		 */
 		copilot.App.prototype.getUrl = function () {
-			var index = window.location.href.indexOf("copilot/") + 8;
-			return window.location.href.substr(0, index);
+			return "http://192.168.1.10/copilot/";
+			//var index = window.location.href.indexOf("copilot/") + 8;
+			//return window.location.href.substr(0, index);
+		};
+
+		/**
+		 * Is loading
+		 * @returns {boolean}
+		 */
+		copilot.App.prototype.isLoading = function () {
+			return this.skin.loading ||
+				this.language.loading ||
+				this.data.loading;
+		};
+
+		/**
+		 * Is error
+		 * @returns {boolean}
+		 */
+		copilot.App.prototype.isError = function () {
+			return this.skin.error ||
+				this.language.error ||
+				this.data.error;
 		};
 
 		/**
@@ -44,27 +67,39 @@ var copilot = {};
 		copilot.App.prototype.startLoader = function () {
 			var interval,
 				self = this,
-				body = $('body');
+				body = $("body"),
+				errors = $("#errors"),
+				clazz = "loading",
+				items = $("#header-wrapper, #wrapper, #copyright");
 
 			//hide
-			body.hide();
+			body.addClass(clazz);
+			items.hide();
+			errors.hide();
 
 			interval = setInterval(function () {
-				if (self.skin.loading ||
-					self.language.loading ||
-					self.data.loading) {
+				//loading and not error
+				if (self.isLoading() && !self.isError()) {
 					return;
 				}
 				clearInterval(interval);
 
-				//render
-				self.renderer.render();
+				//error
+				if (self.isError()) {
+					self.renderer.renderErrors();
 
-				//show
-				body.show();
+				//ok
+				} else {
+					//render
+					self.renderer.render();
+
+					//show
+					items.show();
+					body.removeClass(clazz);
+				}
 			}, 100);
 		};
-	
+
 	}());
 
 

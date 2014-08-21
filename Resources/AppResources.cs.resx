@@ -728,4 +728,25 @@
   <data name="DesignBy" xml:space="preserve">
     <value>Vzhled stránky od</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Při načítání stránky se vyskytla chyba. Prosím obnovte stránku a zkuste načítání opakovat. Zkontrolujte, jestli aplikace CoPilot stále běží nebo je dostupná WiFi síť.</value>
+  </data>
+  <data name="Graphs" xml:space="preserve">
+    <value>Grafy</value>
+  </data>
+  <data name="NewItems" xml:space="preserve">
+    <value>Nové záznamy</value>
+  </data>
+  <data name="Welcome_Chat" xml:space="preserve">
+    <value>CoPilot je aplikací, která schraňuje všechny data z vašeho automobilu. Aktuálně jste načerpali celkem {0} paliva, což vás přišlo na {1} {2}. Celkový počet tankování k dnešnímu datu je {3}. Váš automobil vás také stál na {4} opravách celkem {5} {2}. V aktuální době máte naplánováno {6} oprav. Díky možnosti pořizování záznamů a fotografií je jednoduché zachovat důkazy o nehodách nebo jen tak nahrávat vide a z cest. Vy jich momentálně máte {7}. Pořídili jste také {8} fotografií.</value>
+  </data>
+  <data name="Welcome_Motto" xml:space="preserve">
+    <value>Vše o vašem automobilu na jednom místě!</value>
+  </data>
+  <data name="Welcome_Title" xml:space="preserve">
+    <value>Vítejte v CoPilotu!</value>
+  </data>
+  <data name="Welcome_Warnings" xml:space="preserve">
+    <value>Zobrazit hlášení</value>
+  </data>
 </root>
