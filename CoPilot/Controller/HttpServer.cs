@@ -1,4 +1,5 @@
 ﻿using CoPilot.Core.Api;
+using CoPilot.Core.Data;
 using CoPilot.Resources;
 using IDCT;
 using Microsoft.Phone.Net.NetworkInformation;
@@ -87,6 +88,7 @@ namespace CoPilot.CoPilot.Controller
         private Boolean isServer = false;
         private Skin skinData;
         private Data dataController;
+        private Int32 pageSize = 20;
 
         #endregion
 
@@ -258,38 +260,135 @@ namespace CoPilot.CoPilot.Controller
             //url: api/data?command=setting&from=&to=&page=
 
             //data
-            var controller = this.dataController;
-            var stats = new Statistics.Statistics(controller.Records);
             var data = parseQueryString(query);
-            var command = data.ContainsKey("command") ? data["command"] : "unknown";
+
+            //data
+            String command = getParam(data, "command") as String;
+            Int32 from = (Int32)getParam(data, "from");
+            Int32 to = (Int32)getParam(data, "to");
+            Int32 page = (Int32)getParam(data, "page");
 
             switch (command)
             {
                 case "setting":
-                    //settings
-                    var setting = new Settings();
-                    setting.Consumption = controller.Consumption.ToString();
-                    setting.Currency = controller.Currency.ToString();
-                    setting.Distance = controller.Distance.ToString();
-                    setting.Fills = controller.Fills.Count;
-                    setting.Maintenances = controller.Maintenances.Count;
-                    setting.Repairs = controller.Repairs.Count;
-                    setting.Videos = controller.Videos.Count;
-                    setting.Pictures = controller.Pictures.Count;
-                    setting.Paths = stats.getRoutes().Count;
-                    setting.SummaryFuelPrice = stats.getFuelStats().PaidForFuel(controller.Currency);
-                    setting.SummaryRepairPrice = stats.getRepairStats().PaidForRepairs(controller.Currency);
-                    setting.Liters = stats.getFuelStats().TotalRefueled();
-                    //send
-                    return createResponse(setting);
+                    return createResponse(createSettings());
+                case "maintenances":
+                    return createResponse(createMaintenances(from, to, page));
+                    
                 default:
                     return new IDCT.webResposne();
             }
         }
 
+        /// <summary>
+        /// Create maintenances
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        private object createMaintenances(int from, int to, int page)
+        {
+            var maintenances = this.dataController.Records.Maintenances;
+            var total = maintenances.Count();
+
+            try
+            {
+                if (from == -1 && to == -1)
+                {
+                    var take = page == -1 ? total : this.pageSize;
+                    var skip = page == -1 ? 0 : this.pageSize * page;
+                    return maintenances.Skip(skip).Take(this.pageSize).ToArray();
+                }
+                else
+                {
+                    from = from == -1 ? 0 : from;
+                    to = to == -1 ? total - from : to - from;
+                    return maintenances.Skip(from).Take(to).ToArray();
+                }
+            }
+            catch
+            {
+                return new Maintenance[0];
+            }
+        }
+
+        /// <summary>
+        /// Get settings
+        /// </summary>
+        /// <returns></returns>
+        private Settings createSettings()
+        {
+            var controller = this.dataController;
+            var stats = new Statistics.Statistics(controller.Records);
+
+            //settings
+            var setting = new Settings();
+            setting.Consumption = controller.Consumption.ToString();
+            setting.Currency = controller.Currency.ToString();
+            setting.Distance = controller.Distance.ToString();
+            setting.Fills = controller.Fills.Count;
+            setting.Maintenances = controller.Maintenances.Count;
+            setting.Repairs = controller.Repairs.Count;
+            setting.Videos = controller.Videos.Count;
+            setting.Pictures = controller.Pictures.Count;
+            setting.Paths = stats.getRoutes().Count;
+            setting.SummaryFuelPrice = stats.getFuelStats().PaidForFuel(controller.Currency);
+            setting.SummaryRepairPrice = stats.getRepairStats().PaidForRepairs(controller.Currency);
+            setting.Liters = stats.getFuelStats().TotalRefueled();
+            return setting;
+        }
+
         #endregion
 
         #region STATIC
+
+        /// <summary>
+        /// Get param
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        private static object getParam(Dictionary<string, string> data, String param)
+        {
+            switch (param)
+            {
+                case "command":
+                    return data.ContainsKey(param) ? data[param] : "unknown";
+                case "from":
+                    if (data.ContainsKey("from"))
+                    {
+                        int value;
+                        if (Int32.TryParse(data["from"], out value)) 
+                        {
+                            return value;
+                        }
+                    }
+                    return -1;
+                case "to":
+                    if (data.ContainsKey("to"))
+                    {
+                        int value;
+                        if (Int32.TryParse(data["to"], out value))
+                        {
+                            return value;
+                        }
+                    }
+                    return -1;
+                case "page":
+                    if (data.ContainsKey("page"))
+                    {
+                        int value;
+                        if (Int32.TryParse(data["page"], out value))
+                        {
+                            return value;
+                        }
+                    }
+                    return -1;
+                default:
+                    return null;
+            }
+        }
 
         /// <summary>
         /// Load file

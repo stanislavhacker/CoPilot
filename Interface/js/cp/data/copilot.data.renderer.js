@@ -216,11 +216,18 @@
 	 * Render banners
 	 */
 	copilot.data.Renderer.prototype.renderBanners = function () {
-		var parent = $('#banner-wrapper');
+		var parent = $('#banner-wrapper'),
+			maintenances = this.data.maintenances();
 
 		//clear
 		parent.empty();
+		parent.hide();
 
+		if (!maintenances) {
+			return;
+		}
+
+		debugger;
 		//TODO
 
 		//apply skin
