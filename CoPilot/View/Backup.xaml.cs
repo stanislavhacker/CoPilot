@@ -528,8 +528,7 @@ namespace CoPilot.CoPilot.View
         {
             //visibility
             this.Visibility = System.Windows.Visibility.Collapsed;
-            await Task.Delay(300);
-            
+
             this.SupportedOrientations = SupportedPageOrientation.Portrait;
             await this.FtpController.Login();
             this.SupportedOrientations = SupportedPageOrientation.Landscape;

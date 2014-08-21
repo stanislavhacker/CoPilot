@@ -1019,7 +1019,7 @@ namespace CoPilot.CoPilot.View
 
             //ftp
             FtpController.IsWifiEnabled = DeviceNetworkInformation.IsNetworkAvailable && DeviceNetworkInformation.IsWiFiEnabled;
-            FtpController.IsNetEnabled = DeviceNetworkInformation.IsNetworkAvailable;
+            FtpController.IsNetEnabled = DeviceNetworkInformation.IsWiFiEnabled || DeviceNetworkInformation.IsCellularDataEnabled;
             FtpController.DataController = this.DataController;
             FtpController.TryLogin();
 
@@ -1541,7 +1541,7 @@ namespace CoPilot.CoPilot.View
             if (FtpController != null)
             {
                 FtpController.IsWifiEnabled = DeviceNetworkInformation.IsNetworkAvailable && DeviceNetworkInformation.IsWiFiEnabled;
-                FtpController.IsNetEnabled = DeviceNetworkInformation.IsNetworkAvailable;
+                FtpController.IsNetEnabled = DeviceNetworkInformation.IsWiFiEnabled || DeviceNetworkInformation.IsCellularDataEnabled;
             }
             if (HttpServerController != null)
             {

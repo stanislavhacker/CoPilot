@@ -64,6 +64,7 @@ namespace CoPilot.CoPilot.Controller
             {
                 isNetEnabled = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("IsOneDriveAvailable");
             }
         }
 
@@ -114,7 +115,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return !IsLogged && Settings.Get("StorageConnected") != true.ToString() && IsWifiEnabled;
+                return !IsLogged && Settings.Get("StorageConnected") != true.ToString() && isNetEnabled;
             }
         }
 
