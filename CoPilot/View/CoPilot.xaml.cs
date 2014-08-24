@@ -1126,7 +1126,7 @@ namespace CoPilot.CoPilot.View
             };
             DataController.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
             {
-                if (DriveModeController.IsOpen && e.PropertyName == "Speed")
+                if (DriveModeController != null && DriveModeController.IsOpen && e.PropertyName == "Speed")
                 {
                     DriveModeController.Speak(PredefinnedSpeak.Speed, DataController.Speed);
                 }

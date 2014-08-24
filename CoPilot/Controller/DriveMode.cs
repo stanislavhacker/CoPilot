@@ -300,6 +300,9 @@ namespace CoPilot.CoPilot.Controller
 
             if (recognizer == null)
             {
+                //TODO: This is hack for SpeechRecognizer cause crash WebBrowser ?!?!
+                this.CoPilot.FtpController.IsLoginEnabled = false;
+                //create recognizer now, because of previous comment
                 await createSpeechRecognizer();
             }
 

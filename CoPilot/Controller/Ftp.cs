@@ -69,6 +69,24 @@ namespace CoPilot.CoPilot.Controller
         }
 
         /// <summary>
+        /// Is login enabled
+        /// </summary>
+        private Boolean isLoginEnabled = true;
+        public Boolean IsLoginEnabled
+        {
+            get
+            {
+                return isLoginEnabled;
+            }
+            set
+            {
+                isLoginEnabled = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged("IsOneDriveAvailable");
+            }
+        }
+
+        /// <summary>
         /// Is open
         /// </summary>
         private Boolean isOpen = false;
@@ -115,7 +133,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return !IsLogged && Settings.Get("StorageConnected") != true.ToString() && isNetEnabled;
+                return !IsLogged && Settings.Get("StorageConnected") != true.ToString() && isNetEnabled && isLoginEnabled;
             }
         }
 
