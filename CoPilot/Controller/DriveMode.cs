@@ -105,7 +105,7 @@ namespace CoPilot.CoPilot.Controller
         /// Page
         /// </summary>
         private String page = null;
-        public String Page 
+        public String Page
         {
             get
             {
@@ -244,9 +244,9 @@ namespace CoPilot.CoPilot.Controller
         /// CoPilot
         /// </summary>
         private View.CoPilot copilot;
-        public View.CoPilot CoPilot 
+        public View.CoPilot CoPilot
         {
-            get 
+            get
             {
                 return copilot;
             }
@@ -291,11 +291,16 @@ namespace CoPilot.CoPilot.Controller
         /// <summary>
         /// Start driver mode
         /// </summary>
-        public void StartDriveMode()
+        public async void StartDriveMode()
         {
             if (window != null)
             {
                 return;
+            }
+
+            if (recognizer == null)
+            {
+                await createSpeechRecognizer();
             }
 
             speechContext = SpeechContext.Normal;
@@ -356,7 +361,7 @@ namespace CoPilot.CoPilot.Controller
                 //say
                 await Speak(sentance);
             }
-            catch 
+            catch
             {
                 Debug.WriteLine("Speech canceled.");
             }
@@ -420,7 +425,7 @@ namespace CoPilot.CoPilot.Controller
             }
 
             SpeechContext = SpeechContext.Listening;
- 
+
             //speak
             if (tries == 2)
             {
@@ -659,10 +664,21 @@ namespace CoPilot.CoPilot.Controller
         private void InitializeSpeechRecognition()
         {
             var langauge = InstalledSpeechRecognizers.All.FirstOrDefault(e => e.Language.ToLowerInvariant() == "en-gb");
-
             if (langauge == null)
             {
                 this.IsSupported = false;
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Create
+        /// </summary>
+        private async Task createSpeechRecognizer()
+        {
+            var langauge = InstalledSpeechRecognizers.All.FirstOrDefault(e => e.Language.ToLowerInvariant() == "en-gb");
+            if (langauge == null)
+            {
                 return;
             }
 
@@ -675,7 +691,7 @@ namespace CoPilot.CoPilot.Controller
             recognizer.Grammars.AddGrammarFromUri(SpeechGrammars.FILL, new Uri("ms-appx:///Resources/Speech/Grammars/fill.en-gb.xml", UriKind.Absolute));
 
             //preload grammars
-            recognizer.PreloadGrammarsAsync();
+            await recognizer.PreloadGrammarsAsync();
         }
 
         /// <summary>
