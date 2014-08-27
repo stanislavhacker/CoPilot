@@ -19,6 +19,10 @@
 @color_tumblr: #31516A;
 @color_rss: #F2600B;
 
+@max_width: 1200px;
+
+@image_logo: url('images/logo.png');
+
 
 html, body
 {
@@ -39,7 +43,7 @@ body
     &.loading {
         background-position: center center;
         background-repeat: no-repeat;
-        background-image: url('images/logo.png');
+        background-image: @image_logo;
         background-color: @color_highlight;
     }
 
@@ -48,7 +52,6 @@ body
       color: @color_white;
       font-size: 12pt;
       width: 500px;
-      height: 300px;
       margin-left: -250px;
       margin-top: 100px;
       position: absolute;
@@ -99,7 +102,8 @@ a:hover
 .container
 {
     margin: 0 auto;
-    width: 1200px;
+    max-width: @max_width;
+    clear: both;
 }
 
 /*********************************************************************************/
@@ -336,6 +340,7 @@ ul.contact li a.icon-rss:before { background: @color_rss; }
 {
     position: relative;
     height: 150px;
+    margin-left: 20px;
 }
 
 /*********************************************************************************/
@@ -430,16 +435,32 @@ border-radius: 8px;
     overflow: hidden;
     padding: 5em 0;
     background: @color_banner;
+    margin: 0 -20px;
 }
 
 #banner .box-left
 {
+  .icon {
     float: left;
+    font-size: 80px;
+    padding: 30px 50px;
+    display: block;
+  }
+
+  .description {
+    font-size: 16px;
+  }
 }
 
 #banner .box-right
 {
     float: right;
+
+  .button-big {
+    margin: 30px;
+    text-align: center;
+    min-width: 150px;
+  }
 }
 
 #banner h2
@@ -457,6 +478,7 @@ border-radius: 8px;
     padding-top: 0.50em;
     font-size: 1.4em;
     color: @color_default;
+    padding-left: 200px;
 }
 
 /*********************************************************************************/
@@ -466,6 +488,7 @@ border-radius: 8px;
 #wrapper
 {
     background: @color_white;
+    padding: 0 20px;
 }
 
 #page
@@ -480,8 +503,7 @@ border-radius: 8px;
 
 #content
 {
-    float: left;
-    width: 700px;
+    max-width: 700px;
 }
 
 /*********************************************************************************/
@@ -492,6 +514,7 @@ border-radius: 8px;
 {
     float: right;
     width: 450px;
+    margin: 0 0 20px 20px;
 }
 
 #stwo-col
@@ -529,7 +552,7 @@ border-radius: 8px;
 #copyright
 {
     overflow: hidden;
-    padding: 5em 0;
+    padding: 5em 2em;
 }
 
 #copyright p
@@ -610,6 +633,14 @@ border-radius: 8px;
 .column4
 {
     width: 282px;
+
+    .icon {
+        font-size: 80px;
+    }
+
+    .title {
+        margin-bottom: 10px;
+    }
 }
 
 .column1,

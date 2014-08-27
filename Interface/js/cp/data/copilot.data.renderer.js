@@ -81,7 +81,7 @@
 
 		name = language.getString("Statistics");
 		$('<li><a href="#' + name + '" accesskey="1" title="">' + name + '</a></li>')
-			.toggleClass(selected, hash === "" || hash === name)
+			.toggleClass(selected, hash === "" || hash === name || hash === "Warnings")
 			.appendTo(ul);
 
 		name = language.getString("Fuels");
@@ -127,6 +127,7 @@
 
 		switch(copilot.Hash) {
 			case "":
+			case "Warnings":
 			case language.getString("Statistics"):
 				this.renderPageWelcome(parent);
 				break;
@@ -144,6 +145,7 @@
 	 */
 	copilot.data.Renderer.prototype.renderPageWelcome = function (parent) {
 		var language = this.language,
+			maintenances = this.data.maintenances() || [],
 			setting = this.data.setting(),
 			data = [];
 
@@ -151,20 +153,22 @@
 		$('<div class="title"><h2>' + language.getString("Welcome_Title") + '</h2><span class="byline">' + language.getString("Welcome_Motto") + '</span></div>').appendTo(parent);
 
 		//motto
-		data[0] = setting.Liters;
-		data[1] = setting.SummaryFuelPrice;
+		data[0] = Math.round(setting.Liters * 10) / 10;
+		data[1] = Math.round(setting.SummaryFuelPrice * 10) / 10;
 		data[2] = setting.Currency;
 		data[3] = setting.Fills;
 		data[4] = setting.Repairs;
-		data[5] = setting.SummaryRepairPrice;
+		data[5] = Math.round(setting.SummaryRepairPrice * 10) / 10;
 		data[6] = setting.Maintenances;
 		data[7] = setting.Videos;
 		data[8] = setting.Pictures;
 		//add
 		$('<p>' + language.getString("Welcome_Chat", data) + '</p>').appendTo(parent);
 
-		//button more
-		$('<a href="#" class="button">' + this.language.getString('Welcome_Warnings') + '</a>').appendTo(parent);
+		//button warnings
+		if (maintenances.length > 0 && maintenances.getWarnings().length > 0) {
+			$('<a href="#Warnings" class="button">' + this.language.getString('Welcome_Warnings') + '</a>').appendTo(parent);
+		}
 	};
 
 	/***********************************************************************/
@@ -217,22 +221,78 @@
 	 */
 	copilot.data.Renderer.prototype.renderBanners = function () {
 		var parent = $('#banner-wrapper'),
-			maintenances = this.data.maintenances();
+			maintenances = this.data.maintenances() || [],
+			warnings,
+			i;
 
 		//clear
 		parent.empty();
 		parent.hide();
 
-		if (!maintenances) {
+		if (maintenances.length === 0) {
 			return;
 		}
 
-		debugger;
-		//TODO
+		warnings = maintenances.getWarnings();
+		for (i = 0; i < warnings.length; i++) {
+			banner.call(this, warnings[i]).appendTo(parent);
+		}
+
+		if (warnings.length > 0) {
+			parent.prepend('<a name="Warnings" />');
+			parent.show();
+		}
 
 		//apply skin
 		this.skin.applySkin();
 	};
+
+	/**
+	 * Banner
+	 * @param {copilot.model.Maintenance} maintenance
+	 * @return {jQuery}
+	 */
+	function banner(maintenance) {
+		var icon,
+			language = this.language,
+			container = $('<div id="banner" class="container" />'),
+			boxRight,
+			boxLeft;
+
+
+		switch(maintenance.Type) {
+			case "Filters":
+				icon = "icon-filter";
+				break;
+			case "Oil":
+				icon = "icon-exclamation-sign";
+				break;
+			case "Maintenance":
+				icon = "icon-medkit";
+				break;
+			case "Insurance":
+				icon = "icon-briefcase";
+				break;
+			case "TechnicalInspection":
+				icon = "icon-check";
+				break;
+			default:
+				icon = "icon-question-sign";
+				break;
+		}
+
+		//right
+		boxRight = $('<div class="box-right"> <a class="button button-big">' + maintenance.getDate() + '</a></div>').appendTo(container);
+
+		//left
+		boxLeft = $('<div class="box-left" />').appendTo(container);
+		$('<span class="icon ' + icon + '"></span>').appendTo(boxLeft);
+		$('<h2>' + language.getString('MaintenanceType_' + maintenance.Type) + '</h2>').appendTo(boxLeft);
+		$('<span>' + language.getString('MaintenanceType_' + maintenance.Type + '_Description') + '</span>').appendTo(boxLeft);
+		$('<span class="description"><strong>' + language.getString('YourDescription') + ':</strong> ' + maintenance.Description + '</span>').appendTo(boxLeft);
+
+		return container;
+	}
 
 	/***********************************************************************/
 	/******* FEATURED */
@@ -242,22 +302,54 @@
 	 * Render features
 	 */
 	copilot.data.Renderer.prototype.renderFeatured = function () {
-		var parent = $('#featured-wrapper');
+		var parent = $('#featured-wrapper'),
+			language = this.language,
+			container;
 
 		//clear
 		parent.empty();
 
-		//TODO
+		//title
+		container = $('<div id="featured" class="container">').appendTo(parent);
+		$('<div class="major"><h2>' + language.getString('Social') + '</h2><span class="byline">' + language.getString('SocialDescription') + '</span></div>').appendTo(container);
+
+		feature('facebook', language.getString('Facebook'), language.getString('FacebookDescription'), "https://www.facebook.com/carcopilot").appendTo(parent);
+		feature('twitter', language.getString('Twitter'), language.getString('TwitterDescription'), "https://twitter.com/carcopilot").appendTo(parent);
+		feature('google-plus', language.getString('Google'), language.getString('GoogleDescription'), "https://plus.google.com/b/115628070739534024707/115628070739534024707/posts").appendTo(parent);
+		feature('youtube', language.getString('Youtube'), language.getString('YoutubeDescription'), "https://www.youtube.com/channel/UCx7xoEA0NPlLwdA68G8_orQ/videos").appendTo(parent);
+
 
 		//apply skin
 		this.skin.applySkin();
 	};
 
+	/**
+	 * Feature
+	 * @param {string} ico
+	 * @param {string} name
+	 * @param {string} description
+	 * @param {string} link
+	 * @returns {*|jQuery|HTMLElement}
+	 */
+	function feature(ico, name, description, link) {
+		var p,
+			url,
+			parent = $('<div class="column1" />');
+
+		$('<span class="icon icon-' + ico + '"></span>').appendTo(parent);
+		$('<div class="title"><h2>' + name + '</h2></div>').appendTo(parent);
+
+		url = link.length > 33 ? link.substr(0, 30) + "..." : link;
+		p = $('<p>' + description + '</p>').appendTo(parent);
+		$('<br /><a href="' + link + '" target="_blank">' + url + '</a>').appendTo(p);
+
+		return parent;
+	}
+
 	/***********************************************************************/
 	/******* FOOTER */
 	/***********************************************************************/
 
-//  <p>Copyright (c) 2013 Sitename.com. All rights reserved. | Photos by <a href="http://fotogrph.com/">Fotogrph</a> | Design by <a href="http://www.freecsstemplates.org/" rel="nofollow">FreeCSSTemplates.org</a>.</p>
 	/**
 	 * Render copyright
 	 */

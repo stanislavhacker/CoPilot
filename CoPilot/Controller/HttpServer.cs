@@ -4,6 +4,7 @@ using CoPilot.Resources;
 using IDCT;
 using Microsoft.Phone.Net.NetworkInformation;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -298,7 +299,7 @@ namespace CoPilot.CoPilot.Controller
                 {
                     var take = page == -1 ? total : this.pageSize;
                     var skip = page == -1 ? 0 : this.pageSize * page;
-                    return maintenances.Skip(skip).Take(this.pageSize).ToArray();
+                    return maintenances.Skip(skip).Take(take).ToArray();
                 }
                 else
                 {
@@ -498,7 +499,7 @@ namespace CoPilot.CoPilot.Controller
         private static webResposne createResponse(object value)
         {
             //json
-            var json = JsonConvert.SerializeObject(value);
+            var json = JsonConvert.SerializeObject(value, new StringEnumConverter());
             var stream = new MemoryStream();
             StreamWriter writer = new StreamWriter(stream);
             writer.Write(json);

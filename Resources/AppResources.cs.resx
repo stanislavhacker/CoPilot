@@ -749,4 +749,49 @@
   <data name="Welcome_Warnings" xml:space="preserve">
     <value>Zobrazit hlášení</value>
   </data>
+  <data name="Facebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="FacebookDescription" xml:space="preserve">
+    <value>Copilot je aplikace, která vám umožní nahrávat a zobrazit všechny dostupné informace o vašem voze. Jednoduše zapojte napájení a objevujte!</value>
+  </data>
+  <data name="Google" xml:space="preserve">
+    <value>Google+</value>
+  </data>
+  <data name="GoogleDescription" xml:space="preserve">
+    <value>Sledujte nejnovější fotografie a příspěvky od CoPilot aplikace. Najdete zde i více věcí než jen informace o applikaci, ale také obsah od ostatních lidí, kteří aplikaci používají.</value>
+  </data>
+  <data name="MaintenanceType_Filters_Description" xml:space="preserve">
+    <value>Za chvíli bude nutné vyměnit některé filtry ve vašem motoru. Zkontrolujte si ujeté kilometry a zajeďte si v čas do servisu.</value>
+  </data>
+  <data name="MaintenanceType_Insurance_Description" xml:space="preserve">
+    <value>Pojištění automobilu zanedlouho končí. Pokud chcete pojištění zrušit, udělejte tak co nejdříve.</value>
+  </data>
+  <data name="MaintenanceType_Maintenance_Description" xml:space="preserve">
+    <value>Údržba motoru se blíží. Zkontrolujte si, jaká údržba vás čeká a zajeďte si za  svým mechanikem nebo do autorizovaného servisu.</value>
+  </data>
+  <data name="MaintenanceType_Oil_Description" xml:space="preserve">
+    <value>Je potřeba vyměnit olej v motoru vašeho automobilu. Udělejte tak co nejdříve, nebo může dojít k poškození motoru.</value>
+  </data>
+  <data name="MaintenanceType_TechnicalInspection_Description" xml:space="preserve">
+    <value>Blíží se technická kontrola automobilu. Nechte si zkontrolovat auto ve vašem servisu a poté si dejte toto auto na STK.</value>
+  </data>
+  <data name="SocialDescription" xml:space="preserve">
+    <value>Odkazy na sociální síťe. Komunikujte, přispívejte, pište váše názory a připomínky. Můžete také navrhovat některé funkce, které by se vám v programu hodily.</value>
+  </data>
+  <data name="Twitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TwitterDescription" xml:space="preserve">
+    <value>Komunikujte s ostatníma, sledujte nejnovější příspěvky a navrhujte nové funkce. Používejte hashtag #carcopilot a spojte se s ostatními.</value>
+  </data>
+  <data name="YourDescription" xml:space="preserve">
+    <value>Váš popis</value>
+  </data>
+  <data name="Youtube" xml:space="preserve">
+    <value>YouTube</value>
+  </data>
+  <data name="YoutubeDescription" xml:space="preserve">
+    <value>Kanál videí CoPilota, kde najdete různé tutoriály, návody, všemožná tipy a triky a i nahraná videa z kamery. Vše na jednom místě, v jednom kanálu.</value>
+  </data>
 </root>

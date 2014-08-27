@@ -5,6 +5,9 @@ java -jar compiler.jar ^
 	--js ../js/cp/data/copilot.data.renderer.js ^
 	--js ../js/cp/data/copilot.data.skin.js ^
 	--js ../js/cp/data/copilot.data.data.js ^
+	--js ../js/cp/model/copilot.model.settings.js ^
+	--js ../js/cp/model/copilot.model.maintenances.js ^
+	--js ../js/cp/model/copilot.model.data.js ^
 	--js_output_file ../cp.js
 
 dotless.Compiler.exe -m ../css/cp.less ../cp.css

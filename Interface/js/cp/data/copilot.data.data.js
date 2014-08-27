@@ -27,7 +27,7 @@
 
 	/**
 	 * Load
-	 * @return {{Currency:string,Distance:string,Consumption:string,Repairs:number,Maintenances:number,Fills:number,Videos:number,Pictures:number,Paths:number,SummaryFuelPrice:number,SummaryRepairPrice:number,Liters:number}}
+	 * @return {copilot.model.Settings}
 	 */
 	copilot.data.Data.prototype.setting = function () {
 		var self = this,
@@ -45,38 +45,7 @@
 		this.get({
 			command : what
 		}, function (data) {
-			self.data[what] = data;
-			self.loading = false;
-			self.error = data === null;
-			//re-render
-			self.renderer.renderHeaderWrapper();
-			self.renderer.renderPageContent();
-		});
-
-		return null;
-	};
-
-	/**
-	 * Settings
-	 * @return {}
-	 */
-	copilot.data.Data.prototype.setting = function () {
-		var self = this,
-			what = "setting";
-
-		//return cached data
-		if (self.data[what]) {
-			return self.data[what];
-		}
-
-		//loading
-		this.loading = true;
-		this.error = false;
-
-		this.get({
-			command : what
-		}, function (data) {
-			self.data[what] = data;
+			self.data[what] = data ? new copilot.model.Settings().clone.apply(data) : null;
 			self.loading = false;
 			self.error = data === null;
 			//re-render
@@ -103,8 +72,9 @@
 		this.get({
 			command : what
 		}, function (data) {
-			self.data[what] = data;
+			self.data[what] =  data ? new copilot.model.Maintenances().clone.apply(data) : null;
 			//re-render
+			self.renderer.renderPageContent();
 			self.renderer.renderBanners();
 		});
 

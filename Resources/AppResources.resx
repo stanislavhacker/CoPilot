@@ -738,7 +738,7 @@
     <value>New items</value>
   </data>
   <data name="Welcome_Chat" xml:space="preserve">
-    <value>CoPilot is an application that houses all data from your car. You're currently gained a total of {0} of fuel for which you have paid {1} {2}. The total number of refueling to date is {3}. For your car you have paid total {5} {2} for {4} repairs. At the current time, you have planned {6} manintenances. Thanks to the recording of video and taking photos is easy to maintain evidence of accidents or just record video from your roads. You currently have {7} videos and you took a {8} photos.</value>
+    <value>CoPilot is an application that houses all data from your car. You're currently gained a total of {0} of fuel for which you have paid {1} {2}. The total number of refueling to date is {3}. For your car you have paid total {5} {2} for {4} repairs. At the current time, you have planned {6} maintenances. Thanks to the recording of video and taking photos is easy to maintain evidence of accidents or just record video from your roads. You currently have {7} videos and you took a {8} photos.</value>
   </data>
   <data name="Welcome_Motto" xml:space="preserve">
     <value>Everything about your car in one place!</value>
@@ -748,5 +748,50 @@
   </data>
   <data name="Welcome_Warnings" xml:space="preserve">
     <value>Show warnings</value>
+  </data>
+  <data name="Facebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="FacebookDescription" xml:space="preserve">
+    <value>Copilot is an application which allows you to record and visualize all available information about your car. Simply plug in the power and explore!</value>
+  </data>
+  <data name="Google" xml:space="preserve">
+    <value>Google+</value>
+  </data>
+  <data name="GoogleDescription" xml:space="preserve">
+    <value>Watch the latest photos and contributions from the CoPilot application. There is more than just information on applications development, but also content from other people who use the application.</value>
+  </data>
+  <data name="MaintenanceType_Filters_Description" xml:space="preserve">
+    <value>After a while you will need to replace some filters in your engine. Check the mileage and cycle time in the workshop.</value>
+  </data>
+  <data name="MaintenanceType_Insurance_Description" xml:space="preserve">
+    <value>Car Insurance ends soon. If you want to cancel the insurance, please do so as soon as possible.</value>
+  </data>
+  <data name="MaintenanceType_Maintenance_Description" xml:space="preserve">
+    <value>Engine maintenance is approaching. Check out what maintenance you expect and then go for your mechanic or authorized service center.</value>
+  </data>
+  <data name="MaintenanceType_Oil_Description" xml:space="preserve">
+    <value>You need to change the oil in your car engine. Do so as soon as possible, or may cause damage to the engine.</value>
+  </data>
+  <data name="MaintenanceType_TechnicalInspection_Description" xml:space="preserve">
+    <value>Approaching the technical inspection of the car. Have the car in your service, and then you let this car for MOT.</value>
+  </data>
+  <data name="SocialDescription" xml:space="preserve">
+    <value>Links to social networks. Communicate, Contribute, write your opinions and comments. You can also propose some features that you would suited in the program.</value>
+  </data>
+  <data name="Twitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TwitterDescription" xml:space="preserve">
+    <value>Communicate with the others, watch the latest posts and suggest new features. Use the hashtag #carcopilot and connect with others.</value>
+  </data>
+  <data name="YourDescription" xml:space="preserve">
+    <value>Your description</value>
+  </data>
+  <data name="Youtube" xml:space="preserve">
+    <value>YouTube</value>
+  </data>
+  <data name="YoutubeDescription" xml:space="preserve">
+    <value>Video Copilot Channel, where you can find various tutorials, instructions, all kinds of tips and tricks and even recorded videos from the camera. All in one place, in one channel.</value>
   </data>
 </root>
