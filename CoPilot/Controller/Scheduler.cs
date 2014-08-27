@@ -95,11 +95,25 @@ namespace CoPilot.CoPilot.Controller
             var action = ScheduledActionService.Find(maintenance.Id);
             if (action == null) 
             {
+                //update begin time
+                DateTime beginTime = maintenance.Date.Subtract(TimeSpan.FromDays(maintenance.WarningDays));
+                if (beginTime <= DateTime.Now)
+                {
+                    beginTime = DateTime.Now.AddDays(1);
+                }
+
+                //update begin time
+                DateTime expirationTime = maintenance.Date;
+                if (expirationTime <= DateTime.Now)
+                {
+                    expirationTime = DateTime.Now.AddDays(1);
+                }
+
                 Reminder reminder = new Reminder(maintenance.Id);
                 reminder.Title = maintenance.Type.ToString();
                 reminder.Content = maintenance.Description;
-                reminder.BeginTime = maintenance.Date.Subtract(TimeSpan.FromDays(maintenance.WarningDays));
-                reminder.ExpirationTime = maintenance.Date;
+                reminder.BeginTime = beginTime;
+                reminder.ExpirationTime = expirationTime;
                 reminder.RecurrenceType = RecurrenceInterval.None;
                 reminder.NavigationUri = new Uri("/CoPilot/View/CoPilot.xaml", UriKind.Relative);
 
