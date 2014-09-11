@@ -1,0 +1,69 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="CoPilot.CoPilot.View.Graph"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:sparrow="clr-namespace:Sparrow.Chart;assembly=Sparrow.Chart.WP8.45"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Landscape" Orientation="Landscape"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="False">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideLeftFadeIn" />
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideLeftFadeIn" />
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideRightFadeOut" />
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideRightFadeOut" />
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <Grid Background="Black">
+
+        <Grid Margin="20" Visibility="{Binding IsTrendFuelPrices, Converter={StaticResource BooleanToVisibilityConvertor}}">
+            <sparrow:SparrowChart Margin="0,10,0,0" DataContext="{Binding StatsController}">
+                <sparrow:SparrowChart.XAxis>
+                    <sparrow:DateTimeXAxis LabelAngle="90" Height="120" Interval="5" />
+                </sparrow:SparrowChart.XAxis>
+                <sparrow:SparrowChart.YAxis>
+                    <sparrow:LinearYAxis/>
+                </sparrow:SparrowChart.YAxis>
+                <sparrow:LineSeries  StrokeThickness="3" Stroke="{StaticResource PhoneAccentBrush}" PointsSource="{Binding TrendFuelPrices}" XPath="X" YPath="Y"/>
+            </sparrow:SparrowChart>
+        </Grid>
+
+        <Grid Margin="20" Visibility="{Binding IsTrendUnitsPerRefill, Converter={StaticResource BooleanToVisibilityConvertor}}">
+            <sparrow:SparrowChart Margin="0,10,0,0" DataContext="{Binding StatsController}">
+                <sparrow:SparrowChart.XAxis>
+                    <sparrow:DateTimeXAxis LabelAngle="90" Height="120" Interval="5" />
+                </sparrow:SparrowChart.XAxis>
+                <sparrow:SparrowChart.YAxis>
+                    <sparrow:LinearYAxis/>
+                </sparrow:SparrowChart.YAxis>
+                <sparrow:LineSeries StrokeThickness="3" Stroke="{StaticResource PhoneAccentBrush}" PointsSource="{Binding TrendUnitsPerRefill}" XPath="X" YPath="Y"/>
+            </sparrow:SparrowChart>
+        </Grid>
+
+    </Grid>
+
+</phone:PhoneApplicationPage>

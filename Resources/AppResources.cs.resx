@@ -794,4 +794,13 @@
   <data name="YoutubeDescription" xml:space="preserve">
     <value>Kanál videí CoPilota, kde najdete různé tutoriály, návody, všemožná tipy a triky a i nahraná videa z kamery. Vše na jednom místě, v jednom kanálu.</value>
   </data>
+  <data name="FillDescription" xml:space="preserve">
+    <value>Dne {0} jste nabrali celkem {1} {2} paliva za celkovou cenu {3} {4}. Cena za jednotku paliva byla {5} {4}.</value>
+  </data>
+  <data name="Fuels_Motto" xml:space="preserve">
+    <value>Všechny tankování na jednom místě.</value>
+  </data>
+  <data name="ShowGraph" xml:space="preserve">
+    <value>Zobrazit graf</value>
+  </data>
 </root>

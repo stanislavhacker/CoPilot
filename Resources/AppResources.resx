@@ -794,4 +794,13 @@
   <data name="YoutubeDescription" xml:space="preserve">
     <value>Video Copilot Channel, where you can find various tutorials, instructions, all kinds of tips and tricks and even recorded videos from the camera. All in one place, in one channel.</value>
   </data>
+  <data name="FillDescription" xml:space="preserve">
+    <value>On {0} you collected a total of {1} {2} fuel for a total cost {3} {4}. Price per unit of fuel was {5} {4}.</value>
+  </data>
+  <data name="Fuels_Motto" xml:space="preserve">
+    <value>All refilles on one place.</value>
+  </data>
+  <data name="ShowGraph" xml:space="preserve">
+    <value>Show graph</value>
+  </data>
 </root>

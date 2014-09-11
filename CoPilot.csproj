@@ -122,6 +122,9 @@
     <Compile Include="CoPilot\View\FuelView.xaml.cs">
       <DependentUpon>FuelView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CoPilot\View\Graph.xaml.cs">
+      <DependentUpon>Graph.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CoPilot\View\Maintenance.xaml.cs">
       <DependentUpon>Maintenance.xaml</DependentUpon>
     </Compile>
@@ -337,6 +340,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CoPilot\View\FuelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CoPilot\View\Graph.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

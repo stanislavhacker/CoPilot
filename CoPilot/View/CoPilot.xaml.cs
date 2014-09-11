@@ -540,6 +540,34 @@ namespace CoPilot.CoPilot.View
             }
         }
 
+        /// <summary>
+        /// ShowFuelPriceTrend Command
+        /// </summary>
+        public ICommand ShowFuelPriceTrendCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    NavigationService.Navigate("/CoPilot/View/Graph.xaml", this.GetGraphDataContainer("TrendFuelPrices"));
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// ShowTrendUnitsPerRefill Command
+        /// </summary>
+        public ICommand ShowTrendUnitsPerRefillCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    NavigationService.Navigate("/CoPilot/View/Graph.xaml", this.GetGraphDataContainer("TrendUnitsPerRefill"));
+                }, param => true);
+            }
+        }
+
         #endregion
 
 
@@ -1263,6 +1291,7 @@ namespace CoPilot.CoPilot.View
             data.FtpController = this.FtpController;
             data.CameraController = this.CameraController;
             data.DriveModeController = this.DriveModeController;
+            data.StatsController = this.StatsController;
             return data;
         }
 
@@ -1312,6 +1341,18 @@ namespace CoPilot.CoPilot.View
         {
             DataContainer data = this.GetDefaultDataContainer();
             data.Uri = uri;
+            return data;
+        }
+
+        /// <summary>
+        /// Get graph type data container
+        /// </summary>
+        /// <param name="graph"></param>
+        /// <returns></returns>
+        private DataContainer GetGraphDataContainer(String graph)
+        {
+            DataContainer data = this.GetDefaultDataContainer();
+            data.GrapType = graph;
             return data;
         }
 
@@ -1659,17 +1700,20 @@ namespace CoPilot.CoPilot.View
         /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var startCamera = e.NavigationMode == NavigationMode.New || App.IsInactiveMode;
-            if (startCamera && CameraController != null)
+            var fromInactive = e.NavigationMode == NavigationMode.New || App.IsInactiveMode;
+            if (fromInactive && CameraController != null)
             {
                 CameraController.CameraStart();
             }
-            if (BluetoothController != null)
+            if (fromInactive && BluetoothController != null)
             {
                 BluetoothController.Scan();
             }
+            if (fromInactive)
+            {
+                ResolveLicense();
+            }
             App.IsInactiveMode = false;
-            ResolveLicense();
             base.OnNavigatedTo(e);
         }
 
