@@ -8,7 +8,7 @@ var copilot = {};
 	
 		//static variables
 		copilot.URL = "";
-		copilot.Hash = "";
+		copilot.Hash = window.location.hash.substr(1);
 
 		/**
 		 * Main app

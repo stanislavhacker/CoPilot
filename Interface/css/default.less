@@ -288,20 +288,20 @@ ul.contact li a.icon-rss:before { background: @color_rss; }
     color: @color_white;
 }
 
-    .button:hover
-    {
-    }
+.button:hover
+{
+}
 
-    .button:active
-    {
-    }
+.button:active
+{
+}
 
-    .button-big
-    {
-        padding: 1.6em 4em;
-        font-size: 1.4em;
-        font-weight: 900;
-    }
+.button-big
+{
+    padding: 1.6em 4em;
+    font-size: 1.4em;
+    font-weight: 900;
+}
 
 /*********************************************************************************/
 /* Heading Titles                                                                */
@@ -334,6 +334,11 @@ ul.contact li a.icon-rss:before { background: @color_rss; }
 
 #header-wrapper
 {
+    display: block;
+    position: fixed;
+    width: 100%;
+    background: @color_default;
+    z-index: 9999999;
 }
 
 #header
@@ -489,6 +494,7 @@ border-radius: 8px;
 {
     background: @color_white;
     padding: 0 20px;
+    padding-top: 150px;
 }
 
 #page
@@ -646,7 +652,7 @@ border-radius: 8px;
 .column1,
 .column2
 {
-    float: left;
+    display: inline-block;
     margin-right: 24px;
 }
 
@@ -660,3 +666,181 @@ border-radius: 8px;
     float: right;
 }
 
+/*********************************************************************************/
+/* Data                                                                          */
+/*********************************************************************************/
+
+p.fills, p.repairs, p.videos {
+
+  text-align: justify;
+  border: none;
+  margin-bottom: 0;
+  position: relative;
+
+  .button {
+    float: left;
+    margin-right: 20px;
+    font-size: 12pt;
+    font-style: normal;
+
+    &.path {
+      float: right;
+      margin-right: 0;
+    }
+  }
+
+  .description {
+    margin-left: 200px;
+    margin-top: 0px;
+    font-size: 10pt;
+    font-style: italic;
+    font-weight: bold;
+  }
+
+  .video {
+    margin-top: 0px;
+    font-size: 10pt;
+    font-style: italic;
+    font-weight: bold;
+  }
+
+  .info {
+    padding-top: 16px;
+    margin-bottom: 5px;
+  }
+
+  .odometer {
+    float: left;
+    height: 100%;
+    width: 150px;
+    margin-left: 20px;
+    border-left: 4px solid @color_banner_h2;
+
+    &:before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      border-radius: 16px;
+      background: @color_banner_h2;
+      display: block;
+      position: relative;
+      top: 22px;
+      left: -10px;
+      z-index: 1000;
+      overflow: visible;
+    }
+
+    .value {
+      margin-left: 20px;
+      margin-right: 10px;
+      font-weight: bold;
+
+      .small {
+        font-size: 10pt;
+        font-weight: normal;
+        display: block;
+      }
+    }
+
+    .distance {
+      position: absolute;
+      font-size: 10pt;
+      font-style: italic;
+      .rotate(90deg);
+      white-space: nowrap;
+    }
+
+  }
+
+  iframe {
+    margin: 10px 0;
+    float: left;
+    border: 1px solid @color_gray;
+
+    &#map {
+      float: right;
+    }
+  }
+
+  .noiframe {
+    margin: 10px 0;
+    float: left;
+    border: 1px solid @color_gray;
+    width: 320px;
+    height: 240px;
+    colo: @color_default;
+    background: @color_menu;
+
+    & > div {
+      display: block;
+      text-align: center;
+      margin: 50px 20px 0 20px;
+    }
+  }
+
+}
+
+
+
+/*********************************************************************************/
+/* Spinner                                                                       */
+/*********************************************************************************/
+
+.spinner {
+  margin: 100px auto;
+  width: 80px;
+  height: 60px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.spinner > div {
+  background-color: #333;
+  margin: 1px;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+
+  -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+  animation: stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes stretchdelay {
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+  20% { -webkit-transform: scaleY(1.0) }
+}
+
+@keyframes stretchdelay {
+  0%, 40%, 100% { transform: scaleY(0.4); -webkit-transform: scaleY(0.4); }
+  20% {  transform: scaleY(1.0); -webkit-transform: scaleY(1.0); }
+}
+
+
+
+.rotate(@deg) {
+  transform: rotate(@deg);
+  -webkit-transform: rotate(@deg);
+  -moz-transform: rotate(@deg);
+  -o-transform: rotate(@deg);
+  -ms-transform: rotate(@deg);
+}

@@ -803,4 +803,31 @@
   <data name="ShowGraph" xml:space="preserve">
     <value>Zobrazit graf</value>
   </data>
+  <data name="Or" xml:space="preserve">
+    <value>nebo</value>
+  </data>
+  <data name="RepairDescriptionWeb" xml:space="preserve">
+    <value>Dne {0} jste v servisu {1} opravili auto za celkovou cenu {2} {3}. Vaše vyjádření k této opravě:</value>
+  </data>
+  <data name="Repairs_Motto" xml:space="preserve">
+    <value>Všechny opravy na jednom místě.</value>
+  </data>
+  <data name="ShowMap" xml:space="preserve">
+    <value>Zobrazit mapu</value>
+  </data>
+  <data name="VideoBackupIt" xml:space="preserve">
+    <value>zazálohovat</value>
+  </data>
+  <data name="VideoDescription" xml:space="preserve">
+    <value>Dne {0} jste pořídili video z vašeho automobilu. Délka videa je {1} a obsahuje zaznamenanou cestu, která má {2} bodů.</value>
+  </data>
+  <data name="VideoNotBackuped" xml:space="preserve">
+    <value>Toto video nelze přehrát, jelikož není dostupné na webovém úložišti. Pokud chcete můžete</value>
+  </data>
+  <data name="VideoPlayIt" xml:space="preserve">
+    <value>ho přehrát na svém zařízení</value>
+  </data>
+  <data name="Videos_Motto" xml:space="preserve">
+    <value>Vaše videa z cest.</value>
+  </data>
 </root>

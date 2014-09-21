@@ -7,6 +7,10 @@ java -jar compiler.jar ^
 	--js ../js/cp/data/copilot.data.data.js ^
 	--js ../js/cp/model/copilot.model.settings.js ^
 	--js ../js/cp/model/copilot.model.maintenances.js ^
+	--js ../js/cp/model/copilot.model.fills.js ^
+	--js ../js/cp/model/copilot.model.videos.js ^
+	--js ../js/cp/model/copilot.model.repairs.js ^
+	--js ../js/cp/model/copilot.model.states.js ^
 	--js ../js/cp/model/copilot.model.data.js ^
 	--js_output_file ../cp.js
 

@@ -17,6 +17,7 @@ namespace CoPilot.Data
         public DriveMode DriveModeController { get; set; }
         public Ftp FtpController { get; set; }
         public Scheduler SchedulerController { get; set; }
+        public Stats StatsController { get; set; }
 
         public Fill Fill { get; set; }
         public Repair Repair { get; set; }
@@ -24,5 +25,7 @@ namespace CoPilot.Data
         public Video Video { get; set; }
         public Maintenance Maintenance { get; set; }
         public Uri Uri { get; set; }
+
+        public String GrapType { get; set; }
     }
 }

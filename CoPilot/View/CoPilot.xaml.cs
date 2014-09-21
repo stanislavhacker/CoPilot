@@ -298,7 +298,7 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    NavigationService.Navigate("/CoPilot/View/Videos.xaml", this.GetDefaultDataContainer());
+                    NavigationService.Navigate("/CoPilot/View/Videos.xaml", this.GetVideoDataContainer(param as Video));
                 }, param => true);
             }
         }
@@ -1103,7 +1103,7 @@ namespace CoPilot.CoPilot.View
         private void createHttpServerController()
         {
             ///CONTROLLER
-            HttpServerController = new HttpServer(this.dataController);
+            HttpServerController = new HttpServer(this.dataController, this);
         }
 
         /// <summary>
@@ -1292,6 +1292,18 @@ namespace CoPilot.CoPilot.View
             data.CameraController = this.CameraController;
             data.DriveModeController = this.DriveModeController;
             data.StatsController = this.StatsController;
+            return data;
+        }
+
+        /// <summary>
+        /// Get fill data container
+        /// </summary>
+        /// <param name="fill"></param>
+        /// <returns></returns>
+        private DataContainer GetVideoDataContainer(CoreData.Video video)
+        {
+            DataContainer data = this.GetDefaultDataContainer();
+            data.Video = video;
             return data;
         }
 

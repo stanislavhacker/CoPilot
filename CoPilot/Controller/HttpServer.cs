@@ -1,5 +1,6 @@
 ﻿using CoPilot.Core.Api;
 using CoPilot.Core.Data;
+using CoPilot.Interfaces;
 using CoPilot.Resources;
 using IDCT;
 using Microsoft.Phone.Net.NetworkInformation;
@@ -89,6 +90,7 @@ namespace CoPilot.CoPilot.Controller
         private Boolean isServer = false;
         private Skin skinData;
         private Data dataController;
+        private CoPilot.View.CoPilot application;
         private Int32 pageSize = 20;
 
         #endregion
@@ -96,9 +98,10 @@ namespace CoPilot.CoPilot.Controller
         /// <summary>
         /// Initialize HttpServer class
         /// </summary>
-        public HttpServer(Data dataController)
+        public HttpServer(Data dataController, CoPilot.View.CoPilot application)
         {
             this.dataController = dataController;
+            this.application = application;
         }
 
         /// <summary>
@@ -268,6 +271,10 @@ namespace CoPilot.CoPilot.Controller
             Int32 from = (Int32)getParam(data, "from");
             Int32 to = (Int32)getParam(data, "to");
             Int32 page = (Int32)getParam(data, "page");
+            DateTime fromDate = (DateTime)getParam(data, "fromDate");
+            DateTime toDate = (DateTime)getParam(data, "toDate");
+            String what = getParam(data, "what") as String;
+            String whatData = getParam(data, "data") as String;
 
             switch (command)
             {
@@ -275,10 +282,61 @@ namespace CoPilot.CoPilot.Controller
                     return createResponse(createSettings());
                 case "maintenances":
                     return createResponse(createMaintenances(from, to, page));
-                    
+                case "fills":
+                    return createResponse(createFills(from, to, page));
+                case "repairs":
+                    return createResponse(createRepairs(from, to, page));
+                case "videos":
+                    return createResponse(createVideos(from, to, page));
+                case "paths":
+                    return createResponse(createPaths(fromDate, toDate, page));
+                case "run":
+                    return createResponse(run(what, whatData));
                 default:
                     return new IDCT.webResposne();
             }
+        }
+
+        /// <summary>
+        /// Run
+        /// </summary>
+        /// <param name="what"></param>
+        /// <param name="whatData"></param>
+        private object run(string what, string whatData)
+        {
+            switch (what)
+            {
+                case "play":
+                    application.Dispatcher.BeginInvoke(() =>
+                    {
+                        var video = dataController.Videos.FirstOrDefault(e => e._path == whatData);
+                        application.VideosCommand.Execute(video);
+                    });
+                    break;
+                case "backup":
+                    application.Dispatcher.BeginInvoke(() =>
+                    {
+                        application.BackupCommand.Execute(null);
+                    });
+                    break;
+                default:
+                    return "";
+            }
+
+            return what;
+        }
+
+        /// <summary>
+        /// Create paths
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        private object createPaths(DateTime from, DateTime to, int page)
+        {
+            var stat = new Statistics.Statistics(this.dataController.Records);
+            return stat.getStateStats(from, to).getStates();
         }
 
         /// <summary>
@@ -311,6 +369,105 @@ namespace CoPilot.CoPilot.Controller
             catch
             {
                 return new Maintenance[0];
+            }
+        }
+
+        /// <summary>
+        /// Create fills
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        private object createFills(int from, int to, int page)
+        {
+            var fills = this.dataController.Records.Fills;
+            var total = fills.Count();
+
+            try
+            {
+                if (from == -1 && to == -1)
+                {
+                    var take = page == -1 ? total : this.pageSize;
+                    var skip = page == -1 ? 0 : this.pageSize * page;
+                    return fills.Skip(skip).Take(take).ToArray();
+                }
+                else
+                {
+                    from = from == -1 ? 0 : from;
+                    to = to == -1 ? total - from : to - from;
+                    return fills.Skip(from).Take(to).ToArray();
+                }
+            }
+            catch
+            {
+                return new Fill[0];
+            }
+        }
+
+        /// <summary>
+        /// Create repairs
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        private object createRepairs(int from, int to, int page)
+        {
+            var repairs = this.dataController.Records.Repairs;
+            var total = repairs.Count();
+
+            try
+            {
+                if (from == -1 && to == -1)
+                {
+                    var take = page == -1 ? total : this.pageSize;
+                    var skip = page == -1 ? 0 : this.pageSize * page;
+                    return repairs.Skip(skip).Take(take).ToArray();
+                }
+                else
+                {
+                    from = from == -1 ? 0 : from;
+                    to = to == -1 ? total - from : to - from;
+                    return repairs.Skip(from).Take(to).ToArray();
+                }
+            }
+            catch
+            {
+                return new Repair[0];
+            }
+        }
+
+        /// <summary>
+        /// Create videos
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        private object createVideos(int from, int to, int page)
+        {
+            var videos = this.dataController.Records.Videos;
+            var total = videos.Count();
+
+            try
+            {
+                if (from == -1 && to == -1)
+                {
+                    var take = page == -1 ? total : this.pageSize;
+                    var skip = page == -1 ? 0 : this.pageSize * page;
+                    return videos.Skip(skip).Take(take).ToArray();
+                }
+                else
+                {
+                    from = from == -1 ? 0 : from;
+                    to = to == -1 ? total - from : to - from;
+                    return videos.Skip(from).Take(to).ToArray();
+                }
+            }
+            catch
+            {
+                return new Video[0];
             }
         }
 
@@ -355,7 +512,18 @@ namespace CoPilot.CoPilot.Controller
             switch (param)
             {
                 case "command":
+                case "what":
+                case "data":
                     return data.ContainsKey(param) ? data[param] : "unknown";
+                case "fromDate":
+                case "toDate":
+                    if (data.ContainsKey(param))
+                    {
+                        var stringDate = HttpUtility.UrlDecode(data[param]);
+                        var date = DateTime.Parse(stringDate);
+                        return date;
+                    }
+                    return DateTime.Now;
                 case "from":
                     if (data.ContainsKey("from"))
                     {

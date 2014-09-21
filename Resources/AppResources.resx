@@ -803,4 +803,31 @@
   <data name="ShowGraph" xml:space="preserve">
     <value>Show graph</value>
   </data>
+  <data name="Or" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="RepairDescriptionWeb" xml:space="preserve">
+    <value>On {0} you repair your car in {1} for a total cost {2} {3}. Your expression for this repair:</value>
+  </data>
+  <data name="Repairs_Motto" xml:space="preserve">
+    <value>All repairs on one place.</value>
+  </data>
+  <data name="ShowMap" xml:space="preserve">
+    <value>Show map</value>
+  </data>
+  <data name="VideoBackupIt" xml:space="preserve">
+    <value>backup it</value>
+  </data>
+  <data name="VideoDescription" xml:space="preserve">
+    <value>On {0} you made ​​a video from your car. Video length is {1} and contains the recorded path, which has {2} points.</value>
+  </data>
+  <data name="VideoNotBackuped" xml:space="preserve">
+    <value>This video can not be played since it is not available on the cloud store. If you want you can</value>
+  </data>
+  <data name="VideoPlayIt" xml:space="preserve">
+    <value>play it on your device</value>
+  </data>
+  <data name="Videos_Motto" xml:space="preserve">
+    <value>Your video from your travels.</value>
+  </data>
 </root>
