@@ -830,4 +830,10 @@
   <data name="Videos_Motto" xml:space="preserve">
     <value>Vaše videa z cest.</value>
   </data>
+  <data name="EmptyData" xml:space="preserve">
+    <value>Nyní je zde prázdno. Zatím nemáte zadána žádná data, která by byla možno zobrazit. Pokračujte kliknutím níže a zadejte první záznam.</value>
+  </data>
+  <data name="EmptyVideos" xml:space="preserve">
+    <value>Nyní je zde prázdno. Zatím nemáte žádné video, která by bylo možné zobrazit. Použijte nahrávání v aplikaci a nahrajte něco zajímavého.</value>
+  </data>
 </root>

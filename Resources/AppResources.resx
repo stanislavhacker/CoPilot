@@ -830,4 +830,10 @@
   <data name="Videos_Motto" xml:space="preserve">
     <value>Your video from your travels.</value>
   </data>
+  <data name="EmptyData" xml:space="preserve">
+    <value>Now there is a emptiness. You do not have entered any data that would be displayed. Continue clicking below and enter the first record.</value>
+  </data>
+  <data name="EmptyVideos" xml:space="preserve">
+    <value>Now there is a emptiness. You do not have any videos that could be viewed. Use record button in the application and record something interesting.</value>
+  </data>
 </root>

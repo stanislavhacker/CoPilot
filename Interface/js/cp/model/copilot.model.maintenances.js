@@ -40,10 +40,12 @@
 
 	/**
 	 * Get warnings
+	 * @param {number|null} odometer
 	 * @returns {Array.<copilot.model.Maintenance>}
 	 */
-	copilot.model.Maintenances.prototype.getWarnings = function () {
+	copilot.model.Maintenances.prototype.getWarnings = function (odometer) {
 		var maintenances = this,
+			maintenanceOdometer,
 			current = new Date().getTime(),
 			filtered = [],
 			maintenance,
@@ -65,9 +67,16 @@
 					filtered.push(maintenance);
 				}
 			}
-		}
 
-		//TODO: For odometer state
+			//odometer
+			if (maintenance.IsOdometer && odometer !== null) {
+				maintenanceOdometer = maintenance.Odometer.Value;
+				var sub = maintenanceOdometer - odometer;
+				if (sub >= 0 && sub < maintenance.WarningDistance) {
+					filtered.push(maintenance);
+				}
+			}
+		}
 
 		return filtered;
 	};

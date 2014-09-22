@@ -223,7 +223,7 @@
 	 * Render page
 	 */
 	copilot.data.Renderer.prototype.renderPageContent = function () {
-		var parent = $('#page #content'),
+		var parent = $('#content'),
 			language = this.language;
 
 		//clear
@@ -285,7 +285,7 @@
 		$('<p>' + language.getString("Welcome_Chat", data) + '</p>').appendTo(parent);
 
 		//button warnings
-		if (maintenances && maintenances.length > 0 && maintenances.getWarnings().length > 0) {
+		if (maintenances && maintenances.length > 0 && maintenances.getWarnings(this.data.odometer()).length > 0) {
 			$('<a href="#Warnings" class="button">' + this.language.getString('Welcome_Warnings') + '</a>').appendTo(parent);
 		}
 	};
@@ -357,6 +357,11 @@
 
 			p.append(info);
 			p.append($('<div />').css('clear', 'both'));
+		}
+
+		if (fills.length === 0) {
+			$('<p>' + language.getString("EmptyData") + '</p>').appendTo(parent);
+			$('<a href="#' + language.getString('AddFuel') + '" class="button">' + language.getString('AddFuel') + '</a>').appendTo(parent);
 		}
 
 	};
@@ -433,6 +438,11 @@
 			p.append(description);
 
 			p.append($('<div />').css('clear', 'both'));
+		}
+
+		if (repairs.length === 0) {
+			$('<p>' + language.getString("EmptyData") + '</p>').appendTo(parent);
+			$('<a href="#' + language.getString('AddRepair') + '" class="button">' + language.getString('AddRepair') + '</a>').appendTo(parent);
 		}
 
 	};
@@ -542,6 +552,9 @@
 			p.append($('<div />').css('clear', 'both'));
 		}
 
+		if (videos.length === 0) {
+			$('<p>' + language.getString("EmptyVideos") + '</p>').appendTo(parent);
+		}
 
 	};
 
@@ -554,7 +567,7 @@
 	 */
 	copilot.data.Renderer.prototype.renderPageSideBar = function () {
 		var language = this.language,
-			parent = $('#page #sidebar'),
+			parent = $('#sidebar'),
 			menuTwo,
 			menuOne,
 			menu,
@@ -607,7 +620,7 @@
 			return;
 		}
 
-		warnings = maintenances.getWarnings();
+		warnings = maintenances.getWarnings(this.data.odometer());
 		for (i = 0; i < warnings.length; i++) {
 			banner.call(this, warnings[i]).appendTo(parent);
 		}
@@ -630,7 +643,6 @@
 		var icon,
 			language = this.language,
 			container = $('<div id="banner" class="container" />'),
-			boxRight,
 			boxLeft;
 
 
@@ -656,7 +668,12 @@
 		}
 
 		//right
-		boxRight = $('<div class="box-right"> <a class="button button-big">' + maintenance.getDate() + '</a></div>').appendTo(container);
+		if (maintenance.IsOdometer) {
+			$('<div class="box-right"> <a class="button button-big">' + maintenance.Odometer.Value + ' ' +  maintenance.Odometer.Distance + '</a></div>').appendTo(container);
+		} else {
+			$('<div class="box-right"> <a class="button button-big">' + maintenance.getDate() + '</a></div>').appendTo(container);
+		}
+
 
 		//left
 		boxLeft = $('<div class="box-left" />').appendTo(container);

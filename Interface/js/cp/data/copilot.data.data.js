@@ -139,6 +139,7 @@
 			if (data) {
 				//re-render
 				self.renderer.renderPageContent();
+				self.renderer.renderBanners();
 			} else {
 				setTimeout(function () {
 					self.fills();
@@ -177,6 +178,7 @@
 			if (data) {
 				//re-render
 				self.renderer.renderPageContent();
+				self.renderer.renderBanners();
 			} else {
 				setTimeout(function () {
 					self.repairs();
@@ -268,7 +270,6 @@
 		return null;
 	};
 
-
 	/**
 	 * Run on device
 	 * @param {string} what
@@ -284,6 +285,29 @@
 				console.log('Command run for "' + what + '" cannot be invoke.');
 			}
 		});
+	};
+
+	/**
+	 * Get maximum odometer
+	 * @returns {number|null}
+	 */
+	copilot.data.Data.prototype.odometer = function () {
+		var repairs = this.repairs(),
+			fills = this.fills(),
+			odometer = null;
+
+		if (!repairs || !fills) {
+			return odometer;
+		}
+
+		if (repairs[0]) {
+			odometer = repairs[0].Odometer.Value;
+		}
+		if (fills[0] && fills[0].Odometer.Value > odometer) {
+			odometer = fills[0].Odometer.Value;
+		}
+
+		return odometer;
 	};
 
 
