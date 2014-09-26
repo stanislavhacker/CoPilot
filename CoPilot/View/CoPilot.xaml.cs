@@ -97,6 +97,23 @@ namespace CoPilot.CoPilot.View
         #region COMMANDS
 
         /// <summary>
+        /// Record Command
+        /// </summary>
+        public ICommand CameraViewCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    this.closeMenuIfItsNecessary();
+                    StatsController.IsVisible = false;
+                },
+                param => true
+               );
+            }
+        }
+
+        /// <summary>
         /// Tutorial Command
         /// </summary>
         public ICommand TutorialCommand
@@ -284,7 +301,7 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand((param) =>
                 {
-                    NavigationService.Navigate("/CoPilot/View/Pictures.xaml", this.GetDefaultDataContainer());
+                    NavigationService.Navigate("/CoPilot/View/Pictures.xaml", this.GetPictureDataContainer(param as Picture));
                 }, param => true);
             }
         }
@@ -1296,14 +1313,26 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
-        /// Get fill data container
+        /// Get video data container
         /// </summary>
-        /// <param name="fill"></param>
+        /// <param name="video"></param>
         /// <returns></returns>
         private DataContainer GetVideoDataContainer(CoreData.Video video)
         {
             DataContainer data = this.GetDefaultDataContainer();
             data.Video = video;
+            return data;
+        }
+
+        /// <summary>
+        /// Get picture data container
+        /// </summary>
+        /// <param name="picture"></param>
+        /// <returns></returns>
+        private DataContainer GetPictureDataContainer(CoreData.Picture picture)
+        {
+            DataContainer data = this.GetDefaultDataContainer();
+            data.Picture = picture;
             return data;
         }
 

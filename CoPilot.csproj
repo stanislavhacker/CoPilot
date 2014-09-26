@@ -283,6 +283,7 @@
     <Content Include="Resources\Images\Buttons\cancel.png" />
     <Content Include="Resources\Images\Buttons\delete.png" />
     <Content Include="Resources\Images\Buttons\download.png" />
+    <Content Include="Resources\Images\Buttons\eye.png" />
     <Content Include="Resources\Images\Buttons\fuel.png" />
     <Content Include="Resources\Images\Buttons\Gps\gps_off.png" />
     <Content Include="Resources\Images\Buttons\Gps\gps_on.png" />

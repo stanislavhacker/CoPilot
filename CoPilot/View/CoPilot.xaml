@@ -60,7 +60,21 @@
 
         <!-- STATUS -->
         <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left">
-            <StackPanel Orientation="Vertical" Margin="40,0,0,0">
+            <StackPanel Orientation="Horizontal" Margin="40,0,0,0">
+                <Button 
+                    IsEnabled="{Binding CameraController.IsCameraEnabled}"
+                    Command="{Binding CameraController.RecordCommand}" 
+                    Style="{StaticResource MenuButton}" 
+                    Margin="-10">
+                    <Image Width="80" Height="80" HorizontalAlignment="Left" Source="{Binding CameraController.IsRecording, Converter={StaticResource RecordingToImageConvertor}}" />
+                </Button>
+                <Button 
+                    IsEnabled="{Binding CameraController.IsShotEnabled}"
+                    Command="{Binding CameraController.ShotCommand}" 
+                    Style="{StaticResource MenuButton}" 
+                    Margin="-10">
+                    <Image Width="60" Height="60" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/photo.png" />
+                </Button>
                 <TextBlock Visibility="{Binding CameraController.IsRecording, Converter={StaticResource BooleanToVisibilityConvertor}}" Text="{Binding CameraController.RecordLength}" Style="{StaticResource Duration}" />
             </StackPanel>
         </Grid>
@@ -447,6 +461,19 @@
                 <Grid Visibility="{Binding MenuController.Context, ConverterParameter='Camera', Converter={StaticResource ContextMenuToVisibilityConvertor}}">
                     <ScrollViewer>
                         <StackPanel Orientation="Vertical">
+
+                            <Button 
+                                IsEnabled="{Binding StatsController.IsVisible}"
+                                Command="{Binding CameraViewCommand}" 
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/eye.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.ViewThroughCamera, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
 
                             <Button 
                                 IsEnabled="{Binding CameraController.IsCameraEnabled}"

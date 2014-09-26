@@ -833,7 +833,25 @@
   <data name="EmptyData" xml:space="preserve">
     <value>Nyní je zde prázdno. Zatím nemáte zadána žádná data, která by byla možno zobrazit. Pokračujte kliknutím níže a zadejte první záznam.</value>
   </data>
+  <data name="EmptyImages" xml:space="preserve">
+    <value>Nyní je zde prázdno. Zatím nemáte žádný obrázek, který by bylo možné zobrazit. Použijte focení v aplikaci a něco vyfoťte..</value>
+  </data>
   <data name="EmptyVideos" xml:space="preserve">
     <value>Nyní je zde prázdno. Zatím nemáte žádné video, která by bylo možné zobrazit. Použijte nahrávání v aplikaci a nahrajte něco zajímavého.</value>
+  </data>
+  <data name="ImageDescription" xml:space="preserve">
+    <value>Dne {0} jste pořídili obrázek z vašeho automobilu.</value>
+  </data>
+  <data name="ImageNotBackuped" xml:space="preserve">
+    <value>Tento obrázek nelze zobrazit, jelikož není dostupný na webovém úložišti. Pokud chcete můžete</value>
+  </data>
+  <data name="ImageShowIt" xml:space="preserve">
+    <value>ho zobrazit na svém zařízení</value>
+  </data>
+  <data name="Pictures_Motto" xml:space="preserve">
+    <value>Momenty z vašich cest ihned po ruce.</value>
+  </data>
+  <data name="ViewThroughCamera" xml:space="preserve">
+    <value>Pohled přes kameru</value>
   </data>
 </root>

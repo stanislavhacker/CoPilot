@@ -288,6 +288,8 @@ namespace CoPilot.CoPilot.Controller
                     return createResponse(createRepairs(from, to, page));
                 case "videos":
                     return createResponse(createVideos(from, to, page));
+                case "pictures":
+                    return createResponse(createPictures(from, to, page));
                 case "paths":
                     return createResponse(createPaths(fromDate, toDate, page));
                 case "run":
@@ -311,6 +313,13 @@ namespace CoPilot.CoPilot.Controller
                     {
                         var video = dataController.Videos.FirstOrDefault(e => e._path == whatData);
                         application.VideosCommand.Execute(video);
+                    });
+                    break;
+                case "show":
+                    application.Dispatcher.BeginInvoke(() =>
+                    {
+                        var picture = dataController.Pictures.FirstOrDefault(e => e._path == whatData);
+                        application.PicturesCommand.Execute(picture);
                     });
                     break;
                 case "backup":
@@ -468,6 +477,39 @@ namespace CoPilot.CoPilot.Controller
             catch
             {
                 return new Video[0];
+            }
+        }
+
+        /// <summary>
+        /// Create pictures
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        private object createPictures(int from, int to, int page)
+        {
+            var pictures = this.dataController.Records.Pictures;
+            var total = pictures.Count();
+
+            try
+            {
+                if (from == -1 && to == -1)
+                {
+                    var take = page == -1 ? total : this.pageSize;
+                    var skip = page == -1 ? 0 : this.pageSize * page;
+                    return pictures.Skip(skip).Take(take).ToArray();
+                }
+                else
+                {
+                    from = from == -1 ? 0 : from;
+                    to = to == -1 ? total - from : to - from;
+                    return pictures.Skip(from).Take(to).ToArray();
+                }
+            }
+            catch
+            {
+                return new Picture[0];
             }
         }
 

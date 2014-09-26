@@ -833,7 +833,25 @@
   <data name="EmptyData" xml:space="preserve">
     <value>Now there is a emptiness. You do not have entered any data that would be displayed. Continue clicking below and enter the first record.</value>
   </data>
+  <data name="EmptyImages" xml:space="preserve">
+    <value>Now there is a emptiness. You do not have any images that could be viewed. Use shot button in the application and take a picture.</value>
+  </data>
   <data name="EmptyVideos" xml:space="preserve">
     <value>Now there is a emptiness. You do not have any videos that could be viewed. Use record button in the application and record something interesting.</value>
+  </data>
+  <data name="ImageDescription" xml:space="preserve">
+    <value>On {0} you have taken a picture from your car.</value>
+  </data>
+  <data name="ImageNotBackuped" xml:space="preserve">
+    <value>This image can not be showed since it is not available on the cloud store. If you want you can</value>
+  </data>
+  <data name="ImageShowIt" xml:space="preserve">
+    <value>show it on your device</value>
+  </data>
+  <data name="Pictures_Motto" xml:space="preserve">
+    <value>Moments from your travels immediately to hand.</value>
+  </data>
+  <data name="ViewThroughCamera" xml:space="preserve">
+    <value>View through camera</value>
   </data>
 </root>
