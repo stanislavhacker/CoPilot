@@ -292,6 +292,8 @@ namespace CoPilot.CoPilot.Controller
                     return createResponse(createPictures(from, to, page));
                 case "paths":
                     return createResponse(createPaths(fromDate, toDate, page));
+                case "path-list":
+                    return createResponse(createPathList());
                 case "run":
                     return createResponse(run(what, whatData));
                 default:
@@ -346,6 +348,16 @@ namespace CoPilot.CoPilot.Controller
         {
             var stat = new Statistics.Statistics(this.dataController.Records);
             return stat.getStateStats(from, to).getStates();
+        }
+
+        /// <summary>
+        /// Create path list
+        /// </summary>
+        /// <returns></returns>
+        private object createPathList()
+        {
+            var stat = new Statistics.Statistics(this.dataController.Records);
+            return stat.getRoutes();
         }
 
         /// <summary>

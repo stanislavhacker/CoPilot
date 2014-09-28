@@ -61,18 +61,18 @@
 	}
 
 	/**
-	 * Video iframe
-	 * @param {copilot.model.Video} video
+	 * Resource iframe
+	 * @param {copilot.model.Backup} backup
 	 * @returns {jQuery}
 	 */
-	function videoIframe(video) {
+	function resourceIframe(backup) {
 		var url,
 			cid,
 			resid,
 			iframe;
 
 		//url
-		url = splitUrl(video.VideoBackup.Url);
+		url = splitUrl(backup.Url);
 		//cid
 		//noinspection JSUnresolvedVariable
 		cid = url.data.cid;
@@ -83,7 +83,7 @@
 	}
 
 	/**
-	 * Get map frame
+	 * Get mini map frame
 	 * @param {number} longitude
 	 * @param {number} latitude
 	 * @param {number=} mapZoom
@@ -91,23 +91,187 @@
 	 * @param {number=} height
 	 * @returns {jQuery}
 	 */
-	function mapFrame(longitude, latitude, mapZoom, width, height) {
-		var iframe,
-			mapLink,
+	function miniMapFrame(longitude, latitude, mapZoom, width, height) {
+		var inner,
+			center,
 			zoom = mapZoom || 13,
-			map = $('<div id="mapviewer" />');
+			map = $('<div class="mapviewer" />');
 
 		width = width || 500;
 		height = height || 400;
 
-		//map link
-		mapLink = "http://www.bing.com/maps/embed/?v=2&cp=" + longitude + "~" + latitude + "&lvl=" + zoom + "&sty=r&w=" + width + "&h=" + height;
+		//center
+		center = new google.maps.LatLng(longitude, latitude);
 
 		//map
-		iframe = $('<iframe id="map" scrolling="no" width="' + width + '" height="' + height + '" frameborder="0" src="' + mapLink + '"></iframe>');
-		map.append(iframe);
+		map.css({
+			width: width,
+			height: height
+		});
+
+		//map
+		inner = $('<div class="map"></div>');
+		inner.css({
+			width: width,
+			height: height
+		});
+
+		//map
+		setTimeout(function () {
+			var marker,
+				googleMap = new google.maps.Map(inner[0], {
+					zoom: zoom,
+					center: center,
+					disableDefaultUI: true,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				});
+
+			//noinspection JSUnusedAssignment
+			marker = new google.maps.Marker({
+				position: center,
+				map: googleMap
+			});
+
+		}, 200);
+
+		map.append(inner);
 
 		return map;
+	}
+
+	/**
+	 * Get map frame
+	 * @param {Array.<copilot.model.State>} paths
+	 * @param {copilot.data.Skin} skin
+	 * @param {copilot.data.Language} language
+	 * @returns {jQuery}
+	 */
+	function mapFrame(paths, skin, language) {
+		var i,
+			div,
+			state,
+			center,
+			width,
+			height,
+			inner,
+			positions = [],
+			win = $(window),
+			header = $("#header").height(),
+			map = $('<div id="mapviewer fullscreen" />');
+
+		//states
+		for (i = 0; i < paths.length; i++) {
+			if (paths[i].Position) {
+				//center
+				center = new google.maps.LatLng(paths[i].Position.Latitude, paths[i].Position.Longitude);
+				break;
+			}
+		}
+
+		//sizes
+		width = win.width();
+		height = win.height();
+
+		//map
+		map.css({
+			position: "fixed",
+			top: header,
+			left: 0,
+			width: width,
+			height: height - header,
+			background: 'white',
+			zIndex: '1000'
+		});
+
+		//inner
+		inner = $("<div></div>").appendTo(map);
+		inner.css({
+			width: width,
+			height: height - header
+		});
+
+		//map
+		setTimeout(function () {
+			var route,
+				position,
+				googleMap = new google.maps.Map(inner[0], {
+					zoom: 16,
+					center: center,
+					disableDefaultUI: true,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				});
+
+			//states
+			for (i = 0; i < paths.length; i++) {
+				state = paths[i];
+				if (state.Position) {
+					//create
+					position = new google.maps.LatLng(state.Position.Latitude, state.Position.Longitude);
+					//marker
+					createMarker(googleMap, state, language);
+					//push
+					positions.push(position);
+				}
+			}
+
+			route = new google.maps.Polyline({
+				path: positions,
+				geodesic: false,
+				strokeColor: skin.data.Foreground,
+				strokeOpacity: 1.0,
+				strokeWeight: 10
+			});
+
+			route.setMap(googleMap);
+
+		}, 500);
+
+		return map;
+	}
+
+	/**
+	 * Create marker
+	 * @param {object} map
+	 * @param {copilot.model.State} state
+	 * @param {copilot.data.Language} language
+	 */
+	function createMarker(map, state, language) {
+		var div,
+			window,
+			marker;
+
+		//marker
+		marker = new google.maps.Marker({
+			position: new google.maps.LatLng(state.Position.Latitude, state.Position.Longitude),
+			map: map,
+			title: language.getString('Speed') + ": "  + state.Speed
+		});
+
+		//content
+		div = $('<table />').css({
+			'width': 200
+		});
+		div.append($('<tr><td><strong>' + language.getString('Speed')  + ':</strong></td><td>' + state.Speed + '</td></tr>'));
+		div.append($('<tr><td><strong>' + language.getString('ObdRpm')  + ':</strong></td><td>' + state.Rpm + '</td></tr>'));
+		div.append($('<tr><td><strong>' + language.getString('ObdTemperature')  + ':</strong></td><td>' + state.Temperature + '</td></tr>'));
+		div.append($('<tr><td><strong>' + language.getString('ObdAcceleratorPedalPosition')  + ':</strong></td><td>' + state.AcceleratorPedalPosition + '</td></tr>'));
+		div.append($('<tr><td><strong>' + language.getString('ObdEngineLoad')  + ':</strong></td><td>' + state.EngineLoad + '</td></tr>'));
+		div.append($('<tr><td><strong>' + language.getString('ObdEngineOilTemperature')  + ':</strong></td><td>' + state.EngineOilTemperature + '</td></tr>'));
+		div.append($('<tr><td><strong>' + language.getString('ObdEngineReferenceTorque')  + ':</strong></td><td>' + state.EngineReferenceTorque + '</td></tr>'));
+		div.append($('<tr><td><strong>' + language.getString('ObdFuelInjectionTiming')  + ':</strong></td><td>' + state.FuelInjectionTiming + '</td></tr>'));
+		div.append($('<tr><td><strong>' + language.getString('ObdMaxAirFlowRate')  + ':</strong></td><td>' + state.MaxAirFlowRate + '</td></tr>'));
+		div.append($('<tr><td><strong>' + language.getString('ObdThrottlePosition')  + ':</strong></td><td>' + state.ThrottlePosition + '</td></tr>'));
+
+
+		//window
+		window = new google.maps.InfoWindow({
+			content: div[0].outerHTML
+		});
+
+		//event
+		google.maps.event.addListener(marker, 'click', function() {
+			window.open(map, marker);
+		});
 	}
 
 	/**
@@ -122,6 +286,8 @@
 		this.skin = copilot.skin;
 		/** @type {copilot.data.Data}*/
 		this.data = copilot.data;
+		/** @type {jQuery}*/
+		this.map = null;
 
 		//set renderers
 		this.language.renderer = this;
@@ -141,8 +307,6 @@
 		//header, page
 		this.renderHeaderWrapper();
 		this.renderPageContent();
-		//sidebar
-		this.renderPageSideBar();
 		//banners
 		this.renderBanners();
 		//featured
@@ -164,10 +328,12 @@
 			language = this.language,
 			selected = "current_page_item",
 			hash = copilot.Hash,
+			self = this,
 			header,
 			name,
 			menu,
 			logo,
+			h1,
 			li,
 			ul;
 
@@ -178,35 +344,41 @@
 		logo = $('<div id="logo" />').appendTo(header);
 
 		$('<img src="images/logo.png">').appendTo(logo);
-		$('<h1><a href="#" data-language="AppName">' + language.getString("AppName") + '</a></h1>').appendTo(logo);
+		h1 = $('<h1><a href="#" data-language="AppName">' + language.getString("AppName") + '</a></h1>').appendTo(logo);
+		h1.toggleClass(selected, hash === "" || hash === name || hash === "Warnings");
 
 		menu = $('<div id="menu" />').appendTo(header);
 		ul = $('<ul></ul>').appendTo(menu);
 
-		name = language.getString("Statistics");
-		$('<li><a href="#' + name + '" accesskey="1" title="">' + name + '</a></li>')
-			.toggleClass(selected, hash === "" || hash === name || hash === "Warnings")
-			.appendTo(ul);
-
 		name = language.getString("Fuels");
-		$('<li><a href="#' + name + '" accesskey="2" title="">' + name + ' (' + settings.Fills + ')</a></li>')
+		$('<li><a href="#' + name + '" accesskey="1" title="">' + name + ' (' + settings.Fills + ')</a></li>')
 			.toggleClass(selected, hash === name)
 			.appendTo(ul);
 
 		name = language.getString("Repairs");
-		$('<li><a href="#' + name + '" accesskey="3" title="">' + name + ' (' + settings.Repairs + ')</a></li>')
+		$('<li><a href="#' + name + '" accesskey="2" title="">' + name + ' (' + settings.Repairs + ')</a></li>')
 			.toggleClass(selected, hash === name)
 			.appendTo(ul);
 
 		name = language.getString("Videos");
-		$('<li><a href="#' + name + '" accesskey="4" title="">' + name + ' (' + settings.Videos + ')</a></li>')
+		$('<li><a href="#' + name + '" accesskey="3" title="">' + name + ' (' + settings.Videos + ')</a></li>')
 			.toggleClass(selected, hash === name)
 			.appendTo(ul);
 
 		name = language.getString("Images");
-		$('<li><a href="#' + name + '" accesskey="5" title="">' + name + ' (' + settings.Pictures + ')</a></li>')
+		$('<li><a href="#' + name + '" accesskey="4" title="">' + name + ' (' + settings.Pictures + ')</a></li>')
 			.toggleClass(selected, hash === name)
 			.appendTo(ul);
+
+		name = language.getString("Paths");
+		$('<li><a href="#' + name + '" accesskey="5" title="">' + name + ' (' + settings.Paths + ')</a></li>')
+			.toggleClass(selected, hash === name)
+			.appendTo(ul);
+
+		//clear map screen on click
+		header.find('a').click(function () {
+			self.renderMap(null);
+		});
 
 		//append
 		parent.append(header);
@@ -225,6 +397,9 @@
 	copilot.data.Renderer.prototype.renderPageContent = function () {
 		var parent = $('#content'),
 			language = this.language;
+
+		//sidebar
+		this.renderPageSideBar();
 
 		//clear
 		parent.empty();
@@ -246,6 +421,18 @@
 				break;
 			case language.getString("Videos"):
 				this.renderVideos(parent);
+				break;
+			case language.getString("Images"):
+				this.renderImages(parent);
+				break;
+			case language.getString("Paths"):
+				this.renderPaths(parent);
+				break;
+			case language.getString('FuelPriceTrend'):
+				this.renderGraph(parent, 'FuelPriceTrend');
+				break;
+			case language.getString('TrendUnitsPerRefill'):
+				this.renderGraph(parent, 'TrendUnitsPerRefill');
 				break;
 			default:
 				break;
@@ -467,6 +654,7 @@
 			iframe,
 			data = [],
 			description,
+			self = this,
 			language = this.language,
 			dataModel = this.data,
 			videos = dataModel.videos() || null;
@@ -515,7 +703,7 @@
 				//iframe
 				if (video.isBackuped()) {
 					//video is available on cloud storage
-					iframe = videoIframe(video);
+					iframe = resourceIframe(video.VideoBackup);
 				} else {
 					//not backuped
 					iframe = $('<div class="noiframe"></div>');
@@ -533,14 +721,23 @@
 					}).appendTo(text);
 				}
 
-				//description =. video, map
+				//description => video, map
 				description = $('<p />').addClass("video");
 				description.append(iframe);
-				description.append(mapFrame(point ? point.Position.Latitude : 0, point ? point.Position.Longitude : 0, 13, 180, 240));
 
-				//paths
-				button = $('<a href="#" class="button path">' + this.language.getString('ShowMap') + '</a>'); //TODO: Show map with all points
-				description.append(button);
+				if (point) {
+					//map
+					description.append(miniMapFrame(point ? point.Position.Latitude : 0, point ? point.Position.Longitude : 0, 15, 180, 240));
+					//paths
+					button = $('<a href="#' + language.getString("Videos") + '" class="button path">' + this.language.getString('ShowMap') + '</a>');
+					button.data("video", video);
+					button.click(function () {
+						var video = $(this).data("video");
+						self.renderMap(dataModel.paths(video.Time, new Date(video.Time.getTime() + (video.duration * 1000))));
+					});
+					description.append(button);
+				}
+
 			} else {
 				//description
 				description = $('<p />').addClass("video");
@@ -558,6 +755,316 @@
 
 	};
 
+	/**
+	 * Render images
+	 * @param {jQuery} parent
+	 */
+	copilot.data.Renderer.prototype.renderImages = function (parent) {
+		var i,
+			p,
+			a,
+			div,
+			text,
+			info,
+			point,
+			image,
+			title,
+			paths,
+			height,
+			button,
+			iframe,
+			data = [],
+			self = this,
+			description,
+			language = this.language,
+			dataModel = this.data,
+			images = dataModel.images() || null;
+
+		if (images === null) {
+			return;
+		}
+
+		//clear
+		//noinspection JSUnresolvedFunction
+		parent.empty();
+
+		//title
+		title = $('<div class="title" />').appendTo(parent);
+
+		//h2
+		$('<h2>' + language.getString("Images") + '</h2>').appendTo(title);
+
+
+		$('<span class="byline">' + language.getString("Pictures_Motto") + '</span>').appendTo(title);
+
+		for (i = 0; i < images.length; i++) {
+			//image
+			image = images[i];
+			//paths
+			paths = dataModel.paths(new Date(image.Time.getTime() - 10000), new Date(image.Time.getTime() + 10000));
+
+			p = $('<p></p>').addClass('images').appendTo(parent);
+			p.css('height', '400px');
+			a = $('<div class="odometer"/>').appendTo(p);
+			a.append('<div class="value">' + image.Time.toLocaleDateString() + '<span class="small">' + image.Time.toLocaleTimeString() + '</span></div>');
+
+			//data
+			data[0] = image.Time.toLocaleDateString();
+
+			//info
+			info = $('<p />').addClass("info").html(language.getString("ImageDescription", data));
+			p.append(info);
+
+			//if paths exists
+			if (paths) {
+				//first
+				point = paths[0];
+				//iframe
+				if (image.isBackuped()) {
+					//image is available on cloud storage
+					iframe = resourceIframe(image.Backup);
+				} else {
+					//not backuped
+					iframe = $('<div class="noiframe"></div>');
+					text = $('<div></div>').appendTo(iframe);
+					text.append(language.getString('ImageNotBackuped', data));
+					text.append($('<br />'));
+					$('<a href="' + window.location.hash + '" data-image="' + image._path + '"></a>').text(language.getString('ImageShowIt')).click(function () {
+						dataModel.run('show', $(this).attr('data-image'));
+					}).appendTo(text);
+					text.append($('<br />'));
+					text.append(language.getString('Or'));
+					text.append($('<br />'));
+					$('<a href="' + window.location.hash + '"></a>').text(language.getString('VideoBackupIt')).click(function () {
+						dataModel.run('backup');
+					}).appendTo(text);
+				}
+
+				//description => image, map
+				description = $('<p />').addClass("image");
+				description.append(iframe);
+
+				if (point) {
+					//map
+					description.append(miniMapFrame(point.Position.Latitude, point.Position.Longitude, 15, 180, 240));
+					//paths
+					button = $('<a href="#' + language.getString("Images") + '" class="button path">' + this.language.getString('ShowMap') + '</a>');
+					button.data("image", image);
+					button.click(function () {
+						var image = $(this).data("image");
+						self.renderMap(dataModel.paths(new Date(image.Time.getTime() - 10000), new Date(image.Time.getTime() + 10000)));
+					});
+					description.append(button);
+				}
+
+			} else {
+				//description
+				description = $('<p />').addClass("image");
+				this.loader(description);
+			}
+
+			//div
+			p.append(description);
+			p.append($('<div />').css('clear', 'both'));
+		}
+
+		if (images.length === 0) {
+			$('<p>' + language.getString("EmptyImages") + '</p>').appendTo(parent);
+		}
+
+	};
+
+	/**
+	 * Render paths
+	 * @param {jQuery} parent
+	 */
+	copilot.data.Renderer.prototype.renderPaths = function (parent) {
+		var i,
+			p,
+			a,
+			div,
+			info,
+			path,
+			title,
+			height,
+			button,
+			data = [],
+			self = this,
+			description,
+			pathStates,
+			language = this.language,
+			dataModel = this.data,
+			paths = dataModel.pathList() || null;
+
+		if (paths === null) {
+			return;
+		}
+
+		//clear
+		//noinspection JSUnresolvedFunction
+		parent.empty();
+
+		//title
+		title = $('<div class="title" />').appendTo(parent);
+
+		//h2
+		$('<h2>' + language.getString("Paths") + '</h2>').appendTo(title);
+
+
+		$('<span class="byline">' + language.getString("Paths_Motto") + '</span>').appendTo(title);
+
+		for (i = 0; i < paths.length; i++) {
+			//path
+			path = /** @type {copilot.model.Path} */ paths[i];
+			//paths
+			pathStates = dataModel.paths(path.StartDate, path.EndDate);
+
+			p = $('<p></p>').addClass('paths').appendTo(parent);
+			p.css('height', '150px');
+			a = $('<div class="odometer"/>').appendTo(p);
+			a.append('<div class="value">' + path.StartDate.toLocaleDateString() + '<span class="small">' + path.StartDate.toLocaleTimeString() + '</span></div>');
+
+			//data
+			data[0] = path.StartDate.toLocaleDateString();
+			data[1] = Math.round(path.ConsumedFuel * 1000) / 1000;
+			data[2] = Math.round(path.TraveledDistance * 1000) / 1000;
+			data[3] = path.Distance;
+			data[4] = language.getString("FueledUnit");
+
+			//info
+			info = $('<p />').addClass("info").html(language.getString("PathDescription", data));
+			p.append(info);
+
+			//description
+			description = $('<p />').addClass("path");
+
+			//if paths exists
+			if (pathStates) {
+				//first
+				if (pathStates[0]) {
+					//paths
+					button = $('<a href="#' + language.getString("Paths") + '" class="button path">' + this.language.getString('ShowMap') + '</a>');
+					button.data("path", path);
+					button.click(function () {
+						var path = $(this).data("path");
+						self.renderMap(dataModel.paths(path.StartDate, path.EndDate));
+					});
+					description.append(button);
+				}
+
+			} else {
+				//description
+				description = $('<p />').addClass("path");
+				this.loader(description);
+			}
+
+			//div
+			p.append(description);
+			p.append($('<div />').css('clear', 'both'));
+		}
+
+		if (paths.length === 0) {
+			$('<p>' + language.getString("EmptyPaths") + '</p>').appendTo(parent);
+		}
+
+	};
+
+	/**
+	 * Render graph
+	 * @param {jQuery} parent
+	 * @param {string} graph
+	 */
+	copilot.data.Renderer.prototype.renderGraph = function (parent, graph) {
+		var graphData,
+			graphElement,
+			language = this.language,
+			fills = this.data.fills() || null;
+
+		if (fills === null) {
+			return;
+		}
+
+		//clear
+		//noinspection JSUnresolvedFunction
+		parent.empty();
+
+		//create container
+		graphElement = $('<div id="#graph">').appendTo(parent);
+
+		//graph
+		switch(graph) {
+			case 'FuelPriceTrend':
+				graphData = fills.getFuelPriceTrendGraph(language);
+				break;
+			case 'TrendUnitsPerRefill':
+				graphData = fills.getTrendUnitsPerRefillGraph(language);
+				break;
+			default:
+				break;
+		}
+
+		//create
+		graphElement.highcharts({
+			chart: {
+				zoomType: 'x'
+			},
+			title: {
+				text: graphData.name
+			},
+			xAxis: {
+				minRange: 5,
+				categories: graphData.categories,
+				labels: {
+					rotation: 90
+				}
+			},
+			yAxis: {
+				title: {
+					text: graphData.dataName + " " + graphData.dataUnit
+				},
+				plotLines: [{
+					value: 0,
+					width: 2,
+					color: '#808080'
+				}]
+			},
+			tooltip: {
+				valueSuffix: graphData.dataUnit
+			},
+			legend: {
+				enabled: false
+			},
+			series: graphData.series
+		});
+	};
+
+	/**
+	 * Render map
+	 * @param {Array.<copilot.model.State>} states
+	 */
+	copilot.data.Renderer.prototype.renderMap = function (states) {
+		var skin = this.skin,
+			language = this.language,
+			frame;
+
+		//clear
+		if (states === null) {
+			if (this.map) {
+				this.map.remove();
+			}
+			this.map = null;
+			return;
+		}
+
+		//frame
+		frame = mapFrame(states, skin, language);
+		//set current map
+		this.map = frame;
+		//append
+		$('body').append(frame);
+	};
+
+
 	/***********************************************************************/
 	/******* MENU */
 	/***********************************************************************/
@@ -568,6 +1075,10 @@
 	copilot.data.Renderer.prototype.renderPageSideBar = function () {
 		var language = this.language,
 			parent = $('#sidebar'),
+			content = $('#content'),
+			showAddMenu = true,
+			min = 'minimalized',
+			max = 'maximalized',
 			menuTwo,
 			menuOne,
 			menu,
@@ -578,6 +1089,17 @@
 		//menu div
 		menu = $('<div id="stwo-col" />').appendTo(parent);
 
+		//show add
+		switch(copilot.Hash) {
+			case language.getString('FuelPriceTrend'):
+			case language.getString('TrendUnitsPerRefill'):
+				showAddMenu = false;
+				break;
+			default:
+				showAddMenu = true;
+				break;
+		}
+
 		//left menu
 		menuOne = $('<div class="sbox1" />').appendTo(menu);
 		$('<h2>' + language.getString("Graphs") + '</h2>').appendTo(menuOne);
@@ -586,14 +1108,23 @@
 			$('<li><a href="#' + language.getString('FuelPriceTrend') + '">' + language.getString('FuelPriceTrend') + '</a></li>').appendTo(ul);
 			$('<li><a href="#' + language.getString('TrendUnitsPerRefill') + '">' + language.getString('TrendUnitsPerRefill') + '</a></li>').appendTo(ul);
 
-		//menu right
-		menuTwo = $('<div class="sbox2" />').appendTo(menu);
-		$('<h2>' + language.getString("NewItems") + '</h2>').appendTo(menuTwo);
-		ul = $('<ul class="style2">').appendTo(menuTwo);
-			//items
-			$('<li><a href="#' + language.getString('AddFuel') + '">' + language.getString('AddFuel') + '</a></li>').appendTo(ul);
-			$('<li><a href="#' + language.getString('AddRepair') + '">' + language.getString('AddRepair') + '</a></li>').appendTo(ul);
-			$('<li><a href="#' + language.getString('AddMaintenance') + '">' + language.getString('AddMaintenance') + '</a></li>').appendTo(ul);
+		if (showAddMenu) {
+			//menu right
+			menuTwo = $('<div class="sbox2" />').appendTo(menu);
+			$('<h2>' + language.getString("NewItems") + '</h2>').appendTo(menuTwo);
+			ul = $('<ul class="style2">').appendTo(menuTwo);
+				//items
+				$('<li><a href="#' + language.getString('AddFuel') + '">' + language.getString('AddFuel') + '</a></li>').appendTo(ul);
+				$('<li><a href="#' + language.getString('AddRepair') + '">' + language.getString('AddRepair') + '</a></li>').appendTo(ul);
+				$('<li><a href="#' + language.getString('AddMaintenance') + '">' + language.getString('AddMaintenance') + '</a></li>').appendTo(ul);
+			//remove class
+			parent.removeClass(min);
+			content.removeClass(max);
+		} else {
+			//add min
+			parent.addClass(min);
+			content.addClass(max);
+		}
 
 		//apply skin
 		this.skin.applySkin();
@@ -813,6 +1344,7 @@
 		//hash change
 		$(window).on('hashchange', function() {
 			copilot.Hash = window.location.hash.substr(1);
+			self.renderMap(null);
 			self.renderHeaderWrapper();
 			self.renderPageContent();
 		});

@@ -510,6 +510,10 @@ border-radius: 8px;
 #content
 {
     max-width: 700px;
+
+    &.maximalized {
+      max-width: 950px;
+    }
 }
 
 /*********************************************************************************/
@@ -521,6 +525,10 @@ border-radius: 8px;
     float: right;
     width: 450px;
     margin: 0 0 20px 20px;
+
+    &.minimalized {
+      width: auto;
+    }
 }
 
 #stwo-col
@@ -670,7 +678,11 @@ border-radius: 8px;
 /* Data                                                                          */
 /*********************************************************************************/
 
-p.fills, p.repairs, p.videos {
+p.paths .spinner {
+  margin: 0px auto;
+}
+
+p.fills, p.repairs, p.videos, p.images, p.paths {
 
   text-align: justify;
   border: none;
@@ -697,11 +709,12 @@ p.fills, p.repairs, p.videos {
     font-weight: bold;
   }
 
-  .video {
+  .video, .image {
     margin-top: 0px;
     font-size: 10pt;
     font-style: italic;
     font-weight: bold;
+    display: block;
   }
 
   .info {
@@ -756,10 +769,12 @@ p.fills, p.repairs, p.videos {
     margin: 10px 0;
     float: left;
     border: 1px solid @color_gray;
+  }
 
-    &#map {
-      float: right;
-    }
+  .mapviewer {
+    margin: 10px 0;
+    border: 1px solid @color_gray;
+    float: right;
   }
 
   .noiframe {
@@ -768,7 +783,7 @@ p.fills, p.repairs, p.videos {
     border: 1px solid @color_gray;
     width: 320px;
     height: 240px;
-    colo: @color_default;
+    color: @color_default;
     background: @color_menu;
 
     & > div {

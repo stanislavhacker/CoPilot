@@ -38,6 +38,71 @@
 		return clone;
 	};
 
+	/**
+	 * Get graph
+	 * @param {copilot.data.Language} language
+	 * @returns {copilot.model.Graph}
+	 */
+	copilot.model.Fills.prototype.getFuelPriceTrendGraph = function (language) {
+		var i,
+			fill,
+			categories = [],
+			graph = new copilot.model.Graph(),
+			series = new copilot.model.Graph.Series();
+
+		series.name = language.getString("PricePerUnit");
+
+		for (i = 0; i < this.length; i++) {
+			//fill
+			fill = this[i];
+			//add categories
+			categories.push(fill.Date.toLocaleDateString());
+			//series
+			series.data.push(fill.UnitPrice.Value);
+		}
+
+		//create
+		graph.name = language.getString("FuelPriceTrend");
+		graph.dataName = language.getString("PricePerUnit");
+		graph.dataUnit = this.length ? fill.UnitPrice.Currency : "";
+		graph.setCategories(categories);
+		graph.addSeries(series);
+
+		return graph;
+	};
+
+	/**
+	 * Get graph
+	 * @param {copilot.data.Language} language
+	 * @returns {copilot.model.Graph}
+	 */
+	copilot.model.Fills.prototype.getTrendUnitsPerRefillGraph = function (language) {
+		var i,
+			fill,
+			categories = [],
+			graph = new copilot.model.Graph(),
+			series = new copilot.model.Graph.Series();
+
+		series.name = language.getString("Fueled");
+
+		for (i = 0; i < this.length; i++) {
+			//fill
+			fill = this[i];
+			//add categories
+			categories.push(fill.Date.toLocaleDateString());
+			//series
+			series.data.push(fill.Refueled);
+		}
+
+		//create
+		graph.name = language.getString("TrendUnitsPerRefill");
+		graph.dataName = language.getString("Fueled");
+		graph.setCategories(categories);
+		graph.addSeries(series);
+
+		return graph;
+	};
+
 
 
 

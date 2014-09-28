@@ -228,10 +228,48 @@
 	};
 
 	/**
+	 * Images
+	 * @return {copilot.model.Images}
+	 */
+	copilot.data.Data.prototype.images = function () {
+		var self = this,
+			what = "pictures";
+
+		//return cached data
+		if (self.data[what]) {
+			return self.data[what];
+		}
+
+		//check for state
+		if (self.states[what]) {
+			return null;
+		}
+		self.states[what] = true;
+
+		this.get({
+			command : what
+		}, function (data) {
+			self.states[what] = false;
+			self.data[what] = data ? new copilot.model.Images().clone.apply(data) : null;
+
+			if (data) {
+				//re-render
+				self.renderer.renderPageContent();
+			} else {
+				setTimeout(function () {
+					self.images();
+				}, 1000);
+			}
+		});
+
+		return null;
+	};
+
+	/**
 	 * Get paths for dates
 	 * @param {Date} from
 	 * @param {Date} to
-	 * @returns {Array.<object>}
+	 * @returns {copilot.model.States}
 	 */
 	copilot.data.Data.prototype.paths = function (from, to) {
 		var self = this,
@@ -263,6 +301,45 @@
 			} else {
 				setTimeout(function () {
 					self.paths(from, to);
+				}, 1000);
+			}
+		});
+
+		return null;
+	};
+
+	/**
+	 * Get path list
+	 * @returns {copilot.model.Paths}
+	 */
+	copilot.data.Data.prototype.pathList = function () {
+		var self = this,
+			command = "path-list",
+			what = command;
+
+		//return cached data
+		if (self.data[what]) {
+			return self.data[what];
+		}
+
+		//check for state
+		if (self.states[what]) {
+			return null;
+		}
+		self.states[what] = true;
+
+		this.get({
+			command : command
+		}, function (data) {
+			self.states[what] = false;
+			self.data[what] = data ? new copilot.model.Paths().clone.apply(data) : null;
+
+			if (data) {
+				//re-render
+				self.renderer.renderPageContent();
+			} else {
+				setTimeout(function () {
+					self.pathList();
 				}, 1000);
 			}
 		});

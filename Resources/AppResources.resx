@@ -836,6 +836,9 @@
   <data name="EmptyImages" xml:space="preserve">
     <value>Now there is a emptiness. You do not have any images that could be viewed. Use shot button in the application and take a picture.</value>
   </data>
+  <data name="EmptyPaths" xml:space="preserve">
+    <value>You do not have recorded any way. Use the OBD or GPS to record your path.</value>
+  </data>
   <data name="EmptyVideos" xml:space="preserve">
     <value>Now there is a emptiness. You do not have any videos that could be viewed. Use record button in the application and record something interesting.</value>
   </data>
@@ -848,8 +851,20 @@
   <data name="ImageShowIt" xml:space="preserve">
     <value>show it on your device</value>
   </data>
+  <data name="PathDescription" xml:space="preserve">
+    <value>On {0} you were on the road, that was a long {2} {3} and that you cost {1} {4} fuel.</value>
+  </data>
+  <data name="Paths" xml:space="preserve">
+    <value>Paths</value>
+  </data>
+  <data name="Paths_Motto" xml:space="preserve">
+    <value>All your recorded journey. With all the information.</value>
+  </data>
   <data name="Pictures_Motto" xml:space="preserve">
     <value>Moments from your travels immediately to hand.</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Speed</value>
   </data>
   <data name="ViewThroughCamera" xml:space="preserve">
     <value>View through camera</value>

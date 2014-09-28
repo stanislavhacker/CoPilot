@@ -836,6 +836,9 @@
   <data name="EmptyImages" xml:space="preserve">
     <value>Nyní je zde prázdno. Zatím nemáte žádný obrázek, který by bylo možné zobrazit. Použijte focení v aplikaci a něco vyfoťte..</value>
   </data>
+  <data name="EmptyPaths" xml:space="preserve">
+    <value>Nemáte zaznamenány žádné cesty. Použijte OBD nebo GPS k zaznamenání vaší trasy.</value>
+  </data>
   <data name="EmptyVideos" xml:space="preserve">
     <value>Nyní je zde prázdno. Zatím nemáte žádné video, která by bylo možné zobrazit. Použijte nahrávání v aplikaci a nahrajte něco zajímavého.</value>
   </data>
@@ -848,8 +851,20 @@
   <data name="ImageShowIt" xml:space="preserve">
     <value>ho zobrazit na svém zařízení</value>
   </data>
+  <data name="PathDescription" xml:space="preserve">
+    <value>Dne {0} jste byly na cestě, která byl dlouhá {2} {3} a která vás stála {1} {4} paliva.</value>
+  </data>
+  <data name="Paths" xml:space="preserve">
+    <value>Cesty</value>
+  </data>
+  <data name="Paths_Motto" xml:space="preserve">
+    <value>Všechny vaše nahrané cesty. Se vším všudy.</value>
+  </data>
   <data name="Pictures_Motto" xml:space="preserve">
     <value>Momenty z vašich cest ihned po ruce.</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Rychlost</value>
   </data>
   <data name="ViewThroughCamera" xml:space="preserve">
     <value>Pohled přes kameru</value>

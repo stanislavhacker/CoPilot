@@ -94,7 +94,12 @@
 		clone.ThrottlePosition = this.ThrottlePosition;
 		clone.Uptime = typeof this.Uptime === "string" ?  new Date(this.Uptime) : this.Uptime;
 		clone.Time = typeof this.Time === "string" ?  new Date(this.Time) : this.Time;
-		clone.Position = typeof this.Position === "string" ? new copilot.model.Position(this.Position) : this.Position.clone();
+
+		if (this.Position !== null) {
+			clone.Position = typeof this.Position === "string" ? new copilot.model.Position(this.Position) : this.Position.clone();
+		} else {
+			clone.Position = null;
+		}
 
 		return clone;
 	};

@@ -69,7 +69,7 @@
 	 */
 	copilot.model.Backup.prototype.clone = function () {
 		var clone = new copilot.model.Backup();
-		clone.Date = this.Date;
+		clone.Date = typeof this.Date === "string" ? new Date(this.Date) : this.Date;
 		clone.Id = this.Id;
 		clone.Url = this.Url;
 		return clone;
