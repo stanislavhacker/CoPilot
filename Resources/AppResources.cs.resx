@@ -830,6 +830,15 @@
   <data name="Videos_Motto" xml:space="preserve">
     <value>Vaše videa z cest.</value>
   </data>
+  <data name="AddItem" xml:space="preserve">
+    <value>Přidat položku</value>
+  </data>
+  <data name="AddItem_Description" xml:space="preserve">
+    <value>Na vašem mobilním zařízení se právě zobrazila obrazovka pro přidání nové položky. Zadejte požadované údaje a potvrďte. Data budou automaticky načtena do webové aplikace. </value>
+  </data>
+  <data name="AddItem_Motto" xml:space="preserve">
+    <value>Přidání položky do aplikace.</value>
+  </data>
   <data name="EmptyData" xml:space="preserve">
     <value>Nyní je zde prázdno. Zatím nemáte zadána žádná data, která by byla možno zobrazit. Pokračujte kliknutím níže a zadejte první záznam.</value>
   </data>

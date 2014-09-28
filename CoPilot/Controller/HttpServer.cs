@@ -330,6 +330,24 @@ namespace CoPilot.CoPilot.Controller
                         application.BackupCommand.Execute(null);
                     });
                     break;
+                case "add-fuel":
+                    application.Dispatcher.BeginInvoke(() =>
+                    {
+                        application.AddFuelCommand.Execute(null);
+                    });
+                    break;
+                case "add-repair":
+                    application.Dispatcher.BeginInvoke(() =>
+                    {
+                        application.AddRepairCommand.Execute(null);
+                    });
+                    break;
+                case "add-maintenance":
+                    application.Dispatcher.BeginInvoke(() =>
+                    {
+                        application.AddMaintenanceCommand.Execute(null);
+                    });
+                    break;
                 default:
                     return "";
             }

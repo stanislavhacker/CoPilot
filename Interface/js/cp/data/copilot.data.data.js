@@ -353,6 +353,22 @@
 	 * @param {string=} whatData
 	 */
 	copilot.data.Data.prototype.run = function (what, whatData) {
+
+		//clear data
+		switch(what) {
+			case "add-maintenance":
+				this.data["maintenances"] = null;
+				break;
+			case "add-fuel":
+				this.data["fills"] = null;
+				break;
+			case "add-repair":
+				this.data["repairs"] = null;
+				break;
+			default:
+				break;
+		}
+
 		this.get({
 			command : 'run',
 			what: what,

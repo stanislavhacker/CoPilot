@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0811c607-a166-42ea-8095-2089e2caff82" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/cp/copilot.app.js" afterPath="$PROJECT_DIR$/js/cp/copilot.app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Resources/AppResources.cs.resx" afterPath="$PROJECT_DIR$/../Resources/AppResources.cs.resx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Resources/AppResources.resx" afterPath="$PROJECT_DIR$/../Resources/AppResources.resx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CoPilot/Controller/HttpServer.cs" afterPath="$PROJECT_DIR$/../CoPilot/Controller/HttpServer.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/cp/data/copilot.data.data.js" afterPath="$PROJECT_DIR$/js/cp/data/copilot.data.data.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/cp/data/copilot.data.renderer.js" afterPath="$PROJECT_DIR$/js/cp/data/copilot.data.renderer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Interface.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,11 +30,80 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="copilot.app.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/js/cp/copilot.app.js">
+      <file leaf-file-name="copilot.data.renderer.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/cp/data/copilot.data.renderer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="14" selection-start="711" selection-end="711" vertical-scroll-proportion="0.31166667" vertical-offset="459" max-vertical-offset="1955">
-              <folding />
+            <state line="302" column="57" selection-start="7202" selection-end="7202" vertical-scroll-proportion="0.5814536" vertical-offset="363" max-vertical-offset="3417">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#90#294#0" expanded="false" />
+                <element signature="e#365#478#0" expanded="false" />
+                <element signature="e#481#626#0" expanded="false" />
+                <element signature="e#677#761#0" expanded="false" />
+                <element signature="e#764#849#0" expanded="false" />
+                <element signature="e#874#1208#0" expanded="false" />
+                <element signature="e#1211#1302#0" expanded="false" />
+                <element signature="e#1336#1725#0" expanded="false" />
+                <element signature="e#1728#1924#0" expanded="false" />
+                <element signature="e#1993#2764#0" expanded="false" />
+                <element signature="e#2767#2942#0" expanded="false" />
+                <element signature="e#2985#4508#0" expanded="false" />
+                <element signature="e#4511#4644#0" expanded="false" />
+                <element signature="e#4690#6625#0" expanded="false" />
+                <element signature="e#6628#6699#0" expanded="false" />
+                <element signature="e#6744#7124#0" expanded="false" />
+                <element signature="e#7202#7458#0" expanded="false" />
+                <element signature="e#7735#9650#0" expanded="false" />
+                <element signature="e#9913#10996#0" expanded="false" />
+                <element signature="e#10082#10952#0" expanded="false" />
+                <element signature="e#11126#12206#0" expanded="false" />
+                <element signature="e#12328#14284#0" expanded="false" />
+                <element signature="e#14410#16490#0" expanded="false" />
+                <element signature="e#16614#19913#0" expanded="false" />
+                <element signature="e#20037#23223#0" expanded="false" />
+                <element signature="e#23345#25594#0" expanded="false" />
+                <element signature="e#25749#26873#0" expanded="false" />
+                <element signature="e#27012#27330#0" expanded="false" />
+                <element signature="e#27457#27911#0" expanded="false" />
+                <element signature="e#28175#30216#0" expanded="false" />
+                <element signature="e#30481#30985#0" expanded="false" />
+                <element signature="e#31111#32509#0" expanded="false" />
+                <element signature="e#32776#33866#0" expanded="false" />
+                <element signature="e#34081#34504#0" expanded="false" />
+                <element signature="e#34771#35259#0" expanded="false" />
+                <element signature="e#35363#35818#0" expanded="false" />
+                <element signature="e#35930#36112#0" expanded="false" />
+                <element signature="e#36220#36442#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="copilot.data.data.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/cp/data/copilot.data.data.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="354" column="64" selection-start="6513" selection-end="6513" vertical-scroll-proportion="0.0" vertical-offset="395" max-vertical-offset="1564">
+              <folding>
+                <element signature="e#144#182#0" expanded="false" />
+                <element signature="e#216#483#0" expanded="false" />
+                <element signature="e#593#1310#0" expanded="false" />
+                <element signature="e#1314#1380#0" expanded="false" />
+                <element signature="e#1437#2049#0" expanded="false" />
+                <element signature="e#2053#2105#0" expanded="false" />
+                <element signature="e#2155#2746#0" expanded="false" />
+                <element signature="e#2750#2806#0" expanded="false" />
+                <element signature="e#2858#3454#0" expanded="false" />
+                <element signature="e#3458#3512#0" expanded="false" />
+                <element signature="e#3563#4121#0" expanded="false" />
+                <element signature="e#4125#4179#0" expanded="false" />
+                <element signature="e#4230#4790#0" expanded="false" />
+                <element signature="e#4794#4906#0" expanded="false" />
+                <element signature="e#4964#5661#0" expanded="false" />
+                <element signature="e#5665#5726#0" expanded="false" />
+                <element signature="e#5779#6366#0" expanded="false" />
+                <element signature="e#6370#6451#0" expanded="false" />
+                <element signature="e#6513#6967#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -66,8 +140,8 @@
         <option value="$PROJECT_DIR$/js/cp/data/copilot.data.skin.js" />
         <option value="$PROJECT_DIR$/js/cp/data/copilot.data.language.js" />
         <option value="$PROJECT_DIR$/js/cp/data/copilot.data.data.js" />
-        <option value="$PROJECT_DIR$/js/cp/data/copilot.data.renderer.js" />
         <option value="$PROJECT_DIR$/js/cp/copilot.app.js" />
+        <option value="$PROJECT_DIR$/js/cp/data/copilot.data.renderer.js" />
       </list>
     </option>
   </component>
@@ -370,8 +444,8 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32857144" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32951653" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23529412" sideWeight="0.5255591" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32108626" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23529412" sideWeight="0.6789137" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32108626" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -390,39 +464,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="13" />
+      <option name="time" value="14" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/cp/model/copilot.model.data.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="60" selection-end="97" vertical-scroll-proportion="0.11333334" vertical-offset="0" max-vertical-offset="612">
-          <folding>
-            <element signature="e#20#43#0" expanded="false" />
-            <element signature="e#100#138#0" expanded="false" />
-            <element signature="e#177#267#0" expanded="false" />
-            <element signature="e#181#201#0" expanded="false" />
-            <element signature="e#226#246#0" expanded="false" />
-            <element signature="e#271#327#0" expanded="false" />
-            <element signature="e#382#508#0" expanded="false" />
-            <element signature="e#512#547#0" expanded="false" />
-            <element signature="e#583#673#0" expanded="false" />
-            <element signature="e#587#607#0" expanded="false" />
-            <element signature="e#632#652#0" expanded="false" />
-            <element signature="e#677#730#0" expanded="false" />
-            <element signature="e#782#905#0" expanded="false" />
-            <element signature="e#909#945#0" expanded="false" />
-            <element signature="e#982#1112#0" expanded="false" />
-            <element signature="e#1116#1170#0" expanded="false" />
-            <element signature="e#1223#1411#0" expanded="false" />
-            <element signature="e#1415#1483#0" expanded="false" />
-            <element signature="e#1530#1712#0" expanded="false" />
-            <element signature="e#1716#1772#0" expanded="false" />
-            <element signature="e#1827#1961#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/cp/model/copilot.model.fills.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="40" selection-start="97" selection-end="97" vertical-scroll-proportion="0.1761658" vertical-offset="0" max-vertical-offset="2040">
@@ -463,7 +508,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="40" selection-start="97" selection-end="97" vertical-scroll-proportion="0.1737649" vertical-offset="0" max-vertical-offset="2499">
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -472,7 +517,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="40" selection-start="97" selection-end="97" vertical-scroll-proportion="0.086666666" vertical-offset="50" max-vertical-offset="1173">
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
             <element signature="e#326#655#0" expanded="false" />
           </folding>
         </state>
@@ -482,7 +527,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="40" selection-start="97" selection-end="97" vertical-scroll-proportion="0.1737649" vertical-offset="0" max-vertical-offset="1411">
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -491,7 +536,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="40" selection-start="93" selection-end="93" vertical-scroll-proportion="0.17" vertical-offset="0" max-vertical-offset="1173">
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -509,7 +554,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="40" selection-start="97" selection-end="97" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1904">
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -518,7 +563,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="40" selection-start="97" selection-end="97" vertical-scroll-proportion="0.18021202" vertical-offset="0" max-vertical-offset="1717">
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -539,9 +584,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/cp/data/copilot.data.data.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="38" selection-start="91" selection-end="91" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2448">
+        <state line="354" column="64" selection-start="6513" selection-end="6513" vertical-scroll-proportion="0.0" vertical-offset="395" max-vertical-offset="1564">
           <folding>
             <element signature="e#144#182#0" expanded="false" />
             <element signature="e#216#483#0" expanded="false" />
@@ -554,17 +606,28 @@
             <element signature="e#2858#3454#0" expanded="false" />
             <element signature="e#3458#3512#0" expanded="false" />
             <element signature="e#3563#4121#0" expanded="false" />
+            <element signature="e#4125#4179#0" expanded="false" />
             <element signature="e#4230#4790#0" expanded="false" />
             <element signature="e#4794#4906#0" expanded="false" />
+            <element signature="e#4964#5661#0" expanded="false" />
             <element signature="e#5665#5726#0" expanded="false" />
             <element signature="e#5779#6366#0" expanded="false" />
+            <element signature="e#6370#6451#0" expanded="false" />
+            <element signature="e#6513#6967#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/cp/copilot.app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="14" selection-start="711" selection-end="711" vertical-scroll-proportion="0.3022599" vertical-offset="539" max-vertical-offset="1955">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/cp/data/copilot.data.renderer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="199" column="43" selection-start="3901" selection-end="3901" vertical-scroll-proportion="0.42930153" vertical-offset="1023" max-vertical-offset="5797">
+        <state line="302" column="57" selection-start="7202" selection-end="7202" vertical-scroll-proportion="0.5814536" vertical-offset="363" max-vertical-offset="3417">
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#90#294#0" expanded="false" />
@@ -578,37 +641,34 @@
             <element signature="e#1728#1924#0" expanded="false" />
             <element signature="e#1993#2764#0" expanded="false" />
             <element signature="e#2767#2942#0" expanded="false" />
+            <element signature="e#2985#4508#0" expanded="false" />
             <element signature="e#4511#4644#0" expanded="false" />
             <element signature="e#4690#6625#0" expanded="false" />
             <element signature="e#6628#6699#0" expanded="false" />
             <element signature="e#6744#7124#0" expanded="false" />
-            <element signature="e#7202#7456#0" expanded="false" />
-            <element signature="e#7733#9648#0" expanded="false" />
-            <element signature="e#9911#10912#0" expanded="false" />
-            <element signature="e#11042#12122#0" expanded="false" />
-            <element signature="e#12244#14200#0" expanded="false" />
-            <element signature="e#14326#16406#0" expanded="false" />
-            <element signature="e#16530#19829#0" expanded="false" />
-            <element signature="e#19953#23139#0" expanded="false" />
-            <element signature="e#23261#25510#0" expanded="false" />
-            <element signature="e#26928#27246#0" expanded="false" />
-            <element signature="e#27510#29332#0" expanded="false" />
-            <element signature="e#29597#30101#0" expanded="false" />
-            <element signature="e#30227#31625#0" expanded="false" />
-            <element signature="e#31892#32982#0" expanded="false" />
-            <element signature="e#33197#33620#0" expanded="false" />
-            <element signature="e#33887#34375#0" expanded="false" />
-            <element signature="e#34479#34934#0" expanded="false" />
-            <element signature="e#35046#35228#0" expanded="false" />
-            <element signature="e#35336#35558#0" expanded="false" />
+            <element signature="e#7202#7458#0" expanded="false" />
+            <element signature="e#7735#9650#0" expanded="false" />
+            <element signature="e#9913#10996#0" expanded="false" />
+            <element signature="e#10082#10952#0" expanded="false" />
+            <element signature="e#11126#12206#0" expanded="false" />
+            <element signature="e#12328#14284#0" expanded="false" />
+            <element signature="e#14410#16490#0" expanded="false" />
+            <element signature="e#16614#19913#0" expanded="false" />
+            <element signature="e#20037#23223#0" expanded="false" />
+            <element signature="e#23345#25594#0" expanded="false" />
+            <element signature="e#25749#26873#0" expanded="false" />
+            <element signature="e#27012#27330#0" expanded="false" />
+            <element signature="e#27457#27911#0" expanded="false" />
+            <element signature="e#28175#30216#0" expanded="false" />
+            <element signature="e#30481#30985#0" expanded="false" />
+            <element signature="e#31111#32509#0" expanded="false" />
+            <element signature="e#32776#33866#0" expanded="false" />
+            <element signature="e#34081#34504#0" expanded="false" />
+            <element signature="e#34771#35259#0" expanded="false" />
+            <element signature="e#35363#35818#0" expanded="false" />
+            <element signature="e#35930#36112#0" expanded="false" />
+            <element signature="e#36220#36442#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/cp/copilot.app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="14" selection-start="711" selection-end="711" vertical-scroll-proportion="0.31166667" vertical-offset="459" max-vertical-offset="1955">
-          <folding />
         </state>
       </provider>
     </entry>

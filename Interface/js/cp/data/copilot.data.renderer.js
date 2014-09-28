@@ -302,7 +302,7 @@
 	 */
 	copilot.data.Renderer.prototype.render = function () {
 		//title
-		window.title = this.language.getString("AppName");
+		document.title = this.language.getString("AppName");
 
 		//header, page
 		this.renderHeaderWrapper();
@@ -427,6 +427,9 @@
 				break;
 			case language.getString("Paths"):
 				this.renderPaths(parent);
+				break;
+			case language.getString("AddItem"):
+				this.renderAddItem(parent);
 				break;
 			case language.getString('FuelPriceTrend'):
 				this.renderGraph(parent, 'FuelPriceTrend');
@@ -1067,6 +1070,31 @@
 		$('body').append(frame);
 	};
 
+	/**
+	 * Render add item
+	 * @param {jQuery} parent
+	 */
+	copilot.data.Renderer.prototype.renderAddItem = function (parent) {
+		var div,
+			title,
+			language = this.language;
+
+		//clear
+		//noinspection JSUnresolvedFunction
+		parent.empty();
+
+		//title
+		title = $('<div class="title" />').appendTo(parent);
+
+		//h2
+		$('<h2>' + language.getString("AddItem") + '</h2>').appendTo(title);
+
+		$('<span class="byline">' + language.getString("AddItem_Motto") + '</span>').appendTo(title);
+
+		//add
+		$('<p>' + language.getString("AddItem_Description") + '</p>').appendTo(parent);
+	};
+
 
 	/***********************************************************************/
 	/******* MENU */
@@ -1077,6 +1105,7 @@
 	 */
 	copilot.data.Renderer.prototype.renderPageSideBar = function () {
 		var language = this.language,
+			data = this.data,
 			parent = $('#sidebar'),
 			content = $('#content'),
 			showAddMenu = true,
@@ -1085,6 +1114,7 @@
 			menuTwo,
 			menuOne,
 			menu,
+			li,
 			ul;
 
 		//clear
@@ -1116,10 +1146,22 @@
 			menuTwo = $('<div class="sbox2" />').appendTo(menu);
 			$('<h2>' + language.getString("NewItems") + '</h2>').appendTo(menuTwo);
 			ul = $('<ul class="style2">').appendTo(menuTwo);
-				//items
-				$('<li><a href="#' + language.getString('AddFuel') + '">' + language.getString('AddFuel') + '</a></li>').appendTo(ul);
-				$('<li><a href="#' + language.getString('AddRepair') + '">' + language.getString('AddRepair') + '</a></li>').appendTo(ul);
-				$('<li><a href="#' + language.getString('AddMaintenance') + '">' + language.getString('AddMaintenance') + '</a></li>').appendTo(ul);
+			//items
+			li = $('<li><a href="#' + language.getString('AddItem') + '">' + language.getString('AddFuel') + '</a></li>').appendTo(ul);
+			li.click(function () {
+				data.run("add-fuel");
+			});
+
+			li = $('<li><a href="#' + language.getString('AddItem') + '">' + language.getString('AddRepair') + '</a></li>').appendTo(ul);
+			li.click(function () {
+				data.run("add-repair");
+			});
+
+			li = $('<li><a href="#' + language.getString('AddItem') + '">' + language.getString('AddMaintenance') + '</a></li>').appendTo(ul);
+			li.click(function () {
+				data.run("add-maintenance");
+			});
+
 			//remove class
 			parent.removeClass(min);
 			content.removeClass(max);

@@ -830,6 +830,15 @@
   <data name="Videos_Motto" xml:space="preserve">
     <value>Your video from your travels.</value>
   </data>
+  <data name="AddItem" xml:space="preserve">
+    <value>Add Item</value>
+  </data>
+  <data name="AddItem_Description" xml:space="preserve">
+    <value>On your mobile device is currently displayed screen to add a new item. Enter the required information and confirm. The data is automatically loaded into the web application.</value>
+  </data>
+  <data name="AddItem_Motto" xml:space="preserve">
+    <value>Adding items to the application.</value>
+  </data>
   <data name="EmptyData" xml:space="preserve">
     <value>Now there is a emptiness. You do not have entered any data that would be displayed. Continue clicking below and enter the first record.</value>
   </data>
