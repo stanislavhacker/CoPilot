@@ -4,7 +4,7 @@
  */
 (function () {
 
-	copilot.data = copilot || {};
+	copilot.data = copilot.data || {};
 
 	//url: api/data?command=setting&from=&to=&page=
 

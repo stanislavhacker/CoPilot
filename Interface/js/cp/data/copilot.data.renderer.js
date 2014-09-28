@@ -4,7 +4,7 @@
  */
 (function () {
 
-	copilot.data = copilot || {};
+	copilot.data = copilot.data || {};
 
 	/**
 	 * Calculate height
@@ -197,7 +197,7 @@
 				googleMap = new google.maps.Map(inner[0], {
 					zoom: 16,
 					center: center,
-					disableDefaultUI: true,
+					disableDefaultUI: false,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 				});
 
@@ -977,6 +977,7 @@
 	copilot.data.Renderer.prototype.renderGraph = function (parent, graph) {
 		var graphData,
 			graphElement,
+			skin = this.skin.data,
 			language = this.language,
 			fills = this.data.fills() || null;
 
@@ -1021,18 +1022,20 @@
 			yAxis: {
 				title: {
 					text: graphData.dataName + " " + graphData.dataUnit
-				},
-				plotLines: [{
-					value: 0,
-					width: 2,
-					color: '#808080'
-				}]
+				}
 			},
 			tooltip: {
 				valueSuffix: graphData.dataUnit
 			},
 			legend: {
 				enabled: false
+			},
+			plotOptions: {
+				series: {
+					value: 0,
+					width: 2,
+					color: skin.Foreground
+				}
 			},
 			series: graphData.series
 		});

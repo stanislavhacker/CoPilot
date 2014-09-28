@@ -4,7 +4,7 @@
  */
 (function () {
 
-	copilot.model = copilot || {};
+	copilot.model = copilot.model || {};
 
 	/**
 	 * Videos

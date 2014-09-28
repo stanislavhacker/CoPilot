@@ -16,6 +16,7 @@ java -jar compiler.jar ^
 	--js ../js/cp/model/copilot.model.data.js ^
 	--js ../js/cp/model/copilot.model.graph.js ^
 	--js ../js/cp/model/copilot.model.paths.js ^
+	--js ../js/cp/model/copilot.model.skin.js ^
 	--js_output_file ../cp.js
 
 dotless.Compiler.exe -m ../css/cp.less ../cp.css

@@ -4,7 +4,7 @@
  */
 (function () {
 
-	copilot.data = copilot || {};
+	copilot.data = copilot.data || {};
 
 	/**
 	 * Skin
@@ -15,8 +15,8 @@
 		this.loading = true;
 		/** @type {boolean}*/
 		this.error = false;
-		/** @type {{}}*/
-		this.data = {};
+		/** @type {copilot.model.Skin}*/
+		this.data = new copilot.model.Skin();
 		//load skin
 		this.load();
 	};
@@ -34,7 +34,7 @@
 		//noinspection JSUnresolvedFunction
 		$.ajax(copilot.URL + "api/skin")
 			.done(function(data) {
-				self.data = data;
+				self.data = data ? new copilot.model.Skin().clone.apply(data) : null;
 				self.loading = false;
 			}).fail(function () {
 				self.error = true;

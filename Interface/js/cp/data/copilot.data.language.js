@@ -4,7 +4,7 @@
  */
 (function () {
 
-	copilot.data = copilot || {};
+	copilot.data = copilot.data || {};
 
 	/**
 	 * Language
