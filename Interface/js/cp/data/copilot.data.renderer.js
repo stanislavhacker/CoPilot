@@ -190,6 +190,24 @@
 			height: height - header
 		});
 
+		//events
+		win.unbind("resize.map");
+		win.bind("resize.map", function () {
+			//sizes
+			width = win.width();
+			height = win.height();
+			//map
+			map.css({
+				width: width,
+				height: height - header
+			});
+			//inner
+			inner.css({
+				width: width,
+				height: height - header
+			});
+		});
+
 		//map
 		setTimeout(function () {
 			var route,
