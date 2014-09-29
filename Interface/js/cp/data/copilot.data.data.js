@@ -278,11 +278,11 @@
 	 * Get paths for dates
 	 * @param {Date} from
 	 * @param {Date} to
-	 * @returns {copilot.model.States}
+	 * @returns {copilot.model.Path}
 	 */
-	copilot.data.Data.prototype.paths = function (from, to) {
+	copilot.data.Data.prototype.path = function (from, to) {
 		var self = this,
-			command = "paths",
+			command = "path",
 			what = command + "-" +  from.getTime() + "-" +  to.getTime();
 
 		//return cached data
@@ -302,14 +302,14 @@
 			toDate: to.toISOString()
 		}, function (data) {
 			self.states[what] = false;
-			self.data[what] = data ? new copilot.model.States().clone.apply(data) : null;
+			self.data[what] = data ? new copilot.model.Path().clone.apply(data) : null;
 
 			if (data) {
 				//re-render
 				self.renderer.renderPageContent();
 			} else {
 				setTimeout(function () {
-					self.paths(from, to);
+					self.path(from, to);
 				}, 1000);
 			}
 		});

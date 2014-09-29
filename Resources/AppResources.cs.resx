@@ -878,4 +878,7 @@
   <data name="ViewThroughCamera" xml:space="preserve">
     <value>Pohled přes kameru</value>
   </data>
+  <data name="RouteDescription" xml:space="preserve">
+    <value>Celková délka: {0} {1}, Čas cesty: {2}, Spotřebováno paliva: {3} {4}</value>
+  </data>
 </root>

@@ -7,6 +7,50 @@
 	copilot.data = copilot.data || {};
 
 	/**
+	 * Get time difference
+	 * @param {Date} laterDate
+	 * @param {Date} earlierDate
+	 * @returns {string}
+	 */
+	function timeDifference(laterDate, earlierDate) {
+		var difference = laterDate.getTime() - earlierDate.getTime(),
+			days = 1000*60*60*24,
+			hours = 1000*60*60,
+			minutes = 1000*60,
+			secondsDifference,
+			minutesDifference,
+			hoursDifference,
+			daysDifference,
+			string = "";
+
+		daysDifference = Math.floor(difference / days);
+		difference -= daysDifference * days;
+
+		hoursDifference = Math.floor(difference / hours);
+		difference -= hoursDifference * hours;
+
+		minutesDifference = Math.floor(difference / minutes);
+		difference -= minutesDifference * minutes;
+
+		secondsDifference = Math.floor(difference / 1000);
+
+		if (daysDifference > 0) {
+			string += ("0" + daysDifference + ":").slice(-3);
+		}
+		if (hoursDifference > 0) {
+			string += ("0" + hoursDifference + ":").slice(-3);
+		}
+		if (minutesDifference > 0) {
+			string += ("0" + minutesDifference + ":").slice(-3);
+		}
+		if (secondsDifference > 0) {
+			string += ("0" + secondsDifference).slice(-2);
+		}
+
+		return string;
+	}
+
+	/**
 	 * Calculate height
 	 * @param {copilot.model.Odometer} odometerA
 	 * @param {copilot.model.Odometer} odometerB
@@ -142,32 +186,53 @@
 
 	/**
 	 * Get map frame
-	 * @param {Array.<copilot.model.State>} paths
+	 * @param {copilot.model.Path} path
 	 * @param {copilot.data.Skin} skin
 	 * @param {copilot.data.Language} language
 	 * @returns {jQuery}
 	 */
-	function mapFrame(paths, skin, language) {
+	function mapFrame(path, skin, language) {
 		var i,
 			div,
+			info,
 			state,
 			center,
 			width,
 			height,
 			inner,
+			data = [],
 			positions = [],
 			win = $(window),
+			infoHeight = 30,
 			header = $("#header").height(),
 			map = $('<div id="mapviewer fullscreen" />');
 
 		//states
-		for (i = 0; i < paths.length; i++) {
-			if (paths[i].Position) {
+		for (i = 0; i < path.States.length; i++) {
+			if (path.States[i].Position) {
 				//center
-				center = new google.maps.LatLng(paths[i].Position.Latitude, paths[i].Position.Longitude);
+				center = new google.maps.LatLng(path.States[i].Position.Latitude, path.States[i].Position.Longitude);
 				break;
 			}
 		}
+
+		//info
+		info = $('<div class="info-panel" />').css({
+			width: '100%',
+			height: infoHeight,
+			background: skin.data.Foreground
+		});
+
+		//data
+		data[0] = Math.round(path.TraveledDistance * 10) / 10; //distance
+		data[1] = copilot.Distance;
+		data[2] = timeDifference(path.EndDate, path.StartDate);
+		data[3] = Math.round(path.ConsumedFuel * 100) / 100; //fuel
+		data[4] = language.getString('FueledUnit');
+
+
+		info.append(language.getString('RouteDescription', data));
+		map.append(info);
 
 		//sizes
 		width = win.width();
@@ -188,7 +253,7 @@
 		inner = $("<div></div>").appendTo(map);
 		inner.css({
 			width: width,
-			height: height - header
+			height: height - header - infoHeight
 		});
 
 		//events
@@ -205,7 +270,7 @@
 			//inner
 			inner.css({
 				width: width,
-				height: height - header
+				height: height - header - infoHeight
 			});
 		});
 
@@ -221,8 +286,8 @@
 				});
 
 			//states
-			for (i = 0; i < paths.length; i++) {
-				state = paths[i];
+			for (i = 0; i < path.States.length; i++) {
+				state = path.States[i];
 				if (state.Position) {
 					//create
 					position = new google.maps.LatLng(state.Position.Latitude, state.Position.Longitude);
@@ -702,7 +767,7 @@
 			//video
 			video = videos[i];
 			//paths
-			paths = dataModel.paths(video.Time, new Date(video.Time.getTime() + (video.duration * 1000)));
+			paths = dataModel.path(video.Time, new Date(video.Time.getTime() + (video.duration * 1000)));
 
 			p = $('<p></p>').addClass('videos').appendTo(parent);
 			p.css('height', '400px');
@@ -712,7 +777,7 @@
 			//data
 			data[0] = video.Time.toLocaleDateString();
 			data[1] = new Date(video.duration * 1000).toLocaleTimeString();
-			data[2] = paths ? paths.length : 0;
+			data[2] = paths ? paths.States.length : 0;
 
 			//info
 			info = $('<p />').addClass("info").html(language.getString("VideoDescription", data));
@@ -721,7 +786,7 @@
 			//if paths exists
 			if (paths) {
 				//first
-				point = paths[0];
+				point = paths.States[0];
 				//iframe
 				if (video.isBackuped()) {
 					//video is available on cloud storage
@@ -755,7 +820,7 @@
 					button.data("video", video);
 					button.click(function () {
 						var video = $(this).data("video");
-						self.renderMap(dataModel.paths(video.Time, new Date(video.Time.getTime() + (video.duration * 1000))));
+						self.renderMap(dataModel.path(video.Time, new Date(video.Time.getTime() + (video.duration * 1000))));
 					});
 					description.append(button);
 				}
@@ -823,7 +888,7 @@
 			//image
 			image = images[i];
 			//paths
-			paths = dataModel.paths(new Date(image.Time.getTime() - 10000), new Date(image.Time.getTime() + 10000));
+			paths = dataModel.path(new Date(image.Time.getTime() - 10000), new Date(image.Time.getTime() + 10000));
 
 			p = $('<p></p>').addClass('images').appendTo(parent);
 			p.css('height', '400px');
@@ -840,7 +905,7 @@
 			//if paths exists
 			if (paths) {
 				//first
-				point = paths[0];
+				point = paths.States[0];
 				//iframe
 				if (image.isBackuped()) {
 					//image is available on cloud storage
@@ -874,7 +939,7 @@
 					button.data("image", image);
 					button.click(function () {
 						var image = $(this).data("image");
-						self.renderMap(dataModel.paths(new Date(image.Time.getTime() - 10000), new Date(image.Time.getTime() + 10000)));
+						self.renderMap(dataModel.path(new Date(image.Time.getTime() - 10000), new Date(image.Time.getTime() + 10000)));
 					});
 					description.append(button);
 				}
@@ -939,7 +1004,7 @@
 			//path
 			path = /** @type {copilot.model.Path} */ paths[i];
 			//paths
-			pathStates = dataModel.paths(path.StartDate, path.EndDate);
+			pathStates = dataModel.path(path.StartDate, path.EndDate);
 
 			p = $('<p></p>').addClass('paths').appendTo(parent);
 			p.css('height', '150px');
@@ -963,13 +1028,13 @@
 			//if paths exists
 			if (pathStates) {
 				//first
-				if (pathStates[0]) {
+				if (pathStates.States[0]) {
 					//paths
 					button = $('<a href="#' + language.getString("Paths") + '" class="button path">' + this.language.getString('ShowMap') + '</a>');
 					button.data("path", path);
 					button.click(function () {
 						var path = $(this).data("path");
-						self.renderMap(dataModel.paths(path.StartDate, path.EndDate));
+						self.renderMap(dataModel.path(path.StartDate, path.EndDate));
 					});
 					description.append(button);
 				}
@@ -1065,15 +1130,15 @@
 
 	/**
 	 * Render map
-	 * @param {Array.<copilot.model.State>} states
+	 * @param {copilot.model.Path} path
 	 */
-	copilot.data.Renderer.prototype.renderMap = function (states) {
+	copilot.data.Renderer.prototype.renderMap = function (path) {
 		var skin = this.skin,
 			language = this.language,
 			frame;
 
 		//clear
-		if (states === null) {
+		if (path === null) {
 			if (this.map) {
 				this.map.remove();
 			}
@@ -1082,7 +1147,7 @@
 		}
 
 		//frame
-		frame = mapFrame(states, skin, language);
+		frame = mapFrame(path, skin, language);
 		//set current map
 		this.map = frame;
 		//append

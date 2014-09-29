@@ -290,8 +290,8 @@ namespace CoPilot.CoPilot.Controller
                     return createResponse(createVideos(from, to, page));
                 case "pictures":
                     return createResponse(createPictures(from, to, page));
-                case "paths":
-                    return createResponse(createPaths(fromDate, toDate, page));
+                case "path":
+                    return createResponse(createPath(fromDate, toDate, page));
                 case "path-list":
                     return createResponse(createPathList());
                 case "run":
@@ -362,10 +362,15 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="to"></param>
         /// <param name="page"></param>
         /// <returns></returns>
-        private object createPaths(DateTime from, DateTime to, int page)
+        private object createPath(DateTime from, DateTime to, int page)
         {
             var stat = new Statistics.Statistics(this.dataController.Records);
-            return stat.getStateStats(from, to).getStates();
+            var states = stat.getStateStats(from, to).getStates();
+
+            var route = new Statistics.Data.RouteStats(stat, from, states);
+            route.States = states;
+
+            return route;
         }
 
         /// <summary>

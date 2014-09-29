@@ -878,4 +878,7 @@
   <data name="ViewThroughCamera" xml:space="preserve">
     <value>View through camera</value>
   </data>
+  <data name="RouteDescription" xml:space="preserve">
+    <value>Route length: {0} {1}, Travel time: {2}, Fuel consumed: {3} {4}</value>
+  </data>
 </root>

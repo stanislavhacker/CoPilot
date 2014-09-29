@@ -59,6 +59,8 @@
 		this.Distance = "";
 		/** @type {string}*/
 		this.Uid = "";
+		/** @type {copilot.model.States}*/
+		this.States = new copilot.model.States();
 	};
 
 	/**
@@ -74,6 +76,7 @@
 		clone.TraveledDistance = this.TraveledDistance;
 		clone.Distance = this.Distance;
 		clone.Uid = this.Uid;
+		clone.States = this.States.clone ? this.States.clone() : new copilot.model.States().clone.apply(this.States);
 
 		return clone;
 	};
