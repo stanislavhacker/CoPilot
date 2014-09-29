@@ -16,7 +16,8 @@
 	 */
 	function calculateHeight(odometerA, odometerB, ration, minimalValue) {
 		if (odometerB) {
-			return (odometerA.Value - odometerB.Value) / ration;
+			var value = (copilot.App.GetOdometerWithRightDistance(odometerA) - copilot.App.GetOdometerWithRightDistance(odometerB)) / ration;
+			return Math.max(value, minimalValue);
 		}
 		return minimalValue || 200;
 	}
@@ -29,7 +30,7 @@
 	 */
 	function calculateDistance(odometerA, odometerB) {
 		if (odometerB) {
-			return odometerA.Value - odometerB.Value;
+			return copilot.App.GetOdometerWithRightDistance(odometerA) - copilot.App.GetOdometerWithRightDistance(odometerB);
 		}
 		return 0;
 	}
@@ -541,12 +542,12 @@
 			p = $('<p></p>').addClass('fills').appendTo(parent);
 			p.css('height', height);
 			a = $('<div class="odometer" />').appendTo(p);
-			a.append('<div class="value">' + fill.Odometer.Value.toFixed(1) + ' ' + fill.Odometer.Distance + '</div>');
+			a.append('<div class="value">' + copilot.App.GetOdometerWithRightDistance(fill.Odometer).toFixed(1) + ' ' + copilot.Distance + '</div>');
 
 			//distance
 			distance = calculateDistance(fill.Odometer, fills[i + 1] ? fills[i + 1].Odometer : null);
 			if (distance > 0) {
-				distanceEl = $('<div class="distance">' + Math.round(distance)  + ' ' + fill.Odometer.Distance + '</div>');
+				distanceEl = $('<div class="distance">' + Math.round(distance)  + ' ' + copilot.Distance + '</div>');
 				distanceEl.css('top', (height / 2) + 15);
 				a.append(distanceEl);
 			}
@@ -615,17 +616,17 @@
 			//repair
 			repair = repairs[i];
 			//height
-			height = calculateHeight(repair.Odometer, repairs[i + 1] ? repairs[i + 1].Odometer : null, 10, 100);
+			height = calculateHeight(repair.Odometer, repairs[i + 1] ? repairs[i + 1].Odometer : null, 10, 120);
 
 			p = $('<p></p>').addClass('repairs').appendTo(parent);
 			p.css('height', height);
 			a = $('<div class="odometer"/>').appendTo(p);
-			a.append('<div class="value">' + repair.Odometer.Value.toFixed(1)  + ' ' + repair.Odometer.Distance + '</div>');
+			a.append('<div class="value">' + copilot.App.GetOdometerWithRightDistance(repair.Odometer).toFixed(1)  + ' ' + copilot.Distance + '</div>');
 
 			//distance
 			distance = calculateDistance(repair.Odometer, repairs[i + 1] ? repairs[i + 1].Odometer : null);
 			if (distance > 0) {
-				distanceEl = $('<div class="distance">' + Math.round(distance)  + ' ' + repair.Odometer.Distance + '</div>');
+				distanceEl = $('<div class="distance">' + Math.round(distance)  + ' ' + copilot.Distance + '</div>');
 				distanceEl.css('top', (height / 2) + 15);
 				a.append(distanceEl);
 			}
@@ -1263,7 +1264,7 @@
 
 		//right
 		if (maintenance.IsOdometer) {
-			$('<div class="box-right"> <a class="button button-big">' + maintenance.Odometer.Value + ' ' +  maintenance.Odometer.Distance + '</a></div>').appendTo(container);
+			$('<div class="box-right"> <a class="button button-big">' + copilot.App.GetOdometerWithRightDistance(maintenance.Odometer) + ' ' +  copilot.Distance + '</a></div>').appendTo(container);
 		} else {
 			$('<div class="box-right"> <a class="button button-big">' + maintenance.getDate() + '</a></div>').appendTo(container);
 		}

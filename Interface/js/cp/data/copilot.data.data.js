@@ -33,6 +33,7 @@
 	 */
 	copilot.data.Data.prototype.setting = function () {
 		var self = this,
+			settings,
 			what = "setting";
 
 		//return cached data
@@ -53,8 +54,15 @@
 		this.get({
 			command : what
 		}, function (data) {
+			//settings
+			settings = data ? new copilot.model.Settings().clone.apply(data) : null;
+			//set
+			if (settings) {
+				copilot.Distance = settings.Distance;
+			}
+			//set
 			self.states[what] = false;
-			self.data[what] = data ? new copilot.model.Settings().clone.apply(data) : null;
+			self.data[what] = settings;
 			self.loading = false;
 			self.error = data === null;
 
@@ -394,10 +402,10 @@
 		}
 
 		if (repairs[0]) {
-			odometer = repairs[0].Odometer.Value;
+			odometer = copilot.App.GetOdometerWithRightDistance(repairs[0].Odometer);
 		}
-		if (fills[0] && fills[0].Odometer.Value > odometer) {
-			odometer = fills[0].Odometer.Value;
+		if (fills[0] && copilot.App.GetOdometerWithRightDistance(fills[0].Odometer) > odometer) {
+			odometer = copilot.App.GetOdometerWithRightDistance(fills[0].Odometer);
 		}
 
 		return odometer;

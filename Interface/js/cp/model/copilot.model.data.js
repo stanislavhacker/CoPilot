@@ -7,11 +7,20 @@
 	copilot.model = copilot.model || {};
 
 	/**
+	 * Distance
+	 * @enum
+	 */
+	copilot.model.Distance = {
+		Mi: "Mi",
+		Km: "Km"
+	};
+
+	/**
 	 * Odometer
 	 * @constructor
 	 */
 	copilot.model.Odometer = function () {
-		/** @type {string}*/
+		/** @type {copilot.model.Distance}*/
 		this.Distance = "";
 		/** @type {number}*/
 		this.Value = 0;

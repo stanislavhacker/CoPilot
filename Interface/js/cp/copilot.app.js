@@ -7,8 +7,12 @@ var copilot = {};
 	(function () {
 	
 		//static variables
+		/** @type {string}*/
 		copilot.URL = "";
+		/** @type {string}*/
 		copilot.Hash = window.location.hash.substr(1);
+		/** @type {copilot.model.Distance}*/
+		copilot.Distance = null;
 
 		/**
 		 * Main app
@@ -36,7 +40,7 @@ var copilot = {};
 		 * @returns {string}
 		 */
 		copilot.App.prototype.getUrl = function () {
-			//return "http://192.168.0.101/copilot/";
+			//return "http://192.168.1.10/copilot/";
 			var index = window.location.href.indexOf("copilot/") + 8;
 			return window.location.href.substr(0, index);
 		};
@@ -99,6 +103,58 @@ var copilot = {};
 				}
 			}, 100);
 		};
+
+
+
+
+
+
+
+
+
+
+
+
+
+		///// CONVERTERS
+
+
+		/**
+		 * GetExchangeDistanceFor
+		 * @param {copilot.model.Distance} from
+		 * @param {copilot.model.Distance} to
+		 * @returns {number}
+		 * @static
+		 */
+		copilot.App.GetExchangeDistanceFor = function(from, to) {
+			//Mi => Km
+			if (from === copilot.model.Distance.Mi && to === copilot.model.Distance.Km) {
+				return 1.609344;
+			}
+			//Km => Mi
+			if (from === copilot.model.Distance.Km && to === copilot.model.Distance.Mi) {
+				return 0.621371192;
+			}
+			return 0;
+		};
+
+		/**
+		 * GetOdometerWithRightDistance
+		 * @param {copilot.model.Odometer} odometer
+		 * @returns {number}
+		 * @static
+		 */
+		copilot.App.GetOdometerWithRightDistance = function(odometer) {
+			var rate,
+				currentDistance = copilot.Distance;
+
+			if (odometer.Distance === currentDistance) {
+				return odometer.Value;
+			}
+			//recalculate
+			rate = copilot.App.GetExchangeDistanceFor(odometer.Distance, currentDistance);
+			return Math.round(odometer.Value * rate * 100) / 100;
+		}
 
 	}());
 

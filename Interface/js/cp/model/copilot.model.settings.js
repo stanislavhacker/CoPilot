@@ -13,8 +13,8 @@
 	copilot.model.Settings = function () {
 		/** @type {string}*/
 		this.Currency = "CZK";
-		/** @type {string}*/
-		this.Distance = "Km";
+		/** @type {copilot.model.Distance}*/
+		this.Distance = copilot.model.Distance.Km;
 		/** @type {string}*/
 		this.Consumption = "";
 

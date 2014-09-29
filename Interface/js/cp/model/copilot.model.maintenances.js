@@ -70,7 +70,7 @@
 
 			//odometer
 			if (maintenance.IsOdometer && odometer !== null) {
-				maintenanceOdometer = maintenance.Odometer.Value;
+				maintenanceOdometer = copilot.App.GetOdometerWithRightDistance(maintenance.Odometer);
 				var sub = maintenanceOdometer - odometer;
 				if (sub >= 0 && sub < maintenance.WarningDistance) {
 					filtered.push(maintenance);
