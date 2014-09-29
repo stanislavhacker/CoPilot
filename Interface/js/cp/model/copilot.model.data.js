@@ -16,6 +16,15 @@
 	};
 
 	/**
+	 * Currency
+	 * @enum
+	 */
+	copilot.model.Currency = {
+		CZK: "CZK",
+		USD: "USD"
+	};
+
+	/**
 	 * Odometer
 	 * @constructor
 	 */
@@ -42,7 +51,7 @@
 	 * @constructor
 	 */
 	copilot.model.Price = function () {
-		/** @type {string}*/
+		/** @type {copilot.model.Currency}*/
 		this.Currency = "";
 		/** @type {number}*/
 		this.Value = 0;

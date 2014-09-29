@@ -483,7 +483,7 @@
 		//motto
 		data[0] = Math.round(setting.Liters * 10) / 10;
 		data[1] = Math.round(setting.SummaryFuelPrice * 10) / 10;
-		data[2] = setting.Currency;
+		data[2] = copilot.Currency;
 		data[3] = setting.Fills;
 		data[4] = setting.Repairs;
 		data[5] = Math.round(setting.SummaryRepairPrice * 10) / 10;
@@ -556,9 +556,9 @@
 			data[0] = fill.Date.toLocaleDateString();
 			data[1] = fill.Refueled;
 			data[2] = language.getString("FueledUnit");
-			data[3] = Math.round(fill.Price.Value * 10) / 10;
-			data[4] = fill.Price.Currency;
-			data[5] = Math.round(fill.UnitPrice.Value * 10) / 10;
+			data[3] = copilot.App.GetPriceWithRightValue(fill.Price);
+			data[4] = copilot.Currency;
+			data[5] = copilot.App.GetPriceWithRightValue(fill.UnitPrice);
 
 
 			//info
@@ -634,8 +634,8 @@
 			//data
 			data[0] = repair.Date.toLocaleDateString();
 			data[1] = repair.ServiceName;
-			data[2] = Math.round(repair.Price.Value * 10) / 10;
-			data[3] = repair.Price.Currency;
+			data[2] = copilot.App.GetPriceWithRightValue(repair.Price);
+			data[3] = copilot.Currency;
 
 			//info
 			info = $('<p />').addClass("info").html(language.getString("RepairDescriptionWeb", data));

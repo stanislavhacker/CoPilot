@@ -58,13 +58,13 @@
 			//add categories
 			categories.push(fill.Date.toLocaleDateString());
 			//series
-			series.data.push(fill.UnitPrice.Value);
+			series.data.push(copilot.App.GetPriceWithRightValue(fill.UnitPrice));
 		}
 
 		//create
 		graph.name = language.getString("FuelPriceTrend");
 		graph.dataName = language.getString("PricePerUnit");
-		graph.dataUnit = this.length ? fill.UnitPrice.Currency : "";
+		graph.dataUnit = copilot.Currency;
 		graph.setCategories(categories);
 		graph.addSeries(series);
 

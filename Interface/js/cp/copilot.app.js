@@ -13,6 +13,8 @@ var copilot = {};
 		copilot.Hash = window.location.hash.substr(1);
 		/** @type {copilot.model.Distance}*/
 		copilot.Distance = null;
+		/** @type {copilot.model.Currency}*/
+		copilot.Currency = null;
 
 		/**
 		 * Main app
@@ -118,7 +120,6 @@ var copilot = {};
 
 		///// CONVERTERS
 
-
 		/**
 		 * GetExchangeDistanceFor
 		 * @param {copilot.model.Distance} from
@@ -135,7 +136,7 @@ var copilot = {};
 			if (from === copilot.model.Distance.Km && to === copilot.model.Distance.Mi) {
 				return 0.621371192;
 			}
-			return 0;
+			return 1;
 		};
 
 		/**
@@ -154,6 +155,43 @@ var copilot = {};
 			//recalculate
 			rate = copilot.App.GetExchangeDistanceFor(odometer.Distance, currentDistance);
 			return Math.round(odometer.Value * rate * 100) / 100;
+		}
+
+		/**
+		 * GetExchangeRateFor
+		 * @param {copilot.model.Currency} from
+		 * @param {copilot.model.Currency} to
+		 * @returns {number}
+		 * @static
+		 */
+		copilot.App.GetExchangeRateFor = function(from, to) {
+			//CZK => USD
+			//{"to": "USD", "rate": 0.050727399999999999, "from": "CZK"}
+			if (from == copilot.model.Currency.CZK && to == copilot.model.Currency.USD) {
+				return 0.050727399999999999;
+			}
+			//USD => CZK
+			//{"to": "CZK", "rate": 19.713200000000001, "from": "USD"}
+			if (from == copilot.model.Currency.USD && to == copilot.model.Currency.CZK) {
+				return 19.713200000000001;
+			}
+
+			return 1;
+		}
+
+		/**
+		 * GetPriceWithRightValue
+		 * @param {copilot.model.Price} price
+		 * @returns {number}
+		 * @static
+		 */
+		copilot.App.GetPriceWithRightValue = function(price) {
+			var rate,
+				currentCurrency = copilot.Currency;
+
+			//recalculate
+			rate = copilot.App.GetExchangeRateFor(price.Currency, currentCurrency);
+			return Math.round(price.Value * rate * 100) / 100;
 		}
 
 	}());

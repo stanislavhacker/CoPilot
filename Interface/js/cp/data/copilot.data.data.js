@@ -59,6 +59,7 @@
 			//set
 			if (settings) {
 				copilot.Distance = settings.Distance;
+				copilot.Currency = settings.Currency;
 			}
 			//set
 			self.states[what] = false;
