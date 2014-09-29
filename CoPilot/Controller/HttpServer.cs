@@ -51,7 +51,7 @@ namespace CoPilot.CoPilot.Controller
                 {
                     return "";
                 }
-                return "http://" + this.IPAddress.ToString() + "/copilot";
+                return "http://" + this.IPAddress.ToString() + "/copilot/";
             }
         }
 

@@ -190,8 +190,12 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Interface\cp.css" />
-    <Content Include="Interface\cp.js" />
+    <Content Include="Interface\cp.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Interface\cp.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Interface\fonts\fontawesome-social-webfont.eot" />
     <Content Include="Interface\fonts\fontawesome-social-webfont.ttf" />
     <Content Include="Interface\fonts\fontawesome-social-webfont.woff" />
@@ -269,7 +273,9 @@
     <Content Include="Interface\fonts\fontawesome-social-webfont.svg" />
     <Content Include="Interface\fonts\fontawesome-webfont.svg" />
     <Content Include="Interface\images\logo.png" />
-    <Content Include="Interface\index.html" />
+    <Content Include="Interface\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\Buttons\add.png" />
     <Content Include="Resources\Images\Buttons\assistant.png" />
     <Content Include="Resources\Images\Buttons\avarage.png" />
