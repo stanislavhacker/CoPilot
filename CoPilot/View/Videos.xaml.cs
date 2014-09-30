@@ -670,9 +670,13 @@ namespace CoPilot.CoPilot.View
         {
             get
             {
-                var progress = this.FtpController.Progress(new Uri(this.Video.Path, UriKind.Relative)).Result;
+                var task = this.FtpController.Progress(new Uri(this.Video.Path, UriKind.Relative));
                 var backup = !string.IsNullOrEmpty(this.Video.VideoBackup.Id);
-                return !progress && backup && Storage.FileExists(this.Video.Path);
+                if (task != null)
+                {
+                    return !task.Result && backup && Storage.FileExists(this.Video.Path);
+                }
+                return backup && Storage.FileExists(this.Video.Path);
             }
         }
 
@@ -683,8 +687,8 @@ namespace CoPilot.CoPilot.View
         {
             get
             {
-                var progress = this.FtpController.Progress(new Uri(this.Video.Path, UriKind.Relative)).Result;
-                return !progress;
+                var task = this.FtpController.Progress(new Uri(this.Video.Path, UriKind.Relative));
+                return task != null ? !task.Result : true;
             }
         }
 

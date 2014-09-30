@@ -417,8 +417,8 @@ namespace CoPilot.CoPilot.View
         {
             get
             {
-                var progress = this.FtpController.Progress(new Uri(this.Image.Path, UriKind.Relative)).Result;
-                return !progress;
+                var task = this.FtpController.Progress(new Uri(this.Image.Path, UriKind.Relative));
+                return task != null ? !task.Result : true;
             }
         }
 

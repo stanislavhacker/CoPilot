@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0811c607-a166-42ea-8095-2089e2caff82" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CoPilot.csproj" afterPath="$PROJECT_DIR$/../CoPilot.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="0811c607-a166-42ea-8095-2089e2caff82" name="Default" comment="" />
     <ignored path="Interface.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
