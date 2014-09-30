@@ -178,10 +178,6 @@ namespace CoPilot.CoPilot.Controller
                 var file = e.uri.Replace("/copilot/", "");
                 return loadFile(file.Length == 0 ? "index.html" : file);
             });
-            rules.Add(new Regex("^/copilot"), (e) =>
-            {
-                return loadFile("index.html");
-            });
 
             WebServer myWebServer = new WebServer(rules, IPAddress.ToString(), "80");
         }
