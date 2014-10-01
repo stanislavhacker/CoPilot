@@ -21,7 +21,9 @@
 	 */
 	copilot.model.Currency = {
 		CZK: "CZK",
-		USD: "USD"
+		USD: "USD",
+		EUR: "EUR",
+		GBP: "GBP"
 	};
 
 	/**

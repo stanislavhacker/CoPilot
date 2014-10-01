@@ -155,7 +155,7 @@ var copilot = {};
 			//recalculate
 			rate = copilot.App.GetExchangeDistanceFor(odometer.Distance, currentDistance);
 			return Math.round(odometer.Value * rate * 100) / 100;
-		}
+		};
 
 		/**
 		 * GetExchangeRateFor
@@ -165,19 +165,69 @@ var copilot = {};
 		 * @static
 		 */
 		copilot.App.GetExchangeRateFor = function(from, to) {
-			//CZK => USD
-			//{"to": "USD", "rate": 0.050727399999999999, "from": "CZK"}
-			if (from == copilot.model.Currency.CZK && to == copilot.model.Currency.USD) {
-				return 0.050727399999999999;
+			//CZK => to
+			if (from == copilot.model.Currency.CZK) {
+				switch (to)
+				{
+					case copilot.model.Currency.CZK:
+						return 1;
+					case copilot.model.Currency.USD:
+						return 0.050727399999999999;
+					case copilot.model.Currency.GBP:
+						return 0.0283233982;
+					case copilot.model.Currency.EUR:
+						return 0.0363989442;
+				}
 			}
-			//USD => CZK
-			//{"to": "CZK", "rate": 19.713200000000001, "from": "USD"}
-			if (from == copilot.model.Currency.USD && to == copilot.model.Currency.CZK) {
-				return 19.713200000000001;
+			//USD => to
+			if (from == copilot.model.Currency.USD)
+			{
+				switch (to)
+				{
+					case copilot.model.Currency.CZK:
+						return 19.713200000000001;
+					case copilot.model.Currency.USD:
+						return 1;
+					case copilot.model.Currency.GBP:
+						return 0.616771878;
+					case copilot.model.Currency.EUR:
+						return 0.792625413;
+				}
+			}
+			//EUR => to
+			if (from == copilot.model.Currency.EUR)
+			{
+				switch (to)
+				{
+					case copilot.model.Currency.CZK:
+						return 27.4733243;
+					case copilot.model.Currency.USD:
+						return 1.26163;
+					case copilot.model.Currency.GBP:
+						return 0.778137904;
+					case copilot.model.Currency.EUR:
+						return 1;
+				}
+			}
+
+			//GBP => to
+			if (from == copilot.model.Currency.GBP)
+			{
+				switch (to)
+				{
+					case copilot.model.Currency.CZK:
+						return 35.306498;
+					case copilot.model.Currency.USD:
+						return 1.621345;
+					case copilot.model.Currency.GBP:
+						return 1;
+					case copilot.model.Currency.EUR:
+						return 1.28511925;
+				}
 			}
 
 			return 1;
-		}
+		};
 
 		/**
 		 * GetPriceWithRightValue

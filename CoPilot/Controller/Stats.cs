@@ -115,7 +115,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return this.stats.getFuelStats().PaidForFuel(DataController.Currency);
+                return Math.Round(this.stats.getFuelStats().PaidForFuel(DataController.Currency), 2);
             }
         }
 
@@ -126,7 +126,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return this.stats.getRepairStats().PaidForRepairs(DataController.Currency);
+                return Math.Round(this.stats.getRepairStats().PaidForRepairs(DataController.Currency));
             }
         }
 

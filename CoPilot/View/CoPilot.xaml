@@ -923,6 +923,8 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="60" />
                                         <ColumnDefinition Width="60" />
+                                        <ColumnDefinition Width="60" />
+                                        <ColumnDefinition Width="60" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
@@ -946,6 +948,20 @@
                                         Grid.Row="1"
                                         Style="{Binding DataController.Currency, Converter={StaticResource CurrencyToStyleConvertor}, ConverterParameter='USD'}"
                                         Content="USD"/>
+                                    <Button 
+                                        Command="{Binding ChangeCurrencyCommand}"
+                                        CommandParameter="EUR"
+                                        Grid.Column="2"
+                                        Grid.Row="1"
+                                        Style="{Binding DataController.Currency, Converter={StaticResource CurrencyToStyleConvertor}, ConverterParameter='EUR'}"
+                                        Content="EUR"/>
+                                    <Button 
+                                        Command="{Binding ChangeCurrencyCommand}"
+                                        CommandParameter="GBP"
+                                        Grid.Column="3"
+                                        Grid.Row="1"
+                                        Style="{Binding DataController.Currency, Converter={StaticResource CurrencyToStyleConvertor}, ConverterParameter='GBP'}"
+                                        Content="GBP"/>
                                 </Grid>
                             </Button>
                             <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
