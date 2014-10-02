@@ -41,10 +41,10 @@ body
     color: @color_gray;
 
     &.loading {
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-image: @image_logo;
-        background-color: @color_highlight;
+        background-position: center center !important;
+        background-repeat: no-repeat !important;
+        background-image: @image_logo !important;
+        background-color: @color_highlight !important;
     }
 
   #errors {
@@ -57,6 +57,10 @@ body
       position: absolute;
       left: 50%;
       top: 50%;
+
+      a {
+        color: @color_white;
+      }
   }
 }
 

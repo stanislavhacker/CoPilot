@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0811c607-a166-42ea-8095-2089e2caff82" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/cp/copilot.app.js" afterPath="$PROJECT_DIR$/js/cp/copilot.app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/cp/model/copilot.model.data.js" afterPath="$PROJECT_DIR$/js/cp/model/copilot.model.data.js" />
+      <change type="DELETED" beforePath="D:\My Documents\My DBsys\Visual Studio Projects\Visual Studio 2012\Projects\CoPilot\CoPilot\Interface\errors\404.html" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CoPilot/Controller/HttpServer.cs" afterPath="$PROJECT_DIR$/../CoPilot/Controller/HttpServer.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/cp/data/copilot.data.renderer.js" afterPath="$PROJECT_DIR$/js/cp/data/copilot.data.renderer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/default.less" afterPath="$PROJECT_DIR$/css/default.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Interface.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,27 +29,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="copilot.app.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/js/cp/copilot.app.js">
+      <file leaf-file-name="debug.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/debug.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="157" column="10" selection-start="3123" selection-end="3123" vertical-scroll-proportion="0.913522" vertical-offset="1748" max-vertical-offset="2873">
-              <folding>
-                <element signature="e#2369#2632#0" expanded="false" />
-                <element signature="e#2827#3122#0" expanded="false" />
-                <element signature="e#3333#4725#0" expanded="false" />
-                <element signature="e#4899#5104#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="copilot.model.data.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/cp/model/copilot.model.data.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="7" selection-start="220" selection-end="220" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2159">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state line="29" column="5" selection-start="1974" selection-end="1974" vertical-scroll-proportion="0.8081967" vertical-offset="0" max-vertical-offset="833">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -69,21 +56,21 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/js/cp/model/copilot.model.repairs.js" />
-        <option value="$PROJECT_DIR$/js/cp/model/copilot.model.skin.js" />
         <option value="$PROJECT_DIR$/js/cp/model/copilot.model.states.js" />
         <option value="$PROJECT_DIR$/js/cp/model/copilot.model.videos.js" />
-        <option value="$PROJECT_DIR$/js/cp/data/copilot.data.skin.js" />
         <option value="$PROJECT_DIR$/js/cp/data/copilot.data.language.js" />
         <option value="$PROJECT_DIR$/js/cp/model/copilot.model.settings.js" />
         <option value="$PROJECT_DIR$/js/cp/model/copilot.model.maintenances.js" />
         <option value="$PROJECT_DIR$/js/cp/model/copilot.model.fills.js" />
         <option value="$PROJECT_DIR$/js/cp/model/copilot.model.paths.js" />
         <option value="$PROJECT_DIR$/js/cp/data/copilot.data.data.js" />
-        <option value="$PROJECT_DIR$/css/default.less" />
-        <option value="$PROJECT_DIR$/js/cp/data/copilot.data.renderer.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/cp/model/copilot.model.data.js" />
+        <option value="$PROJECT_DIR$/errors/404.html" />
+        <option value="$PROJECT_DIR$/js/cp/data/copilot.data.skin.js" />
+        <option value="$PROJECT_DIR$/css/default.less" />
+        <option value="$PROJECT_DIR$/debug.html" />
+        <option value="$PROJECT_DIR$/js/cp/data/copilot.data.renderer.js" />
         <option value="$PROJECT_DIR$/js/cp/copilot.app.js" />
       </list>
     </option>
@@ -215,20 +202,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Interface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Interface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="errors" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -411,13 +384,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/cp/data/copilot.data.skin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="52" selection-end="87" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1088">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/cp/data/copilot.data.language.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="38" selection-start="91" selection-end="91" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1921">
@@ -437,13 +403,6 @@
     <entry file="file://$PROJECT_DIR$/js/cp/model/copilot.model.settings.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="41" selection-start="258" selection-end="258" vertical-scroll-proportion="0.1734694" vertical-offset="102" max-vertical-offset="1173">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/debug.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="1797" selection-end="1878" vertical-scroll-proportion="-17.0" vertical-offset="0" max-vertical-offset="833">
           <folding />
         </state>
       </provider>
@@ -476,18 +435,91 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/cp/model/copilot.model.paths.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="29" selection-start="1599" selection-end="1599" vertical-scroll-proportion="1.1462264" vertical-offset="291" max-vertical-offset="1224">
+          <folding>
+            <element signature="e#326#655#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/cp/data/copilot.data.data.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="282" column="59" selection-start="5138" selection-end="5138" vertical-scroll-proportion="0.9355346" vertical-offset="0" max-vertical-offset="1224">
+          <folding>
+            <element signature="e#144#182#0" expanded="false" />
+            <element signature="e#216#483#0" expanded="false" />
+            <element signature="e#593#1487#0" expanded="false" />
+            <element signature="e#1491#1557#0" expanded="false" />
+            <element signature="e#1614#2226#0" expanded="false" />
+            <element signature="e#2230#2282#0" expanded="false" />
+            <element signature="e#2332#2923#0" expanded="false" />
+            <element signature="e#2927#2983#0" expanded="false" />
+            <element signature="e#3035#3631#0" expanded="false" />
+            <element signature="e#3635#3689#0" expanded="false" />
+            <element signature="e#3740#4298#0" expanded="false" />
+            <element signature="e#4302#4356#0" expanded="false" />
+            <element signature="e#4407#4967#0" expanded="false" />
+            <element signature="e#4971#5081#0" expanded="false" />
+            <element signature="e#5138#5831#0" expanded="false" />
+            <element signature="e#5835#5896#0" expanded="false" />
+            <element signature="e#5949#6536#0" expanded="false" />
+            <element signature="e#6540#6621#0" expanded="false" />
+            <element signature="e#6683#7137#0" expanded="false" />
+            <element signature="e#7141#7201#0" expanded="false" />
+            <element signature="e#7254#7681#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="884" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="493">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/cp/data/copilot.data.skin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="0" selection-start="872" selection-end="872" vertical-scroll-proportion="0.7517007" vertical-offset="153" max-vertical-offset="1088">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/css/default.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="800" column="21" selection-start="14106" selection-end="14106" vertical-scroll-proportion="-18.26923" vertical-offset="12428" max-vertical-offset="14127">
+        <state line="61" column="28" selection-start="1265" selection-end="1265" vertical-scroll-proportion="0.9716814" vertical-offset="488" max-vertical-offset="14195">
           <folding>
-            <element signature="e#12811#13556#0" expanded="false" />
+            <element signature="e#12903#13648#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/cp/model/copilot.model.data.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="7" selection-start="220" selection-end="220" vertical-scroll-proportion="0.5752961" vertical-offset="0" max-vertical-offset="2159">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/cp/copilot.app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="14" selection-start="889" selection-end="889" vertical-scroll-proportion="-0.49685535" vertical-offset="1064" max-vertical-offset="2873">
+          <folding>
+            <element signature="e#2369#2632#0" expanded="false" />
+            <element signature="e#2827#3122#0" expanded="false" />
+            <element signature="e#3333#4725#0" expanded="false" />
+            <element signature="e#4899#5104#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/cp/data/copilot.data.renderer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="52" selection-start="252" selection-end="252" vertical-scroll-proportion="0.24056605" vertical-offset="0" max-vertical-offset="9197">
+        <state line="1449" column="0" selection-start="38015" selection-end="38015" vertical-scroll-proportion="2.5955057" vertical-offset="7410" max-vertical-offset="9435">
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#90#202#0" expanded="false" />
@@ -523,83 +555,16 @@
             <element signature="e#35054#36144#0" expanded="false" />
             <element signature="e#36359#36782#0" expanded="false" />
             <element signature="e#37049#37537#0" expanded="false" />
-            <element signature="e#37641#38096#0" expanded="false" />
-            <element signature="e#38208#38390#0" expanded="false" />
-            <element signature="e#38498#38720#0" expanded="false" />
+            <element signature="e#38167#38349#0" expanded="false" />
+            <element signature="e#38457#38679#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/cp/model/copilot.model.paths.js">
+    <entry file="file://$PROJECT_DIR$/debug.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="29" selection-start="1599" selection-end="1599" vertical-scroll-proportion="1.1462264" vertical-offset="291" max-vertical-offset="1224">
-          <folding>
-            <element signature="e#326#655#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="16" selection-start="353" selection-end="353" vertical-scroll-proportion="0.13934426" vertical-offset="0" max-vertical-offset="610">
+        <state line="29" column="5" selection-start="1974" selection-end="1974" vertical-scroll-proportion="0.8081967" vertical-offset="0" max-vertical-offset="833">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/errors/404.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="610">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/cp/data/copilot.data.data.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="282" column="59" selection-start="5138" selection-end="5138" vertical-scroll-proportion="0.9355346" vertical-offset="0" max-vertical-offset="1224">
-          <folding>
-            <element signature="e#144#182#0" expanded="false" />
-            <element signature="e#216#483#0" expanded="false" />
-            <element signature="e#593#1487#0" expanded="false" />
-            <element signature="e#1491#1557#0" expanded="false" />
-            <element signature="e#1614#2226#0" expanded="false" />
-            <element signature="e#2230#2282#0" expanded="false" />
-            <element signature="e#2332#2923#0" expanded="false" />
-            <element signature="e#2927#2983#0" expanded="false" />
-            <element signature="e#3035#3631#0" expanded="false" />
-            <element signature="e#3635#3689#0" expanded="false" />
-            <element signature="e#3740#4298#0" expanded="false" />
-            <element signature="e#4302#4356#0" expanded="false" />
-            <element signature="e#4407#4967#0" expanded="false" />
-            <element signature="e#4971#5081#0" expanded="false" />
-            <element signature="e#5138#5831#0" expanded="false" />
-            <element signature="e#5835#5896#0" expanded="false" />
-            <element signature="e#5949#6536#0" expanded="false" />
-            <element signature="e#6540#6621#0" expanded="false" />
-            <element signature="e#6683#7137#0" expanded="false" />
-            <element signature="e#7141#7201#0" expanded="false" />
-            <element signature="e#7254#7681#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/cp/model/copilot.model.data.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="7" selection-start="220" selection-end="220" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2159">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/cp/copilot.app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="157" column="10" selection-start="3123" selection-end="3123" vertical-scroll-proportion="0.913522" vertical-offset="1748" max-vertical-offset="2873">
-          <folding>
-            <element signature="e#2369#2632#0" expanded="false" />
-            <element signature="e#2827#3122#0" expanded="false" />
-            <element signature="e#3333#4725#0" expanded="false" />
-            <element signature="e#4899#5104#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>

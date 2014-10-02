@@ -263,13 +263,16 @@
       <Project>{F1A58417-2B01-45BD-8276-AE9B5727E252}</Project>
       <Name>GpsCalculation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\libs\SimpleWebServer\SimpleWebServer\SimpleWebServer.csproj">
+      <Project>{228cb472-d25f-47ce-9aab-d7e14c491cd6}</Project>
+      <Name>SimpleWebServer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OdbCommunicator\OdbCommunicator.csproj">
       <Project>{9B015567-30FD-4966-B269-B9873B3ECE69}</Project>
       <Name>OdbCommunicator</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Interface\errors\404.html" />
     <Content Include="Interface\fonts\fontawesome-social-webfont.svg" />
     <Content Include="Interface\fonts\fontawesome-webfont.svg" />
     <Content Include="Interface\images\logo.png" />
@@ -416,9 +419,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SimpleWebServer">
-      <HintPath>..\libs\SimpleWebServer\SimpleWebServer\obj\Release\SimpleWebServer.dll</HintPath>
     </Reference>
     <Reference Include="Sparrow.Chart.WP8.45">
       <HintPath>..\packages\Sparrow.Chart.WP8.13.1.0.113\lib\windowsphone8\Sparrow.Chart.WP8.45.dll</HintPath>

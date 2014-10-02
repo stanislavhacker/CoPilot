@@ -178,6 +178,10 @@ namespace CoPilot.CoPilot.Controller
                 var file = e.uri.Replace("/copilot/", "");
                 return loadFile(file.Length == 0 ? "index.html" : file);
             });
+            rules.Add(new Regex("^/.*$"), (e) =>
+            {
+                return e404();
+            });
 
             WebServer myWebServer = new WebServer(rules, IPAddress.ToString(), "80");
         }
@@ -244,6 +248,72 @@ namespace CoPilot.CoPilot.Controller
             var brush = (App.Current.Resources[name] as SolidColorBrush);
 
             return "#" + brush.Color.R.ToString("X2") + brush.Color.G.ToString("X2") + brush.Color.B.ToString("X2");
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// Load file
+        /// </summary>
+        /// <returns></returns>
+        private webResposne loadFile(String url)
+        {
+            //create
+            var response = new IDCT.webResposne();
+
+            //remove ?
+            if (url.IndexOf("?") > -1)
+            {
+                url = url.Substring(0, url.IndexOf("?"));
+            }
+
+            //set headers
+            response.header = new Dictionary<string, string>();
+
+            //load resource
+            var uri = new Uri("Interface/" + url, UriKind.Relative);
+            var resource = App.GetResourceStream(uri);
+            if (resource != null)
+            {
+                response.content = resource.Stream;
+                response.header.Add("Content-Type", contentType(uri));
+            }
+            else
+            {
+                return e404();
+            }
+
+            //send
+            return response;
+        }
+
+        /// <summary>
+        /// Error 404
+        /// </summary>
+        /// <returns></returns>
+        private webResposne e404()
+        {
+            //create
+            var response = new IDCT.webResposne();
+
+            //set headers
+            response.header = new Dictionary<string, string>();
+
+            //stream
+            var stream = new MemoryStream();
+            var stremWriter = new StreamWriter(stream);
+            stremWriter.Write("<meta http-equiv=\"refresh\" content=\"0; url=" + this.Url + "\" />");
+            stremWriter.Flush();
+            stream.Seek(0, SeekOrigin.Begin);
+
+            response.content = stream;
+            response.header.Add("Content-Type", "text/html");
+
+            //send
+            return response;
         }
 
         #endregion
@@ -630,42 +700,6 @@ namespace CoPilot.CoPilot.Controller
                 default:
                     return null;
             }
-        }
-
-        /// <summary>
-        /// Load file
-        /// </summary>
-        /// <returns></returns>
-        private static webResposne loadFile(String url)
-        {
-            //create
-            var response = new IDCT.webResposne();
-
-            //remove ?
-            if (url.IndexOf("?") > -1)
-            {
-                url = url.Substring(0, url.IndexOf("?"));
-            }
-
-            //set headers
-            response.header = new Dictionary<string, string>();
-
-            //load resource
-            var uri = new Uri("Interface/" + url, UriKind.Relative);
-            var resource = App.GetResourceStream(uri);
-            if (resource != null)
-            {
-                response.content = resource.Stream;
-                response.header.Add("Content-Type", contentType(uri));
-            }
-            else
-            {
-                response.content = App.GetResourceStream(new Uri("Interface/errors/404.html", UriKind.Relative)).Stream;
-                response.header.Add("Content-Type", "text/html");
-            }
-
-            //send
-            return response;
         }
 
         /// <summary>

@@ -1450,9 +1450,6 @@
 
 		//append
 		error.appendTo(parent);
-
-		//apply skin
-		this.skin.applySkin();
 	};
 
 
