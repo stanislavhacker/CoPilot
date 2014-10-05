@@ -204,6 +204,7 @@
 			positions = [],
 			win = $(window),
 			infoHeight = 30,
+			skinData = skin.getSkin(),
 			header = $("#header").height(),
 			map = $('<div id="mapviewer fullscreen" />');
 
@@ -220,7 +221,7 @@
 		info = $('<div class="info-panel" />').css({
 			width: '100%',
 			height: infoHeight,
-			background: skin.data.Foreground
+			background: skinData.Foreground
 		});
 
 		//data
@@ -301,7 +302,7 @@
 			route = new google.maps.Polyline({
 				path: positions,
 				geodesic: false,
-				strokeColor: skin.data.Foreground,
+				strokeColor: skinData.Foreground,
 				strokeOpacity: 1.0,
 				strokeWeight: 10
 			});

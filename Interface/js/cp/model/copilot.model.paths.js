@@ -38,7 +38,18 @@
 		return clone;
 	};
 
-
+	/**
+	 * To json
+	 * @returns {object}
+	 */
+	copilot.model.Paths.prototype.toJSON = function () {
+		var data = [],
+			i;
+		for (i = 0; i < this.length; i++) {
+			data.push(this[i]);
+		}
+		return data;
+	};
 
 
 

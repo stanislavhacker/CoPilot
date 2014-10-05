@@ -61,4 +61,12 @@
 		return clone;
 	};
 
+	/**
+	 * To json
+	 * @returns {object}
+	 */
+	copilot.model.Settings.prototype.toJSON = function () {
+		return this;
+	};
+
 }());

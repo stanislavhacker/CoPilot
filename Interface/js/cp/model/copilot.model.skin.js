@@ -30,4 +30,12 @@
 		return clone;
 	};
 
+	/**
+	 * To json
+	 * @returns {object}
+	 */
+	copilot.model.Skin.prototype.toJSON = function () {
+		return this;
+	};
+
 }());

@@ -191,10 +191,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Interface\cp.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Interface\cp.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Interface\fonts\fontawesome-social-webfont.eot" />
     <Content Include="Interface\fonts\fontawesome-social-webfont.ttf" />
@@ -203,6 +203,9 @@
     <Content Include="Interface\fonts\fontawesome-webfont.ttf" />
     <Content Include="Interface\fonts\fontawesome-webfont.woff" />
     <Content Include="Interface\fonts\FontAwesome.otf" />
+    <Content Include="Interface\cache.manifest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
@@ -277,7 +280,7 @@
     <Content Include="Interface\fonts\fontawesome-webfont.svg" />
     <Content Include="Interface\images\logo.png" />
     <Content Include="Interface\index.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\Buttons\add.png" />
     <Content Include="Resources\Images\Buttons\assistant.png" />

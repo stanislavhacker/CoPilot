@@ -16,9 +16,9 @@
 		/** @type {boolean}*/
 		this.error = false;
 		/** @type {{}}*/
-		this.data = {};
-		/** @type {{}}*/
 		this.cache = {};
+		/** @type {copilot.data.Storage}*/
+		this.storage = new copilot.data.Storage();
 		/** @type {copilot.data.Renderer}*/
 		this.renderer = null;
 		//load language
@@ -29,28 +29,20 @@
 	 * Load
 	 */
 	copilot.data.Language.prototype.load = function () {
-		var self = this;
+		var language,
+			self = this,
+			what = "language";
 
 		//loading
 		this.loading = true;
 		this.error = false;
 
-		//noinspection JSUnresolvedFunction
-		$.ajax(copilot.URL + "api/language")
-			.done(function(data) {
-				self.applyLanguage(data);
-				self.loading = false;
-			}).fail(function () {
-				self.error = true;
-			});
-	};
-
-	/**
-	 * Apply language
-	 * @param {{}} data
-	 */
-	copilot.data.Language.prototype.applyLanguage = function (data) {
-		this.data = data;
+		this.get(function (data) {
+			language = data ? data : self.storage.getData(what, true);
+			self.storage.setData(what, language);
+			self.loading = language ? false : true;
+			self.error = language ? false : true;
+		});
 	};
 
 	/**
@@ -83,7 +75,7 @@
 		var i,
 			key,
 			value,
-			array = this.data;
+			array = this.storage.getData("language") || [];
 
 		//from cache
 		if (this.cache[name]) {
@@ -103,6 +95,23 @@
 		}
 
 		return null;
+	};
+
+	/**
+	 * @private
+	 * get data
+	 * @param {function} complete
+	 */
+	copilot.data.Language.prototype.get = function (complete) {
+		//noinspection JSUnresolvedFunction
+		$.ajax({
+			type: "GET",
+			url: copilot.URL + "api/language"
+		}).done(function(data) {
+			complete(data);
+		}).fail(function () {
+			complete(null);
+		});
 	};
 
 }());

@@ -17,10 +17,8 @@
 		this.loading = true;
 		/** @type {boolean}*/
 		this.error = false;
-		/** @type {{}}*/
-		this.data = {};
-		/** @type {{}}*/
-		this.states = {};
+		/** @type {copilot.data.Storage}*/
+		this.storage = new copilot.data.Storage();
 		/** @type {copilot.data.Renderer}*/
 		this.renderer = null;
 		//load data
@@ -37,15 +35,15 @@
 			what = "setting";
 
 		//return cached data
-		if (self.data[what]) {
-			return self.data[what];
+		if (self.storage.getData(what)) {
+			return self.storage.getData(what);
 		}
 
 		//check for state
-		if (self.states[what]) {
+		if (self.storage.getState(what)) {
 			return null;
 		}
-		self.states[what] = true;
+		self.storage.setState(what, true);
 
 		//loading
 		this.loading = true;
@@ -55,17 +53,17 @@
 			command : what
 		}, function (data) {
 			//settings
-			settings = data ? new copilot.model.Settings().clone.apply(data) : null;
+			settings = data ? new copilot.model.Settings().clone.apply(data) : self.storage.getData(what, true);
 			//set
 			if (settings) {
 				copilot.Distance = settings.Distance;
 				copilot.Currency = settings.Currency;
 			}
 			//set
-			self.states[what] = false;
-			self.data[what] = settings;
-			self.loading = false;
-			self.error = data === null;
+			self.storage.setState(what, false);
+			self.storage.setData(what, settings);
+			self.loading = settings ? false : true;
+			self.error = settings ? false : true;
 
 			if (data) {
 				//re-render
@@ -90,21 +88,21 @@
 			what = "maintenances";
 
 		//return cached data
-		if (self.data[what]) {
-			return self.data[what];
+		if (self.storage.getData(what)) {
+			return self.storage.getData(what);
 		}
 
 		//check for state
-		if (self.states[what]) {
+		if (self.storage.getState(what)) {
 			return null;
 		}
-		self.states[what] = true;
+		self.storage.setState(what, true);
 
 		this.get({
 			command : what
 		}, function (data) {
-			self.states[what] = false;
-			self.data[what] =  data ? new copilot.model.Maintenances().clone.apply(data) : null;
+			self.storage.setState(what, false);
+			self.storage.setData(what, data ? new copilot.model.Maintenances().clone.apply(data) : self.storage.getData(what, true));
 
 			if (data) {
 				//re-render
@@ -129,21 +127,21 @@
 			what = "fills";
 
 		//return cached data
-		if (self.data[what]) {
-			return self.data[what];
+		if (self.storage.getData(what)) {
+			return self.storage.getData(what);
 		}
 
 		//check for state
-		if (self.states[what]) {
+		if (self.storage.getState(what)) {
 			return null;
 		}
-		self.states[what] = true;
+		self.storage.setState(what, true);
 
 		this.get({
 			command : what
 		}, function (data) {
-			self.states[what] = false;
-			self.data[what] =  data ? new copilot.model.Fills().clone.apply(data) : null;
+			self.storage.setState(what, false);
+			self.storage.setData(what, data ? new copilot.model.Fills().clone.apply(data) : self.storage.getData(what, true));
 
 			if (data) {
 				//re-render
@@ -168,21 +166,21 @@
 			what = "repairs";
 
 		//return cached data
-		if (self.data[what]) {
-			return self.data[what];
+		if (self.storage.getData(what)) {
+			return self.storage.getData(what);
 		}
 
 		//check for state
-		if (self.states[what]) {
+		if (self.storage.getState(what)) {
 			return null;
 		}
-		self.states[what] = true;
+		self.storage.setState(what, true);
 
 		this.get({
 			command : what
 		}, function (data) {
-			self.states[what] = false;
-			self.data[what] = data ? new copilot.model.Repairs().clone.apply(data) : null;
+			self.storage.setState(what, false);
+			self.storage.setData(what, data ? new copilot.model.Repairs().clone.apply(data) : self.storage.getData(what, true));
 
 			if (data) {
 				//re-render
@@ -207,21 +205,21 @@
 			what = "videos";
 
 		//return cached data
-		if (self.data[what]) {
-			return self.data[what];
+		if (self.storage.getData(what)) {
+			return self.storage.getData(what);
 		}
 
 		//check for state
-		if (self.states[what]) {
+		if (self.storage.getState(what)) {
 			return null;
 		}
-		self.states[what] = true;
+		self.storage.setState(what, true);
 
 		this.get({
 			command : what
 		}, function (data) {
-			self.states[what] = false;
-			self.data[what] = data ? new copilot.model.Videos().clone.apply(data) : null;
+			self.storage.setState(what, false);
+			self.storage.setData(what, data ? new copilot.model.Videos().clone.apply(data) : self.storage.getData(what, true));
 
 			if (data) {
 				//re-render
@@ -245,21 +243,21 @@
 			what = "pictures";
 
 		//return cached data
-		if (self.data[what]) {
-			return self.data[what];
+		if (self.storage.getData(what)) {
+			return self.storage.getData(what);
 		}
 
 		//check for state
-		if (self.states[what]) {
+		if (self.storage.getState(what)) {
 			return null;
 		}
-		self.states[what] = true;
+		self.storage.setState(what, true);
 
 		this.get({
 			command : what
 		}, function (data) {
-			self.states[what] = false;
-			self.data[what] = data ? new copilot.model.Images().clone.apply(data) : null;
+			self.storage.setState(what, false);
+			self.storage.setData(what, data ? new copilot.model.Images().clone.apply(data) : self.storage.getData(what, true));
 
 			if (data) {
 				//re-render
@@ -286,23 +284,23 @@
 			what = command + "-" +  from.getTime() + "-" +  to.getTime();
 
 		//return cached data
-		if (self.data[what]) {
-			return self.data[what];
+		if (self.storage.getData(what)) {
+			return self.storage.getData(what);
 		}
 
 		//check for state
-		if (self.states[what]) {
+		if (self.storage.getState(what)) {
 			return null;
 		}
-		self.states[what] = true;
+		self.storage.setState(what, true);
 
 		this.get({
 			command : command,
 			fromDate: from.toISOString(),
 			toDate: to.toISOString()
 		}, function (data) {
-			self.states[what] = false;
-			self.data[what] = data ? new copilot.model.Path().clone.apply(data) : null;
+			self.storage.setState(what, false);
+			self.storage.setData(what, data ? new copilot.model.Path().clone.apply(data) : self.storage.getData(what, true));
 
 			if (data) {
 				//re-render
@@ -327,21 +325,21 @@
 			what = command;
 
 		//return cached data
-		if (self.data[what]) {
-			return self.data[what];
+		if (self.storage.getData(what)) {
+			return self.storage.getData(what);
 		}
 
 		//check for state
-		if (self.states[what]) {
+		if (self.storage.getState(what)) {
 			return null;
 		}
-		self.states[what] = true;
+		self.storage.setState(what, true);
 
 		this.get({
 			command : command
 		}, function (data) {
-			self.states[what] = false;
-			self.data[what] = data ? new copilot.model.Paths().clone.apply(data) : null;
+			self.storage.setState(what, false);
+			self.storage.setData(what, data ? new copilot.model.Paths().clone.apply(data) : self.storage.getData(what, true));
 
 			if (data) {
 				//re-render
@@ -366,13 +364,13 @@
 		//clear data
 		switch(what) {
 			case "add-maintenance":
-				this.data["maintenances"] = null;
+				this.storage.setData("maintenances", null);
 				break;
 			case "add-fuel":
-				this.data["fills"] = null;
+				this.storage.setData("fills", null);
 				break;
 			case "add-repair":
-				this.data["repairs"] = null;
+				this.storage.setData("repairs", null);
 				break;
 			default:
 				break;
