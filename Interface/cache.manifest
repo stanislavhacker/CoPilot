@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#rev 000018
+#rev 000022
 NETWORK:
 *
 CACHE:
@@ -17,6 +17,13 @@ fonts/fontawesome-webfont.eot
 fonts/fontawesome-webfont.svg
 fonts/fontawesome-webfont.ttf
 fonts/fontawesome-webfont.woff
+fonts/fontawesome-webfont.eot?v=3.0.1
+fonts/fontawesome-webfont.eot?#iefix&v=3.0.1
+fonts/fontawesome-webfont.woff?v=3.0.1
+fonts/fontawesome-webfont.ttf?v=3.0.1
+fonts/fontawesome-webfont.svg#FontAwesome
+fonts/fontawesome-social-webfont.eot?#iefix
+fonts/fontawesome-social-webfont.svg#Font-Awesome-More
 #web
 http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800
 https://maps.googleapis.com/maps/api/js?v=3.exp

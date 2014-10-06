@@ -65,7 +65,7 @@
 			self.loading = settings ? false : true;
 			self.error = settings ? false : true;
 
-			if (data) {
+			if (settings) {
 				//re-render
 				self.renderer.renderHeaderWrapper();
 				self.renderer.renderPageContent();
@@ -85,6 +85,7 @@
 	 */
 	copilot.data.Data.prototype.maintenances = function () {
 		var self = this,
+			maintenances,
 			what = "maintenances";
 
 		//return cached data
@@ -101,10 +102,13 @@
 		this.get({
 			command : what
 		}, function (data) {
+			//maintenances
+			maintenances = data ? new copilot.model.Maintenances().clone.apply(data) : self.storage.getData(what, true);
+			//set data
 			self.storage.setState(what, false);
-			self.storage.setData(what, data ? new copilot.model.Maintenances().clone.apply(data) : self.storage.getData(what, true));
+			self.storage.setData(what, maintenances);
 
-			if (data) {
+			if (maintenances) {
 				//re-render
 				self.renderer.renderPageContent();
 				self.renderer.renderBanners();
@@ -123,7 +127,8 @@
 	 * @return {copilot.model.Fills}
 	 */
 	copilot.data.Data.prototype.fills = function () {
-		var self = this,
+		var fills,
+			self = this,
 			what = "fills";
 
 		//return cached data
@@ -140,10 +145,13 @@
 		this.get({
 			command : what
 		}, function (data) {
+			//fills
+			fills = data ? new copilot.model.Fills().clone.apply(data) : self.storage.getData(what, true);
+			//set data
 			self.storage.setState(what, false);
-			self.storage.setData(what, data ? new copilot.model.Fills().clone.apply(data) : self.storage.getData(what, true));
+			self.storage.setData(what, fills);
 
-			if (data) {
+			if (fills) {
 				//re-render
 				self.renderer.renderPageContent();
 				self.renderer.renderBanners();
@@ -162,7 +170,8 @@
 	 * @return {copilot.model.Repairs}
 	 */
 	copilot.data.Data.prototype.repairs = function () {
-		var self = this,
+		var repairs,
+			self = this,
 			what = "repairs";
 
 		//return cached data
@@ -179,10 +188,13 @@
 		this.get({
 			command : what
 		}, function (data) {
+			//repairs
+			repairs = data ? new copilot.model.Repairs().clone.apply(data) : self.storage.getData(what, true);
+			//set data
 			self.storage.setState(what, false);
-			self.storage.setData(what, data ? new copilot.model.Repairs().clone.apply(data) : self.storage.getData(what, true));
+			self.storage.setData(what, repairs);
 
-			if (data) {
+			if (repairs) {
 				//re-render
 				self.renderer.renderPageContent();
 				self.renderer.renderBanners();
@@ -201,7 +213,8 @@
 	 * @return {copilot.model.Videos}
 	 */
 	copilot.data.Data.prototype.videos = function () {
-		var self = this,
+		var videos,
+			self = this,
 			what = "videos";
 
 		//return cached data
@@ -218,10 +231,13 @@
 		this.get({
 			command : what
 		}, function (data) {
+			//videos
+			videos = data ? new copilot.model.Videos().clone.apply(data) : self.storage.getData(what, true);
+			//set data
 			self.storage.setState(what, false);
-			self.storage.setData(what, data ? new copilot.model.Videos().clone.apply(data) : self.storage.getData(what, true));
+			self.storage.setData(what, videos);
 
-			if (data) {
+			if (videos) {
 				//re-render
 				self.renderer.renderPageContent();
 			} else {
@@ -239,7 +255,8 @@
 	 * @return {copilot.model.Images}
 	 */
 	copilot.data.Data.prototype.images = function () {
-		var self = this,
+		var images,
+			self = this,
 			what = "pictures";
 
 		//return cached data
@@ -256,10 +273,13 @@
 		this.get({
 			command : what
 		}, function (data) {
+			//images
+			images = data ? new copilot.model.Images().clone.apply(data) : self.storage.getData(what, true);
+			//set data
 			self.storage.setState(what, false);
-			self.storage.setData(what, data ? new copilot.model.Images().clone.apply(data) : self.storage.getData(what, true));
+			self.storage.setData(what, images);
 
-			if (data) {
+			if (images) {
 				//re-render
 				self.renderer.renderPageContent();
 			} else {
@@ -279,7 +299,8 @@
 	 * @returns {copilot.model.Path}
 	 */
 	copilot.data.Data.prototype.path = function (from, to) {
-		var self = this,
+		var path,
+			self = this,
 			command = "path",
 			what = command + "-" +  from.getTime() + "-" +  to.getTime();
 
@@ -299,10 +320,13 @@
 			fromDate: from.toISOString(),
 			toDate: to.toISOString()
 		}, function (data) {
+			//path
+			path = data ? new copilot.model.Path().clone.apply(data) : self.storage.getData(what, true);
+			//set data
 			self.storage.setState(what, false);
-			self.storage.setData(what, data ? new copilot.model.Path().clone.apply(data) : self.storage.getData(what, true));
+			self.storage.setData(what, path);
 
-			if (data) {
+			if (path) {
 				//re-render
 				self.renderer.renderPageContent();
 			} else {
@@ -320,7 +344,8 @@
 	 * @returns {copilot.model.Paths}
 	 */
 	copilot.data.Data.prototype.pathList = function () {
-		var self = this,
+		var pathList,
+			self = this,
 			command = "path-list",
 			what = command;
 
@@ -338,10 +363,13 @@
 		this.get({
 			command : command
 		}, function (data) {
+			//path list
+			pathList = data ? new copilot.model.Paths().clone.apply(data) : self.storage.getData(what, true);
+			//set data
 			self.storage.setState(what, false);
-			self.storage.setData(what, data ? new copilot.model.Paths().clone.apply(data) : self.storage.getData(what, true));
+			self.storage.setData(what, pathList);
 
-			if (data) {
+			if (pathList) {
 				//re-render
 				self.renderer.renderPageContent();
 			} else {

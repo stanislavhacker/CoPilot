@@ -106,7 +106,13 @@
 		clone.Time = typeof this.Time === "string" ?  new Date(this.Time) : this.Time;
 
 		if (this.Position !== null) {
-			clone.Position = typeof this.Position === "string" ? new copilot.model.Position(this.Position) : this.Position.clone();
+			//string
+			if (typeof this.Position === "string") {
+				clone.Position = new copilot.model.Position(this.Position);
+			//object
+			} else {
+				clone.Position = this.Position.clone ? this.Position.clone() : new copilot.model.Position().clone.apply(this.Position);
+			}
 		} else {
 			clone.Position = null;
 		}
