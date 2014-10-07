@@ -819,7 +819,7 @@
     <value>zazálohovat</value>
   </data>
   <data name="VideoDescription" xml:space="preserve">
-    <value>Dne {0} jste pořídili video z vašeho automobilu. Délka videa je {1} a obsahuje zaznamenanou cestu, která má {2} bodů.</value>
+    <value>Dne {0} jste pořídili video z vašeho automobilu. Délka videa je {1} a obsahuje zaznamenanou cestu, která má {2} bodů. Celkem jste spotřebovali {3} {6} paliva a ujeli jste {4} {5} dlouhou cestu.</value>
   </data>
   <data name="VideoNotBackuped" xml:space="preserve">
     <value>Toto video nelze přehrát, jelikož není dostupné na webovém úložišti. Pokud chcete můžete</value>
@@ -861,7 +861,7 @@
     <value>ho zobrazit na svém zařízení</value>
   </data>
   <data name="PathDescription" xml:space="preserve">
-    <value>Dne {0} jste byly na cestě, která byl dlouhá {2} {3} a která vás stála {1} {4} paliva.</value>
+    <value>Dne {0} jste byly na cestě, která byl dlouhá {2} {3} a která vás stála {1} {4} paliva. Celkove cesta trvala {5}.</value>
   </data>
   <data name="Paths" xml:space="preserve">
     <value>Cesty</value>
@@ -880,5 +880,11 @@
   </data>
   <data name="RouteDescription" xml:space="preserve">
     <value>Celková délka: {0} {1}, Čas cesty: {2}, Spotřebováno paliva: {3} {4}</value>
+  </data>
+  <data name="PathDescription_Tweet" xml:space="preserve">
+    <value>Dne {0} jsem ujel {2} {3} v čase {5} a spotřeboval jsem celkem {1} {4} paliva.</value>
+  </data>
+  <data name="VideoDescription_Tweet" xml:space="preserve">
+    <value>Dne {0} jsem pořídil video z auta. Ujel jsem {4} {5} v čase {1} a spotřeboval jsem celkem {3} {6} paliva.</value>
   </data>
 </root>

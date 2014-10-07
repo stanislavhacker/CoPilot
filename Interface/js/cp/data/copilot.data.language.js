@@ -49,9 +49,10 @@
 	 * Apply data
 	 * @param {string} text
 	 * @param {Array.<string>} data
+	 * @param {boolean=} simple
 	 * @returns {string}
 	 */
-	function applyData(text, data) {
+	function applyData(text, data, simple) {
 		var i;
 
 		if (!data || data.length === 0) {
@@ -59,7 +60,11 @@
 		}
 
 		for (i = 0; i < data.length; i++) {
-			text = text.replace(new RegExp("\\{" + i + "\\}", "g"), "<strong>" + data[i] + "</strong>");
+			if (simple) {
+				text = text.replace(new RegExp("\\{" + i + "\\}", "g"), data[i]);
+			} else {
+				text = text.replace(new RegExp("\\{" + i + "\\}", "g"), "<strong>" + data[i] + "</strong>");
+			}
 		}
 
 		return text;
@@ -69,9 +74,10 @@
 	 * Apply language
 	 * @param {string} name
 	 * @param {Array.<string>=} data
+	 * @param {boolean=} simple
 	 * @return {string}
 	 */
-	copilot.data.Language.prototype.getString = function (name, data) {
+	copilot.data.Language.prototype.getString = function (name, data, simple) {
 		var i,
 			key,
 			value,
@@ -79,7 +85,7 @@
 
 		//from cache
 		if (this.cache[name]) {
-			return applyData(this.cache[name], data);
+			return applyData(this.cache[name], data, simple);
 		}
 
 		//find
@@ -90,7 +96,7 @@
 				//noinspection JSUnresolvedVariable
 				value =  array[i].Value;
 				this.cache[key] = value;
-				return applyData(value, data);
+				return applyData(value, data, simple);
 			}
 		}
 

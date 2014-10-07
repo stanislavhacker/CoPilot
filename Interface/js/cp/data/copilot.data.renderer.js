@@ -1,4 +1,4 @@
-﻿/*global copilot */
+﻿/*global copilot, FB */
 /**
  * Skin
  */
@@ -357,6 +357,42 @@
 		google.maps.event.addListener(marker, 'click', function() {
 			window.open(map, marker);
 		});
+	}
+
+	/**
+	 * Get map utl
+	 * @param {copilot.model.Path} path
+	 * @returns {string}
+	 */
+	function mapUrl(path) {
+		var i,
+			step,
+			size,
+			state,
+			color,
+			encoded,
+			paths = [],
+			url = "https://maps.googleapis.com/maps/api/staticmap?";
+
+		//colors
+		color = "path=color:0xff0000ff|weight:5";
+		//step
+		step = path.States.length > 100 ? Math.ceil(path.States.length / 100) : 1;
+
+		//states
+		for (i = 0; i < path.States.length; i += step) {
+			state = path.States[i];
+			if (state.Position) {
+				//paths += "|" + state.Position.Latitude + "," + state.Position.Longitude;
+				paths.push(new google.maps.LatLng(state.Position.Latitude, state.Position.Longitude));
+			}
+		}
+		encoded = "|enc:" + google.maps.geometry.encoding.encodePath(paths);
+
+		//size
+		size = "&size=512x512";
+
+		return url + color + encoded + size;
 	}
 
 	/**
@@ -771,7 +807,7 @@
 			paths = dataModel.path(video.Time, new Date(video.Time.getTime() + (video.duration * 1000)));
 
 			p = $('<p></p>').addClass('videos').appendTo(parent);
-			p.css('height', '400px');
+			p.css('height', '430px');
 			a = $('<div class="odometer"/>').appendTo(p);
 			a.append('<div class="value">' + video.Time.toLocaleDateString() + '<span class="small">' + video.Time.toLocaleTimeString() + '</span></div>');
 
@@ -779,6 +815,10 @@
 			data[0] = video.Time.toLocaleDateString();
 			data[1] = new Date(video.duration * 1000).toLocaleTimeString();
 			data[2] = paths ? paths.States.length : 0;
+			data[3] = paths ?  Math.round(paths.ConsumedFuel * 100) / 100 : 0;
+			data[4] = paths ?  Math.round(paths.TraveledDistance * 100) / 100 : 0;
+			data[5] = copilot.Distance;
+			data[6] = language.getString('FueledUnit');
 
 			//info
 			info = $('<p />').addClass("info").html(language.getString("VideoDescription", data));
@@ -824,6 +864,12 @@
 						self.renderMap(dataModel.path(video.Time, new Date(video.Time.getTime() + (video.duration * 1000))));
 					});
 					description.append(button);
+					//share: fb
+					button = $('<div class="fb-share-button" data-width="200" />').attr('data-href', mapUrl(dataModel.path(video.Time, new Date(video.Time.getTime() + (video.duration * 1000)))));
+					description.append(button);
+					//share: twitter
+					button = $('<a href="https://twitter.com/share" class="twitter-share-button" data-url=" " data-count="none" data-text="' + language.getString("VideoDescription_Tweet", data, true) + '">Tweet</a>');
+					description.append(button);
 				}
 
 			} else {
@@ -835,6 +881,11 @@
 			//div
 			p.append(description);
 			p.append($('<div />').css('clear', 'both'));
+
+			//fb refresh
+			FB.XFBML.parse(p[0]);
+			//twitter
+			twttr.widgets.load();
 		}
 
 		if (videos.length === 0) {
@@ -1018,6 +1069,7 @@
 			data[2] = Math.round(path.TraveledDistance * 1000) / 1000;
 			data[3] = path.Distance;
 			data[4] = language.getString("FueledUnit");
+			data[5] = timeDifference(path.EndDate, path.StartDate);
 
 			//info
 			info = $('<p />').addClass("info").html(language.getString("PathDescription", data));
@@ -1038,6 +1090,12 @@
 						self.renderMap(dataModel.path(path.StartDate, path.EndDate));
 					});
 					description.append(button);
+					//share: fb
+					button = $('<div class="fb-share-button" data-width="200" />').attr('data-href', mapUrl(dataModel.path(path.StartDate, path.EndDate)));
+					description.append(button);
+					//share: twitter
+					button = $('<a href="https://twitter.com/share" class="twitter-share-button" data-url=" " data-count="none" data-text="' + language.getString("PathDescription_Tweet", data, true) + '">Tweet</a>');
+					description.append(button);
 				}
 
 			} else {
@@ -1049,12 +1107,16 @@
 			//div
 			p.append(description);
 			p.append($('<div />').css('clear', 'both'));
+
+			//fb refresh
+			FB.XFBML.parse(p[0]);
+			//twitter
+			twttr.widgets.load();
 		}
 
 		if (paths.length === 0) {
 			$('<p>' + language.getString("EmptyPaths") + '</p>').appendTo(parent);
 		}
-
 	};
 
 	/**
@@ -1065,7 +1127,7 @@
 	copilot.data.Renderer.prototype.renderGraph = function (parent, graph) {
 		var graphData,
 			graphElement,
-			skin = this.skin.data,
+			skin = this.skin.getSkin(),
 			language = this.language,
 			fills = this.data.fills() || null;
 
