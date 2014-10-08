@@ -1,4 +1,4 @@
-﻿/*global copilot, FB */
+﻿/*global copilot, FB, twttr */
 /**
  * Skin
  */
@@ -522,12 +522,6 @@
 		//sidebar
 		this.renderPageSideBar();
 
-		//clear
-		parent.empty();
-
-		//loader
-		this.loader(parent);
-
 		switch(copilot.Hash) {
 			case "":
 			case "Warnings":
@@ -620,6 +614,10 @@
 			language = this.language,
 			fills = this.data.fills() || null;
 
+		//loader
+		parent.empty();
+		this.loader(parent);
+
 		if (fills === null) {
 			return;
 		}
@@ -697,6 +695,10 @@
 			language = this.language,
 			repairs = this.data.repairs() || null;
 
+		//loader
+		parent.empty();
+		this.loader(parent);
+
 		if (repairs === null) {
 			return;
 		}
@@ -758,6 +760,10 @@
 
 	};
 
+	//////////////////////////////////////////////////
+	//////////////////////////// VIDEOS
+	//////////////////////////////////////////////////
+
 	/**
 	 * Render videos
 	 * @param {jQuery} parent
@@ -765,13 +771,72 @@
 	copilot.data.Renderer.prototype.renderVideos = function (parent) {
 		var i,
 			p,
-			a,
+			div,
+			language = this.language,
+			dataModel = this.data,
+			videos = dataModel.videos() || null;
+
+		//return
+		if (videos === null) {
+			//loader
+			parent.empty();
+			this.loader(parent);
+			return;
+		}
+
+		//title
+		this.videoTitle("div-video", parent, language);
+
+		//zero length
+		if (videos.length === 0) {
+			$('<p>' + language.getString("EmptyVideos") + '</p>').appendTo(parent);
+			return;
+		}
+
+		for (i = 0; i < videos.length; i++) {
+			//video frame
+			this.videoFrame(parent, videos[i]);
+		}
+	};
+
+	/**
+	 * @private
+	 * Video title
+	 * @param {string} id
+	 * @param {jQuery} parent
+	 * @param {copilot.data.Language} language
+	 */
+	copilot.data.Renderer.prototype.videoTitle = function (id, parent, language) {
+		var title,
+			exists = parent.find('#' + id).length;
+
+		if (exists) {
+			return;
+		}
+
+		//clear
+		//noinspection JSUnresolvedFunction
+		parent.empty();
+		//title
+		title = $('<div class="title" />').attr('id', id).appendTo(parent);
+		//h2
+		$('<h2>' + language.getString("Videos") + '</h2>').appendTo(title);
+		$('<span class="byline">' + language.getString("Videos_Motto") + '</span>').appendTo(title);
+	};
+
+	/**
+	 * @private
+	 * Video frame
+	 * @param {jQuery} parent
+	 * @param {copilot.model.Video} video
+	 */
+	copilot.data.Renderer.prototype.videoFrame = function (parent, video) {
+		var item,
+			link,
 			div,
 			text,
 			info,
 			point,
-			video,
-			title,
 			paths,
 			height,
 			button,
@@ -780,37 +845,13 @@
 			description,
 			self = this,
 			language = this.language,
-			dataModel = this.data,
-			videos = dataModel.videos() || null;
+			dataModel = this.data;
 
-		if (videos === null) {
-			return;
-		}
-
-		//clear
-		//noinspection JSUnresolvedFunction
-		parent.empty();
-
-		//title
-		title = $('<div class="title" />').appendTo(parent);
-
-		//h2
-		$('<h2>' + language.getString("Videos") + '</h2>').appendTo(title);
-
-
-		$('<span class="byline">' + language.getString("Videos_Motto") + '</span>').appendTo(title);
-
-		for (i = 0; i < videos.length; i++) {
-			//video
-			video = videos[i];
-			//paths
-			paths = dataModel.path(video.Time, new Date(video.Time.getTime() + (video.duration * 1000)));
-
-			p = $('<p></p>').addClass('videos').appendTo(parent);
-			p.css('height', '430px');
-			a = $('<div class="odometer"/>').appendTo(p);
-			a.append('<div class="value">' + video.Time.toLocaleDateString() + '<span class="small">' + video.Time.toLocaleTimeString() + '</span></div>');
-
+		/**
+		 * Description
+		 * @returns {string|*}
+		 */
+		function getDescription(video, paths) {
 			//data
 			data[0] = video.Time.toLocaleDateString();
 			data[1] = new Date(video.duration * 1000).toLocaleTimeString();
@@ -819,13 +860,43 @@
 			data[4] = paths ?  Math.round(paths.TraveledDistance * 100) / 100 : 0;
 			data[5] = copilot.Distance;
 			data[6] = language.getString('FueledUnit');
+			//string
+			return language.getString("VideoDescription", data);
+		}
+
+		//paths
+		paths = dataModel.path(video.Time, new Date(video.Time.getTime() + (video.duration * 1000)));
+
+		//data
+		item = parent.find("#video-" + video.Time.getTime());
+		info = item.find("p.info");
+		description =  item.find("p.video");
+
+		//not exists
+		if (item.length === 0) {
+			item = $('<p />').addClass('videos').attr('id', "video-" + video.Time.getTime()).appendTo(parent);
+			item.css('height', '430px');
+			link = $('<div class="odometer"/>').appendTo(item);
+			link.append('<div class="value">' + video.Time.toLocaleDateString() + '<span class="small">' + video.Time.toLocaleTimeString() + '</span></div>');
 
 			//info
-			info = $('<p />').addClass("info").html(language.getString("VideoDescription", data));
-			p.append(info);
+			info = $('<p />').addClass("info").html(getDescription(video, paths));
+			item.append(info);
 
-			//if paths exists
-			if (paths) {
+			//description
+			description = $('<p />').addClass("video");
+			item.append(description);
+			item.append($('<div />').css('clear', 'both'));
+		} else {
+			//set new html
+			info.html(getDescription(video, paths));
+		}
+
+		//if paths exists
+		if (paths) {
+			if (description.find('.video-rendered').length === 0) {
+				//empty
+				description.empty();
 				//first
 				point = paths.States[0];
 				//iframe
@@ -850,8 +921,9 @@
 				}
 
 				//description => video, map
-				description = $('<p />').addClass("video");
 				description.append(iframe);
+				//description => helper
+				description.append($('<span />').addClass('video-rendered'));
 
 				if (point) {
 					//map
@@ -870,29 +942,22 @@
 					//share: twitter
 					button = $('<a href="https://twitter.com/share" class="twitter-share-button" data-url=" " data-count="none" data-text="' + language.getString("VideoDescription_Tweet", data, true) + '">Tweet</a>');
 					description.append(button);
+
+					//fb refresh
+					FB.XFBML.parse(item[0]);
+					//twitter
+					twttr.widgets.load();
 				}
-
-			} else {
-				//description
-				description = $('<p />').addClass("video");
-				this.loader(description);
 			}
-
-			//div
-			p.append(description);
-			p.append($('<div />').css('clear', 'both'));
-
-			//fb refresh
-			FB.XFBML.parse(p[0]);
-			//twitter
-			twttr.widgets.load();
+		} else {
+			//empty
+			this.loader(description);
 		}
-
-		if (videos.length === 0) {
-			$('<p>' + language.getString("EmptyVideos") + '</p>').appendTo(parent);
-		}
-
 	};
+
+	//////////////////////////////////////////////////
+	//////////////////////////// IMAGES
+	//////////////////////////////////////////////////
 
 	/**
 	 * Render images
@@ -901,61 +966,129 @@
 	copilot.data.Renderer.prototype.renderImages = function (parent) {
 		var i,
 			p,
-			a,
 			div,
-			text,
-			info,
-			point,
 			image,
-			title,
-			paths,
-			height,
-			button,
-			iframe,
-			data = [],
-			self = this,
-			description,
 			language = this.language,
 			dataModel = this.data,
 			images = dataModel.images() || null;
 
+		//images
 		if (images === null) {
+			//loader
+			parent.empty();
+			this.loader(parent);
+			return;
+		}
+
+		//title
+		this.imageTitle("div-image", parent, language);
+
+		//zero length
+		if (images.length === 0) {
+			$('<p>' + language.getString("EmptyImages") + '</p>').appendTo(parent);
+			return;
+		}
+
+		for (i = 0; i < images.length; i++) {
+			//image
+			this.imageFrame(parent, images[i]);
+		}
+
+	};
+
+
+	/**
+	 * @private
+	 * Image title
+	 * @param {string} id
+	 * @param {jQuery} parent
+	 * @param {copilot.data.Language} language
+	 */
+	copilot.data.Renderer.prototype.imageTitle = function (id, parent, language) {
+		var title,
+			exists = parent.find('#' + id).length;
+
+		if (exists) {
 			return;
 		}
 
 		//clear
 		//noinspection JSUnresolvedFunction
 		parent.empty();
-
 		//title
-		title = $('<div class="title" />').appendTo(parent);
-
+		title = $('<div class="title" />').attr('id', id).appendTo(parent);
 		//h2
 		$('<h2>' + language.getString("Images") + '</h2>').appendTo(title);
-
-
 		$('<span class="byline">' + language.getString("Pictures_Motto") + '</span>').appendTo(title);
+	};
 
-		for (i = 0; i < images.length; i++) {
-			//image
-			image = images[i];
-			//paths
-			paths = dataModel.path(new Date(image.Time.getTime() - 10000), new Date(image.Time.getTime() + 10000));
+	/**
+	 * @private
+	 * Image frame
+	 * @param {jQuery} parent
+	 * @param {copilot.model.Image} image
+	 */
+	copilot.data.Renderer.prototype.imageFrame = function (parent, image) {
+		var item,
+			link,
+			div,
+			text,
+			info,
+			point,
+			paths,
+			height,
+			button,
+			iframe,
+			data = [],
+			description,
+			self = this,
+			language = this.language,
+			dataModel = this.data;
 
-			p = $('<p></p>').addClass('images').appendTo(parent);
-			p.css('height', '400px');
-			a = $('<div class="odometer"/>').appendTo(p);
-			a.append('<div class="value">' + image.Time.toLocaleDateString() + '<span class="small">' + image.Time.toLocaleTimeString() + '</span></div>');
-
+		/**
+		 * Description
+		 * @returns {string|*}
+		 */
+		function getDescription(image) {
 			//data
 			data[0] = image.Time.toLocaleDateString();
+			//string
+			return language.getString("ImageDescription", data);
+		}
+
+		//paths
+		paths = dataModel.path(new Date(image.Time.getTime() - 10000), new Date(image.Time.getTime() + 10000));
+
+		//data
+		item = parent.find("#image-" + image.Time.getTime());
+		info = item.find("p.info");
+		description =  item.find("p.image");
+
+		//not exists
+		if (item.length === 0) {
+			item = $('<p />').attr('id', "image-" + image.Time.getTime()).addClass('images').appendTo(parent);
+			item.css('height', '400px');
+			link = $('<div class="odometer"/>').appendTo(item);
+			link.append('<div class="value">' + image.Time.toLocaleDateString() + '<span class="small">' + image.Time.toLocaleTimeString() + '</span></div>');
 
 			//info
-			info = $('<p />').addClass("info").html(language.getString("ImageDescription", data));
-			p.append(info);
+			info = $('<p />').addClass("info").html(getDescription(image));
+			item.append(info);
 
-			//if paths exists
-			if (paths) {
+			//description
+			description = $('<p />').addClass("image");
+			item.append(description);
+			item.append($('<div />').css('clear', 'both'));
+		} else {
+			//set new html
+			info.html(getDescription(image));
+		}
+
+		//if paths exists
+		if (paths) {
+			if (description.find('.image-rendered').length === 0) {
+				//empty
+				description.empty();
 				//first
 				point = paths.States[0];
 				//iframe
@@ -980,8 +1113,9 @@
 				}
 
 				//description => image, map
-				description = $('<p />').addClass("image");
 				description.append(iframe);
+				//description => helper
+				description.append($('<span />').addClass('image-rendered'));
 
 				if (point) {
 					//map
@@ -995,23 +1129,16 @@
 					});
 					description.append(button);
 				}
-
-			} else {
-				//description
-				description = $('<p />').addClass("image");
-				this.loader(description);
 			}
-
-			//div
-			p.append(description);
-			p.append($('<div />').css('clear', 'both'));
+		} else {
+			//empty
+			this.loader(description);
 		}
-
-		if (images.length === 0) {
-			$('<p>' + language.getString("EmptyImages") + '</p>').appendTo(parent);
-		}
-
 	};
+
+	//////////////////////////////////////////////////
+	//////////////////////////// PATHS
+	//////////////////////////////////////////////////
 
 	/**
 	 * Render paths
@@ -1020,49 +1147,86 @@
 	copilot.data.Renderer.prototype.renderPaths = function (parent) {
 		var i,
 			p,
-			a,
 			div,
-			info,
-			path,
-			title,
-			height,
-			button,
-			data = [],
-			self = this,
-			description,
-			pathStates,
 			language = this.language,
 			dataModel = this.data,
 			paths = dataModel.pathList() || null;
 
+		//paths
 		if (paths === null) {
+			//loader
+			parent.empty();
+			this.loader(parent);
+			return;
+		}
+
+		//title
+		this.pathTitle("div-video", parent, language);
+
+		//zero length
+		if (paths.length === 0) {
+			$('<p>' + language.getString("EmptyPaths") + '</p>').appendTo(parent);
+			return;
+		}
+
+		for (i = 0; i < paths.length; i++) {
+			//path
+			this.pathFrame(parent, /** @type {copilot.model.Path} */ paths[i]);
+		}
+	};
+
+	/**
+	 * @private
+	 * Path title
+	 * @param {string} id
+	 * @param {jQuery} parent
+	 * @param {copilot.data.Language} language
+	 */
+	copilot.data.Renderer.prototype.pathTitle = function (id, parent, language) {
+		var title,
+			exists = parent.find('#' + id).length;
+
+		if (exists) {
 			return;
 		}
 
 		//clear
 		//noinspection JSUnresolvedFunction
 		parent.empty();
-
 		//title
-		title = $('<div class="title" />').appendTo(parent);
-
+		title = $('<div class="title" />').attr('id', id).appendTo(parent);
 		//h2
 		$('<h2>' + language.getString("Paths") + '</h2>').appendTo(title);
-
-
 		$('<span class="byline">' + language.getString("Paths_Motto") + '</span>').appendTo(title);
+	};
 
-		for (i = 0; i < paths.length; i++) {
-			//path
-			path = /** @type {copilot.model.Path} */ paths[i];
-			//paths
-			pathStates = dataModel.path(path.StartDate, path.EndDate);
+	/**
+	 * @private
+	 * Video frame
+	 * @param {jQuery} parent
+	 * @param {copilot.model.Path} path
+	 */
+	copilot.data.Renderer.prototype.pathFrame = function (parent, path) {
+		var item,
+			link,
+			div,
+			text,
+			info,
+			paths,
+			height,
+			button,
+			data = [],
+			pathStates,
+			description,
+			self = this,
+			language = this.language,
+			dataModel = this.data;
 
-			p = $('<p></p>').addClass('paths').appendTo(parent);
-			p.css('height', '150px');
-			a = $('<div class="odometer"/>').appendTo(p);
-			a.append('<div class="value">' + path.StartDate.toLocaleDateString() + '<span class="small">' + path.StartDate.toLocaleTimeString() + '</span></div>');
-
+		/**
+		 * Description
+		 * @returns {string|*}
+		 */
+		function getDescription(path) {
 			//data
 			data[0] = path.StartDate.toLocaleDateString();
 			data[1] = Math.round(path.ConsumedFuel * 1000) / 1000;
@@ -1070,54 +1234,75 @@
 			data[3] = path.Distance;
 			data[4] = language.getString("FueledUnit");
 			data[5] = timeDifference(path.EndDate, path.StartDate);
+			//string
+			return language.getString("PathDescription", data);
+		}
+
+		//paths
+		pathStates = dataModel.path(path.StartDate, path.EndDate);
+
+		//data
+		item = parent.find("#path-" + path.Uid);
+		info = item.find("p.info");
+		description =  item.find("p.path");
+
+		//not exists
+		if (item.length === 0) {
+
+			//item
+			item = $('<p />').addClass('paths').attr('id', "path-" + path.Uid).appendTo(parent);
+			item.css('height', '150px');
+			link = $('<div class="odometer"/>').appendTo(item);
+			link.append('<div class="value">' + path.StartDate.toLocaleDateString() + '<span class="small">' + path.StartDate.toLocaleTimeString() + '</span></div>');
 
 			//info
-			info = $('<p />').addClass("info").html(language.getString("PathDescription", data));
-			p.append(info);
+			info = $('<p />').addClass("info").html(getDescription(path));
+			item.append(info);
 
 			//description
 			description = $('<p />').addClass("path");
-
-			//if paths exists
-			if (pathStates) {
-				//first
-				if (pathStates.States[0]) {
-					//paths
-					button = $('<a href="#' + language.getString("Paths") + '" class="button path">' + this.language.getString('ShowMap') + '</a>');
-					button.data("path", path);
-					button.click(function () {
-						var path = $(this).data("path");
-						self.renderMap(dataModel.path(path.StartDate, path.EndDate));
-					});
-					description.append(button);
-					//share: fb
-					button = $('<div class="fb-share-button" data-width="200" />').attr('data-href', mapUrl(dataModel.path(path.StartDate, path.EndDate)));
-					description.append(button);
-					//share: twitter
-					button = $('<a href="https://twitter.com/share" class="twitter-share-button" data-url=" " data-count="none" data-text="' + language.getString("PathDescription_Tweet", data, true) + '">Tweet</a>');
-					description.append(button);
-				}
-
-			} else {
-				//description
-				description = $('<p />').addClass("path");
-				this.loader(description);
-			}
-
-			//div
-			p.append(description);
-			p.append($('<div />').css('clear', 'both'));
-
-			//fb refresh
-			FB.XFBML.parse(p[0]);
-			//twitter
-			twttr.widgets.load();
+			item.append(description);
+			item.append($('<div />').css('clear', 'both'));
+		} else {
+			//set new html
+			info.html(getDescription(path));
 		}
 
-		if (paths.length === 0) {
-			$('<p>' + language.getString("EmptyPaths") + '</p>').appendTo(parent);
+		//if pathStates exists
+		if (pathStates) {
+			//first
+			if (pathStates.States[0] && description.find('.map-button').length === 0) {
+				//empty
+				description.empty();
+				//paths
+				button = $('<a href="#' + language.getString("Paths") + '" class="button path">' + this.language.getString('ShowMap') + '</a>');
+				button.addClass('map-button');
+				button.data("path", path);
+				button.click(function () {
+					var path = $(this).data("path");
+					self.renderMap(dataModel.path(path.StartDate, path.EndDate));
+				});
+				description.append(button);
+				//share: fb
+				button = $('<div class="fb-share-button" data-width="200" />').attr('data-href', mapUrl(dataModel.path(path.StartDate, path.EndDate)));
+				description.append(button);
+				//share: twitter
+				button = $('<a href="https://twitter.com/share" class="twitter-share-button" data-url=" " data-count="none" data-text="' + language.getString("PathDescription_Tweet", data, true) + '">Tweet</a>');
+				description.append(button);
+
+				//fb refresh
+				FB.XFBML.parse(item[0]);
+				//twitter
+				twttr.widgets.load();
+			}
+		} else {
+			//empty
+			this.loader(description);
 		}
 	};
+
+
+
 
 	/**
 	 * Render graph
@@ -1130,6 +1315,10 @@
 			skin = this.skin.getSkin(),
 			language = this.language,
 			fills = this.data.fills() || null;
+
+		//loader
+		parent.empty();
+		this.loader(parent);
 
 		if (fills === null) {
 			return;
@@ -1515,13 +1704,15 @@
 		error.appendTo(parent);
 	};
 
-
 	/**
 	 * Loader
 	 * @param {jQuery} parent
 	 */
 	copilot.data.Renderer.prototype.loader = function (parent) {
-		$('<div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>').appendTo(parent);
+		var createLoader = parent.find('.spinner').length === 0;
+		if (createLoader) {
+			$('<div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>').appendTo(parent);
+		}
 	};
 
 	/**

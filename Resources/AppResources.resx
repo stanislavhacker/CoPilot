@@ -819,7 +819,7 @@
     <value>backup it</value>
   </data>
   <data name="VideoDescription" xml:space="preserve">
-    <value>On {0} you made ​​a video from your car. Video length is {1} and contains the recorded path, which has {2} points. You have totally consumed {3} {6} of fuel and traveled {4} {5} long path.</value>
+    <value>On {0} you made ​​a video from your car. Video length is {1} and contains the recorded path, which has {2} points. You have totally consumed {3} {6} of fuel and traveled {4} {5} long path. #carcopilot</value>
   </data>
   <data name="VideoNotBackuped" xml:space="preserve">
     <value>This video can not be played since it is not available on the cloud store. If you want you can</value>
@@ -882,9 +882,9 @@
     <value>Route length: {0} {1}, Travel time: {2}, Fuel consumed: {3} {4}</value>
   </data>
   <data name="PathDescription_Tweet" xml:space="preserve">
-    <value>On {0} i traveled {2} {3} in time {5} and that me cost {1} {4} fuel.</value>
+    <value>On {0} i traveled {2} {3} in time {5} and that me cost {1} {4} fuel. #carcopilot</value>
   </data>
   <data name="VideoDescription_Tweet" xml:space="preserve">
-    <value>On {0} i make ​​a video from car. I traveled {4} {5} in time {1} and that me cost {3} {6} fuel.</value>
+    <value>On {0} i make ​​a video from car. I traveled {4} {5} in time {1} and that me cost {3} {6} fuel. #carcopilot</value>
   </data>
 </root>
