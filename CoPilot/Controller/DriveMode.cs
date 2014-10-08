@@ -334,9 +334,13 @@ namespace CoPilot.CoPilot.Controller
                 return;
             }
 
-            recognizer.Dispose();
-            InitializeSpeechRecognition();
+            try
+            {
+                recognizer.Dispose();
+            }
+            catch {}
 
+            InitializeSpeechRecognition();
             speechContext = SpeechContext.Normal;
 
             window.IsOpen = false;
