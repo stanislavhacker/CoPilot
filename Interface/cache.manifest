@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#rev 000024
+#rev 000026
 NETWORK:
 *
 CACHE:
@@ -27,5 +27,6 @@ fonts/fontawesome-social-webfont.svg#Font-Awesome-More
 #web
 http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800
 https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry
+http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js
 
 

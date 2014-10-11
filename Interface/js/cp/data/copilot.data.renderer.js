@@ -201,6 +201,7 @@
 			height,
 			inner,
 			data = [],
+			markers = [],
 			positions = [],
 			win = $(window),
 			infoHeight = 30,
@@ -278,6 +279,7 @@
 		//map
 		setTimeout(function () {
 			var route,
+				marker,
 				position,
 				googleMap = new google.maps.Map(inner[0], {
 					zoom: 16,
@@ -293,9 +295,10 @@
 					//create
 					position = new google.maps.LatLng(state.Position.Latitude, state.Position.Longitude);
 					//marker
-					createMarker(googleMap, state, language);
+					marker = createMarker(googleMap, state, language);
 					//push
 					positions.push(position);
+					markers.push(marker);
 				}
 			}
 
@@ -308,6 +311,11 @@
 			});
 
 			route.setMap(googleMap);
+			//noinspection JSUnusedLocalSymbols
+			var markerCluster = new MarkerClusterer(googleMap, markers, {
+				gridSize: 100,
+				maxZoom: 16
+			});
 
 		}, 500);
 
@@ -319,6 +327,7 @@
 	 * @param {object} map
 	 * @param {copilot.model.State} state
 	 * @param {copilot.data.Language} language
+	 * @return {google.maps.Marker} marker
 	 */
 	function createMarker(map, state, language) {
 		var div,
@@ -328,7 +337,7 @@
 		//marker
 		marker = new google.maps.Marker({
 			position: new google.maps.LatLng(state.Position.Latitude, state.Position.Longitude),
-			map: map,
+			//map: map,
 			title: language.getString('Speed') + ": "  + state.Speed
 		});
 
@@ -357,6 +366,8 @@
 		google.maps.event.addListener(marker, 'click', function() {
 			window.open(map, marker);
 		});
+
+		return marker;
 	}
 
 	/**
@@ -1161,7 +1172,7 @@
 		}
 
 		//title
-		this.pathTitle("div-video", parent, language);
+		this.pathTitle("div-paths", parent, language);
 
 		//zero length
 		if (paths.length === 0) {
