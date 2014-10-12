@@ -286,6 +286,7 @@
     <Content Include="Resources\Images\Buttons\assistant.png" />
     <Content Include="Resources\Images\Buttons\avarage.png" />
     <Content Include="Resources\Images\Buttons\backup.png" />
+    <Content Include="Resources\Images\Buttons\blog.png" />
     <Content Include="Resources\Images\Buttons\Bt\bt_connected.png" />
     <Content Include="Resources\Images\Buttons\Bt\bt_disconnected.png" />
     <Content Include="Resources\Images\Buttons\Bt\bt_off.png" />

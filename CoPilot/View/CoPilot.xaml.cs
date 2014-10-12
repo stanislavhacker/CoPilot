@@ -1469,6 +1469,9 @@ namespace CoPilot.CoPilot.View
                 case "Donate":
                     url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LVCK2P82YFGJ6";
                     break;
+                case "Blog":
+                    url = "http://carcopilot.blogspot.cz";
+                    break;
                 default:
                     url = type;
                     break;

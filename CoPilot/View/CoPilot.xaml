@@ -1077,6 +1077,19 @@
                             </Button>
                             <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
 
+                            <Button 
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100"
+                                Command="{Binding SocialCommand}"
+                                CommandParameter="Blog">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/blog.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.Blog, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
                             <Button  
                                 Visibility="{Binding IsTrial, Converter={StaticResource BooleanToVisibilityConvertor}}" 
                                 Command="{Binding BuyCommand}"

@@ -887,4 +887,7 @@
   <data name="VideoDescription_Tweet" xml:space="preserve">
     <value>Dne {0} jsem pořídil video z auta. Ujel jsem {4} {5} v čase {1} a spotřeboval jsem celkem {3} {6} paliva. #carcopilot</value>
   </data>
+  <data name="Blog" xml:space="preserve">
+    <value>Články na bloku</value>
+  </data>
 </root>
