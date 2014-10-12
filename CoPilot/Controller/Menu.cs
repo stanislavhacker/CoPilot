@@ -8,6 +8,8 @@ namespace CoPilot.CoPilot.Controller
 {
     public enum MenuContext
     {
+        Statistics,
+        Browser,
         Camera,
         Fuel,
         Repair,

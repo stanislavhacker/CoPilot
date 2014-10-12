@@ -35,6 +35,80 @@ namespace CoPilot.CoPilot.Controller
             }
         }
 
+        /// <summary>
+        /// StatsTap Command
+        /// </summary>
+        public ICommand StatsTap
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    this.MenuController.Context = MenuContext.Statistics;
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// TwitterTap Command
+        /// </summary>
+        public ICommand TwitterTap
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    this.MenuController.Context = MenuContext.Browser;
+                    this.SocialUrl = new Uri("https://twitter.com/carcopilot");
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// FacebookTap Command
+        /// </summary>
+        public ICommand FacebookTap
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    this.MenuController.Context = MenuContext.Browser;
+                    this.SocialUrl = new Uri("https://www.facebook.com/carcopilot");
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// GoogleTap Command
+        /// </summary>
+        public ICommand GoogleTap
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    this.MenuController.Context = MenuContext.Browser;
+                    this.SocialUrl = new Uri("https://plus.google.com/u/0/115628070739534024707/posts");
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// BlogTap Command
+        /// </summary>
+        public ICommand BlogTap
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    this.MenuController.Context = MenuContext.Browser;
+                    this.SocialUrl = new Uri("http://carcopilot.blogspot.cz/");
+                }, param => true);
+            }
+        }
+
         #endregion
 
         #region PRIVATE
@@ -44,6 +118,23 @@ namespace CoPilot.CoPilot.Controller
         #endregion
 
         #region PROPERTY
+
+        /// <summary>
+        /// SocialUrl
+        /// </summary>
+        private Uri socialUrl;
+        public Uri SocialUrl
+        {
+            get
+            {
+                return socialUrl;
+            }
+            set
+            {
+                socialUrl = value;
+                RaisePropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Is stats visible
@@ -171,6 +262,27 @@ namespace CoPilot.CoPilot.Controller
         }
 
         #endregion
+
+        #region PROPERTY MENU
+
+        /// <summary>
+        /// Menu controller
+        /// </summary>
+        private Menu menuController;
+        public Menu MenuController
+        {
+            get
+            {
+                return menuController;
+            }
+            set
+            {
+                menuController = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
         
         /// <summary>
         /// Stats
@@ -180,6 +292,9 @@ namespace CoPilot.CoPilot.Controller
             //data controller
             this.DataController = dataController;
             this.DataController.PropertyChanged += propertyChangedEvent;
+            //menu controller
+            this.MenuController = new Menu();
+            this.MenuController.Context = MenuContext.Statistics;
             //copilot
             this.CoPilot = copilot;
             //stats

@@ -199,22 +199,22 @@
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup>
                         <VisualStateGroup.Transitions>
-                            <VisualTransition To="StatsUserControlClose" GeneratedDuration="0:0:0.5">
+                            <VisualTransition To="StatsUserControlClose" GeneratedDuration="0:0:0.2">
                                 <Storyboard>
                                     <DoubleAnimation 
 							        Storyboard.TargetName="StatsUserControl"
 							        Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
 							        To="-1000"
-							        Duration="0:0:0.5"/>
+							        Duration="0:0:0.2"/>
                                 </Storyboard>
                             </VisualTransition>
-                            <VisualTransition To="StatsUserControlOpen" GeneratedDuration="0:0:0.5">
+                            <VisualTransition To="StatsUserControlOpen" GeneratedDuration="0:0:0.2">
                                 <Storyboard>
                                     <DoubleAnimation 
 							        Storyboard.TargetName="StatsUserControl"
 							        Storyboard.TargetProperty="(Grid.Projection).(PlaneProjection.GlobalOffsetX)"
 							        To="0"
-							        Duration="0:0:0.5"/>
+							        Duration="0:0:0.2"/>
                                 </Storyboard>
                             </VisualTransition>
                         </VisualStateGroup.Transitions>
@@ -264,22 +264,22 @@
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup>
                     <VisualStateGroup.Transitions>
-                        <VisualTransition To="StatsClose" GeneratedDuration="0:0:0.5">
+                        <VisualTransition To="StatsClose" GeneratedDuration="0:0:0.2">
                             <Storyboard>
                                 <DoubleAnimation 
 							        Storyboard.TargetName="StatsHud"
 							        Storyboard.TargetProperty="(Grid.Opacity)"
 							        To="0"
-							        Duration="0:0:0.5"/>
+							        Duration="0:0:0.2"/>
                             </Storyboard>
                         </VisualTransition>
-                        <VisualTransition To="StatsOpen" GeneratedDuration="0:0:0.5">
+                        <VisualTransition To="StatsOpen" GeneratedDuration="0:0:0.2">
                             <Storyboard>
                                 <DoubleAnimation 
 							        Storyboard.TargetName="StatsHud"
 							        Storyboard.TargetProperty="(Grid.Opacity)"
 							        To="1"
-							        Duration="0:0:0.5"/>
+							        Duration="0:0:0.2"/>
                             </Storyboard>
                         </VisualTransition>
                     </VisualStateGroup.Transitions>

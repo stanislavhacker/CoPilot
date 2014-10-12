@@ -182,6 +182,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="WebBrowserUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -294,6 +295,7 @@
     <Content Include="Resources\Images\Buttons\buy.png" />
     <Content Include="Resources\Images\Buttons\camcorder.png" />
     <Content Include="Resources\Images\Buttons\cancel.png" />
+    <Content Include="Resources\Images\Buttons\chart.png" />
     <Content Include="Resources\Images\Buttons\delete.png" />
     <Content Include="Resources\Images\Buttons\download.png" />
     <Content Include="Resources\Images\Buttons\eye.png" />
