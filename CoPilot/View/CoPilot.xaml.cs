@@ -1068,6 +1068,9 @@ namespace CoPilot.CoPilot.View
             FtpController.DataController = this.DataController;
             FtpController.TryLogin();
 
+            //stats
+            StatsController.IsNetEnabled = DeviceNetworkInformation.IsWiFiEnabled || DeviceNetworkInformation.IsCellularDataEnabled;
+
             //gps
             GpsController.IsGpsAllowed = DataController.IsGpsAllowed;
 

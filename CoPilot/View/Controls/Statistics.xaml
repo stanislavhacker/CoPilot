@@ -43,6 +43,7 @@
                     <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
 
                     <Button 
+                        IsEnabled="{Binding IsNetEnabled}"
                         Command="{Binding TwitterTap}" 
                         Style="{StaticResource MenuButton}" 
                         HorizontalContentAlignment="Stretch" 
@@ -54,6 +55,7 @@
                     <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
 
                     <Button 
+                        IsEnabled="{Binding IsNetEnabled}"
                         Command="{Binding FacebookTap}" 
                         Style="{StaticResource MenuButton}" 
                         HorizontalContentAlignment="Stretch" 
@@ -65,6 +67,7 @@
                     <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
 
                     <Button 
+                        IsEnabled="{Binding IsNetEnabled}"
                         Command="{Binding GoogleTap}" 
                         Style="{StaticResource MenuButton}" 
                         HorizontalContentAlignment="Stretch" 
@@ -76,6 +79,7 @@
                     <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
 
                     <Button 
+                        IsEnabled="{Binding IsNetEnabled}"
                         Command="{Binding BlogTap}" 
                         Style="{StaticResource MenuButton}" 
                         HorizontalContentAlignment="Stretch" 

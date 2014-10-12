@@ -155,6 +155,23 @@ namespace CoPilot.CoPilot.Controller
         }
 
         /// <summary>
+        /// Is net enabled
+        /// </summary>
+        private Boolean isNetEnabled = false;
+        public Boolean IsNetEnabled
+        {
+            get
+            {
+                return isNetEnabled;
+            }
+            set
+            {
+                isNetEnabled = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Data controller
         /// </summary>
         private Data dataController;
