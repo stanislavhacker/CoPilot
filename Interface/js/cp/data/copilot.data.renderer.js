@@ -80,54 +80,6 @@
 	}
 
 	/**
-	 * Split url
-	 * @param {string} url
-	 * @returns {{url: string, data: {}}}
-	 */
-	function splitUrl(url) {
-		var i,
-			info,
-			params,
-			data = {},
-			index = url.indexOf("?"),
-			www = url.substr(0, index),
-			query = url.substr(index, url.length - index);
-
-		params = query.split("&");
-		for (i = 0; i < params.length; i++) {
-			info = params[i].split("=");
-			data[info[0]] = info[1];
-		}
-
-		return {
-			url: www,
-			data: data
-		}
-	}
-
-	/**
-	 * Resource iframe
-	 * @param {copilot.model.Backup} backup
-	 * @returns {jQuery}
-	 */
-	function resourceIframe(backup) {
-		var url,
-			cid,
-			resid,
-			iframe;
-
-		//url
-		url = splitUrl(backup.Url);
-		//cid
-		//noinspection JSUnresolvedVariable
-		cid = url.data.cid;
-		//noinspection JSUnresolvedVariable
-		resid = url.data.resid;
-		//iframe
-		return $('<iframe src="https://onedrive.live.com/embed?cid=' + cid + '&resid=' + resid + '" width="320" height="240" frameborder="0" scrolling="no"></iframe>');
-	}
-
-	/**
 	 * Get mini map frame
 	 * @param {number} longitude
 	 * @param {number} latitude
@@ -913,7 +865,7 @@
 				//iframe
 				if (video.isBackuped()) {
 					//video is available on cloud storage
-					iframe = resourceIframe(video.VideoBackup);
+					iframe = this.videoElement(video, dataModel);
 				} else {
 					//not backuped
 					iframe = $('<div class="noiframe"></div>');
@@ -966,6 +918,46 @@
 		}
 	};
 
+	/**
+	 * @private
+	 * Video element
+	 * @param {copilot.model.Video} videoData
+	 * @param {copilot.data.Data} data
+	 * @returns {jQuery}
+	 */
+	copilot.data.Renderer.prototype.videoElement = function (videoData, data) {
+		var url,
+			video,
+			interval,
+			div = $('<div class="mediaframe" />');
+
+		interval = setInterval(function () {
+			//get url
+			url = data.videoUrl(videoData.VideoBackup.Id);
+			//if url exists
+			if (url) {
+				clearInterval(interval);
+				//empty
+				div.empty();
+				//video
+				video = $('<video controls/>').appendTo(div);
+				//css
+				video.css({
+					width: div.width(),
+					height: div.height()
+				});
+				//add source
+				video.append('<source src="' + url + '" type="video/mp4">');
+			}
+		}, 1000);
+
+		//load
+		this.loader(div);
+
+		return div;
+	};
+
+
 	//////////////////////////////////////////////////
 	//////////////////////////// IMAGES
 	//////////////////////////////////////////////////
@@ -1006,7 +998,6 @@
 		}
 
 	};
-
 
 	/**
 	 * @private
@@ -1105,7 +1096,7 @@
 				//iframe
 				if (image.isBackuped()) {
 					//image is available on cloud storage
-					iframe = resourceIframe(image.Backup);
+					iframe = this.imageElement(image, dataModel);
 				} else {
 					//not backuped
 					iframe = $('<div class="noiframe"></div>');
@@ -1145,6 +1136,45 @@
 			//empty
 			this.loader(description);
 		}
+	};
+
+	/**
+	 * @private
+	 * Image element
+	 * @param {copilot.model.Image} imageData
+	 * @param {copilot.data.Data} data
+	 * @returns {jQuery}
+	 */
+	copilot.data.Renderer.prototype.imageElement = function (imageData, data) {
+		var url,
+			image,
+			interval,
+			div = $('<div class="mediaframe" />');
+
+		interval = setInterval(function () {
+			//get url
+			url = data.imageUrl(imageData.Backup.Id);
+			//if url exists
+			if (url) {
+				clearInterval(interval);
+				//empty
+				div.empty();
+				//image
+				image = $('<image />').appendTo(div);
+				//css
+				image.css({
+					width: div.width(),
+					height: div.height()
+				});
+				//add source
+				image.attr('src', url);
+			}
+		}, 1000);
+
+		//load
+		this.loader(div);
+
+		return div;
 	};
 
 	//////////////////////////////////////////////////

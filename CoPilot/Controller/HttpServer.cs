@@ -170,7 +170,7 @@ namespace CoPilot.CoPilot.Controller
                     case "data":
                         return this.data(url.Query.Substring(1));
                     default:
-                        return new IDCT.webResposne();
+                        return Task.FromResult(new IDCT.webResposne());
                 }
             });
             rules.Add(new Regex("^/copilot/.*$"), (e) =>
@@ -190,7 +190,7 @@ namespace CoPilot.CoPilot.Controller
         /// Language
         /// </summary>
         /// <returns></returns>
-        private webResposne language()
+        private Task<webResposne> language()
         {
             var test = AppResources.ResourceManager.GetResourceSet(System.Globalization.CultureInfo.CurrentCulture, true, false);
             if (test == null)
@@ -212,14 +212,14 @@ namespace CoPilot.CoPilot.Controller
             response.header = new Dictionary<string, string>();
             response.header.Add("Content-Type", "text/json");
 
-            return response;
+            return Task.FromResult(response);
         }
 
         /// <summary>
         /// Get skin
         /// </summary>
         /// <returns></returns>
-        private webResposne skin()
+        private Task<webResposne> skin()
         {
             //json
             var json = JsonConvert.SerializeObject(this.skinData);
@@ -235,7 +235,7 @@ namespace CoPilot.CoPilot.Controller
             response.header = new Dictionary<string, string>();
             response.header.Add("Content-Type", "text/json");
 
-            return response;
+            return Task.FromResult(response);
         }
 
         /// <summary>
@@ -259,7 +259,7 @@ namespace CoPilot.CoPilot.Controller
         /// Load file
         /// </summary>
         /// <returns></returns>
-        private webResposne loadFile(String url)
+        private Task<webResposne> loadFile(String url)
         {
             //create
             var response = new IDCT.webResposne();
@@ -287,14 +287,14 @@ namespace CoPilot.CoPilot.Controller
             }
 
             //send
-            return response;
+            return Task.FromResult(response);
         }
 
         /// <summary>
         /// Error 404
         /// </summary>
         /// <returns></returns>
-        private webResposne e404()
+        private Task<webResposne> e404()
         {
             //create
             var response = new IDCT.webResposne();
@@ -313,7 +313,7 @@ namespace CoPilot.CoPilot.Controller
             response.header.Add("Content-Type", "text/html");
 
             //send
-            return response;
+            return Task.FromResult(response);
         }
 
         #endregion
@@ -325,7 +325,7 @@ namespace CoPilot.CoPilot.Controller
         /// Data
         /// </summary>
         /// <returns></returns>
-        private webResposne data(String query)
+        private async Task<webResposne> data(String query)
         {
             //url: api/data?command=setting&from=&to=&page=
 
@@ -362,9 +362,49 @@ namespace CoPilot.CoPilot.Controller
                     return createResponse(createPathList());
                 case "run":
                     return createResponse(run(what, whatData));
+                case "video-url":
+                    var videoUri = await videoUrl(what);
+                    return createResponse(videoUri);
+                case "image-url":
+                    var imageUri = await imageUrl(what);
+                    return createResponse(imageUri);
                 default:
                     return new IDCT.webResposne();
             }
+        }
+
+        /// <summary>
+        /// Get video url
+        /// </summary>
+        /// <param name="what"></param>
+        /// <returns></returns>
+        private async Task<object> videoUrl(string what)
+        {
+            var ftp = application.FtpController;
+            //net enabled and logged
+            if (ftp.IsNetEnabled)
+            {
+                var url = await ftp.VideoUrl(what);
+                return url.Url;
+            }
+            return "unknown";
+        }
+
+        /// <summary>
+        /// Get image url
+        /// </summary>
+        /// <param name="what"></param>
+        /// <returns></returns>
+        private async Task<object> imageUrl(string what)
+        {
+            var ftp = application.FtpController;
+            //net enabled and logged
+            if (ftp.IsNetEnabled)
+            {
+                var url = await ftp.VideoUrl(what);
+                return url.Url;
+            }
+            return "unknown";
         }
 
         /// <summary>

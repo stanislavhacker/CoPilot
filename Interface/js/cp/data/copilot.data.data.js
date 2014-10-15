@@ -251,6 +251,51 @@
 	};
 
 	/**
+	 * Video url
+	 * @param {string} id
+	 * @return {string|null}
+	 */
+	copilot.data.Data.prototype.videoUrl = function (id) {
+		var videoUrl,
+			self = this,
+			command = "video-url",
+			what = command + "-" + id;
+
+		//return cached data
+		if (self.storage.getData(what)) {
+			return self.storage.getData(what);
+		}
+
+		//check for state
+		if (self.storage.getState(what)) {
+			return null;
+		}
+		self.storage.setState(what, true);
+
+		this.get({
+			command : command,
+			what: id
+		}, function (data) {
+			//videoUrl
+			videoUrl = data ? data : null;
+			//set data
+			self.storage.setState(what, false);
+			self.storage.setData(what, videoUrl);
+
+			if (videoUrl) {
+				//re-render
+				self.renderer.renderPageContent();
+			} else {
+				setTimeout(function () {
+					self.videoUrl(id);
+				}, 1000);
+			}
+		});
+
+		return null;
+	};
+
+	/**
 	 * Images
 	 * @return {copilot.model.Images}
 	 */
@@ -285,6 +330,51 @@
 			} else {
 				setTimeout(function () {
 					self.images();
+				}, 1000);
+			}
+		});
+
+		return null;
+	};
+
+	/**
+	 * Image url
+	 * @param {string} id
+	 * @return {string|null}
+	 */
+	copilot.data.Data.prototype.imageUrl = function (id) {
+		var imageUrl,
+			self = this,
+			command = "image-url",
+			what = command + "-" + id;
+
+		//return cached data
+		if (self.storage.getData(what)) {
+			return self.storage.getData(what);
+		}
+
+		//check for state
+		if (self.storage.getState(what)) {
+			return null;
+		}
+		self.storage.setState(what, true);
+
+		this.get({
+			command : command,
+			what: id
+		}, function (data) {
+			//imageUrl
+			imageUrl = data ? data : null;
+			//set data
+			self.storage.setState(what, false);
+			self.storage.setData(what, imageUrl);
+
+			if (imageUrl) {
+				//re-render
+				self.renderer.renderPageContent();
+			} else {
+				setTimeout(function () {
+					self.imageUrl(id);
 				}, 1000);
 			}
 		});
