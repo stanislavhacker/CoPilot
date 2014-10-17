@@ -890,4 +890,7 @@
   <data name="Blog" xml:space="preserve">
     <value>Read articles on blog</value>
   </data>
+  <data name="MediaError" xml:space="preserve">
+    <value>Unable to load a media file. Turn on the app and try it again or check your internet connection.</value>
+  </data>
 </root>

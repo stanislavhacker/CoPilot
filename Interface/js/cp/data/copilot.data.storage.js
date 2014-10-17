@@ -81,6 +81,10 @@
 				if (key.indexOf("path-") >= 0) {
 					return new copilot.model.Path().clone.apply(item);
 				}
+				//string url
+				if (key.indexOf("url-") >= 0) {
+					return item;
+				}
 				break;
 		}
 
@@ -157,6 +161,11 @@
 				//copilot.model.Path
 				if (key.indexOf("path-") >= 0) {
 					string = data.toJSON();
+					break;
+				}
+				//string url
+				if (key.indexOf("url-") >= 0) {
+					string = data;
 					break;
 				}
 		}

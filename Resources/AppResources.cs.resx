@@ -890,4 +890,7 @@
   <data name="Blog" xml:space="preserve">
     <value>Články na bloku</value>
   </data>
+  <data name="MediaError" xml:space="preserve">
+    <value>Nemohu načíst požadovaný mediální soubor. Zapněte aplikaci a zkuste to znovu nebo zkontrolujte připojení k internetu.</value>
+  </data>
 </root>

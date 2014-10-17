@@ -277,7 +277,7 @@
 			what: id
 		}, function (data) {
 			//videoUrl
-			videoUrl = data ? data : null;
+			videoUrl = data ? data : self.storage.getData(what, true);
 			//set data
 			self.storage.setState(what, false);
 			self.storage.setData(what, videoUrl);
@@ -364,7 +364,7 @@
 			what: id
 		}, function (data) {
 			//imageUrl
-			imageUrl = data ? data : null;
+			imageUrl = data ? data : self.storage.getData(what, true);
 			//set data
 			self.storage.setState(what, false);
 			self.storage.setData(what, imageUrl);

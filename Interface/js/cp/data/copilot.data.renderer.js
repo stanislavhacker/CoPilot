@@ -928,7 +928,9 @@
 	copilot.data.Renderer.prototype.videoElement = function (videoData, data) {
 		var url,
 			video,
+			source,
 			interval,
+			language = this.language,
 			div = $('<div class="mediaframe" />');
 
 		interval = setInterval(function () {
@@ -940,14 +942,26 @@
 				//empty
 				div.empty();
 				//video
-				video = $('<video controls/>').appendTo(div);
+				video = $('<video/>').appendTo(div);
 				//css
 				video.css({
 					width: div.width(),
 					height: div.height()
 				});
+				//events
+				video.bind("canplay", function () {
+					video.attr('controls', "true");
+				});
 				//add source
-				video.append('<source src="' + url + '" type="video/mp4">');
+				source = $('<source src="' + url + '" type="video/mp4">');
+				source.bind("error", function () {
+					//not backuped
+					var iframe = $('<div class="noiframe error"></div>'),
+						text = $('<div></div>').appendTo(iframe);
+					text.append(language.getString('MediaError'));
+					div.replaceWith(iframe);
+				});
+				video.append(source);
 			}
 		}, 1000);
 
@@ -1149,6 +1163,7 @@
 		var url,
 			image,
 			interval,
+			language = this.language,
 			div = $('<div class="mediaframe" />');
 
 		interval = setInterval(function () {
@@ -1165,6 +1180,13 @@
 				image.css({
 					width: div.width(),
 					height: div.height()
+				});
+				image.bind("error", function () {
+					//not backuped
+					var iframe = $('<div class="noiframe error"></div>'),
+						text = $('<div></div>').appendTo(iframe);
+					text.append(language.getString('MediaError'));
+					div.replaceWith(iframe);
 				});
 				//add source
 				image.attr('src', url);
