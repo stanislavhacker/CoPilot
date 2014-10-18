@@ -7,50 +7,6 @@
 	copilot.data = copilot.data || {};
 
 	/**
-	 * Get time difference
-	 * @param {Date} laterDate
-	 * @param {Date} earlierDate
-	 * @returns {string}
-	 */
-	function timeDifference(laterDate, earlierDate) {
-		var difference = laterDate.getTime() - earlierDate.getTime(),
-			days = 1000*60*60*24,
-			hours = 1000*60*60,
-			minutes = 1000*60,
-			secondsDifference,
-			minutesDifference,
-			hoursDifference,
-			daysDifference,
-			string = "";
-
-		daysDifference = Math.floor(difference / days);
-		difference -= daysDifference * days;
-
-		hoursDifference = Math.floor(difference / hours);
-		difference -= hoursDifference * hours;
-
-		minutesDifference = Math.floor(difference / minutes);
-		difference -= minutesDifference * minutes;
-
-		secondsDifference = Math.floor(difference / 1000);
-
-		if (daysDifference > 0) {
-			string += ("0" + daysDifference + ":").slice(-3);
-		}
-		if (hoursDifference > 0) {
-			string += ("0" + hoursDifference + ":").slice(-3);
-		}
-		if (minutesDifference > 0) {
-			string += ("0" + minutesDifference + ":").slice(-3);
-		}
-		if (secondsDifference > 0) {
-			string += ("0" + secondsDifference).slice(-2);
-		}
-
-		return string;
-	}
-
-	/**
 	 * Calculate height
 	 * @param {copilot.model.Odometer} odometerA
 	 * @param {copilot.model.Odometer} odometerB
@@ -77,249 +33,6 @@
 			return copilot.App.GetOdometerWithRightDistance(odometerA) - copilot.App.GetOdometerWithRightDistance(odometerB);
 		}
 		return 0;
-	}
-
-	/**
-	 * Get mini map frame
-	 * @param {number} longitude
-	 * @param {number} latitude
-	 * @param {number=} mapZoom
-	 * @param {number=} width
-	 * @param {number=} height
-	 * @returns {jQuery}
-	 */
-	function miniMapFrame(longitude, latitude, mapZoom, width, height) {
-		var inner,
-			center,
-			zoom = mapZoom || 13,
-			map = $('<div class="mapviewer" />');
-
-		width = width || 500;
-		height = height || 400;
-
-		//center
-		center = new google.maps.LatLng(longitude, latitude);
-
-		//map
-		map.css({
-			width: width,
-			height: height
-		});
-
-		//map
-		inner = $('<div class="map"></div>');
-		inner.css({
-			width: width,
-			height: height
-		});
-
-		//map
-		setTimeout(function () {
-			var marker,
-				googleMap = new google.maps.Map(inner[0], {
-					zoom: zoom,
-					center: center,
-					disableDefaultUI: true,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
-				});
-
-			//noinspection JSUnusedAssignment
-			marker = new google.maps.Marker({
-				position: center,
-				map: googleMap
-			});
-
-		}, 200);
-
-		map.append(inner);
-
-		return map;
-	}
-
-	/**
-	 * Get map frame
-	 * @param {copilot.model.Path} path
-	 * @param {copilot.data.Skin} skin
-	 * @param {copilot.data.Language} language
-	 * @returns {jQuery}
-	 */
-	function mapFrame(path, skin, language) {
-		var i,
-			div,
-			info,
-			state,
-			center,
-			width,
-			height,
-			inner,
-			data = [],
-			markers = [],
-			positions = [],
-			win = $(window),
-			infoHeight = 30,
-			skinData = skin.getSkin(),
-			header = $("#header").height(),
-			map = $('<div id="mapviewer fullscreen" />');
-
-		//states
-		for (i = 0; i < path.States.length; i++) {
-			if (path.States[i].Position) {
-				//center
-				center = new google.maps.LatLng(path.States[i].Position.Latitude, path.States[i].Position.Longitude);
-				break;
-			}
-		}
-
-		//info
-		info = $('<div class="info-panel" />').css({
-			width: '100%',
-			height: infoHeight,
-			background: skinData.Foreground
-		});
-
-		//data
-		data[0] = Math.round(path.TraveledDistance * 10) / 10; //distance
-		data[1] = copilot.Distance;
-		data[2] = timeDifference(path.EndDate, path.StartDate);
-		data[3] = Math.round(path.ConsumedFuel * 100) / 100; //fuel
-		data[4] = language.getString('FueledUnit');
-
-
-		info.append(language.getString('RouteDescription', data));
-		map.append(info);
-
-		//sizes
-		width = win.width();
-		height = win.height();
-
-		//map
-		map.css({
-			position: "fixed",
-			top: header,
-			left: 0,
-			width: width,
-			height: height - header,
-			background: 'white',
-			zIndex: '1000'
-		});
-
-		//inner
-		inner = $("<div></div>").appendTo(map);
-		inner.css({
-			width: width,
-			height: height - header - infoHeight
-		});
-
-		//events
-		win.unbind("resize.map");
-		win.bind("resize.map", function () {
-			//sizes
-			width = win.width();
-			height = win.height();
-			//map
-			map.css({
-				width: width,
-				height: height - header
-			});
-			//inner
-			inner.css({
-				width: width,
-				height: height - header - infoHeight
-			});
-		});
-
-		//map
-		setTimeout(function () {
-			var route,
-				marker,
-				position,
-				googleMap = new google.maps.Map(inner[0], {
-					zoom: 16,
-					center: center,
-					disableDefaultUI: false,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
-				});
-
-			//states
-			for (i = 0; i < path.States.length; i++) {
-				state = path.States[i];
-				if (state.Position) {
-					//create
-					position = new google.maps.LatLng(state.Position.Latitude, state.Position.Longitude);
-					//marker
-					marker = createMarker(googleMap, state, language);
-					//push
-					positions.push(position);
-					markers.push(marker);
-				}
-			}
-
-			route = new google.maps.Polyline({
-				path: positions,
-				geodesic: false,
-				strokeColor: skinData.Foreground,
-				strokeOpacity: 1.0,
-				strokeWeight: 10
-			});
-
-			route.setMap(googleMap);
-			//noinspection JSUnusedLocalSymbols
-			var markerCluster = new MarkerClusterer(googleMap, markers, {
-				gridSize: 100,
-				maxZoom: 16
-			});
-
-		}, 500);
-
-		return map;
-	}
-
-	/**
-	 * Create marker
-	 * @param {object} map
-	 * @param {copilot.model.State} state
-	 * @param {copilot.data.Language} language
-	 * @return {google.maps.Marker} marker
-	 */
-	function createMarker(map, state, language) {
-		var div,
-			window,
-			marker;
-
-		//marker
-		marker = new google.maps.Marker({
-			position: new google.maps.LatLng(state.Position.Latitude, state.Position.Longitude),
-			//map: map,
-			title: language.getString('Speed') + ": "  + state.Speed
-		});
-
-		//content
-		div = $('<table />').css({
-			'width': 200
-		});
-		div.append($('<tr><td><strong>' + language.getString('Speed')  + ':</strong></td><td>' + state.Speed + '</td></tr>'));
-		div.append($('<tr><td><strong>' + language.getString('ObdRpm')  + ':</strong></td><td>' + state.Rpm + '</td></tr>'));
-		div.append($('<tr><td><strong>' + language.getString('ObdTemperature')  + ':</strong></td><td>' + state.Temperature + '</td></tr>'));
-		div.append($('<tr><td><strong>' + language.getString('ObdAcceleratorPedalPosition')  + ':</strong></td><td>' + state.AcceleratorPedalPosition + '</td></tr>'));
-		div.append($('<tr><td><strong>' + language.getString('ObdEngineLoad')  + ':</strong></td><td>' + state.EngineLoad + '</td></tr>'));
-		div.append($('<tr><td><strong>' + language.getString('ObdEngineOilTemperature')  + ':</strong></td><td>' + state.EngineOilTemperature + '</td></tr>'));
-		div.append($('<tr><td><strong>' + language.getString('ObdEngineReferenceTorque')  + ':</strong></td><td>' + state.EngineReferenceTorque + '</td></tr>'));
-		div.append($('<tr><td><strong>' + language.getString('ObdFuelInjectionTiming')  + ':</strong></td><td>' + state.FuelInjectionTiming + '</td></tr>'));
-		div.append($('<tr><td><strong>' + language.getString('ObdMaxAirFlowRate')  + ':</strong></td><td>' + state.MaxAirFlowRate + '</td></tr>'));
-		div.append($('<tr><td><strong>' + language.getString('ObdThrottlePosition')  + ':</strong></td><td>' + state.ThrottlePosition + '</td></tr>'));
-
-
-		//window
-		window = new google.maps.InfoWindow({
-			content: div[0].outerHTML
-		});
-
-		//event
-		google.maps.event.addListener(marker, 'click', function() {
-			window.open(map, marker);
-		});
-
-		return marker;
 	}
 
 	/**
@@ -360,16 +73,19 @@
 
 	/**
 	 * Renderer
-	 * @param {copilot.App} copilot
+	 * @param {copilot.App} app
 	 * @constructor
 	 */
-	copilot.data.Renderer = function (copilot) {
+	copilot.data.Renderer = function (app) {
 		/** @type {copilot.data.Language}*/
-		this.language = copilot.language;
+		this.language = app.language;
 		/** @type {copilot.data.Skin}*/
-		this.skin = copilot.skin;
+		this.skin = app.skin;
 		/** @type {copilot.data.Data}*/
-		this.data = copilot.data;
+		this.data = app.data;
+		/** @type {copilot.data.Map}*/
+		this.mapRenderer = new copilot.data.Map(this);
+
 		/** @type {jQuery}*/
 		this.map = null;
 
@@ -817,7 +533,7 @@
 		function getDescription(video, paths) {
 			//data
 			data[0] = video.Time.toLocaleDateString();
-			data[1] = new Date(video.duration * 1000).toLocaleTimeString();
+			data[1] = copilot.App.timeDifference(new Date(video.duration * 1000), new Date(0));
 			data[2] = paths ? paths.States.length : 0;
 			data[3] = paths ?  Math.round(paths.ConsumedFuel * 100) / 100 : 0;
 			data[4] = paths ?  Math.round(paths.TraveledDistance * 100) / 100 : 0;
@@ -865,7 +581,7 @@
 				//iframe
 				if (video.isBackuped()) {
 					//video is available on cloud storage
-					iframe = this.videoElement(video, dataModel);
+					iframe = this.videoElement(video);
 				} else {
 					//not backuped
 					iframe = $('<div class="noiframe"></div>');
@@ -890,13 +606,13 @@
 
 				if (point) {
 					//map
-					description.append(miniMapFrame(point ? point.Position.Latitude : 0, point ? point.Position.Longitude : 0, 15, 180, 240));
+					description.append(this.mapRenderer.renderMiniMapFrame(point ? point.Position.Latitude : 0, point ? point.Position.Longitude : 0, 15, 180, 240));
 					//paths
 					button = $('<a href="#' + language.getString("Videos") + '" class="button path">' + this.language.getString('ShowMap') + '</a>');
 					button.data("video", video);
 					button.click(function () {
 						var video = $(this).data("video");
-						self.renderMap(dataModel.path(video.Time, new Date(video.Time.getTime() + (video.duration * 1000))));
+						self.renderMap(dataModel.path(video.Time, new Date(video.Time.getTime() + (video.duration * 1000))), video.isBackuped() ? video : null);
 					});
 					description.append(button);
 					//share: fb
@@ -922,14 +638,15 @@
 	 * @private
 	 * Video element
 	 * @param {copilot.model.Video} videoData
-	 * @param {copilot.data.Data} data
+	 * @param {function(video: jQuery)=} complete
 	 * @returns {jQuery}
 	 */
-	copilot.data.Renderer.prototype.videoElement = function (videoData, data) {
+	copilot.data.Renderer.prototype.videoElement = function (videoData, complete) {
 		var url,
 			video,
 			source,
 			interval,
+			data = this.data,
 			language = this.language,
 			div = $('<div class="mediaframe" />');
 
@@ -961,7 +678,12 @@
 					text.append(language.getString('MediaError'));
 					div.replaceWith(iframe);
 				});
+				//append
 				video.append(source);
+				//complete
+				if (complete) {
+					complete(video);
+				}
 			}
 		}, 1000);
 
@@ -1110,7 +832,7 @@
 				//iframe
 				if (image.isBackuped()) {
 					//image is available on cloud storage
-					iframe = this.imageElement(image, dataModel);
+					iframe = this.imageElement(image);
 				} else {
 					//not backuped
 					iframe = $('<div class="noiframe"></div>');
@@ -1135,7 +857,7 @@
 
 				if (point) {
 					//map
-					description.append(miniMapFrame(point.Position.Latitude, point.Position.Longitude, 15, 180, 240));
+					description.append(this.mapRenderer.renderMiniMapFrame(point.Position.Latitude, point.Position.Longitude, 15, 180, 240));
 					//paths
 					button = $('<a href="#' + language.getString("Images") + '" class="button path">' + this.language.getString('ShowMap') + '</a>');
 					button.data("image", image);
@@ -1156,13 +878,13 @@
 	 * @private
 	 * Image element
 	 * @param {copilot.model.Image} imageData
-	 * @param {copilot.data.Data} data
 	 * @returns {jQuery}
 	 */
-	copilot.data.Renderer.prototype.imageElement = function (imageData, data) {
+	copilot.data.Renderer.prototype.imageElement = function (imageData) {
 		var url,
 			image,
 			interval,
+			data = this.data,
 			language = this.language,
 			div = $('<div class="mediaframe" />');
 
@@ -1296,7 +1018,7 @@
 			data[2] = Math.round(path.TraveledDistance * 1000) / 1000;
 			data[3] = path.Distance;
 			data[4] = language.getString("FueledUnit");
-			data[5] = timeDifference(path.EndDate, path.StartDate);
+			data[5] = copilot.App.timeDifference(path.EndDate, path.StartDate);
 			//string
 			return language.getString("PathDescription", data);
 		}
@@ -1397,10 +1119,10 @@
 		//graph
 		switch(graph) {
 			case 'FuelPriceTrend':
-				graphData = fills.getFuelPriceTrendGraph(language);
+				graphData = fills.getFuelPriceTrendGraph(language, skin.Foreground);
 				break;
 			case 'TrendUnitsPerRefill':
-				graphData = fills.getTrendUnitsPerRefillGraph(language);
+				graphData = fills.getTrendUnitsPerRefillGraph(language, skin.Foreground);
 				break;
 			default:
 				break;
@@ -1432,13 +1154,6 @@
 			legend: {
 				enabled: false
 			},
-			plotOptions: {
-				series: {
-					value: 0,
-					width: 2,
-					color: skin.Foreground
-				}
-			},
 			series: graphData.series
 		});
 	};
@@ -1446,11 +1161,10 @@
 	/**
 	 * Render map
 	 * @param {copilot.model.Path} path
+	 * @param {copilot.model.Video=} video
 	 */
-	copilot.data.Renderer.prototype.renderMap = function (path) {
-		var skin = this.skin,
-			language = this.language,
-			frame;
+	copilot.data.Renderer.prototype.renderMap = function (path, video) {
+		var frame;
 
 		//clear
 		if (path === null) {
@@ -1462,7 +1176,7 @@
 		}
 
 		//frame
-		frame = mapFrame(path, skin, language);
+		frame = this.mapRenderer.renderMapFrame(path, video);
 		//set current map
 		this.map = frame;
 		//append

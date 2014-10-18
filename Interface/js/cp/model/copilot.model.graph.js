@@ -50,6 +50,10 @@
 		this.name = "";
 		/** @type {Array.<object>}*/
 		this.data = [];
+		/** @type {string}*/
+		this.color = undefined;
+		/** @type {number}*/
+		this.lineWidth = undefined;
 	};
 
 

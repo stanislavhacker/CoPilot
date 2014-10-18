@@ -43,7 +43,7 @@ var copilot = {};
 		 * @returns {string}
 		 */
 		copilot.App.prototype.getUrl = function () {
-			//return "http://192.168.1.10/copilot/";
+			//return "http://192.168.1.11/copilot/";
 			var index = window.location.href.indexOf("copilot/") + 8;
 			return window.location.href.substr(0, index);
 		};
@@ -243,7 +243,52 @@ var copilot = {};
 			//recalculate
 			rate = copilot.App.GetExchangeRateFor(price.Currency, currentCurrency);
 			return Math.round(price.Value * rate * 100) / 100;
-		}
+		};
+
+
+		/**
+		 * Get time difference
+		 * @param {Date} laterDate
+		 * @param {Date} earlierDate
+		 * @returns {string}
+		 */
+		copilot.App.timeDifference = function (laterDate, earlierDate) {
+			var difference = laterDate.getTime() - earlierDate.getTime(),
+				days = 1000*60*60*24,
+				hours = 1000*60*60,
+				minutes = 1000*60,
+				secondsDifference,
+				minutesDifference,
+				hoursDifference,
+				daysDifference,
+				string = "";
+
+			daysDifference = Math.floor(difference / days);
+			difference -= daysDifference * days;
+
+			hoursDifference = Math.floor(difference / hours);
+			difference -= hoursDifference * hours;
+
+			minutesDifference = Math.floor(difference / minutes);
+			difference -= minutesDifference * minutes;
+
+			secondsDifference = Math.floor(difference / 1000);
+
+			if (daysDifference > 0) {
+				string += ("0" + daysDifference + ":").slice(-3);
+			}
+			if (hoursDifference > 0) {
+				string += ("0" + hoursDifference + ":").slice(-3);
+			}
+			if (minutesDifference > 0) {
+				string += ("0" + minutesDifference + ":").slice(-3);
+			}
+			if (secondsDifference > 0) {
+				string += ("0" + secondsDifference).slice(-2);
+			}
+
+			return string;
+		};
 
 	}());
 

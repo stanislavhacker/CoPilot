@@ -41,9 +41,10 @@
 	/**
 	 * Get graph
 	 * @param {copilot.data.Language} language
+	 * @param {string} color
 	 * @returns {copilot.model.Graph}
 	 */
-	copilot.model.Fills.prototype.getFuelPriceTrendGraph = function (language) {
+	copilot.model.Fills.prototype.getFuelPriceTrendGraph = function (language, color) {
 		var i,
 			fill,
 			categories = [],
@@ -51,6 +52,8 @@
 			series = new copilot.model.Graph.Series();
 
 		series.name = language.getString("PricePerUnit");
+		series.lineWidth = 2;
+		series.color = color;
 
 		for (i = 0; i < this.length; i++) {
 			//fill
@@ -74,9 +77,10 @@
 	/**
 	 * Get graph
 	 * @param {copilot.data.Language} language
+	 * @param {string} color
 	 * @returns {copilot.model.Graph}
 	 */
-	copilot.model.Fills.prototype.getTrendUnitsPerRefillGraph = function (language) {
+	copilot.model.Fills.prototype.getTrendUnitsPerRefillGraph = function (language, color) {
 		var i,
 			fill,
 			categories = [],
@@ -84,6 +88,8 @@
 			series = new copilot.model.Graph.Series();
 
 		series.name = language.getString("Fueled");
+		series.lineWidth = 2;
+		series.color = color;
 
 		for (i = 0; i < this.length; i++) {
 			//fill

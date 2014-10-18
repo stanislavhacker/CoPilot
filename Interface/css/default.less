@@ -18,6 +18,9 @@
 @color_dribble: #C4376B;
 @color_tumblr: #31516A;
 @color_rss: #F2600B;
+@color_speed: #F0A30A;
+@color_rpm: #A4C400;
+@color_temperature: #E51400;
 
 @max_width: 1200px;
 
@@ -788,6 +791,7 @@ p.fills, p.repairs, p.videos, p.images, p.paths {
     border: 1px solid @color_gray;
     width: 320px;
     height: 240px;
+    background: #000000;
   }
 
   .mapviewer {
@@ -795,33 +799,93 @@ p.fills, p.repairs, p.videos, p.images, p.paths {
     border: 1px solid @color_gray;
     float: right;
   }
+}
 
-  .noiframe {
-    margin: 10px 0;
-    float: left;
-    border: 1px solid @color_gray;
-    width: 320px;
-    height: 240px;
-    color: @color_default;
-    background: @color_menu;
+.noiframe {
+  margin: 10px 0;
+  float: left;
+  border: 1px solid @color_gray;
+  width: 320px;
+  height: 240px;
+  color: @color_default;
+  background: @color_menu;
 
-    & > div {
-      display: block;
-      text-align: center;
-      margin: 50px 20px 0 20px;
-    }
-
-    &.error {
-      background: @color_dribble;
-    }
+  & > div {
+    display: block;
+    text-align: center;
+    margin: 50px 20px 0 20px;
   }
 
+  &.error {
+    background: @color_dribble;
+  }
 }
 
 .info-panel {
   color: @color_white;
   line-height: 28px;
   padding-left: 10px;
+}
+
+
+.full-video {
+  overflow: hidden;
+  border-right: 3px solid @color_default;
+  z-index: 2;
+  background: black;
+
+  .mediaframe {
+    width: 100%;
+    height: 100%;
+
+    video {
+      object-fit: cover;
+    }
+  }
+
+  .noiframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-size: 20pt;
+    color: @color_white;
+    padding-top: 25%;
+  }
+
+  .title {
+    font-size: 16pt;
+    font-weight: bold;
+    color: @color_white;
+    text-shadow: 2px 2px 2px @color_default;
+  }
+
+  .states-table {
+    position: absolute;
+    top: 300px;
+    margin-left: 20px;
+    color: #FFF;
+    text-shadow: 2px 2px 2px #000;
+    font-size: 10pt;
+
+    .value {
+      min-width: 50px;
+      text-align: right;
+      font-size: 11pt;
+      font-weight: 900;
+    }
+
+    tr.speed {
+      color: @color_speed;
+    }
+    tr.rpm {
+      color: @color_rpm;
+    }
+    tr.temperature {
+      color: @color_temperature;
+    }
+  }
+
 }
 
 
@@ -839,7 +903,7 @@ p.fills, p.repairs, p.videos, p.images, p.paths {
 }
 
 .spinner > div {
-  background-color: #333;
+  background-color: @color_dribble;
   margin: 1px;
   height: 100%;
   width: 6px;
