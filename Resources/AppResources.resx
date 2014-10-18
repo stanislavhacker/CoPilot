@@ -893,4 +893,7 @@
   <data name="MediaError" xml:space="preserve">
     <value>Unable to load a media file. Turn on the app and try it again or check your internet connection.</value>
   </data>
+  <data name="MonthlyExpenditure" xml:space="preserve">
+    <value>Monthly expenses for</value>
+  </data>
 </root>

@@ -68,6 +68,7 @@
 		graph.name = language.getString("FuelPriceTrend");
 		graph.dataName = language.getString("PricePerUnit");
 		graph.dataUnit = copilot.Currency;
+		graph.type = 'line';
 		graph.setCategories(categories);
 		graph.addSeries(series);
 
@@ -103,6 +104,7 @@
 		//create
 		graph.name = language.getString("TrendUnitsPerRefill");
 		graph.dataName = language.getString("Fueled");
+		graph.type = 'line';
 		graph.setCategories(categories);
 		graph.addSeries(series);
 

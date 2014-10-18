@@ -231,6 +231,12 @@
 			case language.getString('TrendUnitsPerRefill'):
 				this.renderGraph(parent, 'TrendUnitsPerRefill');
 				break;
+			case language.getString('MonthlyExpenditure') + " " + language.getString('Fuels'):
+				this.renderGraph(parent, 'MonthlyExpenditureFuels');
+				break;
+			case language.getString('MonthlyExpenditure') + " " + language.getString('Repairs'):
+				this.renderGraph(parent, 'MonthlyExpenditureRepairs');
+				break;
 			default:
 				break;
 		}
@@ -1099,13 +1105,14 @@
 			graphElement,
 			skin = this.skin.getSkin(),
 			language = this.language,
-			fills = this.data.fills() || null;
+			fills = this.data.fills() || null,
+			repairs = this.data.repairs() || null;
 
 		//loader
 		parent.empty();
 		this.loader(parent);
 
-		if (fills === null) {
+		if (fills === null || repairs === null) {
 			return;
 		}
 
@@ -1124,18 +1131,20 @@
 			case 'TrendUnitsPerRefill':
 				graphData = fills.getTrendUnitsPerRefillGraph(language, skin.Foreground);
 				break;
+			case 'MonthlyExpenditureFuels':
+				graphData = copilot.App.GetFillsMonthlyExpenditure(language, fills);
+				break;
+			case 'MonthlyExpenditureRepairs':
+				graphData = copilot.App.GetRepairsMonthlyExpenditure(language, repairs);
+				break;
 			default:
 				break;
 		}
 
 		//create
 		graphElement.highcharts({
-			chart: {
-				zoomType: 'x'
-			},
-			title: {
-				text: graphData.name
-			},
+			chart: graphData.getChart(),
+			title: graphData.getTitle(),
 			xAxis: {
 				minRange: 5,
 				categories: graphData.categories,
@@ -1148,12 +1157,11 @@
 					text: graphData.dataName + " " + graphData.dataUnit
 				}
 			},
-			tooltip: {
-				valueSuffix: graphData.dataUnit
-			},
+			tooltip: graphData.getTooltip(),
 			legend: {
 				enabled: false
 			},
+			plotOptions: graphData.getPlotOptions(),
 			series: graphData.series
 		});
 	};
@@ -1239,6 +1247,8 @@
 		switch(copilot.Hash) {
 			case language.getString('FuelPriceTrend'):
 			case language.getString('TrendUnitsPerRefill'):
+			case language.getString('MonthlyExpenditure') + " " + language.getString('Fuels'):
+			case language.getString('MonthlyExpenditure') + " " + language.getString('Repairs'):
 				showAddMenu = false;
 				break;
 			default:
@@ -1253,6 +1263,8 @@
 			//items
 			$('<li><a href="#' + language.getString('FuelPriceTrend') + '">' + language.getString('FuelPriceTrend') + '</a></li>').appendTo(ul);
 			$('<li><a href="#' + language.getString('TrendUnitsPerRefill') + '">' + language.getString('TrendUnitsPerRefill') + '</a></li>').appendTo(ul);
+			$('<li><a href="#' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Fuels') + '">' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Fuels') + '</a></li>').appendTo(ul);
+			$('<li><a href="#' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Repairs') + '">' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Repairs') + '</a></li>').appendTo(ul);
 
 		if (showAddMenu) {
 			//menu right

@@ -21,6 +21,79 @@
 		this.categories = [];
 		/** @type {Array.<copilot.model.Graph.Series>}*/
 		this.series = [];
+		/** @type {string}*/
+		this.type = 'line';
+	};
+
+	/**
+	 * Get chart
+	 * @returns {*}
+	 */
+	copilot.model.Graph.prototype.getChart = function () {
+		switch(this.type) {
+			case "line":
+				return {
+					zoomType: 'x'
+				};
+			case "pie":
+				return {
+					plotBackgroundColor: null,
+					plotBorderWidth: 1,
+					plotShadow: false
+				};
+		}
+		return null;
+	};
+
+	/**
+	 * Get title
+	 * @returns {*}
+	 */
+	copilot.model.Graph.prototype.getTitle = function () {
+		return {
+			text: this.name
+		};
+	};
+
+	/**
+	 * Get tooltip
+	 * @returns {*}
+	 */
+	copilot.model.Graph.prototype.getTooltip = function () {
+		switch(this.type) {
+			case "line":
+				return {
+					valueSuffix: this.dataUnit
+				};
+			case "pie":
+				return {
+					pointFormat: '{series.name}: <b>{point.y} ' + this.dataUnit + '</b>'
+				};
+		}
+		return null;
+	};
+
+	/**
+	 * Get plot options
+	 * @returns {*}
+	 */
+	copilot.model.Graph.prototype.getPlotOptions = function () {
+		switch(this.type) {
+			case "line":
+				return {};
+			case "pie":
+				return {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: true,
+							format: '<b>{point.name}</b>: {point.y} ' + this.dataUnit
+						}
+					}
+				};
+		}
+		return null;
 	};
 
 	/**
@@ -36,6 +109,7 @@
 	 * @param {copilot.model.Graph.Series} series
 	 */
 	copilot.model.Graph.prototype.addSeries = function (series) {
+		series.type = this.type;
 		this.series.push(series);
 	};
 
@@ -54,6 +128,8 @@
 		this.color = undefined;
 		/** @type {number}*/
 		this.lineWidth = undefined;
+		/** @type {string}*/
+		this.type = 'line';
 	};
 
 

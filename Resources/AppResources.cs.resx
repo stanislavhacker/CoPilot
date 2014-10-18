@@ -893,4 +893,7 @@
   <data name="MediaError" xml:space="preserve">
     <value>Nemohu načíst požadovaný mediální soubor. Zapněte aplikaci a zkuste to znovu nebo zkontrolujte připojení k internetu.</value>
   </data>
+  <data name="MonthlyExpenditure" xml:space="preserve">
+    <value>Měsíční výdaje za</value>
+  </data>
 </root>

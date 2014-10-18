@@ -251,6 +251,7 @@
 
 		//name
 		graphData.name = this.language.getString('Data');
+		graphData.type = 'spline';
 
 		//speed
 		series = new copilot.model.Graph.Series();

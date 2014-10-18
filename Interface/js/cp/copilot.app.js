@@ -245,6 +245,88 @@ var copilot = {};
 			return Math.round(price.Value * rate * 100) / 100;
 		};
 
+		/**
+		 * GetFillsMonthlyExpenditure
+		 * @param {copilot.data.Language} language
+		 * @param {copilot.model.Fills} fills
+		 * @return {copilot.model.Graph}
+		 */
+		copilot.App.GetFillsMonthlyExpenditure = function (language, fills) {
+			var i,
+				key,
+				month,
+				fillsTotal = {},
+				graph = new copilot.model.Graph(),
+				series = new copilot.model.Graph.Series();
+
+			for (i = 0; i < fills.length; i++) {
+				//month
+				month = (fills[i].Date.getMonth() + 1) + "/" + fills[i].Date.getFullYear();
+				//month
+				fillsTotal[month] = fillsTotal[month] || 0;
+				fillsTotal[month] += copilot.App.GetPriceWithRightValue(fills[i].Price);
+			}
+
+			//name
+			series.name = language.getString("FuelPrice");
+			series.lineWidth = 2;
+			series.color = '';
+
+			for (key in fillsTotal) {
+				//noinspection JSUnfilteredForInLoop
+				series.data.push([key, Math.round(fillsTotal[key] * 100) / 100]);
+			}
+
+			//create
+			graph.name = language.getString("MonthlyExpenditure") + " " + language.getString('Fuels');
+			graph.dataUnit = copilot.Currency;
+			graph.type = 'pie';
+			graph.addSeries(series);
+
+			return graph;
+		};
+
+		/**
+		 * GetFillsMonthlyExpenditure
+		 * @param {copilot.data.Language} language
+		 * @param {copilot.model.Repairs} repairs
+		 * @return {copilot.model.Graph}
+		 */
+		copilot.App.GetRepairsMonthlyExpenditure = function (language, repairs) {
+			var i,
+				key,
+				month,
+				repairsTotal = {},
+				graph = new copilot.model.Graph(),
+				series = new copilot.model.Graph.Series();
+
+			for (i = 0; i < repairs.length; i++) {
+				//month
+				month = (repairs[i].Date.getMonth() + 1) + "/" + repairs[i].Date.getFullYear();
+				//month
+				repairsTotal[month] = repairsTotal[month] || 0;
+				repairsTotal[month] += copilot.App.GetPriceWithRightValue(repairs[i].Price);
+			}
+
+			//name
+			series.name = language.getString("RepairPrice");
+			series.lineWidth = 2;
+			series.color = '';
+
+			for (key in repairsTotal) {
+				//noinspection JSUnfilteredForInLoop
+				series.data.push([key, Math.round(repairsTotal[key] * 100) / 100]);
+			}
+
+			//create
+			graph.name = language.getString("MonthlyExpenditure") + " " + language.getString('Repairs');
+			graph.dataUnit = copilot.Currency;
+			graph.type = 'pie';
+			graph.addSeries(series);
+
+			return graph;
+		};
+
 
 		/**
 		 * Get time difference
