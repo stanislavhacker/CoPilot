@@ -576,8 +576,10 @@
 						//updateForState
 						self.updateForState(state, marker, googleMap, series);
 						//table of state
-						view.table.empty();
-						view.table.append(createStateTable(state, language, 'auto'));
+						if (state) {
+							view.table.empty();
+							view.table.append(createStateTable(state, language, 'auto'));
+						}
 					}
 				});
 
