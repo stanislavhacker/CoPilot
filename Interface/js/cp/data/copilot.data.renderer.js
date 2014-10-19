@@ -729,12 +729,6 @@
 			height: div.height()
 		});
 
-
-		//events
-		video[0].onstalled = function () {
-			console.log('Stalled');
-		};
-
 		//events
 		video[0].oncanplay = function () {
 			video.attr('controls', "true");
