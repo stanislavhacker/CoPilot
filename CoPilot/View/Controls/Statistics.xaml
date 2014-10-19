@@ -128,8 +128,8 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding LocalizedResources.WebInterface, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
-                        <StackPanel Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <HyperlinkButton Command="{Binding OpenInterfaceCommand}" Content="{Binding CoPilot.HttpServerController.Url}" Visibility="{Binding CoPilot.HttpServerController.IsIPAddress, Converter={StaticResource BooleanToVisibilityConvertor}}" />
+                        <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <HyperlinkButton FontSize="16" Command="{Binding OpenInterfaceCommand}" Content="{Binding CoPilot.HttpServerController.Url}" Visibility="{Binding CoPilot.HttpServerController.IsIPAddress, Converter={StaticResource BooleanToVisibilityConvertor}}" />
                             <TextBlock Text="{Binding LocalizedResources.NoWifi, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" Visibility="{Binding CoPilot.HttpServerController.IsIPAddress, Converter={StaticResource BooleanToCollapsedConvertor}}" />
                         </StackPanel>
 

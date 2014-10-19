@@ -51,7 +51,13 @@ namespace CoPilot.CoPilot.Controller
                 {
                     return "";
                 }
-                return "http://" + this.IPAddress.ToString() + "/copilot/";
+                //ipv6
+                if (IPAddress.IsIPv6LinkLocal || IPAddress.IsIPv6Multicast || IPAddress.IsIPv6SiteLocal)
+                {
+                    return "http://[" + IPAddress.ToString() + "]/copilot/";
+                }
+                //ipv4
+                return "http://" + IPAddress.ToString() + "/copilot/";
             }
         }
 
