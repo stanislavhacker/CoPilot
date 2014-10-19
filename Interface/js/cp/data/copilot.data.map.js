@@ -557,7 +557,7 @@
 		//video
 		if (video) {
 			//video
-			videoElement = this.renderer.videoElement(video, function (videoTag) {
+			videoElement = this.renderer.videoElement(video, "map", function (videoTag) {
 
 				//graph
 				self.statesGraph(view.overlay, function (graph) {

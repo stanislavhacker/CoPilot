@@ -7,6 +7,12 @@
 	copilot.data = copilot.data || {};
 
 	/**
+	 * Cache for media elements
+	 * @type {{}}
+	 */
+	var elements = {};
+
+	/**
 	 * Calculate height
 	 * @param {copilot.model.Odometer} odometerA
 	 * @param {copilot.model.Odometer} odometerB
@@ -587,7 +593,7 @@
 				//iframe
 				if (video.isBackuped()) {
 					//video is available on cloud storage
-					iframe = this.videoElement(video);
+					iframe = this.videoElement(video, "small");
 				} else {
 					//not backuped
 					iframe = $('<div class="noiframe"></div>');
@@ -643,53 +649,26 @@
 	/**
 	 * @private
 	 * Video element
-	 * @param {copilot.model.Video} videoData
+	 * @param {copilot.model.Video} video
+	 * @param {string} id
 	 * @param {function(video: jQuery)=} complete
 	 * @returns {jQuery}
 	 */
-	copilot.data.Renderer.prototype.videoElement = function (videoData, complete) {
+	copilot.data.Renderer.prototype.videoElement = function (video, id, complete) {
 		var url,
-			video,
-			source,
 			interval,
-			data = this.data,
-			language = this.language,
+			self = this,
+			data = self.data,
 			div = $('<div class="mediaframe" />');
 
 		interval = setInterval(function () {
 			//get url
-			url = data.videoUrl(videoData.VideoBackup.Id);
+			url = data.videoUrl(video.VideoBackup.Id);
 			//if url exists
 			if (url) {
 				clearInterval(interval);
-				//empty
-				div.empty();
-				//video
-				video = $('<video/>').appendTo(div);
-				//css
-				video.css({
-					width: div.width(),
-					height: div.height()
-				});
-				//events
-				video.bind("canplay", function () {
-					video.attr('controls', "true");
-				});
-				//add source
-				source = $('<source src="' + url + '" type="video/mp4">');
-				source.bind("error", function () {
-					//not backuped
-					var iframe = $('<div class="noiframe error"></div>'),
-						text = $('<div></div>').appendTo(iframe);
-					text.append(language.getString('MediaError'));
-					div.replaceWith(iframe);
-				});
-				//append
-				video.append(source);
-				//complete
-				if (complete) {
-					complete(video);
-				}
+				//create video
+				self.createVideo(div, url, id, complete);
 			}
 		}, 1000);
 
@@ -697,6 +676,84 @@
 		this.loader(div);
 
 		return div;
+	};
+
+	/**
+	 * @private
+	 * createVideo
+	 * @param {jQuery} div
+	 * @param {string} url
+	 * @param {string} id
+	 * @param {function} complete
+	 */
+	copilot.data.Renderer.prototype.createVideo = function (div, url, id, complete) {
+		var language = this.language,
+			key = url + "_" +  id,
+			loader,
+			source,
+			video;
+
+		//empty
+		div.empty();
+
+		//loader
+		loader = this.loader(div);
+		loader.css({
+			position: 'absolute',
+			left: '50%',
+			marginLeft: -55
+		});
+
+		//cached video element
+		video = elements[key];
+		if (video) {
+			video[0].pause();
+			video.find('source').attr('src', false);
+			video.find('source').remove();
+			video[0].load();
+			video.remove();
+		}
+
+		//video
+		video = $('<video/>').appendTo(div);
+		//source
+		source = $('<source src="' + url + '" type="video/mp4">');
+		//append
+		video.append(source);
+		//cache
+		elements[key] = video;
+
+		//css
+		video.css({
+			width: div.width(),
+			height: div.height()
+		});
+
+
+		//events
+		video[0].onstalled = function () {
+			console.log('Stalled');
+		};
+
+		//events
+		video[0].oncanplay = function () {
+			video.attr('controls', "true");
+		};
+		source[0].onerror = function () {
+			//not backuped
+			var iframe = $('<div class="noiframe error"></div>'),
+				text = $('<div></div>').appendTo(iframe);
+			text.append(language.getString('MediaError'));
+			div.replaceWith(iframe);
+		};
+		//events
+		video[0].ondurationchange = function () {
+			loader.remove();
+			//complete
+			if (complete) {
+				complete(video);
+			}
+		};
 	};
 
 
@@ -1496,12 +1553,14 @@
 	/**
 	 * Loader
 	 * @param {jQuery} parent
+	 * @return {jQuery|null}
 	 */
 	copilot.data.Renderer.prototype.loader = function (parent) {
 		var createLoader = parent.find('.spinner').length === 0;
 		if (createLoader) {
-			$('<div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>').appendTo(parent);
+			return $('<div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>').appendTo(parent);
 		}
+		return null;
 	};
 
 	/**
