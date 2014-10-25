@@ -896,4 +896,22 @@
   <data name="MonthlyExpenditure" xml:space="preserve">
     <value>Měsíční výdaje za</value>
   </data>
+  <data name="ObdDescription" xml:space="preserve">
+    <value>V roce 1996 v USA vyšly v platnost standardy označované souhrnně jako OBD-II. Tyto normy definují požadavky na každé vyrobené vozidlo za účelem možnosti digitální diagnostiky systémů ovlivňujících emise vozidla. Standard SAE J1962 zavádí jednotnou 16 pinovou diagnostickou zásuvku, která musí být v každém vozidle umístěna z místa přístupného řidiči, nejdále však 50 cm od volantu. Dále standardy ISO 9141 a SAE J1850 definují povinnou fyzickou vrstvu pro komunikaci s emisními systémy. Každé vozidlo vyrobené po roce 1996 musí obsahovat alespoň jedno diagnostické vedení definované těmito standardy. V roce 2003 byly tyto normy rozšířeny o diagnostiku emisních systémů přes sběrnici CAN-BUS. Ta je definována ve standardu ISO 15765-1 a ISO 15765-4. Diagnostika OBD-II umožňuje spojení pouze s řídicími jednotkami týkajících se emisních systémů osobních automobilů, nelze se spojit např. s řídicí jednotkou airbagu, palubního počítače, navigace, rádia, apod.</value>
+  </data>
+  <data name="ObdInfo" xml:space="preserve">
+    <value>Informace o OBD modulu</value>
+  </data>
+  <data name="ObdInfo_Title1" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="ObdInfo_Title2" xml:space="preserve">
+    <value>Umístění</value>
+  </data>
+  <data name="ObdInfo_Title3" xml:space="preserve">
+    <value>Kde koupit?</value>
+  </data>
+  <data name="ObdBuy" xml:space="preserve">
+    <value>Co je OBD a kde to koupit?</value>
+  </data>
 </root>

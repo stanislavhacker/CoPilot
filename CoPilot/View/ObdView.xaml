@@ -1,0 +1,83 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="CoPilot.CoPilot.View.ObdView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Landscape" Orientation="Landscape"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="False">
+
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideLeftFadeIn" />
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideLeftFadeIn" />
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideRightFadeOut" />
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideRightFadeOut" />
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <Grid>
+
+        <Grid Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Style="{StaticResource Title}" Text="{Binding LocalizedResources.ObdInfo, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" />
+            <ScrollViewer Grid.Row="1" Margin="10,0">
+                <StackPanel>
+
+                    <TextBlock Grid.Row="0" FontSize="26" Style="{StaticResource Title}" Text="{Binding LocalizedResources.ObdInfo_Title1, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                    <TextBlock 
+                        Margin="15"
+                        FontSize="18"
+                        Text="{Binding LocalizedResources.ObdDescription, Mode=OneWay, Source={StaticResource LocalizedStrings}}" 
+                        TextWrapping="Wrap" />
+
+                    <TextBlock Grid.Row="0" FontSize="26" Style="{StaticResource Title}" Text="{Binding LocalizedResources.ObdInfo_Title2, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                    <Image
+                        MaxWidth="500"
+                        Source="/Resources/Images/obd.jpg" />
+
+                    <TextBlock Grid.Row="0" FontSize="26" Style="{StaticResource Title}" Text="{Binding LocalizedResources.ObdInfo_Title3, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                    <HyperlinkButton 
+                        Margin="15,8"
+                        CommandParameter="http://aukro.cz/listing/listing.php?order=m&amp;string=ELM327+OBD2+Bluetooth+1.5" 
+                        Content="http://aukro.cz/" 
+                        Command="{Binding OpenUrl}" HorizontalContentAlignment="Left" />
+                    <HyperlinkButton
+                        Margin="15,8"
+                        CommandParameter="http://www.amazon.co.uk/s/?field-keywords=ELM327%20OBD2%20Bluetooth%201.5" 
+                        Content="http://www.amazon.co.uk/" 
+                        Command="{Binding OpenUrl}" HorizontalContentAlignment="Left" />
+
+
+                </StackPanel>         
+            </ScrollViewer>
+
+        </Grid>
+
+    </Grid>
+
+</phone:PhoneApplicationPage>

@@ -377,6 +377,20 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
+        /// ObdView command
+        /// </summary>
+        public ICommand ObdViewCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    NavigationService.Navigate("/CoPilot/View/ObdView.xaml", this.GetDefaultDataContainer());
+                }, param => true);
+            }
+        }
+
+        /// <summary>
         /// View fuel command
         /// </summary>
         public ICommand ViewFuelCommand

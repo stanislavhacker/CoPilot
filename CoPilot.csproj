@@ -134,6 +134,9 @@
     <Compile Include="CoPilot\View\Obd.xaml.cs">
       <DependentUpon>Obd.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CoPilot\View\ObdView.xaml.cs">
+      <DependentUpon>ObdView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CoPilot\View\Pictures.xaml.cs">
       <DependentUpon>Pictures.xaml</DependentUpon>
     </Compile>
@@ -332,6 +335,7 @@
     <Content Include="Resources\Images\Info\service.png" />
     <Content Include="Resources\Images\Info\speech.png" />
     <Content Include="Resources\Images\Info\speedometer.png" />
+    <Content Include="Resources\Images\obd.jpg" />
     <Content Include="Resources\Images\Splash\SplashScreenImage.jpg" />
     <Content Include="Resources\Images\Tiles\AppIcon.png" />
     <Content Include="Resources\Images\Tiles\BlankIcon.png" />
@@ -372,6 +376,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CoPilot\View\Obd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CoPilot\View\ObdView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

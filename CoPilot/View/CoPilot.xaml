@@ -864,6 +864,13 @@
                                     <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.ObdFatalError, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.ErrorType, Converter={StaticResource BluetoothErrorTypeToVisibilityConvertor}, ConverterParameter='FatalError'}" />
                                     <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.Searching, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="Gray" Visibility="{Binding BluetoothController.IsFinding, Converter={StaticResource BooleanToVisibilityConvertor}}" />
 
+                                    <Button 
+                                        VerticalAlignment="Center" 
+                                        Content="?" 
+                                        Command="{Binding ObdViewCommand}" 
+                                        HorizontalAlignment="Right" 
+                                        Style="{StaticResource MenuButton}" 
+                                        Margin="-10,-10,40,-10" />
                                     <CheckBox VerticalAlignment="Center" IsChecked="{Binding BluetoothController.IsObdAllowed, Mode=OneWay}" Command="{Binding ObdToggleCommand}" HorizontalAlignment="Right" Margin="-10" />
                                 </Grid>
                             </Button>
@@ -1111,6 +1118,19 @@
                                 <Grid>
                                     <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/rate.png" />
                                     <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.RateApp, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" TextAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100"
+                                Command="{Binding ObdViewCommand}"
+                                CommandParameter="Blog">
+                                <Grid>
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/Bt/bt_disconnected.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.ObdBuy, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" />
                                 </Grid>
                             </Button>
                             <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
