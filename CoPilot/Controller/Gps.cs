@@ -19,6 +19,7 @@ namespace CoPilot.CoPilot.Controller
         private GeoCoordinateWatcher gpsSenzor = null;
         private GeoPositionStatus gpsStatus = GeoPositionStatus.Disabled;
         private List<GeoPosition> gpsLastPositions = new List<GeoPosition>();
+        private DispatcherTimer speedTimer = null;
 
         #endregion
 
@@ -163,8 +164,18 @@ namespace CoPilot.CoPilot.Controller
             }
             set
             {
+                if (speed == value)
+                {
+                    return;
+                }
+                //set
                 speed = value;
                 RaisePropertyChanged();
+                //change
+                if (onChange != null)
+                {
+                    onChange.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -224,6 +235,9 @@ namespace CoPilot.CoPilot.Controller
                 }
             };
             timer.Start();
+
+            //speed timer
+            this.initSpeedMeasurement();
         }
 
         /// <summary>
@@ -239,6 +253,10 @@ namespace CoPilot.CoPilot.Controller
             this.IsGpsEnabled = true;
             this.IsGpsInitializing = false;
             this.IsGpsData = false;
+
+            //speed timer
+            this.speedTimer.Stop();
+            this.speedTimer = null;
         }
 
         /// <summary>
@@ -249,29 +267,11 @@ namespace CoPilot.CoPilot.Controller
             if (IsGpsEnabled)
             {
                 this.Current = gpsSenzor.Position.Location;
-
-                var geoPosition = new GeoPosition(this.Current.Latitude, this.Current.Longitude, this.Current.HorizontalAccuracy);
-                this.updatePositionHistory(geoPosition);
-                this.finalSpeedTo(geoPosition);
-
+                //change
                 if (onChange != null)
                 {
                     onChange.Invoke(this, EventArgs.Empty);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Update position history
-        /// </summary>
-        /// <param name="geoPosition"></param>
-        private void updatePositionHistory(GeoPosition geoPosition)
-        {
-            //add position to array
-            this.gpsLastPositions.Add(geoPosition);
-            if (this.gpsLastPositions.Count > 10)
-            {
-                this.gpsLastPositions.RemoveAt(0);
             }
         }
 
@@ -326,34 +326,50 @@ namespace CoPilot.CoPilot.Controller
         #region SPEED
 
         /// <summary>
-        /// Calculate speed
+        /// Init
         /// </summary>
-        /// <param name="geoCoordinate"></param>
-        private double finalSpeedTo(GeoPosition geoCoordinate)
+        private void initSpeedMeasurement()
         {
-            var previousIndex = this.gpsLastPositions.Count - 2;
-            if (previousIndex >= 0 && this.IsAccured)
+            this.speedTimer = new DispatcherTimer();
+            this.speedTimer.Interval = TimeSpan.FromMilliseconds(333);
+            this.speedTimer.Tick += delegate
             {
-                var last = this.gpsLastPositions[previousIndex];
-                if (this.isPositionAccured(geoCoordinate) && this.isPositionAccured(last))
-                {
-                    var geo = new Geo(last);
-                    var calculatedSpeed = geo.speedTo(geoCoordinate);
-                    var speed = (this.Speed + calculatedSpeed) / 2;
-                    this.Speed = speed;
-                }
-            }
-            return this.Speed;
+                //create geo
+                var geo = new GeoPosition(this.Current.Latitude, this.Current.Longitude, this.Current.HorizontalAccuracy);
+                //update history
+                this.updatePositionHistory(geo);
+                //speed
+                this.finalSpeedTo();
+            };
+            this.speedTimer.Start();
         }
 
         /// <summary>
-        /// Is position accured
+        /// Update position history
+        /// </summary>
+        /// <param name="geoPosition"></param>
+        private void updatePositionHistory(GeoPosition geoPosition)
+        {
+            //add position to array
+            this.gpsLastPositions.Add(geoPosition);
+            if (this.gpsLastPositions.Count > 9)
+            {
+                this.gpsLastPositions.RemoveAt(0);
+            }
+        }
+
+        /// <summary>
+        /// Calculate speed
         /// </summary>
         /// <param name="geoCoordinate"></param>
-        /// <returns></returns>
-        private bool isPositionAccured(GeoPosition geoCoordinate)
+        private void finalSpeedTo()
         {
-            return geoCoordinate.Accuracy <= MIN_SPEED_ACCURACY;
+            //previous and is accured
+            if (this.gpsLastPositions.Count > 2 && this.IsAccured)
+            {
+                //set new speed
+                this.Speed = Geo.SpeedTo(this.gpsLastPositions);
+            }
         }
 
         #endregion

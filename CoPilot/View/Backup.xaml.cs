@@ -277,7 +277,11 @@ namespace CoPilot.CoPilot.View
                     Progress prg = param as Progress;
                     if (prg != null && !prg.Cancel.IsCancellationRequested && prg.Cancel.Token.CanBeCanceled)
                     {
-                        prg.Cancel.Cancel();
+                        try
+                        {
+                            prg.Cancel.Cancel();
+                        }
+                        catch { }
                         prg.InProgress = false;
                         prg.Selected = false;
                     }

@@ -83,7 +83,11 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="maintenance"></param>
         public void Remove(Maintenance maintenance)
         {
-            ScheduledActionService.Remove(maintenance.Id);
+            var action = ScheduledActionService.Find(maintenance.Id);
+            if (action != null)
+            {
+                ScheduledActionService.Remove(maintenance.Id);
+            }
         }
 
         /// <summary>
