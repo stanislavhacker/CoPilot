@@ -78,9 +78,9 @@
                         Height="70">
                         <Image Source="/Resources/Images/Info/onedrive.png" Margin="-20" />
                     </Button>
-                </StackPanel>                
-                
-                
+                </StackPanel>
+
+
                 <!-- ROW 2 -->
                 <StackPanel Grid.Row="1" Margin="0" Orientation="Horizontal" Grid.ColumnSpan="2">
                     <Image Width="30" Margin="0,0,10,0" Source="/Resources/Images/Info/date.png"  />
@@ -396,7 +396,7 @@
                                                         <TextBlock Margin="0" Text="{Binding Data.Time}" />
                                                         <TextBlock Margin="0" Text="{Binding Size, StringFormat=' - {0} MB'}" Foreground="Gray" />
                                                     </StackPanel>
-                                                    
+
                                                     <!-- NORMAL -->
                                                     <Grid Height="60" Margin="0" Visibility="{Binding InProgress, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
                                                         <TextBlock Text="{Binding LocalizedResources.BackupUnknown, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Bottom" TextAlignment="Left" FontSize="16" Foreground="{StaticResource PhoneAccentBrush}" Visibility="{Binding Data.Backup.Id, Converter={StaticResource BooleanToCollapsedConvertor}}" />
@@ -490,7 +490,7 @@
                                                     <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
                                                         <TextBlock Margin="0" Text="{Binding Data.Time}" />
                                                         <TextBlock Margin="0" Text="{Binding Size, StringFormat=' - {0} MB'}" Foreground="Gray" />
-                                                    </StackPanel> 
+                                                    </StackPanel>
 
                                                     <!-- NORMAL -->
                                                     <Grid Height="60" Margin="0" Visibility="{Binding InProgress, Converter={StaticResource BooleanToCollapsedConvertor}}" VerticalAlignment="Bottom" >
@@ -509,14 +509,40 @@
 
                                                     <!-- PROGRESS -->
                                                     <Grid Margin="0" Visibility="{Binding InProgress, Converter={StaticResource BooleanToVisibilityConvertor}}" Height="60">
-                                                        <TextBlock 
-                                                            Visibility="{Binding BytesTransferred, Converter={StaticResource CountToCollapsedConvertor}, ConverterParameter='0'}"
-                                                            Text="{Binding Preferences, Converter={StaticResource PreferencesToTextConvertor}}" 
+                                                        <StackPanel
+                                                            Orientation="Horizontal"
+                                                            Margin="0,0,0,4"
                                                             VerticalAlignment="Bottom" 
-                                                            TextAlignment="Left" 
-                                                            Margin="0,0,0,4" 
-                                                            FontSize="16" 
-                                                            Foreground="Gray"/>
+                                                            Visibility="{Binding IsStream, Converter={StaticResource BooleanToCollapsedConvertor}}">
+                                                            <TextBlock 
+                                                                Visibility="{Binding BytesTransferred, Converter={StaticResource CountToCollapsedConvertor}, ConverterParameter='0'}"
+                                                                Text="{Binding Preferences, Converter={StaticResource PreferencesToTextConvertor}}"
+                                                                TextAlignment="Left" 
+                                                                FontSize="16" 
+                                                                Foreground="Gray"/>
+                                                        </StackPanel>
+                                                        <StackPanel
+                                                            Orientation="Horizontal"
+                                                            Margin="0,0,0,4"
+                                                            VerticalAlignment="Bottom" 
+                                                            Visibility="{Binding IsStream, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                                                            <TextBlock 
+                                                                Text="{Binding LocalizedResources.Warning, Mode=OneWay, Source={StaticResource LocalizedStrings}}" 
+                                                                TextAlignment="Left" 
+                                                                FontSize="16" 
+                                                                Foreground="Red"/>
+                                                            <TextBlock 
+                                                                Text=":" 
+                                                                TextAlignment="Left" 
+                                                                FontSize="16" 
+                                                                Margin="0,0,5,0"
+                                                                Foreground="Red"/>
+                                                            <TextBlock 
+                                                                Text="{Binding LocalizedResources.NotBackgroundUpload, Mode=OneWay, Source={StaticResource LocalizedStrings}}" 
+                                                                TextAlignment="Left" 
+                                                                FontSize="16" 
+                                                                Foreground="Gray"/>
+                                                        </StackPanel>
                                                         <ProgressBar 
                                                             IsIndeterminate="{Binding BytesTransferred, Converter={StaticResource ZeroToBooleanConvertor}}"
                                                             Value="{Binding ProgressPercentage}"

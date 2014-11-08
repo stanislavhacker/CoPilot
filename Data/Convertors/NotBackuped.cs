@@ -7,6 +7,7 @@ using CoPilot.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO.IsolatedStorage;
 using System.Linq;
@@ -79,6 +80,13 @@ namespace CoPilot.Data.Convertors
                     progress.Data = e;
                     progress.Preferences = ProgressPreferences.AllowOnWifiAndExternalPower;
                     progress.IsEnabled = Storage.FileExists(e.Path);
+                    progress.PropertyChanged += (object sender, PropertyChangedEventArgs e1) =>
+                    {
+                        if (e1.PropertyName == "IsStream" && progress.IsStream && progress.Stream == null)
+                        {
+                            progress.Stream = Storage.OpenFile(e.Path, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
+                        }
+                    };
 
                     this.updateProgress(ftp, progress);
                     return progress;

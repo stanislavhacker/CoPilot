@@ -648,7 +648,7 @@
     <value>Technická kontrola</value>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>Varovat</value>
+    <value>Varování</value>
   </data>
   <data name="WarningDays" xml:space="preserve">
     <value>dní předem</value>
@@ -913,5 +913,8 @@
   </data>
   <data name="ObdBuy" xml:space="preserve">
     <value>Co je OBD a kde to koupit?</value>
+  </data>
+  <data name="NotBackgroundUpload" xml:space="preserve">
+    <value>Velký soubor, zavření aplikace přeruší nahrávání</value>
   </data>
 </root>
