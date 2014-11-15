@@ -116,16 +116,28 @@ namespace CoPilot.CoPilot.Controller
         /// <returns></returns>
         public void IdentifyDeviceIp()
         {
-            var hostnames = NetworkInformation.GetHostNames();
-
-            List<string> adresses = new List<string>();
-            foreach (var hostname in hostnames)
+            //adress list
+            List<string> adresses;
+            //try get host names
+            try 
             {
-                if (hostname.IPInformation != null)
+                adresses = new List<string>();
+                //get host names
+                var hostnames = NetworkInformation.GetHostNames();
+                foreach (var hostname in hostnames)
                 {
-                    adresses.Add(hostname.DisplayName);
+                    if (hostname.IPInformation != null)
+                    {
+                        adresses.Add(hostname.DisplayName);
+                    }
                 }
             }
+            catch
+            {
+                adresses = new List<string>();
+            }
+
+
             if (adresses.Count == 0 || !DeviceNetworkInformation.IsWiFiEnabled)
             {
                 this.IPAddress = null;
