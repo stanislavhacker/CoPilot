@@ -512,33 +512,10 @@
                                                         <StackPanel
                                                             Orientation="Horizontal"
                                                             Margin="0,0,0,4"
-                                                            VerticalAlignment="Bottom" 
-                                                            Visibility="{Binding IsStream, Converter={StaticResource BooleanToCollapsedConvertor}}">
+                                                            VerticalAlignment="Bottom">
                                                             <TextBlock 
                                                                 Visibility="{Binding BytesTransferred, Converter={StaticResource CountToCollapsedConvertor}, ConverterParameter='0'}"
                                                                 Text="{Binding Preferences, Converter={StaticResource PreferencesToTextConvertor}}"
-                                                                TextAlignment="Left" 
-                                                                FontSize="16" 
-                                                                Foreground="Gray"/>
-                                                        </StackPanel>
-                                                        <StackPanel
-                                                            Orientation="Horizontal"
-                                                            Margin="0,0,0,4"
-                                                            VerticalAlignment="Bottom" 
-                                                            Visibility="{Binding IsStream, Converter={StaticResource BooleanToVisibilityConvertor}}">
-                                                            <TextBlock 
-                                                                Text="{Binding LocalizedResources.Warning, Mode=OneWay, Source={StaticResource LocalizedStrings}}" 
-                                                                TextAlignment="Left" 
-                                                                FontSize="16" 
-                                                                Foreground="Red"/>
-                                                            <TextBlock 
-                                                                Text=":" 
-                                                                TextAlignment="Left" 
-                                                                FontSize="16" 
-                                                                Margin="0,0,5,0"
-                                                                Foreground="Red"/>
-                                                            <TextBlock 
-                                                                Text="{Binding LocalizedResources.NotBackgroundUpload, Mode=OneWay, Source={StaticResource LocalizedStrings}}" 
                                                                 TextAlignment="Left" 
                                                                 FontSize="16" 
                                                                 Foreground="Gray"/>

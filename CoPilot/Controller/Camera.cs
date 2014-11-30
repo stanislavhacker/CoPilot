@@ -26,6 +26,8 @@ namespace CoPilot.CoPilot.Controller
         private DispatcherTimer shotTimer;
         private Video video = null;
 
+        private const int MAX_VIDEO_LENGTH = 5 * 60;
+
         #endregion
 
         #region COMMANDS
@@ -306,6 +308,7 @@ namespace CoPilot.CoPilot.Controller
 
         private bool startRecording = false;
         private bool stopRecording = false;
+        private bool splitRecording = false;
         private bool isForceStop = false;
 
         private DateTime timeStartRecording;
@@ -376,7 +379,6 @@ namespace CoPilot.CoPilot.Controller
             OnPropertyChanged("IsShotEnabled");
             await Task.Delay(500);
             this.triggerRecordChange();
-            this.source.CaptureImageAsync();
         }
 
         /// <summary>
@@ -411,14 +413,9 @@ namespace CoPilot.CoPilot.Controller
             this.source.CaptureImageAsync();
         }
 
+        #endregion
 
-
-
-
-
-
-
-
+        #region STATE CHANGE
 
         /// <summary>
         /// Trigger recorde status change
@@ -428,36 +425,82 @@ namespace CoPilot.CoPilot.Controller
             this.source.Stop();
             if (this.startRecording)
             {
-                video = new Video();
-                video.Path = this.getFileName("mp4");
-                video.Time = DateTime.Now;
-                video.Rotated = this.Orientation == PageOrientation.LandscapeRight;
-                video.Duration = TimeSpan.Zero;
-                video.VideoBackup = new BackupInfo();
-   
-                this.createCamera(video.Path);
-
-                this.startRecording = false;
-                this.IsRecording = true;
+                //start recording
+                startRecordingInternal();
             }
             if (this.stopRecording)
             {
-                video.Duration = this.RecordDuration;
-                this.triggerVideoSave();
-
+                //save recording
+                saveRecordingInternal();
+                //force stop
                 if (isForceStop)
                 {
                     this.stopRecording = false;
                     this.IsRecording = false;
                     return;
                 }
-
-                this.createCamera(null);
-
-                this.stopRecording = false;
-                this.IsRecording = false;
+                //stop recording
+                stopRecordingInternal();
+            }
+            if (this.splitRecording)
+            {
+                //save recording
+                saveRecordingInternal();
+                //clear sink
+                videoSink.IsolatedStorageFileName = null;
+                videoSink.CaptureSource = null;
+                //start recording
+                startRecordingInternal();
             }
             this.runTimer(this.IsRecording);
+        }
+
+        /// <summary>
+        /// Stop recording internal
+        /// </summary>
+        private void stopRecordingInternal()
+        {
+            this.createCamera(null);
+            this.stopRecording = false;
+            this.splitRecording = false;
+            this.IsRecording = false;
+        }
+
+        /// <summary>
+        /// Save recording
+        /// </summary>
+        private void saveRecordingInternal()
+        {
+            video.Duration = this.RecordDuration;
+            this.triggerVideoSave();
+        }
+
+        /// <summary>
+        /// Start recording
+        /// </summary>
+        private void startRecordingInternal()
+        {
+            //create video, camera and capture image
+            this.createVideoObject();
+            this.createCamera(video.Path);
+            this.source.CaptureImageAsync();
+            //set data
+            this.startRecording = false;
+            this.splitRecording = false;
+            this.IsRecording = true;
+        }
+
+        /// <summary>
+        /// Create vide object
+        /// </summary>
+        private void createVideoObject()
+        {
+            video = new Video();
+            video.Path = this.getFileName("mp4");
+            video.Time = DateTime.Now;
+            video.Rotated = this.Orientation == PageOrientation.LandscapeRight;
+            video.Duration = TimeSpan.Zero;
+            video.VideoBackup = new BackupInfo();
         }
 
         /// <summary>
@@ -526,18 +569,31 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="run"></param>
         private void runTimer(bool run)
         {
+            //stop and return
             if (!run && videoTimer != null)
             {
                 videoTimer.Stop();
                 return;
             }
-
+            //stop previous
+            if (videoTimer != null && videoTimer.IsEnabled)
+            {
+                videoTimer.Stop();
+            }
+            //run again
             videoTimer = new DispatcherTimer();
             videoTimer.Interval = TimeSpan.FromMilliseconds(100);
             videoTimer.Tick += delegate
             {
+                //change
                 OnPropertyChanged("RecordLength");
                 OnPropertyChanged("RecordDuration");
+                //split
+                if (RecordDuration.TotalSeconds > MAX_VIDEO_LENGTH)
+                {
+                    this.splitRecording = true;
+                    this.triggerRecordChange();
+                }
             };
             videoTimer.Start();
         }

@@ -914,7 +914,4 @@
   <data name="ObdBuy" xml:space="preserve">
     <value>Co je OBD a kde to koupit?</value>
   </data>
-  <data name="NotBackgroundUpload" xml:space="preserve">
-    <value>Velký soubor, zavření aplikace přeruší nahrávání</value>
-  </data>
 </root>

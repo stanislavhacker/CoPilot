@@ -914,7 +914,4 @@
   <data name="ObdBuy" xml:space="preserve">
     <value>What is OBD and where it buy?</value>
   </data>
-  <data name="NotBackgroundUpload" xml:space="preserve">
-    <value>Large file, close the application stops upload</value>
-  </data>
 </root>
