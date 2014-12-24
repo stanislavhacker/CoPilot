@@ -286,6 +286,7 @@
     <Content Include="Interface\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Apps\SpeedWay-AppIcon.png" />
     <Content Include="Resources\Images\Buttons\add.png" />
     <Content Include="Resources\Images\Buttons\assistant.png" />
     <Content Include="Resources\Images\Buttons\avarage.png" />
@@ -299,6 +300,7 @@
     <Content Include="Resources\Images\Buttons\camcorder.png" />
     <Content Include="Resources\Images\Buttons\cancel.png" />
     <Content Include="Resources\Images\Buttons\chart.png" />
+    <Content Include="Resources\Images\Buttons\copilot.png" />
     <Content Include="Resources\Images\Buttons\delete.png" />
     <Content Include="Resources\Images\Buttons\download.png" />
     <Content Include="Resources\Images\Buttons\eye.png" />
@@ -326,6 +328,7 @@
     <Content Include="Resources\Images\Buttons\spark.png" />
     <Content Include="Resources\Images\Buttons\stop.png" />
     <Content Include="Resources\Images\Buttons\storage.png" />
+    <Content Include="Resources\Images\Buttons\store.png" />
     <Content Include="Resources\Images\Buttons\tutorial.png" />
     <Content Include="Resources\Images\Info\cheap.png" />
     <Content Include="Resources\Images\Info\date.png" />

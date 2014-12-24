@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.System;
 
 namespace CoPilot.CoPilot.Controller
 {
@@ -32,6 +33,49 @@ namespace CoPilot.CoPilot.Controller
                 },
                 param => true
                );
+            }
+        }
+
+        /// <summary>
+        /// SpeedWay Command
+        /// </summary>
+        public ICommand SpeedWayCommand
+        {
+            get
+            {
+                return new RelayCommand(async (param) =>
+                {
+                    await Launcher.LaunchUriAsync(new Uri("copilot-speedway:run"));
+                }, param => true);
+            }
+        }
+
+        /// <summary>
+        /// SpeedWay Command
+        /// </summary>
+        public ICommand SpeedWayBuyCommand
+        {
+            get
+            {
+                return new RelayCommand(async (param) =>
+                {
+                    await Launcher.LaunchUriAsync(new Uri("http://www.seznam.cz"));
+                }, param => true);
+            }
+        }
+
+
+        /// <summary>
+        /// AppTap Command
+        /// </summary>
+        public ICommand AppTap
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    this.MenuController.Context = MenuContext.App;
+                }, param => true);
             }
         }
 

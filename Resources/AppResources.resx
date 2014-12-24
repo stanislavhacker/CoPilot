@@ -914,4 +914,10 @@
   <data name="ObdBuy" xml:space="preserve">
     <value>What is OBD and where it buy?</value>
   </data>
+  <data name="FamilyApps" xml:space="preserve">
+    <value>CoPilot Family Apps</value>
+  </data>
+  <data name="SpeedWay_Title" xml:space="preserve">
+    <value>SpeedWay</value>
+  </data>
 </root>

@@ -16,7 +16,8 @@ namespace CoPilot.CoPilot.Controller
         Other,
         MainBackup,
         PhotoBackup,
-        VideoBackup
+        VideoBackup,
+        App
     }
 
     public class Menu : Base
