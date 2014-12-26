@@ -178,6 +178,14 @@ var copilot = {};
 						return 0.0283233982;
 					case copilot.model.Currency.EUR:
 						return 0.0363989442;
+					case copilot.model.Currency.SEK:
+						return 0.343265699;
+					case copilot.model.Currency.CHF:
+						return 0.0432849734;
+					case copilot.model.Currency.RUB:
+						return 2.23066348;
+					case copilot.model.Currency.TRY:
+						return 0.101557864;
 				}
 			}
 			//USD => to
@@ -193,6 +201,14 @@ var copilot = {};
 						return 0.616771878;
 					case copilot.model.Currency.EUR:
 						return 0.792625413;
+					case copilot.model.Currency.SEK:
+						return 7.85071088;
+					case copilot.model.Currency.CHF:
+						return 0.987474869;
+					case copilot.model.Currency.RUB:
+						return 50.9190896;
+					case copilot.model.Currency.TRY:
+						return 2.31824926;
 				}
 			}
 			//EUR => to
@@ -208,6 +224,14 @@ var copilot = {};
 						return 0.778137904;
 					case copilot.model.Currency.EUR:
 						return 1;
+					case copilot.model.Currency.SEK:
+						return 9.53781216;
+					case copilot.model.Currency.CHF:
+						return 1.20269502;
+					case copilot.model.Currency.RUB:
+						return 61.9990835;
+					case copilot.model.Currency.TRY:
+						return 2.82363606;
 				}
 			}
 
@@ -224,6 +248,110 @@ var copilot = {};
 						return 1;
 					case copilot.model.Currency.EUR:
 						return 1.28511925;
+					case copilot.model.Currency.SEK:
+						return 12.1850944;
+					case copilot.model.Currency.CHF:
+						return 1.53614633;
+					case copilot.model.Currency.RUB:
+						return 79.2301034;
+					case copilot.model.Currency.TRY:
+						return 3.60522533;
+				}
+			}
+
+			//SEK => to
+			if (from == copilot.model.Currency.SEK)
+			{
+				switch (to)
+				{
+					case copilot.model.Currency.CZK:
+						return 2.9258;
+					case copilot.model.Currency.USD:
+						return 0.1284;
+					case copilot.model.Currency.GBP:
+						return 0.08253;
+					case copilot.model.Currency.EUR:
+						return 0.1051;
+					case copilot.model.Currency.SEK:
+						return 1;
+					case copilot.model.Currency.CHF:
+						return 0.1266;
+					case copilot.model.Currency.RUB:
+						return 6.8097;
+					case copilot.model.Currency.TRY:
+						return 0.298;
+				}
+			}
+
+			//CHF => to
+			if (from == copilot.model.Currency.CHF)
+			{
+				switch (to)
+				{
+					case copilot.model.Currency.CZK:
+						return 23.1133;
+					case copilot.model.Currency.USD:
+						return 1.0144;
+					case copilot.model.Currency.GBP:
+						return 0.6519;
+					case copilot.model.Currency.EUR:
+						return 0.8318;
+					case copilot.model.Currency.SEK:
+						return 7.9321;
+					case copilot.model.Currency.CHF:
+						return 1;
+					case copilot.model.Currency.RUB:
+						return 53.7958;
+					case copilot.model.Currency.TRY:
+						return 2.3543;
+				}
+			}
+
+			//RUB => to
+			if (from == copilot.model.Currency.RUB)
+			{
+				switch (to)
+				{
+					case copilot.model.Currency.CZK:
+						return 0.4299;
+					case copilot.model.Currency.USD:
+						return 0.01887;
+					case copilot.model.Currency.GBP:
+						return 0.01213;
+					case copilot.model.Currency.EUR:
+						return 0.01547;
+					case copilot.model.Currency.SEK:
+						return 0.1475;
+					case copilot.model.Currency.CHF:
+						return 0.0186;
+					case copilot.model.Currency.RUB:
+						return 1;
+					case copilot.model.Currency.TRY:
+						return 0.04379;
+				}
+			}
+
+			//TRY => to
+			if (from == copilot.model.Currency.TRY)
+			{
+				switch (to)
+				{
+					case copilot.model.Currency.CZK:
+						return 9.8497;
+					case copilot.model.Currency.USD:
+						return 0.4323;
+					case copilot.model.Currency.GBP:
+						return 0.2778;
+					case copilot.model.Currency.EUR:
+						return 0.3545;
+					case copilot.model.Currency.SEK:
+						return 3.3803;
+					case copilot.model.Currency.CHF:
+						return 0.4263;
+					case copilot.model.Currency.RUB:
+						return 22.925;
+					case copilot.model.Currency.TRY:
+						return 1;
 				}
 			}
 

@@ -80,7 +80,7 @@
         </Grid>
 
         <!-- ADVERTISIMENT -->
-        <UI:AdControl 
+        <UI:AdControl
             Visibility="{Binding IsAdVisible, Converter={StaticResource BooleanToVisibilityConvertor}}" 
             AdUnitId="170764" 
             ApplicationId="5fa5feb7-a3c1-4b73-92ca-90133a53845b" 
@@ -921,23 +921,25 @@
                             <Button 
                                 Style="{StaticResource MenuButton}" 
                                 HorizontalContentAlignment="Stretch" 
-                                Height="120">
+                                Height="160">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="20" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="60" />
                                         <ColumnDefinition Width="60" />
                                         <ColumnDefinition Width="60" />
                                         <ColumnDefinition Width="60" />
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="60" />
+                                        <ColumnDefinition Width="60" />
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock 
                                         Grid.Row="0" 
-                                        Grid.ColumnSpan="3" 
+                                        Grid.ColumnSpan="6" 
                                         Margin="0,-15,0,0" 
                                         Text="{Binding LocalizedResources.Currency, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
 
@@ -969,6 +971,35 @@
                                         Grid.Row="1"
                                         Style="{Binding DataController.Currency, Converter={StaticResource CurrencyToStyleConvertor}, ConverterParameter='GBP'}"
                                         Content="GBP"/>
+                                    <Button 
+                                        Command="{Binding ChangeCurrencyCommand}"
+                                        CommandParameter="SEK"
+                                        Grid.Column="4"
+                                        Grid.Row="1"
+                                        Style="{Binding DataController.Currency, Converter={StaticResource CurrencyToStyleConvertor}, ConverterParameter='SEK'}"
+                                        Content="SEK"/>
+                                    <Button 
+                                        Command="{Binding ChangeCurrencyCommand}"
+                                        CommandParameter="CHF"
+                                        Grid.Column="5"
+                                        Grid.Row="1"
+                                        Style="{Binding DataController.Currency, Converter={StaticResource CurrencyToStyleConvertor}, ConverterParameter='CHF'}"
+                                        Content="CHF"/>
+                                    <Button 
+                                        Command="{Binding ChangeCurrencyCommand}"
+                                        CommandParameter="RUB"
+                                        Grid.Column="0"
+                                        Grid.Row="2"
+                                        Style="{Binding DataController.Currency, Converter={StaticResource CurrencyToStyleConvertor}, ConverterParameter='RUB'}"
+                                        Content="RUB"/>
+                                    <Button 
+                                        Command="{Binding ChangeCurrencyCommand}"
+                                        CommandParameter="TRY"
+                                        Grid.Column="1"
+                                        Grid.Row="2"
+                                        Style="{Binding DataController.Currency, Converter={StaticResource CurrencyToStyleConvertor}, ConverterParameter='TRY'}"
+                                        Content="TRY"/>
+                                    
                                 </Grid>
                             </Button>
                             <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />

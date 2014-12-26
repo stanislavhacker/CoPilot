@@ -23,7 +23,11 @@
 		CZK: "CZK",
 		USD: "USD",
 		EUR: "EUR",
-		GBP: "GBP"
+		GBP: "GBP",
+		SEK: "SEK:",
+		CHF: "CHF",
+		RUB: "RUB",
+		TRY: "TRY"
 	};
 
 	/**
