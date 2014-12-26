@@ -166,6 +166,7 @@
     </Compile>
     <Compile Include="Data\Convertors\MaintenanceTypeToString.cs" />
     <Compile Include="Data\Convertors\MaintenanceTypeToStyle.cs" />
+    <Compile Include="FeaturesUtility.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="NavigationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -185,6 +186,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UriExtensions.cs" />
     <Compile Include="WebBrowserUtility.cs" />
   </ItemGroup>
   <ItemGroup>

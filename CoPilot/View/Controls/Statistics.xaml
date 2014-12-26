@@ -125,87 +125,114 @@
                 Grid.Column="1" 
                 Grid.Row="1">
                 <ScrollViewer>
-                    <Grid Margin="10,0,20,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50" />
-                            <RowDefinition Height="50" />
-                            <RowDefinition Height="50" />
-                            <RowDefinition Height="50" />
-                            <RowDefinition Height="50" />
-                            <RowDefinition Height="50" />
-                            <RowDefinition Height="50" />
-                            <RowDefinition Height="50" />
-                            <RowDefinition Height="50" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="4*" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <Grid Margin="10,0,20,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="4*" />
+                            </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding LocalizedResources.WebInterface, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
-                        <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <HyperlinkButton FontSize="16" Command="{Binding OpenInterfaceCommand}" Content="{Binding CoPilot.HttpServerController.Url}" Visibility="{Binding CoPilot.HttpServerController.IsIPAddress, Converter={StaticResource BooleanToVisibilityConvertor}}" />
-                            <TextBlock Text="{Binding LocalizedResources.NoWifi, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" Visibility="{Binding CoPilot.HttpServerController.IsIPAddress, Converter={StaticResource BooleanToCollapsedConvertor}}" />
-                        </StackPanel>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding LocalizedResources.WebInterface, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                            <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <HyperlinkButton FontSize="16" Command="{Binding OpenInterfaceCommand}" Content="{Binding CoPilot.HttpServerController.Url}" Visibility="{Binding CoPilot.HttpServerController.IsIPAddress, Converter={StaticResource BooleanToVisibilityConvertor}}" />
+                                <TextBlock Text="{Binding LocalizedResources.NoWifi, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" Visibility="{Binding CoPilot.HttpServerController.IsIPAddress, Converter={StaticResource BooleanToCollapsedConvertor}}" />
+                            </StackPanel>
 
-                        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding LocalizedResources.AverageConsumption, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
-                        <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock Text="{Binding DataController.AverageConsumption, Converter={StaticResource DistanceToConsumptionStringConvertor}}" VerticalAlignment="Center" Margin="0,0,5,0" />
-                            <TextBlock Text="{Binding DataController.Consumption, Converter={StaticResource RealConsumptionToStringConvertor}}" VerticalAlignment="Center" />
-                        </StackPanel>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding LocalizedResources.AverageConsumption, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                            <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding DataController.AverageConsumption, Converter={StaticResource DistanceToConsumptionStringConvertor}}" VerticalAlignment="Center" Margin="0,0,5,0" />
+                                <TextBlock Text="{Binding DataController.Consumption, Converter={StaticResource RealConsumptionToStringConvertor}}" VerticalAlignment="Center" />
+                            </StackPanel>
 
-                        <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding LocalizedResources.AverageSpeed, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
-                        <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock Text="{Binding AverageSpeed}" VerticalAlignment="Center" Margin="0,0,5,0" />
-                            <TextBlock Text="{Binding DataController.Distance}" Margin="0,0,5,0" VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding LocalizedResources.Per, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,0,5,0" VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding LocalizedResources.Hour, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" />
-                        </StackPanel>
+                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding LocalizedResources.AverageSpeed, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                            <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding AverageSpeed}" VerticalAlignment="Center" Margin="0,0,5,0" />
+                                <TextBlock Text="{Binding DataController.Distance}" Margin="0,0,5,0" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding LocalizedResources.Per, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="0,0,5,0" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding LocalizedResources.Hour, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" />
+                            </StackPanel>
 
-                        <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding LocalizedResources.PaidForFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
-                        <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock Text="{Binding PaidForFuel}" VerticalAlignment="Center" Margin="0,0,10,0" />
-                            <TextBlock Text="{Binding DataController.Currency}" VerticalAlignment="Center" />
-                        </StackPanel>
-                        <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <HyperlinkButton Command="{Binding CoPilot.AddFuelCommand}" Content="{Binding LocalizedResources.AddFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                            <Image Width="20" Source="/Resources/Images/Info/refueled.png" />
-                        </StackPanel>
+                            <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding LocalizedResources.PaidForFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                            <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding PaidForFuel}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                <TextBlock Text="{Binding DataController.Currency}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <HyperlinkButton Command="{Binding CoPilot.AddFuelCommand}" Content="{Binding LocalizedResources.AddFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                                <Image Width="20" Source="/Resources/Images/Info/refueled.png" />
+                            </StackPanel>
 
-                        <TextBlock Grid.Column="0" Grid.Row="4" Text="{Binding LocalizedResources.PaidForRepairs, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
-                        <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock Text="{Binding PaidForRepairs}" VerticalAlignment="Center" Margin="0,0,10,0" />
-                            <TextBlock Text="{Binding DataController.Currency}" VerticalAlignment="Center" />
-                        </StackPanel>
-                        <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <HyperlinkButton Command="{Binding CoPilot.AddRepairCommand}" Content="{Binding LocalizedResources.AddRepair, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                            <Image Width="20" Source="/Resources/Images/Info/service.png" />
-                        </StackPanel>
+                            <TextBlock Grid.Column="0" Grid.Row="4" Text="{Binding LocalizedResources.PaidForRepairs, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                            <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding PaidForRepairs}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                <TextBlock Text="{Binding DataController.Currency}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <HyperlinkButton Command="{Binding CoPilot.AddRepairCommand}" Content="{Binding LocalizedResources.AddRepair, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                                <Image Width="20" Source="/Resources/Images/Info/service.png" />
+                            </StackPanel>
 
-                        <TextBlock Grid.Column="0" Grid.Row="5" Text="{Binding LocalizedResources.MaintenanceTasks, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
-                        <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock Text="{Binding DataController.MaintenanceCount}" VerticalAlignment="Center" Margin="0,0,10,0" />
-                            <TextBlock Text="{Binding LocalizedResources.Count, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" />
-                        </StackPanel>
-                        <StackPanel Grid.Column="2" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <HyperlinkButton Command="{Binding CoPilot.AddMaintenanceCommand}" Content="{Binding LocalizedResources.AddMaintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                            <Image Width="20" Source="/Resources/Images/Buttons/spark.png" />
-                        </StackPanel>
+                            <TextBlock Grid.Column="0" Grid.Row="5" Text="{Binding LocalizedResources.MaintenanceTasks, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                            <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding DataController.MaintenanceCount}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                <TextBlock Text="{Binding LocalizedResources.Count, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <HyperlinkButton Command="{Binding CoPilot.AddMaintenanceCommand}" Content="{Binding LocalizedResources.AddMaintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                                <Image Width="20" Source="/Resources/Images/Buttons/spark.png" />
+                            </StackPanel>
 
-                        <TextBlock Grid.Column="0" Grid.Row="6" Text="{Binding LocalizedResources.FuelPriceTrend, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
-                        <StackPanel Grid.Column="2" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <HyperlinkButton Command="{Binding CoPilot.ShowFuelPriceTrendCommand}" Content="{Binding LocalizedResources.ShowGraph, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                            <Image Width="20" Source="/Resources/Images/Buttons/fuel.png" />
-                        </StackPanel>
+                            <TextBlock Grid.Column="0" Grid.Row="6" Text="{Binding LocalizedResources.FuelPriceTrend, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                            <StackPanel Grid.Column="2" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <HyperlinkButton Command="{Binding CoPilot.ShowFuelPriceTrendCommand}" Content="{Binding LocalizedResources.ShowGraph, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                                <Image Width="20" Source="/Resources/Images/Buttons/fuel.png" />
+                            </StackPanel>
 
-                        <TextBlock Grid.Column="0" Grid.Row="7" Text="{Binding LocalizedResources.TrendUnitsPerRefill, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
-                        <StackPanel Grid.Column="2" Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <HyperlinkButton Command="{Binding CoPilot.ShowTrendUnitsPerRefillCommand}" Content="{Binding LocalizedResources.ShowGraph, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                            <Image Width="20" Source="/Resources/Images/Buttons/fuel.png" />
-                        </StackPanel>
+                            <TextBlock Grid.Column="0" Grid.Row="7" Text="{Binding LocalizedResources.TrendUnitsPerRefill, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                            <StackPanel Grid.Column="2" Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <HyperlinkButton Command="{Binding CoPilot.ShowTrendUnitsPerRefillCommand}" Content="{Binding LocalizedResources.ShowGraph, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                                <Image Width="20" Source="/Resources/Images/Buttons/fuel.png" />
+                            </StackPanel>
 
-                    </Grid>
+                        </Grid>
+                        <Grid Visibility="{Binding FeaturesUtility.HasSpeedWay, Converter={StaticResource BooleanToVisibilityConvertor}}" 
+                              Margin="10,0,20,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="4*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding LocalizedResources.CountOfLaps, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                            <HyperlinkButton Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Command="{Binding SpeedWayCommand}" Content="{Binding LocalizedResources.SpeedWay_Title, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                            <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding CountOfLaps, StringFormat='{}{0}x'}" VerticalAlignment="Center" Margin="0,0,5,0" />
+                            </StackPanel>
+
+                            <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Text="{Binding LocalizedResources.LengthOfLaps, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PhoneAccentBrush}" />
+                            <HyperlinkButton Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding SpeedWayCommand}" Content="{Binding LocalizedResources.SpeedWay_Title, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                            <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding LengthOfLaps}" VerticalAlignment="Center" Margin="0,0,5,0" />
+                                <TextBlock Text="{Binding DataController.Distance}" VerticalAlignment="Center" />
+                            </StackPanel>
+
+                        </Grid>
+                    </StackPanel>
                 </ScrollViewer>
             </Grid>
 
@@ -233,7 +260,9 @@
                             <ColumnDefinition Width="180" />
                         </Grid.ColumnDefinitions>
 
+                        <!-- SPEEDWAY -->
                         <Button
+                            IsEnabled="{Binding FeaturesUtility.HasSpeedWay}"
                             Grid.Row="0" 
                             Grid.Column="0"
                             Command="{Binding SpeedWayCommand}"
@@ -253,8 +282,8 @@
                                     Text="{Binding LocalizedResources.SpeedWay_Title, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
                             </Grid>
                         </Button>
-
                         <Button
+                            IsEnabled="{Binding FeaturesUtility.HasSpeedWay}"
                             Width="120"
                             Margin="-16,-11"
                             Grid.Row="0" 
@@ -266,6 +295,17 @@
                             BorderThickness="0">
                                 <Image Source="/Resources/Images/Buttons/store.png" VerticalAlignment="Top" />
                         </Button>
+                        <Grid 
+                            Visibility="{Binding FeaturesUtility.HasSpeedWay, Converter={StaticResource BooleanToCollapsedConvertor}}"
+                            Grid.Column="0" 
+                            Grid.Row="0">
+                            <TextBlock Text="{Binding LocalizedResources.Soon, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource Duration}" >
+                                <TextBlock.Projection>
+                                    <PlaneProjection RotationZ="30"/>
+                                </TextBlock.Projection>
+                            </TextBlock>
+                        </Grid>
+                                
                     </Grid>
                 </ScrollViewer>
             </Grid>

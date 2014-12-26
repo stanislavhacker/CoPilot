@@ -1283,11 +1283,15 @@ namespace CoPilot.CoPilot.View
             {
                 if (e.State == Interfaces.EventArgs.ConnectionStatus.Connected)
                 {
-                    //try backup now
-                    await FtpController.BackupNow(DeviceNetworkInformation.IsNetworkAvailable && DataController.IsBackupOnStart);
-
                     //save data
                     Settings.Add("StorageConnected", (e.State == Interfaces.EventArgs.ConnectionStatus.Connected).ToString());
+                    //try backup now
+                    await FtpController.BackupNow(DeviceNetworkInformation.IsNetworkAvailable && DataController.IsBackupOnStart);
+                    //try download speedway
+                    if (await FtpController.SpeedWayNow(DeviceNetworkInformation.IsNetworkAvailable && DataController.IsBackupOnStart))
+                    {
+                        DataController.RaisePropertyChanged("Circuits");
+                    }
                 }
             };
 

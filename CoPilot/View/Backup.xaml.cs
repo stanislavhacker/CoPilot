@@ -315,6 +315,18 @@ namespace CoPilot.CoPilot.View
         #region PROPERTY
 
         /// <summary>
+        /// Features utility
+        /// </summary>
+        private FeaturesUtility featuresUtility = new FeaturesUtility();
+        public FeaturesUtility FeaturesUtility
+        {
+            get
+            {
+                return featuresUtility;
+            }
+        }
+
+        /// <summary>
         /// Pictures with progress
         /// </summary>
         private ObservableCollection<Progress> pictures = new ObservableCollection<Progress>();
@@ -389,6 +401,22 @@ namespace CoPilot.CoPilot.View
             }
         }
 
+        /// <summary>
+        /// Speedway progress
+        /// </summary>
+        public Progress speedwayProgress = new Progress();
+        public Progress SpeedwayProgress
+        {
+            get
+            {
+                return speedwayProgress;
+            }
+            set
+            {
+                speedwayProgress = value;
+                RaisePropertyChanged();
+            }
+        }
         /// <summary>
         /// Upload progress
         /// </summary>
@@ -486,6 +514,7 @@ namespace CoPilot.CoPilot.View
 
             this.createUploadProgress();
             this.createDownloadProgress();
+            this.createSpeedWayProgress();
             this.DataContext = this;
         }
 
@@ -573,6 +602,9 @@ namespace CoPilot.CoPilot.View
             {
                 case "MainData":
                     await ProcessBackupDownload();
+                    break;
+                case "SpeedWay":
+                    await ProcessSpeedWayDownload();
                     break;
                 default:
                     break;
@@ -663,7 +695,7 @@ namespace CoPilot.CoPilot.View
                     case Popup.MessageBoxResult.None:
                         break;
                     case Popup.MessageBoxResult.LeftButton:
-                        await this.downloadNow();
+                        await this.downloadBackupNow();
                         break;
                     default:
                         break;
@@ -674,10 +706,25 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
+        /// ProcessSpeedWayDownload
+        /// </summary>
+        /// <returns></returns>
+        private async Task ProcessSpeedWayDownload()
+        {
+            if (SpeedwayProgress.InProgress)
+            {
+                return;
+            }
+
+            //check backup
+            await this.downloadSpeedWayNow();
+        }
+
+        /// <summary>
         /// Download now
         /// </summary>
         /// <returns></returns>
-        private async Task downloadNow()
+        private async Task downloadBackupNow()
         {
             //update progress
             DownloadProgress.BytesTransferred = 0;
@@ -696,6 +743,39 @@ namespace CoPilot.CoPilot.View
             {
                 //load data
                 DataController.FromBackup();
+            }
+            else
+            {
+                Popup.MessageBox box = Popup.MessageBox.Create();
+                box.Caption = AppResources.BackupNotFoundTitle;
+                box.Message = AppResources.BackupNotFoundDescription;
+                box.ShowLeftButton = true;
+                box.ShowRightButton = false;
+                box.LeftButtonText = AppResources.Ok;
+                box.IsOpen = true;
+            }
+        }
+
+        /// <summary>
+        /// Download speedway now
+        /// </summary>
+        /// <returns></returns>
+        private async Task downloadSpeedWayNow()
+        {
+            //update progress
+            SpeedwayProgress.BytesTransferred = 0;
+
+            //download and apply backup
+            DownloadStatus state = await FtpController.Download(SpeedwayProgress);
+
+            //unselect
+            SpeedwayProgress.Selected = false;
+            SpeedwayProgress.InProgress = false;
+
+            if (state == DownloadStatus.Complete)
+            {
+                //load data
+                //TODO: Start refresh?????
             }
             else
             {
@@ -749,6 +829,21 @@ namespace CoPilot.CoPilot.View
             DownloadProgress.Type = Interfaces.Types.FileType.Data;
             DownloadProgress.Url = new Uri(Controllers.Data.DATA_FILE, UriKind.Relative);
             DownloadProgress.Preferences = ProgressPreferences.AllowOnCelluralAndBatery;
+        }
+
+        /// <summary>
+        /// Create speedway progress
+        /// </summary>
+        private void createSpeedWayProgress()
+        {
+            SpeedwayProgress.BytesTransferred = 0;
+            SpeedwayProgress.Cancel = new System.Threading.CancellationTokenSource();
+            SpeedwayProgress.ProgressPercentage = 0;
+            SpeedwayProgress.Selected = true;
+            SpeedwayProgress.TotalBytes = 0;
+            SpeedwayProgress.Type = Interfaces.Types.FileType.Data;
+            SpeedwayProgress.Url = new Uri(Controllers.Data.SPEEDWAY_FILE, UriKind.Relative);
+            SpeedwayProgress.Preferences = ProgressPreferences.AllowOnCelluralAndBatery;
         }
 
         #endregion 

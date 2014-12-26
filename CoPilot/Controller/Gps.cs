@@ -255,7 +255,9 @@ namespace CoPilot.CoPilot.Controller
             this.IsGpsData = false;
 
             //speed timer
-            this.speedTimer.Stop();
+            if (this.speedTimer != null) {
+                this.speedTimer.Stop();
+            }
             this.speedTimer = null;
         }
 

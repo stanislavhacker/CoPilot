@@ -157,11 +157,24 @@ namespace CoPilot.CoPilot.Controller
 
         #region PRIVATE
 
-        private Statistics.Statistics stats;
+        private Statistics.Statistics baseStats;
+        private Statistics.Statistics speedwayStats;
 
         #endregion
 
         #region PROPERTY
+
+        /// <summary>
+        /// Features utility
+        /// </summary>
+        private FeaturesUtility featuresUtility = new FeaturesUtility();
+        public FeaturesUtility FeaturesUtility
+        {
+            get
+            {
+                return featuresUtility;
+            }
+        }
 
         /// <summary>
         /// SocialUrl
@@ -256,7 +269,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return Math.Round(this.stats.getStateStats().AvarageSpeed(), 2);
+                return Math.Round(this.baseStats.getStateStats().AvarageSpeed(), 2);
             }
         }
 
@@ -267,7 +280,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return Math.Round(this.stats.getFuelStats().PaidForFuel(DataController.Currency), 2);
+                return Math.Round(this.baseStats.getFuelStats().PaidForFuel(DataController.Currency), 2);
             }
         }
 
@@ -278,7 +291,32 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return Math.Round(this.stats.getRepairStats().PaidForRepairs(DataController.Currency));
+                return Math.Round(this.baseStats.getRepairStats().PaidForRepairs(DataController.Currency));
+            }
+        }
+
+        /// <summary>
+        /// CountOfLaps
+        /// </summary>
+        public Int64 CountOfLaps
+        {
+            get
+            {
+                var count = this.speedwayStats.getCircuits().Count;
+                return count;
+            }
+        }
+
+        /// <summary>
+        /// LengthOfLaps
+        /// </summary>
+        public Double LengthOfLaps
+        {
+            get
+            {
+                var circuits = this.speedwayStats.getCircuits();
+                var sum = circuits.Sum((e) => e.getLength(this.DataController.Distance));
+                return Math.Round(sum, 2);
             }
         }
 
@@ -290,7 +328,7 @@ namespace CoPilot.CoPilot.Controller
             get
             {
                 var data = new ObservableCollection<DateTimeModel>();
-                var trend = this.stats.getFuelStats().TrendFuelPrices(DataController.Currency);
+                var trend = this.baseStats.getFuelStats().TrendFuelPrices(DataController.Currency);
                 var count = trend.X.Count < 20 ? trend.X.Count : 20;
 
                 for (var i = count - 1; i >= 0; i--)
@@ -310,7 +348,7 @@ namespace CoPilot.CoPilot.Controller
             get
             {
                 var data = new ObservableCollection<DateTimeModel>();
-                var trend = this.stats.getFuelStats().TrendUnitsPerRefill(DataController.Currency);
+                var trend = this.baseStats.getFuelStats().TrendUnitsPerRefill(DataController.Currency);
                 var count = trend.X.Count < 20 ? trend.X.Count : 20;
 
                 for (var i = count - 1; i >= 0; i--)
@@ -359,7 +397,8 @@ namespace CoPilot.CoPilot.Controller
             //copilot
             this.CoPilot = copilot;
             //stats
-            this.stats = new Statistics.Statistics(DataController.Records);
+            this.baseStats = new Statistics.Statistics(DataController.Records);
+            this.speedwayStats = new Statistics.Statistics(DataController.Circuits);
         }
 
         #region PRIVATE
@@ -415,7 +454,8 @@ namespace CoPilot.CoPilot.Controller
             if (e.PropertyName == "")
             {
                 //stats
-                this.stats = new Statistics.Statistics(DataController.Records);
+                this.baseStats = new Statistics.Statistics(DataController.Records);
+                this.speedwayStats = new Statistics.Statistics(DataController.Circuits);
             }
 
             if (force || e.PropertyName == "Fills")
@@ -441,6 +481,12 @@ namespace CoPilot.CoPilot.Controller
             if (force || e.PropertyName == "Fills")
             {
                 RaisePropertyChanged("TrendUnitsPerRefill");
+            }
+
+            if (force || e.PropertyName == "Circuits")
+            {
+                RaisePropertyChanged("CountOfLaps");
+                RaisePropertyChanged("LengthOfLaps");
             }
         }
 

@@ -920,4 +920,19 @@
   <data name="SpeedWay_Title" xml:space="preserve">
     <value>SpeedWay</value>
   </data>
+  <data name="DownloadSpeedWay" xml:space="preserve">
+    <value>Stáhnout SpeedWay data</value>
+  </data>
+  <data name="DownloadSpeedWayHelp" xml:space="preserve">
+    <value>Klikněte zde pro stáhnutí dat z CoPilot SpeedWay</value>
+  </data>
+  <data name="CountOfLaps" xml:space="preserve">
+    <value>Počet ujetých kol</value>
+  </data>
+  <data name="LengthOfLaps" xml:space="preserve">
+    <value>Délka ujetých kol</value>
+  </data>
+  <data name="Soon" xml:space="preserve">
+    <value>Brzy!</value>
+  </data>
 </root>

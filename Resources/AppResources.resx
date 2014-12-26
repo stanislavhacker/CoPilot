@@ -318,7 +318,7 @@
     <value>Link on your backup</value>
   </data>
   <data name="DownloadBackupHelp" xml:space="preserve">
-    <value>Click here to download bacup from your storage</value>
+    <value>Click here to download backup from your storage</value>
   </data>
   <data name="LastBackup" xml:space="preserve">
     <value>Last backup</value>
@@ -919,5 +919,20 @@
   </data>
   <data name="SpeedWay_Title" xml:space="preserve">
     <value>SpeedWay</value>
+  </data>
+  <data name="DownloadSpeedWay" xml:space="preserve">
+    <value>Download SpeedWay data</value>
+  </data>
+  <data name="DownloadSpeedWayHelp" xml:space="preserve">
+    <value>Click here to download data from CoPilot SpeedWay</value>
+  </data>
+  <data name="CountOfLaps" xml:space="preserve">
+    <value>Count of circuits</value>
+  </data>
+  <data name="LengthOfLaps" xml:space="preserve">
+    <value>Distance of all circuits</value>
+  </data>
+  <data name="Soon" xml:space="preserve">
+    <value>Soon!</value>
   </data>
 </root>

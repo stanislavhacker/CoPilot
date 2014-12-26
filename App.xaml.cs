@@ -164,6 +164,9 @@ namespace CoPilot
             RootFrame = new TransitionFrame();
             RootFrame.Navigated += CompleteInitializePhoneApplication;
 
+            // Assign the URI-mapper class to the application frame.
+            RootFrame.UriMapper = new UriExtensions();
+
             // Handle navigation failures
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
 

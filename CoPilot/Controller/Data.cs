@@ -25,9 +25,13 @@ namespace CoPilot.CoPilot.Controller
         public const string DATA_FILE_NAME = "co-pilot.xml";
         public const string DATA_FILE = "/shared/transfers/" + DATA_FILE_NAME;
 
+        public const string SPEEDWAY_FILE_NAME = "co-pilot-speedway.xml";
+        public const string SPEEDWAY_FILE = "/shared/transfers/" + SPEEDWAY_FILE_NAME;
+
         //PRIVATE
         private Boolean changed = true;
-        private Records data;
+        private Records baseData;
+        private Records speedwayData;
         private DispatcherTimer timer;
         private DateTime saved = DateTime.Now;
 
@@ -46,11 +50,11 @@ namespace CoPilot.CoPilot.Controller
         {
             get 
             {
-                if (this.data == null) 
+                if (this.baseData == null) 
                 {
                     return 0;
                 }
-                return this.data.AverageConsumption();
+                return this.baseData.AverageConsumption();
             }
         }
 
@@ -61,7 +65,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Backup != null && !String.IsNullOrEmpty(data.Backup.Id);
+                return baseData.Backup != null && !String.IsNullOrEmpty(baseData.Backup.Id);
             }
         }
 
@@ -72,7 +76,18 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data;
+                return baseData;
+            }
+        }
+
+        /// <summary>
+        /// Circuits
+        /// </summary>
+        public Records Circuits
+        {
+            get
+            {
+                return speedwayData;
             }
         }
 
@@ -362,11 +377,11 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.GpsAllowed;
+                return baseData.GpsAllowed;
             }
             set
             {
-                data.GpsAllowed = value;
+                baseData.GpsAllowed = value;
                 RaisePropertyChanged();
                 this.Save();
             }
@@ -379,11 +394,11 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.ObdAllowed;
+                return baseData.ObdAllowed;
             }
             set
             {
-                data.ObdAllowed = value;
+                baseData.ObdAllowed = value;
                 RaisePropertyChanged();
                 this.Save();
             }
@@ -396,11 +411,11 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.DriveModeAllowed;
+                return baseData.DriveModeAllowed;
             }
             set
             {
-                data.DriveModeAllowed = value;
+                baseData.DriveModeAllowed = value;
                 RaisePropertyChanged();
                 this.Save();
             }
@@ -413,11 +428,11 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.BackupOnStart;
+                return baseData.BackupOnStart;
             }
             set
             {
-                data.BackupOnStart = value;
+                baseData.BackupOnStart = value;
                 RaisePropertyChanged();
                 this.Save();
             }
@@ -430,11 +445,11 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Currency;
+                return baseData.Currency;
             }
             set
             {
-                data.Currency = value;
+                baseData.Currency = value;
 
                 if (onUnitsChange != null)
                 {
@@ -454,11 +469,11 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Distance;
+                return baseData.Distance;
             }
             set
             {
-                data.Distance = value;
+                baseData.Distance = value;
 
                 if (onUnitsChange != null)
                 {
@@ -478,11 +493,11 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Consumption;
+                return baseData.Consumption;
             }
             set
             {
-                data.Consumption = value;
+                baseData.Consumption = value;
                 RaisePropertyChanged();
                 OnPropertyChanged("AverageConsumption");
                 this.Save();
@@ -496,15 +511,15 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.ObdDevice;
+                return baseData.ObdDevice;
             }
             set
             {
-                if (data.ObdDevice == value)
+                if (baseData.ObdDevice == value)
                 {
                     return;
                 }
-                data.ObdDevice = value;
+                baseData.ObdDevice = value;
                 RaisePropertyChanged();
                 this.Save();
             }
@@ -517,7 +532,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Id;
+                return baseData.Id;
             }
         }
 
@@ -528,15 +543,15 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Backup;
+                return baseData.Backup;
             }
             set
             {
-                if (data.Backup == value)
+                if (baseData.Backup == value)
                 {
                     return;
                 }
-                data.Backup = value;
+                baseData.Backup = value;
                 RaisePropertyChanged();
                 RaisePropertyChanged("IsBackupAvailable");
                 this.Save();
@@ -555,7 +570,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Videos.Count;
+                return baseData.Videos.Count;
             }
         }
 
@@ -566,7 +581,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Pictures.Count;
+                return baseData.Pictures.Count;
             }
         }
 
@@ -577,7 +592,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Maintenances.Count;
+                return baseData.Maintenances.Count;
             }
         }
 
@@ -588,7 +603,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Videos;
+                return baseData.Videos;
             }
         }
 
@@ -599,7 +614,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Pictures;
+                return baseData.Pictures;
             }
         }
 
@@ -611,7 +626,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Fills;
+                return baseData.Fills;
             }
         }
 
@@ -622,7 +637,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Repairs;
+                return baseData.Repairs;
             }
         }
 
@@ -633,7 +648,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return data.Maintenances;
+                return baseData.Maintenances;
             }
         }
 
@@ -660,7 +675,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return Math.Round(data.Size / 1048576, 3);
+                return Math.Round(baseData.Size / 1048576, 3);
             }
         }
 
@@ -672,8 +687,13 @@ namespace CoPilot.CoPilot.Controller
         /// </summary>
         public Data()
         {
-            var stream = this.openStreamForRead(DATA_FILE);
-            data = Records.Load(stream);
+            Stream stream;
+            //load file
+            stream = this.openStreamForRead(DATA_FILE);
+            baseData = Records.Load(stream);
+            //load speedway file
+            stream = this.openStreamForRead(SPEEDWAY_FILE);
+            speedwayData = Records.Load(stream);
         }
 
         /// <summary>
@@ -704,8 +724,8 @@ namespace CoPilot.CoPilot.Controller
             {
                 var stream = this.openStreamForWrite(DATA_FILE);
                 saved = DateTime.Now;
-                data.Change = DateTime.Now;
-                data.Save(stream);
+                baseData.Change = DateTime.Now;
+                baseData.Save(stream);
                 OnPropertyChanged("AvailableSpace");
                 OnPropertyChanged("Size");
             }
@@ -717,7 +737,7 @@ namespace CoPilot.CoPilot.Controller
         public void FromBackup()
         {
             var stream = this.openStreamForRead(DATA_FILE);
-            this.data = Records.Load(stream);
+            this.baseData = Records.Load(stream);
             //set globals
             RateExchange.CurrentCurrency = this.Currency;
             DistanceExchange.CurrentDistance = this.Distance;
@@ -795,7 +815,7 @@ namespace CoPilot.CoPilot.Controller
             state.EngineReferenceTorque = EngineReferenceTorque;
             state.Uptime = Uptime;
 
-            data.States.Add(state);
+            baseData.States.Add(state);
             this.Save();
         }
 
@@ -838,7 +858,7 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="video"></param>
         public void AddVideo(Video video)
         {
-            data.Videos.Add(video);
+            baseData.Videos.Add(video);
             this.Save();
             OnPropertyChanged("VideosCount");
             OnPropertyChanged("Videos");
@@ -858,7 +878,7 @@ namespace CoPilot.CoPilot.Controller
             if (type == RemoveType.HardDelete)
             {
                 //delete record
-                data.Videos.Remove(video);
+                baseData.Videos.Remove(video);
                 this.Save();
                 OnPropertyChanged("VideosCount");
                 OnPropertyChanged("Videos");
@@ -877,7 +897,7 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="picture"></param>
         public void AddPicture(Picture picture)
         {
-            data.Pictures.Add(picture);
+            baseData.Pictures.Add(picture);
             this.Save();
             OnPropertyChanged("PicturesCount");
             OnPropertyChanged("Pictures");
@@ -896,7 +916,7 @@ namespace CoPilot.CoPilot.Controller
             if (type == RemoveType.HardDelete)
             {
                 //delete record
-                data.Pictures.Remove(picture);
+                baseData.Pictures.Remove(picture);
                 this.Save();
                 OnPropertyChanged("PicturesCount");
                 OnPropertyChanged("Pictures");
@@ -915,7 +935,7 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="fill"></param>
         public void AddFill(Fill fill)
         {
-            data.Fills.Insert(0, fill);
+            baseData.Fills.Insert(0, fill);
             this.Save();
             OnPropertyChanged("Fills");
             OnPropertyChanged("AverageConsumption");
@@ -928,7 +948,7 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="fill"></param>
         public void RemoveFill(Fill fill)
         {
-            data.Fills.Remove(fill);
+            baseData.Fills.Remove(fill);
             this.Save();
             OnPropertyChanged("Fills");
             OnPropertyChanged("AverageConsumption");
@@ -945,7 +965,7 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="repair"></param>
         public void AddRepair(Repair repair)
         {
-            data.Repairs.Insert(0, repair);
+            baseData.Repairs.Insert(0, repair);
             this.Save();
             OnPropertyChanged("Repairs");
             OnPropertyChanged("AvailableSpace");
@@ -957,7 +977,7 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="repair"></param>
         public void RemoveRepair(Repair repair)
         {
-            data.Repairs.Remove(repair);
+            baseData.Repairs.Remove(repair);
             this.Save();
             OnPropertyChanged("Repairs");
             OnPropertyChanged("AvailableSpace");
@@ -973,7 +993,7 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="maintenance"></param>
         public void AddMaintenance(Maintenance maintenance)
         {
-            data.Maintenances.Insert(0, maintenance);
+            baseData.Maintenances.Insert(0, maintenance);
             this.Save();
             OnPropertyChanged("Maintenances");
             OnPropertyChanged("MaintenanceCount");
@@ -987,7 +1007,7 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="repair"></param>
         public void RemoveMaintenance(Maintenance maintenance)
         {
-            data.Maintenances.Remove(maintenance);
+            baseData.Maintenances.Remove(maintenance);
             this.Save();
             OnPropertyChanged("Maintenances");
             OnPropertyChanged("MaintenanceCount");

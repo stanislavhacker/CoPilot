@@ -281,8 +281,11 @@ namespace CoPilot.CoPilot.Controller
         /// <returns></returns>
         public async Task<DownloadStatus> Download(Progress bar)
         {
+            //get file name
+            String filename = bar.Url.OriginalString.Split('/').Last();
+            //set progress
             bar.InProgress = true;
-            var response = await client.BackupId(Data.DATA_FILE_NAME);
+            var response = await client.BackupId(filename);
             if (response != null)
             {
                 return await client.Download(response.Id, bar);
@@ -325,6 +328,33 @@ namespace CoPilot.CoPilot.Controller
 
                 await this.ProcessBackup(progress);
             }
+        }
+
+        /// <summary>
+        /// Download speedway now
+        /// </summary>
+        /// <param name="canBackup"></param>
+        /// <returns></returns>
+        public async Task<Boolean> SpeedWayNow(bool canBackup)
+        {
+            if (canBackup)
+            {
+                await Task.Delay(4000);
+
+                var progress = new Progress();
+                progress.BytesTransferred = 0;
+                progress.ProgressPercentage = 0;
+                progress.Selected = true;
+                progress.TotalBytes = 0;
+                progress.Url = new Uri(Controllers.Data.SPEEDWAY_FILE, UriKind.Relative);
+                progress.Cancel = new System.Threading.CancellationTokenSource();
+                progress.Type = Interfaces.Types.FileType.Data;
+                progress.Preferences = ProgressPreferences.AllowOnCelluralAndBatery;
+
+                DownloadStatus state = await this.Download(progress);
+                return state == DownloadStatus.Complete;
+            }
+            return false;
         }
 
         #region PROCESS

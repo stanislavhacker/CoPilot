@@ -337,6 +337,52 @@
                             </Button>
                             <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
 
+                            <Button 
+                                Visibility="{Binding FeaturesUtility.HasSpeedWay, Converter={StaticResource BooleanToVisibilityConvertor}}"
+                                IsEnabled="{Binding UploadProgress.InProgress, Converter={StaticResource TrueToFalseConvertor}}"
+                                Command="{Binding DownloadCommand}" 
+                                CommandParameter="SpeedWay"
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="100">
+                                <Grid Height="50">
+                                    <Image Width="40" HorizontalAlignment="Left" Source="/Resources/Images/Buttons/download.png" />
+                                    <TextBlock Margin="80,0,0,0" Text="{Binding LocalizedResources.DownloadSpeedWay, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Top" TextAlignment="Left" />
+
+                                    <!-- NORMAL -->
+                                    <TextBlock Margin="80,0,0,0" 
+                                               Text="{Binding LocalizedResources.DownloadSpeedWayHelp, Mode=OneWay, Source={StaticResource LocalizedStrings}}" 
+                                               Visibility="{Binding SpeedwayProgress.InProgress, Converter={StaticResource BooleanToCollapsedConvertor}}" 
+                                               VerticalAlignment="Bottom" 
+                                               TextAlignment="Left" 
+                                               FontSize="16"
+                                               Foreground="Gray" />
+
+                                    <!-- PROGRESS -->
+                                    <Grid Margin="80,0,0,0" Visibility="{Binding SpeedwayProgress.InProgress, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                                        <TextBlock 
+                                            Visibility="{Binding SpeedwayProgress.BytesTransferred, Converter={StaticResource CountToCollapsedConvertor}, ConverterParameter='0'}"
+                                            Text="{Binding SpeedwayProgress.Preferences, Converter={StaticResource PreferencesToTextConvertor}}" 
+                                            VerticalAlignment="Bottom" 
+                                            TextAlignment="Left" 
+                                            Margin="0,0,0,4" 
+                                            FontSize="16" 
+                                            Foreground="Gray"/>
+                                        <ProgressBar 
+                                            Margin="0,0,50,0"
+                                            IsIndeterminate="{Binding SpeedwayProgress.BytesTransferred, Converter={StaticResource ZeroToBooleanConvertor}}"
+                                            Value="{Binding SpeedwayProgress.ProgressPercentage}"
+                                            VerticalAlignment="Bottom" />
+                                        <Button Command="{Binding CancelCommand}" CommandParameter="{Binding SpeedwayProgress}" HorizontalAlignment="Right" Style="{StaticResource MenuButton}">
+                                            <Image Source="/Resources/Images/Buttons/cancel.png" />
+                                        </Button>
+                                    </Grid>
+
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Grid.Row="2" Fill="{StaticResource LineColor}" Height="1" />
+
+
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
