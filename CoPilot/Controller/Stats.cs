@@ -57,9 +57,12 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                return new RelayCommand(async (param) =>
+                return new RelayCommand((param) =>
                 {
-                    await Launcher.LaunchUriAsync(new Uri("http://www.seznam.cz"));
+                    MarketplaceDetailTask mdt = new MarketplaceDetailTask();
+                    mdt.ContentIdentifier = "9e8721ed-645b-4c0b-a7a4-62faec49e04e";
+                    mdt.ContentType = MarketplaceContentType.Applications;
+                    mdt.Show();
                 }, param => true);
             }
         }

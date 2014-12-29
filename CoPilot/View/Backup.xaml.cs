@@ -742,7 +742,7 @@ namespace CoPilot.CoPilot.View
             if (state == DownloadStatus.Complete)
             {
                 //load data
-                DataController.FromBackup();
+                DataController.FromBackup(Controllers.Data.DATA_FILE);
             }
             else
             {
@@ -775,7 +775,7 @@ namespace CoPilot.CoPilot.View
             if (state == DownloadStatus.Complete)
             {
                 //load data
-                //TODO: Start refresh?????
+                DataController.FromBackup(Controllers.Data.SPEEDWAY_FILE);
             }
             else
             {

@@ -11,7 +11,7 @@ namespace CoPilot
         /// <summary>
         /// Has speedway allowed
         /// </summary>
-        private Boolean hasSpeedWay = false;
+        private Boolean hasSpeedWay = true;
         public Boolean HasSpeedWay
         {
             get

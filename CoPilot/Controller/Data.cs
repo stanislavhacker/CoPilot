@@ -734,17 +734,28 @@ namespace CoPilot.CoPilot.Controller
         /// <summary>
         /// From backup
         /// </summary>
-        public void FromBackup()
+        public void FromBackup(string path)
         {
-            var stream = this.openStreamForRead(DATA_FILE);
-            this.baseData = Records.Load(stream);
-            //set globals
-            RateExchange.CurrentCurrency = this.Currency;
-            DistanceExchange.CurrentDistance = this.Distance;
-            //refresh
-            RaisePropertiesChanged();
-            //Start timer again
-            StartTimer();
+            var stream = this.openStreamForRead(path);
+            //file main
+            if (path == DATA_FILE)
+            {
+                this.baseData = Records.Load(stream);
+                //set globals
+                RateExchange.CurrentCurrency = this.Currency;
+                DistanceExchange.CurrentDistance = this.Distance;
+                //refresh
+                RaisePropertiesChanged();
+                //Start timer again
+                StartTimer();
+            }
+            //speedway main
+            if (path == SPEEDWAY_FILE)
+            {
+                this.speedwayData = Records.Load(stream);
+                //refresh
+                RaisePropertiesChanged();
+            }
         }
 
         /// <summary>
