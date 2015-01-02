@@ -165,7 +165,7 @@ namespace CoPilot.CoPilot.Controller
         /// <summary>
         /// Is supported
         /// </summary>
-        private bool isSupported = true;
+        private bool isSupported = false;
         public bool IsSupported
         {
             get
@@ -175,6 +175,7 @@ namespace CoPilot.CoPilot.Controller
             set
             {
                 isSupported = value;
+                RaisePropertyChanged("IsDeviceConnected");
                 RaisePropertyChanged();
             }
         }
@@ -282,10 +283,13 @@ namespace CoPilot.CoPilot.Controller
         /// </summary>
         public DriveMode()
         {
+            //load speech files
             LoadSpeechFile();
-
-            InitializeSpeechRecognition();
-            InitializeSpeechSynthetizer();
+            //init
+            var rec = InitializeSpeechRecognition();
+            var synth = InitializeSpeechSynthetizer();
+            //supported both
+            this.IsSupported = rec && synth;
         }
 
         /// <summary>
@@ -337,6 +341,7 @@ namespace CoPilot.CoPilot.Controller
             try
             {
                 recognizer.Dispose();
+                recognizer = null;
             }
             catch {}
 
@@ -643,14 +648,12 @@ namespace CoPilot.CoPilot.Controller
         /// <summary>
         /// Initialize speech synthetizer
         /// </summary>
-        private void InitializeSpeechSynthetizer()
+        private Boolean InitializeSpeechSynthetizer()
         {
             var voice = InstalledVoices.All.FirstOrDefault((e) => e.Language.Contains("en") && e.Gender == VoiceGender.Male);
-
             if (voice == null)
             {
-                this.IsSupported = false;
-                return;
+                return false;
             }
 
             synthetizer = new SpeechSynthesizer();
@@ -663,19 +666,21 @@ namespace CoPilot.CoPilot.Controller
             {
                 this.speaking = false;
             };
+
+            return true;
         }
 
         /// <summary>
         /// Initialize speech
         /// </summary>
-        private void InitializeSpeechRecognition()
+        private Boolean InitializeSpeechRecognition()
         {
             var langauge = InstalledSpeechRecognizers.All.FirstOrDefault(e => e.Language.ToLowerInvariant() == "en-gb");
             if (langauge == null)
             {
-                this.IsSupported = false;
-                return;
+                return false;
             }
+            return true;
         }
 
         /// <summary>
