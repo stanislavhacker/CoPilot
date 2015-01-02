@@ -798,6 +798,9 @@ namespace CoPilot.CoPilot.Controller
                 case ".js":
                     type = "text/javascript";
                     break;
+                case ".manifest":
+                    type = "text/cache-manifest";
+                    break;
                 default:
                     type = "text/html";
                     break;
