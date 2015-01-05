@@ -22,8 +22,12 @@
 @color_rpm: #A4C400;
 @color_temperature: #E51400;
 
-@max_width: 1200px;
+@min_width: 800px;
+@max_width: @min_width + 400px;
+@query_width: @min_width + 200px;
+@query_content_width: @min_width;
 
+//noinspection CssUnknownTarget
 @image_logo: url('images/logo.png');
 
 
@@ -34,7 +38,7 @@ html, body
 
 body
 {
-    min-width: 800px;
+    min-width: @min_width;
     margin: 0;
     padding: 0;
     background: @color_default;
@@ -412,6 +416,12 @@ border-radius: 8px;
     float: left;
     text-align: center;
 }
+@media (max-width: @query_width) {
+    #menu li {
+      display: list-item;
+      float: none;
+    }
+}
 
 #menu li a, #menu li span
 {
@@ -426,6 +436,12 @@ border-radius: 8px;
     text-transform: uppercase;
     outline: 0;
     color: @color_menu;
+}
+@media (max-width: @query_width) {
+  #menu li a, #menu li span {
+    height: 30px;
+    line-height: 30px;
+  }
 }
 
 #menu li:hover a, #menu li.active a, #menu li.active span
@@ -522,6 +538,13 @@ border-radius: 8px;
       max-width: 950px;
     }
 }
+@media (max-width: @query_content_width) {
+  #content {
+    padding-top: 20px;
+    padding-left: 15px;
+    clear: both;
+  }
+}
 
 /*********************************************************************************/
 /* Sidebar                                                                       */
@@ -536,6 +559,12 @@ border-radius: 8px;
     &.minimalized {
       width: auto;
     }
+}
+@media (max-width: @query_content_width) {
+  #sidebar {
+    float: none;
+    margin-top: -80px;
+  }
 }
 
 #stwo-col
@@ -695,6 +724,7 @@ p.fills, p.repairs, p.videos, p.images, p.paths {
   border: none;
   margin-bottom: 0;
   position: relative;
+  clear: left;
 
   .fb-share-button {
     float: left;
