@@ -418,6 +418,48 @@ var copilot = {};
 		};
 
 		/**
+		 * GetMonthlyFuelConsumption
+		 * @param {copilot.data.Language} language
+		 * @param {copilot.model.Fills} fills
+		 * @param {string} color
+		 * @return {copilot.model.Graph}
+		 */
+		copilot.App.GetMonthlyFuelConsumption = function (language, fills, color) {
+			var i,
+				key,
+				month,
+				consumptionTotal = {},
+				graph = new copilot.model.Graph(),
+				series = new copilot.model.Graph.Series();
+
+			for (i = 0; i < fills.length; i++) {
+				//month
+				month = (fills[i].Date.getMonth() + 1) + "/" + fills[i].Date.getFullYear();
+				//month
+				consumptionTotal[month] = consumptionTotal[month] || 0;
+				consumptionTotal[month] += fills[i].Refueled;
+			}
+
+			//name
+			series.name = language.getString("Consumed");
+			series.lineWidth = 2;
+			series.color = color;
+
+			for (key in consumptionTotal) {
+				//noinspection JSUnfilteredForInLoop
+				series.data.push([key, Math.round(consumptionTotal[key] * 100) / 100]);
+			}
+
+			//create
+			graph.name = language.getString("MonthlyFuelConsumption");
+			graph.dataUnit = language.getString("FueledUnit");
+			graph.type = 'column';
+			graph.addSeries(series);
+
+			return graph;
+		};
+
+		/**
 		 * GetFillsMonthlyExpenditure
 		 * @param {copilot.data.Language} language
 		 * @param {copilot.model.Repairs} repairs

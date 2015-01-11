@@ -947,6 +947,9 @@
   <data name="Circuits_Motto" xml:space="preserve">
     <value>Všechny vaše zajeté okruhy.</value>
   </data>
+  <data name="Consumed" xml:space="preserve">
+    <value>Spotřebováno</value>
+  </data>
   <data name="EmptyCircuits" xml:space="preserve">
     <value>Žádné okruhy jste ještě nejeli. Pokud nemáte ještě staženou aplikaci CoPilot Speedway, můžete ji stáhnout na obchodě Winddows Phone. Poté můžete nahrávat okruhy a uvidíte je zde.</value>
   </data>
@@ -955,6 +958,9 @@
   </data>
   <data name="Items" xml:space="preserve">
     <value>{0} položek uvnitř</value>
+  </data>
+  <data name="MonthlyFuelConsumption" xml:space="preserve">
+    <value>Měsíční spotřeba paliva</value>
   </data>
   <data name="Times" xml:space="preserve">
     <value>Časy</value>

@@ -947,6 +947,9 @@
   <data name="Circuits_Motto" xml:space="preserve">
     <value>All your run in circuits.</value>
   </data>
+  <data name="Consumed" xml:space="preserve">
+    <value>Consumed</value>
+  </data>
   <data name="EmptyCircuits" xml:space="preserve">
     <value>You're still not done any circuit . If you not have downloaded application CoPilot Speedway yet, you can download it at the Winddows Phone store. Then you can record circuit and you will see them here.</value>
   </data>
@@ -955,6 +958,9 @@
   </data>
   <data name="Items" xml:space="preserve">
     <value>{0} items inside</value>
+  </data>
+  <data name="MonthlyFuelConsumption" xml:space="preserve">
+    <value>Monthly fuel consumption</value>
   </data>
   <data name="Times" xml:space="preserve">
     <value>Times</value>

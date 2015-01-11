@@ -293,6 +293,9 @@
 			case language.getString('MonthlyExpenditure') + " " + language.getString('Repairs'):
 				this.renderGraph(parent, 'MonthlyExpenditureRepairs');
 				break;
+			case language.getString('MonthlyFuelConsumption'):
+				this.renderGraph(parent, 'MonthlyFuelConsumption');
+				break;
 			case "speedway/" + language.getString('Circuits'):
 				this.renderCircuits(parent);
 				break;
@@ -1581,6 +1584,9 @@
 			case 'MonthlyExpenditureRepairs':
 				graphData = copilot.App.GetRepairsMonthlyExpenditure(language, repairs);
 				break;
+			case 'MonthlyFuelConsumption':
+				graphData = copilot.App.GetMonthlyFuelConsumption(language, fills, skin.Foreground);
+				break;
 			default:
 				break;
 		}
@@ -1687,6 +1693,7 @@
 			case language.getString('TrendUnitsPerRefill'):
 			case language.getString('MonthlyExpenditure') + " " + language.getString('Fuels'):
 			case language.getString('MonthlyExpenditure') + " " + language.getString('Repairs'):
+			case language.getString('MonthlyFuelConsumption'):
 				minimized = false;
 				break;
 			default:
@@ -1725,6 +1732,7 @@
 		$('<li><a href="#' + language.getString('TrendUnitsPerRefill') + '">' + language.getString('TrendUnitsPerRefill') + '</a></li>').appendTo(ul);
 		$('<li><a href="#' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Fuels') + '">' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Fuels') + '</a></li>').appendTo(ul);
 		$('<li><a href="#' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Repairs') + '">' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Repairs') + '</a></li>').appendTo(ul);
+		$('<li><a href="#' + language.getString('MonthlyFuelConsumption') + '">' + language.getString('MonthlyFuelConsumption') + '</a></li>').appendTo(ul);
 		ul.hide();
 		//count if hidden
 		items = $('<div class="items-count">').appendTo(menu);

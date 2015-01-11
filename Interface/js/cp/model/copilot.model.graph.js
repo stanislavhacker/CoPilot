@@ -41,6 +41,10 @@
 					plotBorderWidth: 1,
 					plotShadow: false
 				};
+			case "column":
+				return {
+					type: 'column'
+				};
 		}
 		return null;
 	};
@@ -69,6 +73,13 @@
 				return {
 					pointFormat: '{series.name}: <b>{point.y} ' + this.dataUnit + '</b>'
 				};
+			case "column":
+				return {
+					headerFormat: '<div><span style="font-size:10px">{point.key}</span>',
+					pointFormat: '<br />{series.name}: <b>{point.y:.1f} ' + this.dataUnit + '</b>',
+					footerFormat: '</div>',
+					shared: true
+				};
 		}
 		return null;
 	};
@@ -92,6 +103,13 @@
 						}
 					}
 				};
+			case "column":
+				return {
+					column: {
+						pointPadding: 0.2,
+						borderWidth: 0
+					}
+				}
 		}
 		return null;
 	};
