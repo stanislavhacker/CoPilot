@@ -46,7 +46,7 @@ var copilot = {};
 		 * @returns {string}
 		 */
 		copilot.App.prototype.getUrl = function () {
-			return "http://192.168.1.11/copilot/";
+			//return "http://192.168.1.11/copilot/";
 			var index = window.location.href.indexOf("copilot/") + 8;
 			return window.location.href.substr(0, index);
 		};
