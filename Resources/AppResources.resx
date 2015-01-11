@@ -935,4 +935,37 @@
   <data name="Soon" xml:space="preserve">
     <value>Soon!</value>
   </data>
+  <data name="CircuitDescription" xml:space="preserve">
+    <value>On {3} you have done a circuit with label {1} the total number of {2} laps. The total duration of the track was {0}.</value>
+  </data>
+  <data name="CircuitDescription_Tweet" xml:space="preserve">
+    <value>On {3} I rode the circuit with label {1} with a total of {2} laps. The total duration of the track was {0}. #carcopilot</value>
+  </data>
+  <data name="Circuits" xml:space="preserve">
+    <value>Circuits</value>
+  </data>
+  <data name="Circuits_Motto" xml:space="preserve">
+    <value>All your run in circuits.</value>
+  </data>
+  <data name="EmptyCircuits" xml:space="preserve">
+    <value>You're still not done any circuit . If you not have downloaded application CoPilot Speedway yet, you can download it at the Winddows Phone store. Then you can record circuit and you will see them here.</value>
+  </data>
+  <data name="EmptyTimes" xml:space="preserve">
+    <value>You're still not done any circuit . If you not have downloaded application CoPilot Speedway yet, you can download it at the Winddows Phone store. Then you can record circuit and you will see them here.</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>{0} items inside</value>
+  </data>
+  <data name="Times" xml:space="preserve">
+    <value>Times</value>
+  </data>
+  <data name="TimesDescription" xml:space="preserve">
+    <value>On {2} you have done your best time at the circuit {0}. Race time was {1}.</value>
+  </data>
+  <data name="TimesDescription_Tweet" xml:space="preserve">
+    <value>On {2} you have done your best time at the circuit {0}. Race time was {1}. #carcopilot</value>
+  </data>
+  <data name="Times_Motto" xml:space="preserve">
+    <value>All your unique run in circuits.</value>
+  </data>
 </root>

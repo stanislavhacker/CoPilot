@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#rev 000034
+#rev 000035
 NETWORK:
 *
 CACHE:
@@ -8,6 +8,7 @@ cp.css
 cp.js
 #resources
 images/logo.png
+images/logo-speedway.png
 fonts/FontAwesome.otf
 fonts/fontawesome-social-webfont.eot
 fonts/fontawesome-social-webfont.svg

@@ -17,6 +17,9 @@ var copilot = {};
 		/** @type {copilot.model.Currency}*/
 		copilot.Currency = null;
 
+		/** @type {Array.<boolean>}*/
+		copilot.Menus = [];
+
 		/**
 		 * Main app
 		 * @constructor
@@ -32,7 +35,7 @@ var copilot = {};
 			//create and load language
 			this.language = new copilot.data.Language();
 			//create and load data
-			this.data = new copilot.data.Data();
+			this.data = new copilot.data.Data(this.language);
 
 			//renderer
 			this.renderer = new copilot.data.Renderer(this);
@@ -43,7 +46,7 @@ var copilot = {};
 		 * @returns {string}
 		 */
 		copilot.App.prototype.getUrl = function () {
-			//return "http://192.168.1.11/copilot/";
+			return "http://192.168.1.11/copilot/";
 			var index = window.location.href.indexOf("copilot/") + 8;
 			return window.location.href.substr(0, index);
 		};
@@ -519,6 +522,7 @@ var copilot = {};
 	}(document, 'script', 'facebook-jssdk'));
 	//Twitter
 	(function(d,s,id){
+		//noinspection JSValidateTypes
 		var js, fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
 		if(!d.getElementById(id)){
 			js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';

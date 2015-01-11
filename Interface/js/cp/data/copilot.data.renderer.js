@@ -66,9 +66,11 @@
 			state = path.States[i];
 			if (state.Position) {
 				//paths += "|" + state.Position.Latitude + "," + state.Position.Longitude;
+				//noinspection JSUnresolvedVariable,JSUnresolvedFunction
 				paths.push(new google.maps.LatLng(state.Position.Latitude, state.Position.Longitude));
 			}
 		}
+		//noinspection JSUnresolvedVariable,JSUnresolvedFunction
 		encoded = "|enc:" + google.maps.geometry.encoding.encodePath(paths);
 
 		//size
@@ -130,7 +132,6 @@
 	 */
 	copilot.data.Renderer.prototype.renderHeaderWrapper = function () {
 		var parent = $('#header-wrapper'),
-			settings = this.data.setting(),
 			language = this.language,
 			selected = "current_page_item",
 			hash = copilot.Hash,
@@ -140,21 +141,57 @@
 			menu,
 			logo,
 			h1,
-			li,
 			ul;
 
 		//clear
 		parent.empty();
 
+		//header copilot
 		header = $('<div id="header" class="container" />');
 		logo = $('<div id="logo" />').appendTo(header);
-
 		$('<img src="images/logo.png">').appendTo(logo);
 		h1 = $('<h1><a href="#" data-language="AppName">' + language.getString("AppName") + '</a></h1>').appendTo(logo);
 		h1.toggleClass(selected, hash === "" || hash === name || hash === "Warnings");
 
+		//header copilot speedway
+		logo = $('<div id="logo-speedway" />').appendTo(header);
+		$('<img src="images/logo-speedway.png">').appendTo(logo);
+		h1 = $('<h1><a href="#speedway/" data-language="SpeedWay_Title">' + language.getString("SpeedWay_Title") + '</a></h1>').appendTo(logo);
+		h1.toggleClass(selected, hash === "" || hash === name || hash === "Warnings");
+
+		//menu container
 		menu = $('<div id="menu" />').appendTo(header);
 		ul = $('<ul></ul>').appendTo(menu);
+
+		if (hash.indexOf("speedway/") >= 0) {
+			this.renderCoPilotSpeedWayMenu(ul, selected);
+		} else {
+			this.renderCoPilotMenu(ul, selected);
+		}
+
+		//clear map screen on click
+		header.find('a').click(function () {
+			self.renderMap(null);
+		});
+
+		//append
+		parent.append(header);
+
+		//apply skin
+		this.skin.applySkin();
+	};
+
+	/**
+	 * @private
+	 * Render copilot menu
+	 * @param {jQuery} ul
+	 * @param {string} selected
+	 */
+	copilot.data.Renderer.prototype.renderCoPilotMenu = function (ul, selected) {
+		var language = this.language,
+			settings = this.data.setting(),
+			hash = copilot.Hash,
+			name;
 
 		name = language.getString("Fuels");
 		$('<li><a href="#' + name + '" accesskey="1" title="">' + name + ' (' + settings.Fills + ')</a></li>')
@@ -180,17 +217,29 @@
 		$('<li><a href="#' + name + '" accesskey="5" title="">' + name + ' (' + settings.Paths + ')</a></li>')
 			.toggleClass(selected, hash === name)
 			.appendTo(ul);
+	};
 
-		//clear map screen on click
-		header.find('a').click(function () {
-			self.renderMap(null);
-		});
+	/**
+	 * @private
+	 * Render copilot speedway menu
+	 * @param {jQuery} ul
+	 * @param {string} selected
+	 */
+	copilot.data.Renderer.prototype.renderCoPilotSpeedWayMenu = function (ul, selected) {
+		var language = this.language,
+			settings = this.data.setting(),
+			hash = copilot.Hash,
+			name;
 
-		//append
-		parent.append(header);
+		name = language.getString("Circuits");
+		$('<li><a href="#speedway/' + name + '" accesskey="1" title="">' + name + ' (' + settings.Circuits + ')</a></li>')
+			.toggleClass(selected, hash === "speedway/" + name)
+			.appendTo(ul);
 
-		//apply skin
-		this.skin.applySkin();
+		name = language.getString("Times");
+		$('<li><a href="#speedway/' + name + '" accesskey="2" title="">' + name + ' (' + settings.Times + ')</a></li>')
+			.toggleClass(selected, hash === "speedway/" + name)
+			.appendTo(ul);
 	};
 
 	/***********************************************************************/
@@ -210,6 +259,7 @@
 		switch(copilot.Hash) {
 			case "":
 			case "Warnings":
+			case "speedway/":
 			case language.getString("Statistics"):
 				this.renderPageWelcome(parent);
 				break;
@@ -242,6 +292,12 @@
 				break;
 			case language.getString('MonthlyExpenditure') + " " + language.getString('Repairs'):
 				this.renderGraph(parent, 'MonthlyExpenditureRepairs');
+				break;
+			case "speedway/" + language.getString('Circuits'):
+				this.renderCircuits(parent);
+				break;
+			case "speedway/" + language.getString('Times'):
+				this.renderTimes(parent);
 				break;
 			default:
 				break;
@@ -623,8 +679,12 @@
 					button = $('<a href="#' + language.getString("Videos") + '" class="button path">' + this.language.getString('ShowMap') + '</a>');
 					button.data("video", video);
 					button.click(function () {
-						var video = $(this).data("video");
-						self.renderMap(dataModel.path(video.Time, new Date(video.Time.getTime() + (video.duration * 1000))), video.isBackuped() ? video : null);
+						var video = $(this).data("video"),
+							settings = new copilot.data.MapSettings();
+						//settings
+						settings.video = video.isBackuped() ? video : null;
+						//map
+						self.renderMap(dataModel.path(video.Time, new Date(video.Time.getTime() + (video.duration * 1000))), settings);
 					});
 					description.append(button);
 					//share: fb
@@ -635,8 +695,10 @@
 					description.append(button);
 
 					//fb refresh
+					//noinspection JSUnresolvedVariable
 					FB.XFBML.parse(item[0]);
 					//twitter
+					//noinspection JSUnresolvedVariable
 					twttr.widgets.load();
 				}
 			}
@@ -725,8 +787,8 @@
 
 		//css
 		video.css({
-			width: div.width(),
-			height: div.height()
+			width: '100%',
+			height: '100%'
 		});
 
 		//events
@@ -1133,8 +1195,10 @@
 				description.append(button);
 
 				//fb refresh
+				//noinspection JSUnresolvedVariable
 				FB.XFBML.parse(item[0]);
 				//twitter
+				//noinspection JSUnresolvedVariable
 				twttr.widgets.load();
 			}
 		} else {
@@ -1143,8 +1207,337 @@
 		}
 	};
 
+	//////////////////////////////////////////////////
+	//////////////////////////// CIRCLES
+	//////////////////////////////////////////////////
 
+	/**
+	 * Render circles
+	 * @param {jQuery} parent
+	 */
+	copilot.data.Renderer.prototype.renderCircuits = function (parent) {
+		var i,
+			p,
+			div,
+			language = this.language,
+			dataModel = this.data,
+			circuits = dataModel.circuits() || null;
 
+		//circuits
+		if (circuits === null) {
+			//loader
+			parent.empty();
+			this.loader(parent);
+			return;
+		}
+
+		//title
+		this.circuitTitle("div-circuits", parent, language);
+
+		//zero length
+		if (circuits.length === 0) {
+			$('<p>' + language.getString("EmptyCircuits") + '</p>').appendTo(parent);
+			return;
+		}
+
+		for (i = 0; i < circuits.length; i++) {
+			//path
+			this.circuitFrame(parent, /** @type {copilot.model.Circuit} */ circuits[i]);
+		}
+	};
+
+	/**
+	 * @private
+	 * Circuit title
+	 * @param {string} id
+	 * @param {jQuery} parent
+	 * @param {copilot.data.Language} language
+	 */
+	copilot.data.Renderer.prototype.circuitTitle = function (id, parent, language) {
+		var title,
+			exists = parent.find('#' + id).length;
+
+		if (exists) {
+			return;
+		}
+
+		//clear
+		//noinspection JSUnresolvedFunction
+		parent.empty();
+		//title
+		title = $('<div class="title" />').attr('id', id).appendTo(parent);
+		//h2
+		$('<h2>' + language.getString("Circuits") + '</h2>').appendTo(title);
+		$('<span class="byline">' + language.getString("Circuits_Motto") + '</span>').appendTo(title);
+	};
+
+	/**
+	 * @private
+	 * Circuit frame
+	 * @param {jQuery} parent
+	 * @param {copilot.model.Circuit} circuit
+	 */
+	copilot.data.Renderer.prototype.circuitFrame = function (parent, circuit) {
+		var id,
+			item,
+			link,
+			path,
+			div,
+			text,
+			info,
+			paths,
+			height,
+			button,
+			data = [],
+			description,
+			self = this,
+			language = this.language;
+
+		/**
+		 * Description
+		 * @returns {string|*}
+		 */
+		function getDescription(circuit) {
+			//data
+			data[0] = copilot.App.timeDifference(new Date(circuit.duration * 1000), new Date(0));
+			data[1] = circuit.Name;
+			data[2] = circuit.Laps.length;
+			data[3] = circuit.Start.toLocaleDateString();
+			//string
+			return language.getString("CircuitDescription", data);
+		}
+
+		id = circuit.Id + "-" + circuit.Start.getTime();
+
+		//data
+		item = parent.find("#circuit-" + id);
+		info = item.find("p.info");
+		description =  item.find("p.path");
+
+		//not exists
+		if (item.length === 0) {
+
+			//item
+			item = $('<p />').addClass('paths').attr('id', "circuit-" + id).appendTo(parent);
+			item.css('height', '150px');
+			link = $('<div class="odometer"/>').appendTo(item);
+			link.append('<div class="value">' + circuit.Start.toLocaleDateString() + '<span class="small">' + circuit.Start.toLocaleTimeString() + '</span></div>');
+
+			//info
+			info = $('<p />').addClass("info").html(getDescription(circuit));
+			item.append(info);
+
+			//description
+			description = $('<p />').addClass("path");
+			item.append(description);
+			item.append($('<div />').css('clear', 'both'));
+		} else {
+			//set new html
+			info.html(getDescription(circuit));
+		}
+
+		//first
+		if (circuit.States[0] && description.find('.map-button').length === 0) {
+			//path
+			path = circuit.getPath();
+			//empty
+			description.empty();
+			//paths
+			button = $('<a href="#speedway/' + language.getString("Circuits") + '" class="button path">' + this.language.getString('ShowMap') + '</a>');
+			button.addClass('map-button');
+			button.data("path", path);
+			button.click(function () {
+				var path = $(this).data("path"),
+					settings = new copilot.data.MapSettings();
+				//settings
+				settings.markers = false;
+				//map
+				self.renderMap(path, settings);
+			});
+			description.append(button);
+			//share: fb
+			button = $('<div class="fb-share-button" data-width="200" />').attr('data-href', mapUrl(path));
+			description.append(button);
+			//share: twitter
+			button = $('<a href="https://twitter.com/share" class="twitter-share-button" data-url=" " data-count="none" data-text="' + language.getString("CircuitDescription_Tweet", data, true) + '">Tweet</a>');
+			description.append(button);
+
+			//fb refresh
+			//noinspection JSUnresolvedVariable
+			FB.XFBML.parse(item[0]);
+			//twitter
+			//noinspection JSUnresolvedVariable
+			twttr.widgets.load();
+		}
+	};
+
+	//////////////////////////////////////////////////
+	//////////////////////////// TIMES
+	//////////////////////////////////////////////////
+
+	/**
+	 * Render times
+	 * @param {jQuery} parent
+	 */
+	copilot.data.Renderer.prototype.renderTimes = function (parent) {
+		var i,
+			p,
+			div,
+			language = this.language,
+			dataModel = this.data,
+			times = dataModel.times() || null;
+
+		//times
+		if (times === null) {
+			//loader
+			parent.empty();
+			this.loader(parent);
+			return;
+		}
+
+		//title
+		this.timesTitle("div-times", parent, language);
+
+		//zero length
+		if (times.length === 0) {
+			$('<p>' + language.getString("EmptyTimes") + '</p>').appendTo(parent);
+			return;
+		}
+
+		for (i = 0; i < times.length; i++) {
+			//path
+			this.timesFrame(parent, /** @type {copilot.model.CircuitGroup} */ times[i]);
+		}
+	};
+
+	/**
+	 * @private
+	 * Times title
+	 * @param {string} id
+	 * @param {jQuery} parent
+	 * @param {copilot.data.Language} language
+	 */
+	copilot.data.Renderer.prototype.timesTitle = function (id, parent, language) {
+		var title,
+			exists = parent.find('#' + id).length;
+
+		if (exists) {
+			return;
+		}
+
+		//clear
+		//noinspection JSUnresolvedFunction
+		parent.empty();
+		//title
+		title = $('<div class="title" />').attr('id', id).appendTo(parent);
+		//h2
+		$('<h2>' + language.getString("Times") + '</h2>').appendTo(title);
+		$('<span class="byline">' + language.getString("Times_Motto") + '</span>').appendTo(title);
+	};
+
+	/**
+	 * @private
+	 * Times frame
+	 * @param {jQuery} parent
+	 * @param {copilot.model.CircuitGroup} circuitGroup
+	 */
+	copilot.data.Renderer.prototype.timesFrame = function (parent, circuitGroup) {
+		var id,
+			item,
+			link,
+			path,
+			div,
+			text,
+			info,
+			paths,
+			height,
+			button,
+			data = [],
+			description,
+			self = this,
+			language = this.language;
+
+		/**
+		 * Description
+		 * @param {copilot.model.CircuitGroup} circuitGroup
+		 * @returns {string|*}
+		 */
+		function getDescription(circuitGroup) {
+			//data
+			data[0] = circuitGroup.Name;
+			data[1] = circuitGroup.FastestLap;
+			data[2] = circuitGroup.Circuit.Start.toLocaleDateString();
+			//string
+			return language.getString("TimesDescription", data);
+		}
+
+		id = circuitGroup.Circuit.Id + "-" + circuitGroup.Circuit.Name;
+
+		//data
+		item = parent.find("#circuitGroup-" + id);
+		info = item.find("p.info");
+		description =  item.find("p.path");
+
+		//not exists
+		if (item.length === 0) {
+
+			//item
+			item = $('<p />').addClass('paths').attr('id', "circuitGroup-" + id).appendTo(parent);
+			item.css('height', '150px');
+			link = $('<div class="odometer"/>').appendTo(item);
+			link.append('<div class="value">' + circuitGroup.Circuit.Start.toLocaleDateString() + '<span class="small">' + circuitGroup.Circuit.Start.toLocaleTimeString() + '</span></div>');
+
+			//info
+			info = $('<p />').addClass("info").html(getDescription(circuitGroup));
+			item.append(info);
+
+			//description
+			description = $('<p />').addClass("path");
+			item.append(description);
+			item.append($('<div />').css('clear', 'both'));
+		} else {
+			//set new html
+			info.html(getDescription(circuitGroup));
+		}
+
+		//first
+		if (circuitGroup.States[0] && description.find('.map-button').length === 0) {
+			//path
+			path = circuitGroup.Circuit.getPath();
+			//empty
+			description.empty();
+			//paths
+			button = $('<a href="#speedway/' + language.getString("Times") + '" class="button path">' + this.language.getString('ShowMap') + '</a>');
+			button.addClass('map-button');
+			button.data("path", path);
+			button.click(function () {
+				var path = $(this).data("path"),
+					settings = new copilot.data.MapSettings();
+				//settings
+				settings.markers = false;
+				//map
+				self.renderMap(path, settings);
+			});
+			description.append(button);
+			//share: fb
+			button = $('<div class="fb-share-button" data-width="200" />').attr('data-href', mapUrl(path));
+			description.append(button);
+			//share: twitter
+			button = $('<a href="https://twitter.com/share" class="twitter-share-button" data-url=" " data-count="none" data-text="' + language.getString("TimesDescription_Tweet", data, true) + '">Tweet</a>');
+			description.append(button);
+
+			//fb refresh
+			//noinspection JSUnresolvedVariable
+			FB.XFBML.parse(item[0]);
+			//twitter
+			//noinspection JSUnresolvedVariable
+			twttr.widgets.load();
+		}
+	};
+
+	//////////////////////////////////////////////////
+	//////////////////////////// GRAPHS
+	//////////////////////////////////////////////////
 
 	/**
 	 * Render graph
@@ -1220,9 +1613,9 @@
 	/**
 	 * Render map
 	 * @param {copilot.model.Path} path
-	 * @param {copilot.model.Video=} video
+	 * @param {copilot.data.MapSettings} settings
 	 */
-	copilot.data.Renderer.prototype.renderMap = function (path, video) {
+	copilot.data.Renderer.prototype.renderMap = function (path, settings) {
 		var frame;
 
 		//clear
@@ -1235,7 +1628,7 @@
 		}
 
 		//frame
-		frame = this.mapRenderer.renderMapFrame(path, video);
+		frame = this.mapRenderer.renderMapFrame(path, settings);
 		//set current map
 		this.map = frame;
 		//append
@@ -1277,17 +1670,11 @@
 	 */
 	copilot.data.Renderer.prototype.renderPageSideBar = function () {
 		var language = this.language,
-			data = this.data,
 			parent = $('#sidebar'),
 			content = $('#content'),
-			showAddMenu = true,
-			min = 'minimalized',
+			minimized = true,
 			max = 'maximalized',
-			menuTwo,
-			menuOne,
-			menu,
-			li,
-			ul;
+			menu;
 
 		//clear
 		parent.empty();
@@ -1300,55 +1687,112 @@
 			case language.getString('TrendUnitsPerRefill'):
 			case language.getString('MonthlyExpenditure') + " " + language.getString('Fuels'):
 			case language.getString('MonthlyExpenditure') + " " + language.getString('Repairs'):
-				showAddMenu = false;
+				minimized = false;
 				break;
 			default:
-				showAddMenu = true;
+				minimized = true;
 				break;
 		}
 
 		//left menu
-		menuOne = $('<div class="sbox1" />').appendTo(menu);
-		$('<h2>' + language.getString("Graphs") + '</h2>').appendTo(menuOne);
-		ul = $('<ul class="style2">').appendTo(menuOne);
-			//items
-			$('<li><a href="#' + language.getString('FuelPriceTrend') + '">' + language.getString('FuelPriceTrend') + '</a></li>').appendTo(ul);
-			$('<li><a href="#' + language.getString('TrendUnitsPerRefill') + '">' + language.getString('TrendUnitsPerRefill') + '</a></li>').appendTo(ul);
-			$('<li><a href="#' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Fuels') + '">' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Fuels') + '</a></li>').appendTo(ul);
-			$('<li><a href="#' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Repairs') + '">' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Repairs') + '</a></li>').appendTo(ul);
-
-		if (showAddMenu) {
-			//menu right
-			menuTwo = $('<div class="sbox2" />').appendTo(menu);
-			$('<h2>' + language.getString("NewItems") + '</h2>').appendTo(menuTwo);
-			ul = $('<ul class="style2">').appendTo(menuTwo);
-			//items
-			li = $('<li><a href="#' + language.getString('AddItem') + '">' + language.getString('AddFuel') + '</a></li>').appendTo(ul);
-			li.click(function () {
-				data.run("add-fuel");
-			});
-
-			li = $('<li><a href="#' + language.getString('AddItem') + '">' + language.getString('AddRepair') + '</a></li>').appendTo(ul);
-			li.click(function () {
-				data.run("add-repair");
-			});
-
-			li = $('<li><a href="#' + language.getString('AddItem') + '">' + language.getString('AddMaintenance') + '</a></li>').appendTo(ul);
-			li.click(function () {
-				data.run("add-maintenance");
-			});
-
-			//remove class
-			parent.removeClass(min);
-			content.removeClass(max);
-		} else {
-			//add min
-			parent.addClass(min);
-			content.addClass(max);
-		}
-
+		this.renderGraphMenu(menu);
+		//menu right
+		this.renderAddMenu(menu);
+		//add min
+		content.toggleClass(max, !minimized);
 		//apply skin
 		this.skin.applySkin();
+	};
+
+	/**
+	 * @private
+	 * render graph menu
+	 * @param {jQuery} parent
+	 */
+	copilot.data.Renderer.prototype.renderGraphMenu = function (parent) {
+		var ul,
+			menu,
+			items,
+			title,
+			language = this.language;
+
+		//left menu
+		menu = $('<div class="sbox1" />').appendTo(parent);
+		title = $('<h2>' + language.getString("Graphs") + '</h2>').appendTo(menu);
+		ul = $('<ul class="style2">').appendTo(menu);
+		//items
+		$('<li><a href="#' + language.getString('FuelPriceTrend') + '">' + language.getString('FuelPriceTrend') + '</a></li>').appendTo(ul);
+		$('<li><a href="#' + language.getString('TrendUnitsPerRefill') + '">' + language.getString('TrendUnitsPerRefill') + '</a></li>').appendTo(ul);
+		$('<li><a href="#' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Fuels') + '">' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Fuels') + '</a></li>').appendTo(ul);
+		$('<li><a href="#' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Repairs') + '">' + language.getString('MonthlyExpenditure') + ' ' + language.getString('Repairs') + '</a></li>').appendTo(ul);
+		ul.hide();
+		//count if hidden
+		items = $('<div class="items-count">').appendTo(menu);
+		items.html(language.getString('Items', [ ul.find('li').length ]));
+		//click
+		title.click(function() {
+			//toggle
+			ul.toggle();
+			items.toggle();
+			//toggle
+			copilot.Menus[0] = ul.is(':visible');
+		});
+		//click
+		if (copilot.Menus[0] === true) {
+			title.click();
+		}
+	};
+
+	/**
+	 * @private
+	 * render add menu
+	 * @param {jQuery} parent
+	 */
+	copilot.data.Renderer.prototype.renderAddMenu = function (parent) {
+		var ul,
+			li,
+			menu,
+			title,
+			items,
+			data = this.data,
+			language = this.language;
+
+		//menu right
+		menu = $('<div class="sbox2" />').appendTo(parent);
+		title = $('<h2>' + language.getString("NewItems") + '</h2>').appendTo(menu);
+		ul = $('<ul class="style2">').appendTo(menu);
+		//items
+		li = $('<li><a href="#' + language.getString('AddItem') + '">' + language.getString('AddFuel') + '</a></li>').appendTo(ul);
+		li.click(function () {
+			data.run("add-fuel");
+		});
+
+		li = $('<li><a href="#' + language.getString('AddItem') + '">' + language.getString('AddRepair') + '</a></li>').appendTo(ul);
+		li.click(function () {
+			data.run("add-repair");
+		});
+
+		li = $('<li><a href="#' + language.getString('AddItem') + '">' + language.getString('AddMaintenance') + '</a></li>').appendTo(ul);
+		li.click(function () {
+			data.run("add-maintenance");
+		});
+		//hide
+		ul.hide();
+		//count if hidden
+		items = $('<div class="items-count">').appendTo(menu);
+		items.html(language.getString('Items', [ ul.find('li').length ]));
+		//click
+		title.click(function() {
+			//toggle
+			ul.toggle();
+			items.toggle();
+			//toggle
+			copilot.Menus[1] = ul.is(':visible');
+		});
+		//click
+		if (copilot.Menus[1] === true) {
+			title.click();
+		}
 	};
 
 	/***********************************************************************/

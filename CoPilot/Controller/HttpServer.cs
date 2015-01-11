@@ -386,6 +386,10 @@ namespace CoPilot.CoPilot.Controller
                 case "image-url":
                     var imageUri = await imageUrl(what);
                     return createResponse(imageUri);
+                case "circuits":
+                    return createResponse(createCircuits(from, to, page));
+                case "times":
+                    return createResponse(createTimes(from, to, page));
                 default:
                     return new IDCT.webResposne();
             }
@@ -574,6 +578,73 @@ namespace CoPilot.CoPilot.Controller
         }
 
         /// <summary>
+        /// Create times
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        private object createCircuits(int from, int to, int page)
+        {
+            var times = this.dataController.Circuits.Times.Circuits;
+            var total = times.Count();
+
+            try
+            {
+                if (from == -1 && to == -1)
+                {
+                    var take = page == -1 ? total : this.pageSize;
+                    var skip = page == -1 ? 0 : this.pageSize * page;
+                    return times.Skip(skip).Take(take).ToArray();
+                }
+                else
+                {
+                    from = from == -1 ? 0 : from;
+                    to = to == -1 ? total - from : to - from;
+                    return times.Skip(from).Take(to).ToArray();
+                }
+            }
+            catch
+            {
+                return new Circuit[0];
+            }
+        }
+
+        /// <summary>
+        /// Create times
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        private object createTimes(int from, int to, int page)
+        {
+            var stats = new Statistics.Statistics(this.dataController.Circuits);
+            var grouped = stats.getGroupedCircuits();
+            var total = grouped.Count();
+
+            try
+            {
+                if (from == -1 && to == -1)
+                {
+                    var take = page == -1 ? total : this.pageSize;
+                    var skip = page == -1 ? 0 : this.pageSize * page;
+                    return grouped.Skip(skip).Take(take).ToArray();
+                }
+                else
+                {
+                    from = from == -1 ? 0 : from;
+                    to = to == -1 ? total - from : to - from;
+                    return grouped.Skip(from).Take(to).ToArray();
+                }
+            }
+            catch
+            {
+                return new Statistics.Utils.CircuitGroup[0];
+            }
+        }
+
+        /// <summary>
         /// Create repairs
         /// </summary>
         /// <param name="from"></param>
@@ -680,6 +751,7 @@ namespace CoPilot.CoPilot.Controller
         {
             var controller = this.dataController;
             var stats = new Statistics.Statistics(controller.Records);
+            var speedWayStats = new Statistics.Statistics(this.dataController.Circuits);
 
             //settings
             var setting = new Settings();
@@ -695,6 +767,8 @@ namespace CoPilot.CoPilot.Controller
             setting.SummaryFuelPrice = stats.getFuelStats().PaidForFuel(controller.Currency);
             setting.SummaryRepairPrice = stats.getRepairStats().PaidForRepairs(controller.Currency);
             setting.Liters = stats.getFuelStats().TotalRefueled();
+            setting.Circuits = controller.Circuits.Times.Circuits.Count;
+            setting.Times = speedWayStats.getGroupedCircuits().Count;
             return setting;
         }
 

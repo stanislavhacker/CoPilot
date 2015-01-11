@@ -9,10 +9,13 @@
 	//url: api/data?command=setting&from=&to=&page=
 
 	/**
-	 * Language
+	 * Data
+	 * @param {copilot.data.Language} language
 	 * @constructor
 	 */
-	copilot.data.Data = function () {
+	copilot.data.Data = function (language) {
+		/** @type {copilot.data.Language}*/
+		this.language = language;
 		/** @type {boolean}*/
 		this.loading = true;
 		/** @type {boolean}*/
@@ -528,6 +531,97 @@
 		return odometer;
 	};
 
+	/**
+	 * Circuits
+	 * @return {copilot.model.Circuits}
+	 */
+	copilot.data.Data.prototype.circuits = function () {
+		var circuits,
+			self = this,
+			what = "circuits";
+
+		//return cached data
+		if (self.storage.getData(what)) {
+			return self.storage.getData(what);
+		}
+
+		//check for state
+		if (self.storage.getState(what)) {
+			return null;
+		}
+		self.storage.setState(what, true);
+
+		this.get({
+			command : what
+		}, function (data) {
+			//fills
+			circuits = data ? new copilot.model.Circuits().clone.apply(data) : self.storage.getData(what, true);
+			//set data
+			self.storage.setState(what, false);
+			self.storage.setData(what, circuits);
+
+			if (circuits) {
+				//re-render
+				self.renderer.renderPageSideBar();
+				//page content
+				if (copilot.Hash === "speedway/" + self.language.getString('Circuits')) {
+					self.renderer.renderPageContent();
+				}
+			} else {
+				setTimeout(function () {
+					self.circuits();
+				}, 1000);
+			}
+		});
+
+		return null;
+	};
+
+	/**
+	 * Times
+	 * @return {copilot.model.CircuitGroups}
+	 */
+	copilot.data.Data.prototype.times = function () {
+		var circuits,
+			self = this,
+			what = "times";
+
+		//return cached data
+		if (self.storage.getData(what)) {
+			return self.storage.getData(what);
+		}
+
+		//check for state
+		if (self.storage.getState(what)) {
+			return null;
+		}
+		self.storage.setState(what, true);
+
+		this.get({
+			command : what
+		}, function (data) {
+			//fills
+			circuits = data ? new copilot.model.CircuitGroups().clone.apply(data) : self.storage.getData(what, true);
+			//set data
+			self.storage.setState(what, false);
+			self.storage.setData(what, circuits);
+
+			if (circuits) {
+				//re-render
+				self.renderer.renderPageSideBar();
+				//page content
+				if (copilot.Hash === "speedway/" + self.language.getString('Times')) {
+					self.renderer.renderPageContent();
+				}
+			} else {
+				setTimeout(function () {
+					self.times();
+				}, 1000);
+			}
+		});
+
+		return null;
+	};
 
 	/**
 	 * @private

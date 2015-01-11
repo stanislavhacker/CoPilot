@@ -22,10 +22,10 @@
 @color_rpm: #A4C400;
 @color_temperature: #E51400;
 
-@min_width: 800px;
-@max_width: @min_width + 400px;
-@query_width: @min_width + 200px;
-@query_content_width: @min_width;
+@min_width: 450px;
+@max_width: 1200px;
+@query_menu_width: 1000px;
+@query_content_width: 750px;
 
 //noinspection CssUnknownTarget
 @image_logo: url('images/logo.png');
@@ -213,7 +213,7 @@ ul.style1 a:hover
 
 ul.style2
 {
-    margin: 0;
+    margin: 0 0 0 10px;
     padding-top: 1em;
     list-style: none;
 }
@@ -363,35 +363,59 @@ ul.contact li a.icon-rss:before { background: @color_rss; }
 /* Logo                                                                          */
 /*********************************************************************************/
 
-#logo
-{
+#logo {
     position: absolute;
     top: 3em;
     left: 0;
     width: 100%;
+
+    h1 {
+      display: inline-block;
+      font-size: 2.5em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: @color_white;
+    }
+
+    a {
+      text-decoration: none;
+      color: @color_white;
+    }
+
+    img {
+      width: 56px;
+      float: left;
+      margin: 0 10px 0 0;
+      border-radius: 8px;
+    }
 }
 
-#logo h1
-{
+#logo-speedway {
+  position: absolute;
+  top: 6.5em;
+  left: 4.5em;
+  width: 100%;
+
+  h1 {
     display: inline-block;
-    font-size: 2.5em;
+    font-size: 1.0em;
+    margin-top: 4px;
     text-transform: uppercase;
     font-weight: 700;
-    color: @color_white;
-}
+    color: #fff;
+  }
 
-#logo a
-{
+  a {
     text-decoration: none;
     color: @color_white;
-}
+  }
 
-#logo img
-{
-width: 56px;
-float: left;
-margin: 0 10px 0 0;
-border-radius: 8px;
+  img {
+    width: 30px;
+    float: left;
+    margin: 0 10px 0 0;
+    border-radius: 4px;
+  }
 }
 
 /*********************************************************************************/
@@ -416,7 +440,7 @@ border-radius: 8px;
     float: left;
     text-align: center;
 }
-@media (max-width: @query_width) {
+@media (max-width: @query_menu_width) {
     #menu li {
       display: list-item;
       float: none;
@@ -437,7 +461,7 @@ border-radius: 8px;
     outline: 0;
     color: @color_menu;
 }
-@media (max-width: @query_width) {
+@media (max-width: @query_menu_width) {
   #menu li a, #menu li span {
     height: 30px;
     line-height: 30px;
@@ -535,14 +559,12 @@ border-radius: 8px;
     max-width: 700px;
 
     &.maximalized {
-      max-width: 950px;
+      max-width: 930px;
     }
 }
 @media (max-width: @query_content_width) {
   #content {
-    padding-top: 20px;
-    padding-left: 15px;
-    clear: both;
+    font-size: 9pt;
   }
 }
 
@@ -553,46 +575,54 @@ border-radius: 8px;
 #sidebar
 {
     float: right;
-    width: 450px;
+    min-width: 250px;
     margin: 0 0 20px 20px;
-
-    &.minimalized {
-      width: auto;
-    }
 }
 @media (max-width: @query_content_width) {
   #sidebar {
-    float: none;
-    margin-top: -80px;
+    display: none;
   }
 }
 
 #stwo-col
 {
     margin-top: 2em;
+    position: relative;
+    z-index: 5;
 }
 
 #stwo-col h2
 {
     display: block;
-    padding-bottom: 1.5em;
     letter-spacing: 0.10em;
     text-transform: uppercase;
     font-size: 1.2em;
     font-weight: 600;
     color: @color_gray_dark;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
-#stwo-col .sbox1
+#stwo-col .sbox1, #stwo-col .sbox2
 {
-    float: left;
-    width: 210px;
-}
+    width: 230px;
+    margin-bottom: 20px;
 
-#stwo-col .sbox2
-{
-    float: right;
-    width: 210px;
+  .items-count {
+    font-size: 10pt;
+    margin-left: 10px;
+    font-style: italic;
+  }
+
+  &.speedway {
+    .spinner {
+      margin: 0;
+      width: auto;
+    }
+  }
 }
 
 /*********************************************************************************/
@@ -738,6 +768,11 @@ p.fills, p.repairs, p.videos, p.images, p.paths {
     margin: 8px 0;
     float: left;
   }
+  @media (max-width: @query_content_width) {
+    .fb-share-button, .twitter-share-button {
+      display: none;
+    }
+  }
 
   .button {
     float: left;
@@ -823,11 +858,22 @@ p.fills, p.repairs, p.videos, p.images, p.paths {
     height: 240px;
     background: #000000;
   }
+  @media (max-width: @query_content_width) {
+    .mediaframe {
+      width: 320px * 0.7;
+      height: 240px * 0.7;
+    }
+  }
 
   .mapviewer {
     margin: 10px 0;
     border: 1px solid @color_gray;
     float: right;
+  }
+  @media (max-width: @query_content_width) {
+    .mapviewer {
+      display: none;
+    }
   }
 }
 

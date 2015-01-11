@@ -74,6 +74,10 @@
 				return new copilot.model.Settings().clone.apply(item);
 			case "skin":
 				return new copilot.model.Skin().clone.apply(item);
+			case "circuits":
+				return new copilot.model.Circuits().clone.apply(item);
+			case "times":
+				return new copilot.model.CircuitGroups().clone.apply(item);
 			case "language":
 				return item;
 			default:
@@ -97,7 +101,10 @@
 	 * @param {object|null} data
 	 */
 	copilot.data.Storage.prototype.setData = function (key, data) {
-		var json;
+		var json,
+			self = this;
+
+		//is storage
 		if (this.isStorage) {
 			//report it
 			if (typeof console !== "undefined") {
@@ -106,10 +113,39 @@
 			//set data if null do nothing
 			json = this.setObject(key, data);
 			if (json) {
-				localStorage.setItem(key, json);
+				//try to save ito local storage
+				try {
+					localStorage.setItem(key, json);
+				} catch(e) {
+					//clear storage
+					self.clearStorage();
+					//set data again
+					self.setData(key, data);
+					return;
+				}
 			}
 		}
 		this.data[key] = data;
+	};
+
+	/**
+	 * Clear storage
+	 */
+	copilot.data.Storage.prototype.clearStorage = function () {
+		var key;
+		//localStorage clear
+		for (key in localStorage) {
+			if (localStorage.hasOwnProperty(key)) {
+				if (key.indexOf("path-") >= 0 && key !== "path-list") {
+					//report it
+					if (typeof console !== "undefined") {
+						console.log('Clear data for ' + key + ' from LocalStorage.');
+					}
+					//delete
+					localStorage.removeItem(key);
+				}
+			}
+		}
 	};
 
 	/**
@@ -156,6 +192,12 @@
 				break;
 			case "language":
 				string = data;
+				break;
+			case "circuits":
+				string = data.toJSON();
+				break;
+			case "times":
+				string = data.toJSON();
 				break;
 			default:
 				//copilot.model.Path

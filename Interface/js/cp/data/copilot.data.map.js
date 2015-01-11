@@ -523,10 +523,10 @@
 	/**
 	 * Get map frame
 	 * @param {copilot.model.Path} path
-	 * @param {copilot.model.Video=} video
+	 * @param {copilot.data.MapSettings} settings
 	 * @returns {jQuery}
 	 */
-	copilot.data.Map.prototype.renderMapFrame = function (path, video) {
+	copilot.data.Map.prototype.renderMapFrame = function (path, settings) {
 		var view,
 			series,
 			marker,
@@ -543,7 +543,7 @@
 		//states
 		center = this.getCenter(path);
 		//view
-		view = this.getView(video);
+		view = this.getView(settings.video);
 
 		//data
 		data[0] = Math.round(path.TraveledDistance * 10) / 10; //distance
@@ -555,9 +555,9 @@
 		view.info.append(language.getString('RouteDescription', data));
 
 		//video
-		if (video) {
+		if (settings.video) {
 			//video
-			videoElement = this.renderer.videoElement(video, "map", function (videoTag) {
+			videoElement = this.renderer.videoElement(settings.video, "map", function (videoTag) {
 
 				//graph
 				self.statesGraph(view.overlay, function (graph) {
@@ -572,7 +572,7 @@
 					//marker exists
 					if (marker) {
 						//state
-						state = self.getStateForTime(path, video, videoTag[0].currentTime * 1000);
+						state = self.getStateForTime(path, settings.video, videoTag[0].currentTime * 1000);
 						//updateForState
 						self.updateForState(state, marker, googleMap, series);
 						//table of state
@@ -606,7 +606,7 @@
 			});
 			//get map data
 			//noinspection JSValidateTypes
-			mapData = self.getStates(googleMap, path, video);
+			mapData = self.getStates(googleMap, path, settings.video);
 			//route
 			//noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			route = new google.maps.Polyline({
@@ -619,14 +619,18 @@
 			//set map
 			//noinspection JSUnresolvedFunction
 			route.setMap(googleMap);
-			//noinspection JSUnusedLocalSymbols,JSUnresolvedFunction
-			var markerCluster = new MarkerClusterer(googleMap, mapData.markers, {
-				gridSize: 100,
-				maxZoom: 16
-			});
+
+			//markers
+			if (settings.markers) {
+				//noinspection JSUnusedLocalSymbols,JSUnresolvedFunction
+				var markerCluster = new MarkerClusterer(googleMap, mapData.markers, {
+					gridSize: 100,
+					maxZoom: 16
+				});
+			}
 
 			//for video
-			if (video) {
+			if (settings.video) {
 				//noinspection JSUnusedAssignment, JSUnresolvedVariable,JSUnresolvedFunction
 				marker = new google.maps.Marker({
 					position: center,
@@ -703,6 +707,17 @@
 		map.append(inner);
 
 		return map;
-	}
+	};
+
+	/**
+	 * Map settings
+	 * @constructor
+	 */
+	copilot.data.MapSettings = function () {
+		/** * @param {copilot.model.Video} video*/
+		this.video = null;
+		/** @type {boolean}*/
+		this.markers = true;
+	};
 
 }());

@@ -36,6 +36,11 @@
 		this.SummaryRepairPrice = 0;
 		/** @type {number}*/
 		this.Liters = 0;
+
+		/** @type {number}*/
+		this.Circuits = 0;
+		/** @type {number}*/
+		this.Times = 0;
 	};
 
 	/**
@@ -57,6 +62,8 @@
 		clone.SummaryFuelPrice = this.SummaryFuelPrice ;
 		clone.SummaryRepairPrice = this.SummaryRepairPrice;
 		clone.Liters = this.Liters;
+		clone.Circuits = this.Circuits;
+		clone.Times = this.Times;
 
 		return clone;
 	};

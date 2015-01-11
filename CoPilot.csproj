@@ -284,6 +284,7 @@
   <ItemGroup>
     <Content Include="Interface\fonts\fontawesome-social-webfont.svg" />
     <Content Include="Interface\fonts\fontawesome-webfont.svg" />
+    <Content Include="Interface\images\logo-speedway.png" />
     <Content Include="Interface\images\logo.png" />
     <Content Include="Interface\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

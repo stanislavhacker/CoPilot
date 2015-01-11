@@ -935,4 +935,37 @@
   <data name="Soon" xml:space="preserve">
     <value>Brzy!</value>
   </data>
+  <data name="CircuitDescription" xml:space="preserve">
+    <value>Dne {3} jste zajeli okruh s označení {1} s celkovým počtem {2} ujetých kol. Celková doba trati byla {0}.</value>
+  </data>
+  <data name="CircuitDescription_Tweet" xml:space="preserve">
+    <value>Dne {3} jsem zajel okruh s označení {1} s celkovým počtem {2} ujetých kol. Celková doba trati byla {0}. #carcopilot</value>
+  </data>
+  <data name="Circuits" xml:space="preserve">
+    <value>Okruhy</value>
+  </data>
+  <data name="Circuits_Motto" xml:space="preserve">
+    <value>Všechny vaše zajeté okruhy.</value>
+  </data>
+  <data name="EmptyCircuits" xml:space="preserve">
+    <value>Žádné okruhy jste ještě nejeli. Pokud nemáte ještě staženou aplikaci CoPilot Speedway, můžete ji stáhnout na obchodě Winddows Phone. Poté můžete nahrávat okruhy a uvidíte je zde.</value>
+  </data>
+  <data name="EmptyTimes" xml:space="preserve">
+    <value>Žádné okruhy jste ještě nejeli. Pokud nemáte ještě staženou aplikaci CoPilot Speedway, můžete ji stáhnout na obchodě Winddows Phone. Poté můžete nahrávat okruhy a uvidíte je zde.</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>{0} položek uvnitř</value>
+  </data>
+  <data name="Times" xml:space="preserve">
+    <value>Časy</value>
+  </data>
+  <data name="TimesDescription" xml:space="preserve">
+    <value>Dne {2} jste zajeli váš nejrychlejší čas na okruhu {0}. Zajetý čas byl {1}.</value>
+  </data>
+  <data name="TimesDescription_Tweet" xml:space="preserve">
+    <value>Dne {2} jste zajeli váš nejrychlejší čas na okruhu {0}. Zajetý čas byl {1}. #carcopilot</value>
+  </data>
+  <data name="Times_Motto" xml:space="preserve">
+    <value>Všechny vaše zajeté unikátní okruhy.</value>
+  </data>
 </root>

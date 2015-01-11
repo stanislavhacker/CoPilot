@@ -786,9 +786,10 @@ namespace CoPilot.CoPilot.View
         private void setBrush(Video value)
         {
             BitmapImage img = null;
+            IsolatedStorageFileStream stream = null;
             if (Storage.FileExists(value.Preview))
             {
-                var stream = Storage.OpenFile(value.Preview, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
+                stream = Storage.OpenFile(value.Preview, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
                 try
                 {
                     img = new BitmapImage();
@@ -806,6 +807,11 @@ namespace CoPilot.CoPilot.View
                 this.downloadBackupPreview();
             }
             this.Brush = img;
+            //dispose
+            if (stream != null)
+            {
+                stream.Dispose();
+            }
         }
 
         /// <summary>
