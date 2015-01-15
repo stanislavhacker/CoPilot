@@ -41,104 +41,111 @@
 
         <Grid Margin="0,0,120,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Style="{StaticResource Title}" Text="{Binding LocalizedResources.AddMaintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" />
-            <Grid Grid.Row="1" Margin="15">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250*" />
-                    <ColumnDefinition Width="150*" />
-                    <ColumnDefinition Width="127*" />
-                    <ColumnDefinition Width="123*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="90" />
-                    <RowDefinition Height="80" />
-                    <RowDefinition Height="80" />
-                    <RowDefinition Height="70" />
-                </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Background="{StaticResource HeaderColor}">
+                <StackPanel Height="60">
+                <TextBlock Style="{StaticResource Title}" Text="{Binding LocalizedResources.AddMaintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,10,0,0" />
+                </StackPanel>
+                <Rectangle VerticalAlignment="Bottom" Grid.Row="1" Fill="{StaticResource LineColor}" Height="1" />
+            </StackPanel>
+            <ScrollViewer Grid.Row="1" >
+                <Grid Margin="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250*" />
+                        <ColumnDefinition Width="150*" />
+                        <ColumnDefinition Width="127*" />
+                        <ColumnDefinition Width="123*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="90" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="70" />
+                    </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.MaintenanceType, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
-                <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
-                    <toolkit:ListPicker 
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.MaintenanceType, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
+                    <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+                        <toolkit:ListPicker 
                         FullModeHeader="{Binding LocalizedResources.AddMaintenance, Mode=OneWay, Source={StaticResource LocalizedStrings}}"
                         ExpansionMode="FullScreenOnly" 
                         ScrollViewer.VerticalScrollBarVisibility="Auto" 
                         ItemsSource="{Binding Types}" 
                         SelectedItem="{Binding Type, Mode=TwoWay}"
                         Background="{StaticResource PhoneContrastBackgroundBrush}">
-                        <toolkit:ListPicker.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock FontSize="25" Foreground="Black" Text="{Binding Name}"></TextBlock>
-                            </DataTemplate>
-                        </toolkit:ListPicker.ItemTemplate>
-                        <toolkit:ListPicker.FullModeItemTemplate>
-                            <DataTemplate>
-                                <TextBlock FontSize="25" Margin="0,12" Foreground="White" Text="{Binding Name}"></TextBlock>
-                            </DataTemplate>
-                        </toolkit:ListPicker.FullModeItemTemplate>
-                    </toolkit:ListPicker>
-                </StackPanel>
+                            <toolkit:ListPicker.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="25" Foreground="Black" Text="{Binding Name}"></TextBlock>
+                                </DataTemplate>
+                            </toolkit:ListPicker.ItemTemplate>
+                            <toolkit:ListPicker.FullModeItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="25" Margin="0,12" Foreground="White" Text="{Binding Name}"></TextBlock>
+                                </DataTemplate>
+                            </toolkit:ListPicker.FullModeItemTemplate>
+                        </toolkit:ListPicker>
+                    </StackPanel>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.OdometerState, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToVisibilityConvertor}}" />
-                <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToVisibilityConvertor}}">
-                    <TextBox Text="{Binding Odometer, Mode=TwoWay}" Style="{StaticResource Value}">
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.OdometerState, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToVisibilityConvertor}}" />
+                    <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                        <TextBox Text="{Binding Odometer, Mode=TwoWay}" Style="{StaticResource Value}">
+                            <TextBox.InputScope>
+                                <InputScope>
+                                    <InputScopeName NameValue="NumberFullWidth" />
+                                </InputScope>
+                            </TextBox.InputScope>
+                        </TextBox>
+                        <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.OdometerStateExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="1" Grid.Column="4" Style="{StaticResource Unit}" Text="{Binding DataController.Distance}" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToVisibilityConvertor}}" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.Date, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToCollapsedConvertor}}" />
+                    <toolkit:DatePicker Value="{Binding Date, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToCollapsedConvertor}}" />
+
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource Unit}" Text="{Binding LocalizedResources.Warning, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="10,25" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToVisibilityConvertor}}" TextAlignment="Right" />
+                    <StackPanel Grid.Row="2" Grid.Column="1" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                        <TextBox Text="{Binding WarningDistance, Mode=TwoWay}" Style="{StaticResource Value}">
+                            <TextBox.InputScope>
+                                <InputScope>
+                                    <InputScopeName NameValue="NumberFullWidth" />
+                                </InputScope>
+                            </TextBox.InputScope>
+                        </TextBox>
+                        <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.WarningDistanceExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                        <TextBlock Style="{StaticResource Unit}" Text="{Binding DataController.Distance}" Grid.ColumnSpan="2" />
+                        <TextBlock Style="{StaticResource Unit}" Text="{Binding LocalizedResources.WarningDistance, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="10,25" />
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource Unit}" Text="{Binding LocalizedResources.Warning, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="10,25" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToCollapsedConvertor}}" TextAlignment="Right" />
+                    <StackPanel Grid.Row="2" Grid.Column="1" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToCollapsedConvertor}}">
+                        <TextBox Text="{Binding WarningDays, Mode=TwoWay}" Style="{StaticResource Value}">
+                            <TextBox.InputScope>
+                                <InputScope>
+                                    <InputScopeName NameValue="NumberFullWidth" />
+                                </InputScope>
+                            </TextBox.InputScope>
+                        </TextBox>
+                        <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.WarningDaysExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource Unit}" Text="{Binding LocalizedResources.WarningDays, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="10,25" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToCollapsedConvertor}}" />
+
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.RepairDescription, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,0" />
+                    <TextBox Text="{Binding Description, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Style="{StaticResource Value}" x:Name="txtDescription">
                         <TextBox.InputScope>
                             <InputScope>
-                                <InputScopeName NameValue="NumberFullWidth" />
+                                <InputScopeName NameValue="Text" />
                             </InputScope>
                         </TextBox.InputScope>
                     </TextBox>
-                    <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.OdometerStateExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                </StackPanel>
-                <TextBlock Grid.Row="1" Grid.Column="4" Style="{StaticResource Unit}" Text="{Binding DataController.Distance}" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToVisibilityConvertor}}" />
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.Date, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToCollapsedConvertor}}" />
-                <toolkit:DatePicker Value="{Binding Date, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToCollapsedConvertor}}" />
-
-
-                <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource Unit}" Text="{Binding LocalizedResources.Warning, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="10,25" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToVisibilityConvertor}}" TextAlignment="Right" />
-                <StackPanel Grid.Row="2" Grid.Column="1" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToVisibilityConvertor}}">
-                    <TextBox Text="{Binding WarningDistance, Mode=TwoWay}" Style="{StaticResource Value}">
-                        <TextBox.InputScope>
-                            <InputScope>
-                                <InputScopeName NameValue="NumberFullWidth" />
-                            </InputScope>
-                        </TextBox.InputScope>
-                    </TextBox>
-                    <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.WarningDistanceExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                </StackPanel>
-                <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToVisibilityConvertor}}">
-                    <TextBlock Style="{StaticResource Unit}" Text="{Binding DataController.Distance}" Grid.ColumnSpan="2" />
-                    <TextBlock Style="{StaticResource Unit}" Text="{Binding LocalizedResources.WarningDistance, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="10,25" />
-                </StackPanel>
-
-                <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource Unit}" Text="{Binding LocalizedResources.Warning, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="10,25" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToCollapsedConvertor}}" TextAlignment="Right" />
-                <StackPanel Grid.Row="2" Grid.Column="1" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToCollapsedConvertor}}">
-                    <TextBox Text="{Binding WarningDays, Mode=TwoWay}" Style="{StaticResource Value}">
-                        <TextBox.InputScope>
-                            <InputScope>
-                                <InputScopeName NameValue="NumberFullWidth" />
-                            </InputScope>
-                        </TextBox.InputScope>
-                    </TextBox>
-                    <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.WarningDaysExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                </StackPanel>
-                <TextBlock Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource Unit}" Text="{Binding LocalizedResources.WarningDays, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="10,25" Visibility="{Binding IsOdometer, Converter={StaticResource BooleanToCollapsedConvertor}}" />
-
-
-                <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.RepairDescription, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,0" />
-                <TextBox Text="{Binding Description, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Style="{StaticResource Value}" x:Name="txtDescription">
-                    <TextBox.InputScope>
-                        <InputScope>
-                            <InputScopeName NameValue="Text" />
-                        </InputScope>
-                    </TextBox.InputScope>
-                </TextBox>
-
-            </Grid>
+                </Grid>
+            </ScrollViewer>
         </Grid>
 
         <!-- MENU -->

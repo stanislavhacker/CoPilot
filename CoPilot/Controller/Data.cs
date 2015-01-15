@@ -946,7 +946,10 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="fill"></param>
         public void AddFill(Fill fill)
         {
-            baseData.Fills.Insert(0, fill);
+            //find right record
+            var before = baseData.Fills.Where(e => e.Date >= fill.Date).Count();
+            baseData.Fills.Insert(before, fill);
+            //save data
             this.Save();
             OnPropertyChanged("Fills");
             OnPropertyChanged("AverageConsumption");
@@ -976,7 +979,10 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="repair"></param>
         public void AddRepair(Repair repair)
         {
-            baseData.Repairs.Insert(0, repair);
+            //find right record
+            var before = baseData.Repairs.Where(e => e.Date >= repair.Date).Count();
+            baseData.Repairs.Insert(before, repair);
+            //save data
             this.Save();
             OnPropertyChanged("Repairs");
             OnPropertyChanged("AvailableSpace");

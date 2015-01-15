@@ -76,22 +76,76 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
+        /// Is tank full
+        /// </summary>
+        public Boolean IsValidRecord
+        {
+            get
+            {
+                var isValid = true;
+                if (DataController != null)
+                {
+                    //previous
+                    var previous = DataController.Fills.Where(e => e.Date >= this.Date).ToArray();
+                    if (previous.Length > 0)
+                    {
+                        var odometerPrevious = DistanceExchange.GetOdometerWithRightDistance(previous.Last().Odometer);
+                        isValid = odometerPrevious > this.odometer;
+                    }
+                    //next
+                    var next = DataController.Fills.Where(e => e.Date <= this.Date).ToArray();
+                    if (next.Length > 0)
+                    {
+                        var odometerNext = DistanceExchange.GetOdometerWithRightDistance(next.First().Odometer);
+                        isValid = isValid && odometerNext < this.odometer;
+                    }
+                }
+                return isValid;
+            }
+        }
+
+        /// <summary>
         /// Trip distance kilometres
         /// </summary>
         public Double TripDistanceKilometres
         {
             get
             {
-                if (DataController != null && DataController.Fills.Count > 0 && !Double.IsNaN(odometer))
+                if (DataController != null && !Double.IsNaN(odometer))
                 {
-                    var lastFill = DataController.Fills.First();
-                    var odometerLast = DistanceExchange.GetOdometerWithRightDistance(lastFill.Odometer);
-                    if (odometer - odometerLast > 0)
+                    if (!Double.IsNaN(this.PreviousOdometer))
                     {
-                        return Math.Round(odometer - odometerLast, 1);
+                        var odometerLast = this.PreviousOdometer;
+                        if (odometer - odometerLast > 0)
+                        {
+                            return Math.Round(odometer - odometerLast, 1);
+                        }
+                    }
+                    else
+                    {
+                        return odometer;
                     }
                 }
                 return 0;
+            }
+        }
+
+        /// <summary>
+        /// Previous odometer
+        /// </summary>
+        public Double PreviousOdometer
+        {
+            get
+            {
+                if (DataController != null)
+                {
+                    var lastFill = DataController.Fills.Where(e => e.Date <= this.Date).FirstOrDefault();
+                    if (lastFill != null)
+                    {
+                        return DistanceExchange.GetOdometerWithRightDistance(lastFill.Odometer);
+                    }
+                }
+                return Double.NaN;
             }
         }
 
@@ -117,6 +171,7 @@ namespace CoPilot.CoPilot.View
                 }
                 RaisePropertyChanged();
                 OnPropertyChanged("TripDistanceKilometres");
+                OnPropertyChanged("IsSaveEnable");
             }
         }
 
@@ -228,17 +283,64 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
+        /// Date
+        /// </summary>
+        private DateTime date = DateTime.MinValue;
+        public DateTime Date
+        {
+            get
+            {
+                return date;
+            }
+            set
+            {
+                if (value >= DateTime.Now)
+                {
+                    date = DateTime.Now;
+                    this.IsChangeDate = false;
+                }
+                else
+                {
+                    date = value;
+                }
+                RaisePropertyChanged();
+                RaisePropertyChanged("IsValidRecord");
+                RaisePropertyChanged("IsSaveEnable");
+                RaisePropertyChanged("TripDistanceKilometres");
+                RaisePropertyChanged("PreviousOdometer");
+            }
+        }
+
+        /// <summary>
         /// Is save enable
         /// </summary>
         public Boolean IsSaveEnable
         {
             get
             {
-                return !Double.IsNaN(odometer) && 
+                return this.IsValidRecord &&
+                    !Double.IsNaN(odometer) && 
                     !Double.IsNaN(fuelPrice) && 
                     !Double.IsNaN(pricePerLiter) && 
                     !Double.IsNaN(liters) &&
                     (TripDistanceKilometres > 0 || DataController.Fills.Count == 0);
+            }
+        }
+
+        /// <summary>
+        /// Is save enable
+        /// </summary>
+        private Boolean isChangeDate = false;
+        public Boolean IsChangeDate
+        {
+            get
+            {
+                return isChangeDate;
+            }
+            set
+            {
+                isChangeDate = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -300,6 +402,41 @@ namespace CoPilot.CoPilot.View
         #endregion
 
         #region COMMANDS
+
+        /// <summary>
+        /// ChangeDate command
+        /// </summary>
+        public ICommand ChangeDateCommand
+        {
+            get
+            {
+                return new RelayCommand(
+                    param =>
+                    {
+                        this.IsChangeDate = true;
+                    },
+                    param => true
+                );
+            }
+        }
+
+        /// <summary>
+        /// ChangeDateCancel command
+        /// </summary>
+        public ICommand ChangeDateCancelCommand
+        {
+            get
+            {
+                return new RelayCommand(
+                    param =>
+                    {
+                        this.IsChangeDate = false;
+                        this.Date = DateTime.Now;
+                    },
+                    param => true
+                );
+            }
+        }
 
         /// <summary>
         /// Ok command
@@ -570,7 +707,7 @@ namespace CoPilot.CoPilot.View
         {
             CoreData.Fill fill = new CoreData.Fill();
             fill.Odometer = new CoreData.Odometer(this.odometer, DataController.Distance);
-            fill.Date = DateTime.Now;
+            fill.Date = this.Date;
             fill.Full = this.isTankFull;
             fill.Price = new CoreData.Price(this.fuelPrice, DataController.Currency); 
             fill.Refueled = this.liters;
@@ -595,6 +732,11 @@ namespace CoPilot.CoPilot.View
                 this.DataController = container.DataController;
                 this.CameraController = container.CameraController;
                 this.DriveModeController = container.DriveModeController;
+            }
+            //set new current date
+            if (e.NavigationMode == NavigationMode.New || e.NavigationMode == NavigationMode.Refresh || e.NavigationMode == NavigationMode.Reset)
+            {
+                this.Date = DateTime.Now;
             }
 
             if (App.IsInactiveMode)

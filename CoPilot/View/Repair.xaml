@@ -41,73 +41,106 @@
 
         <Grid Margin="0,0,120,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Style="{StaticResource Title}" Text="{Binding LocalizedResources.AddRepair, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" />
-            <Grid Grid.Row="1" Margin="15">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250*" />
-                    <ColumnDefinition Width="150*" />
-                    <ColumnDefinition Width="127*" />
-                    <ColumnDefinition Width="123*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="80" />
-                    <RowDefinition Height="80" />
-                    <RowDefinition Height="80" />
-                    <RowDefinition Height="140" />
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.OdometerState, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
-                <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
-                    <TextBox Text="{Binding Odometer, Mode=TwoWay}" Style="{StaticResource Value}">
-                        <TextBox.InputScope>
-                            <InputScope>
-                                <InputScopeName NameValue="NumberFullWidth" />
-                            </InputScope>
-                        </TextBox.InputScope>
-                    </TextBox>
-                    <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.OdometerStateExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+            <StackPanel Grid.Row="0" Background="{StaticResource HeaderColor}">
+                <StackPanel Height="100">
+                    <TextBlock Style="{StaticResource Title}" Text="{Binding LocalizedResources.AddRepair, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,10,0,0" />
+                    <StackPanel Grid.Row="0" Margin="25,0,0,0" Orientation="Horizontal">
+                        <Image Width="30" Margin="0,0,10,0" Source="/Resources/Images/Info/date.png"  />
+                        <TextBlock Style="{StaticResource RowValue}" Text="{Binding Date, FallbackValue=1.1.1990}" Foreground="Gray" Margin="0" />
+                        <HyperlinkButton Command="{Binding ChangeDateCommand}" Content="{Binding LocalizedResources.Change, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" />
+                    </StackPanel>
                 </StackPanel>
-                <TextBlock Grid.Row="0" Grid.Column="4" Style="{StaticResource Unit}" Text="{Binding DataController.Distance}" />
+                <Grid Margin="15,0" Visibility="{Binding IsChangeDate, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250*" />
+                        <ColumnDefinition Width="150*" />
+                        <ColumnDefinition Width="127*" />
+                        <ColumnDefinition Width="123*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                    </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.ServiceName, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
-                <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,120,0">
-                    <TextBox Text="{Binding ServiceName, Mode=TwoWay}" Style="{StaticResource Value}">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.Date, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
+                    <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Orientation="Horizontal">
+                        <Image Width="30" Margin="0,0,10,0" Source="/Resources/Images/Info/date.png"  />
+                        <toolkit:DatePicker VerticalAlignment="Center" Value="{Binding Date, Mode=TwoWay}"/>
+                        <toolkit:TimePicker VerticalAlignment="Center" Value="{Binding Date, Mode=TwoWay}" />
+                    </StackPanel>
+                    <HyperlinkButton Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Command="{Binding ChangeDateCancelCommand}" Content="{Binding LocalizedResources.Cancel, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                </Grid>
+                <Rectangle VerticalAlignment="Bottom" Grid.Row="1" Fill="{StaticResource LineColor}" Height="1" />
+            </StackPanel>
+            <ScrollViewer Grid.Row="1" x:Name="Content" >
+                <Grid Margin="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250*" />
+                        <ColumnDefinition Width="150*" />
+                        <ColumnDefinition Width="127*" />
+                        <ColumnDefinition Width="123*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="140" />
+                        <RowDefinition Height="80" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.OdometerState, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
+                    <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+                        <TextBox Text="{Binding Odometer, Mode=TwoWay}" Style="{StaticResource Value}">
+                            <TextBox.InputScope>
+                                <InputScope>
+                                    <InputScopeName NameValue="NumberFullWidth" />
+                                </InputScope>
+                            </TextBox.InputScope>
+                        </TextBox>
+                        <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.OdometerStateExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="0" Grid.Column="4" Style="{StaticResource Unit}" Text="{Binding DataController.Distance}" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.ServiceName, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
+                    <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,120,0">
+                        <TextBox Text="{Binding ServiceName, Mode=TwoWay}" Style="{StaticResource Value}">
+                            <TextBox.InputScope>
+                                <InputScope>
+                                    <InputScopeName NameValue="Text" />
+                                </InputScope>
+                            </TextBox.InputScope>
+                        </TextBox>
+                        <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.ServiceNameExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.RepairPrice, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
+                    <StackPanel Grid.Row="2" Grid.Column="1">
+                        <TextBox Text="{Binding RepairPrice, Mode=TwoWay}" Style="{StaticResource Value}">
+                            <TextBox.InputScope>
+                                <InputScope>
+                                    <InputScopeName NameValue="NumberFullWidth" />
+                                </InputScope>
+                            </TextBox.InputScope>
+                        </TextBox>
+                        <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.RepairPriceExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource Unit}" Text="{Binding DataController.Currency}" Grid.ColumnSpan="2" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Style="{StaticResource Row}" Text="{Binding LocalizedResources.RepairDescription, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,10,10,0" />
+                    <TextBox Text="{Binding Description, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Style="{StaticResource Value}" x:Name="txtDescription" Height="180" AcceptsReturn="True" Margin="0,0,0,-40">
                         <TextBox.InputScope>
                             <InputScope>
                                 <InputScopeName NameValue="Text" />
                             </InputScope>
                         </TextBox.InputScope>
                     </TextBox>
-                    <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.ServiceNameExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                </StackPanel>
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.RepairPrice, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
-                <StackPanel Grid.Row="2" Grid.Column="1">
-                    <TextBox Text="{Binding RepairPrice, Mode=TwoWay}" Style="{StaticResource Value}">
-                        <TextBox.InputScope>
-                            <InputScope>
-                                <InputScopeName NameValue="NumberFullWidth" />
-                            </InputScope>
-                        </TextBox.InputScope>
-                    </TextBox>
-                    <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.RepairPriceExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                </StackPanel>
-                <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource Unit}" Text="{Binding DataController.Currency}" Grid.ColumnSpan="2" />
+                </Grid>
+            </ScrollViewer>
 
-                <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Style="{StaticResource Row}" Text="{Binding LocalizedResources.RepairDescription, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,10,10,0" />
-                <TextBox Text="{Binding Description, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Style="{StaticResource Value}" x:Name="txtDescription" Height="180" AcceptsReturn="True" Margin="0,0,0,-40">
-                    <TextBox.InputScope>
-                        <InputScope>
-                            <InputScopeName NameValue="Text" />
-                        </InputScope>
-                    </TextBox.InputScope>
-                </TextBox>
-
-            </Grid>
         </Grid>
 
         <!-- MENU -->

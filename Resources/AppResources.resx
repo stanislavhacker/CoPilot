@@ -974,4 +974,7 @@
   <data name="Times_Motto" xml:space="preserve">
     <value>All your unique run in circuits.</value>
   </data>
+  <data name="Change" xml:space="preserve">
+    <value>change</value>
+  </data>
 </root>

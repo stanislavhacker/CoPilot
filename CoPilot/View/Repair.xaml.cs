@@ -159,6 +159,31 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
+        /// Date
+        /// </summary>
+        private DateTime date = DateTime.MinValue;
+        public DateTime Date
+        {
+            get
+            {
+                return date;
+            }
+            set
+            {
+                if (value >= DateTime.Now)
+                {
+                    date = DateTime.Now;
+                    this.IsChangeDate = false;
+                }
+                else
+                {
+                    date = value;
+                }
+                RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Is save enable
         /// </summary>
         public Boolean IsSaveEnable
@@ -169,9 +194,61 @@ namespace CoPilot.CoPilot.View
             }
         }
 
+        /// <summary>
+        /// Is save enable
+        /// </summary>
+        private Boolean isChangeDate = false;
+        public Boolean IsChangeDate
+        {
+            get
+            {
+                return isChangeDate;
+            }
+            set
+            {
+                isChangeDate = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
         #region COMMANDS
+
+        /// <summary>
+        /// ChangeDate command
+        /// </summary>
+        public ICommand ChangeDateCommand
+        {
+            get
+            {
+                return new RelayCommand(
+                    param =>
+                    {
+                        this.IsChangeDate = true;
+                    },
+                    param => true
+                );
+            }
+        }
+
+        /// <summary>
+        /// ChangeDateCancel command
+        /// </summary>
+        public ICommand ChangeDateCancelCommand
+        {
+            get
+            {
+                return new RelayCommand(
+                    param =>
+                    {
+                        this.IsChangeDate = false;
+                        this.Date = DateTime.Now;
+                    },
+                    param => true
+                );
+            }
+        }
 
         /// <summary>
         /// Ok command
@@ -254,7 +331,7 @@ namespace CoPilot.CoPilot.View
         {
             CoreData.Repair repair = new CoreData.Repair();
             repair.Odometer = new CoreData.Odometer(this.odometer, DataController.Distance);
-            repair.Date = DateTime.Now;
+            repair.Date = this.Date;
             repair.ServiceName = this.serviceName;
             repair.Price = new CoreData.Price(this.repairPrice, DataController.Currency);
             repair.Description = this.description;
@@ -278,6 +355,11 @@ namespace CoPilot.CoPilot.View
                 this.DataController = container.DataController;
                 this.CameraController = container.CameraController;
                 this.DriveModeController = container.DriveModeController;
+            }
+            //set new current date
+            if (e.NavigationMode == NavigationMode.New || e.NavigationMode == NavigationMode.Refresh || e.NavigationMode == NavigationMode.Reset)
+            {
+                this.Date = DateTime.Now;
             }
 
             if (App.IsInactiveMode)

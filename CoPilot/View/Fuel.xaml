@@ -41,113 +41,150 @@
 
         <Grid Margin="0,0,120,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Style="{StaticResource Title}" Text="{Binding LocalizedResources.AddFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" />
-            <Grid Grid.Row="1" Margin="15">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250*" />
-                    <ColumnDefinition Width="150*" />
-                    <ColumnDefinition Width="181*" />
-                    <ColumnDefinition Width="69*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="80" />
-                    <RowDefinition Height="80" />
-                    <RowDefinition Height="80" />
-                    <RowDefinition Height="80" />
-                    <RowDefinition Height="80" />
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.OdometerState, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
-                <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,13,0,12">
-                    <TextBlock Style="{StaticResource Unit}" Text="{Binding TripDistanceKilometres}" />
-                    <TextBlock Style="{StaticResource Unit}" Text="{Binding DataController.Distance}" Margin="-8,10,10,10" />
+            <StackPanel Grid.Row="0" Background="{StaticResource HeaderColor}">
+                <StackPanel Height="100">
+                    <TextBlock Style="{StaticResource Title}" Text="{Binding LocalizedResources.AddFuel, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,10,0,0" />
+                    <StackPanel Grid.Row="0" Margin="25,0,0,0" Orientation="Horizontal">
+                        <Image Width="30" Margin="0,0,10,0" Source="/Resources/Images/Info/date.png"  />
+                        <TextBlock Style="{StaticResource RowValue}" Text="{Binding Date, FallbackValue=1.1.1990}" Foreground="Gray" Margin="0" />
+                        <HyperlinkButton Command="{Binding ChangeDateCommand}" Content="{Binding LocalizedResources.Change, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" />
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Grid.Row="0" Grid.Column="2">
-                    <TextBox Style="{StaticResource Value}" Text="{Binding Odometer, Mode=TwoWay}">
-                        <TextBox.InputScope>
-                            <InputScope>
-                                <InputScopeName NameValue="NumberFullWidth" />
-                            </InputScope>
-                        </TextBox.InputScope>
-                    </TextBox>
-                    <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.OdometerStateExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                </StackPanel>
-                <TextBlock Grid.Row="0" Grid.Column="4" Style="{StaticResource Unit}" Text="{Binding DataController.Distance}" />
+                <Grid Margin="15,0" Visibility="{Binding IsChangeDate, Converter={StaticResource BooleanToVisibilityConvertor}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250*" />
+                        <ColumnDefinition Width="150*" />
+                        <ColumnDefinition Width="127*" />
+                        <ColumnDefinition Width="123*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                    </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.FuelPrice, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
-                <StackPanel Grid.Row="1" Grid.Column="1">
-                    <TextBox Style="{Binding FuelPriceStyle}" Text="{Binding FuelPrice, Mode=TwoWay}">
-                        <TextBox.InputScope>
-                            <InputScope>
-                                <InputScopeName NameValue="NumberFullWidth" />
-                            </InputScope>
-                        </TextBox.InputScope>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="GotFocus">
-                                <i:InvokeCommandAction Command="{Binding FocusCommand}" CommandParameter="FuelPrice" />
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="LostFocus">
-                                <i:InvokeCommandAction Command="{Binding BlurCommand}" CommandParameter="FuelPrice" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBox>
-                    <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.FuelPriceExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                </StackPanel>
-                <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource Unit}" Text="{Binding DataController.Currency}" Grid.ColumnSpan="2" Margin="10,23,10,22" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.Date, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
+                    <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Orientation="Horizontal">
+                        <Image Width="30" Margin="0,0,10,0" Source="/Resources/Images/Info/date.png"  />
+                        <toolkit:DatePicker x:Name="ChangeDatePicker" VerticalAlignment="Center" Value="{Binding Date, Mode=TwoWay}"/>
+                        <toolkit:TimePicker VerticalAlignment="Center" Value="{Binding Date, Mode=TwoWay}" />
+                    </StackPanel>
+                    <HyperlinkButton Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Command="{Binding ChangeDateCancelCommand}" Content="{Binding LocalizedResources.Cancel, Mode=OneWay, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                </Grid>
+                <Rectangle VerticalAlignment="Bottom" Grid.Row="1" Fill="{StaticResource LineColor}" Height="1" />
+            </StackPanel>
+            <ScrollViewer Grid.Row="1" x:Name="Content" >
+                <Grid Margin="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250*" />
+                        <ColumnDefinition Width="150*" />
+                        <ColumnDefinition Width="181*" />
+                        <ColumnDefinition Width="69*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="80" />
+                    </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.PricePerUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
-                <StackPanel Grid.Row="2" Grid.Column="1">
-                    <TextBox Style="{Binding PricePerLiterStyle}" Text="{Binding PricePerLiter, Mode=TwoWay}">
-                        <TextBox.InputScope>
-                            <InputScope>
-                                <InputScopeName NameValue="NumberFullWidth" />
-                            </InputScope>
-                        </TextBox.InputScope>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="GotFocus">
-                                <i:InvokeCommandAction Command="{Binding FocusCommand}" CommandParameter="PricePerLiter" />
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="LostFocus">
-                                <i:InvokeCommandAction Command="{Binding BlurCommand}" CommandParameter="PricePerLiter" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBox>
-                    <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.PricePerUnitExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                </StackPanel>
-                <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" Grid.ColumnSpan="2" >
-                    <TextBlock Style="{StaticResource Unit}" Text="{Binding DataController.Currency}" Margin="10,10,-5,10" />
-                    <TextBlock Style="{StaticResource Unit}" Text="{Binding LocalizedResources.PricePerLiterUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                </StackPanel>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.OdometerState, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
 
-                <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.Fueled, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
-                <StackPanel Grid.Row="3" Grid.Column="1">
-                    <TextBox Style="{Binding LitersStyle}" Text="{Binding Liters, Mode=TwoWay}">
-                        <TextBox.InputScope>
-                            <InputScope>
-                                <InputScopeName NameValue="NumberFullWidth" />
-                            </InputScope>
-                        </TextBox.InputScope>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="GotFocus">
-                                <i:InvokeCommandAction Command="{Binding FocusCommand}" CommandParameter="Liters" />
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="LostFocus">
-                                <i:InvokeCommandAction Command="{Binding BlurCommand}" CommandParameter="Liters" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBox>
-                    <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.FueledExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
-                </StackPanel>
-                <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource Unit}" Text="{Binding LocalizedResources.FueledUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Grid.ColumnSpan="2" Margin="10,23,10,22" />
+                    <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Visibility="{Binding PreviousOdometer, Converter={StaticResource CountToVisibilityConvertor}, ConverterParameter=0}" Margin="10">
+                        <TextBlock Style="{StaticResource Tip}" Text="{Binding PreviousOdometer}" Margin="0" />
+                        <TextBlock Style="{StaticResource Tip}" Text="{Binding DataController.Distance}" Margin="0" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,13,0,12">
+                        <TextBlock Style="{StaticResource Unit}" Text="{Binding TripDistanceKilometres}" />
+                        <TextBlock Style="{StaticResource Unit}" Text="{Binding DataController.Distance}" Margin="-8,10,10,10" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="2">
+                        <TextBox Style="{StaticResource Value}" Text="{Binding Odometer, Mode=TwoWay}">
+                            <TextBox.InputScope>
+                                <InputScope>
+                                    <InputScopeName NameValue="NumberFullWidth" />
+                                </InputScope>
+                            </TextBox.InputScope>
+                        </TextBox>
+                        <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.OdometerStateExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="0" Grid.Column="4" Style="{StaticResource Unit}" Text="{Binding DataController.Distance}" />
 
-                <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.FullTank, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="10,25" />
-                <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding IsTankFull, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.FuelPrice, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
+                    <StackPanel Grid.Row="1" Grid.Column="1">
+                        <TextBox Style="{Binding FuelPriceStyle}" Text="{Binding FuelPrice, Mode=TwoWay}">
+                            <TextBox.InputScope>
+                                <InputScope>
+                                    <InputScopeName NameValue="NumberFullWidth" />
+                                </InputScope>
+                            </TextBox.InputScope>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="GotFocus">
+                                    <i:InvokeCommandAction Command="{Binding FocusCommand}" CommandParameter="FuelPrice" />
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="LostFocus">
+                                    <i:InvokeCommandAction Command="{Binding BlurCommand}" CommandParameter="FuelPrice" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                        <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.FuelPriceExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource Unit}" Text="{Binding DataController.Currency}" Grid.ColumnSpan="2" Margin="10,23,10,22" />
 
-            </Grid>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.PricePerUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
+                    <StackPanel Grid.Row="2" Grid.Column="1">
+                        <TextBox Style="{Binding PricePerLiterStyle}" Text="{Binding PricePerLiter, Mode=TwoWay}">
+                            <TextBox.InputScope>
+                                <InputScope>
+                                    <InputScopeName NameValue="NumberFullWidth" />
+                                </InputScope>
+                            </TextBox.InputScope>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="GotFocus">
+                                    <i:InvokeCommandAction Command="{Binding FocusCommand}" CommandParameter="PricePerLiter" />
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="LostFocus">
+                                    <i:InvokeCommandAction Command="{Binding BlurCommand}" CommandParameter="PricePerLiter" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                        <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.PricePerUnitExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" Grid.ColumnSpan="2" >
+                        <TextBlock Style="{StaticResource Unit}" Text="{Binding DataController.Currency}" Margin="10,10,-5,10" />
+                        <TextBlock Style="{StaticResource Unit}" Text="{Binding LocalizedResources.PricePerLiterUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.Fueled, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" Margin="10,25" />
+                    <StackPanel Grid.Row="3" Grid.Column="1">
+                        <TextBox Style="{Binding LitersStyle}" Text="{Binding Liters, Mode=TwoWay}">
+                            <TextBox.InputScope>
+                                <InputScope>
+                                    <InputScopeName NameValue="NumberFullWidth" />
+                                </InputScope>
+                            </TextBox.InputScope>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="GotFocus">
+                                    <i:InvokeCommandAction Command="{Binding FocusCommand}" CommandParameter="Liters" />
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="LostFocus">
+                                    <i:InvokeCommandAction Command="{Binding BlurCommand}" CommandParameter="Liters" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                        <TextBlock Style="{StaticResource Tip}" Text="{Binding LocalizedResources.FueledExample, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource Unit}" Text="{Binding LocalizedResources.FueledUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Grid.ColumnSpan="2" Margin="10,23,10,22" />
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.FullTank, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Margin="10,25" />
+                    <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding IsTankFull, Mode=TwoWay}" />
+
+                </Grid>
+            </ScrollViewer>
 
         </Grid>
 

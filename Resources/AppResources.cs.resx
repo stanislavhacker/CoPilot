@@ -974,4 +974,7 @@
   <data name="Times_Motto" xml:space="preserve">
     <value>Všechny vaše zajeté unikátní okruhy.</value>
   </data>
+  <data name="Change" xml:space="preserve">
+    <value>změnit</value>
+  </data>
 </root>
