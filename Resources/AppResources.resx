@@ -977,4 +977,10 @@
   <data name="Change" xml:space="preserve">
     <value>change</value>
   </data>
+  <data name="CameraInfoDescription" xml:space="preserve">
+    <value>The camera records video and automatically chops video after 5 minutes. It needs at least 150 MB free disk space for recording.</value>
+  </data>
+  <data name="CameraInfoTitle" xml:space="preserve">
+    <value>Information about camera</value>
+  </data>
 </root>

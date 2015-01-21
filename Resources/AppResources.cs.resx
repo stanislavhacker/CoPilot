@@ -977,4 +977,10 @@
   <data name="Change" xml:space="preserve">
     <value>změnit</value>
   </data>
+  <data name="CameraInfoDescription" xml:space="preserve">
+    <value>Kamera nahrává video a automaticky ho rozsekává po 5 minutách. Potřebuje minimálně 150 MB volného místa pro nahrávání.</value>
+  </data>
+  <data name="CameraInfoTitle" xml:space="preserve">
+    <value>Informace o kameře</value>
+  </data>
 </root>
