@@ -151,7 +151,7 @@ namespace CoPilot.CoPilot.Controller
                 return new RelayCommand((param) =>
                 {
                     this.MenuController.Context = MenuContext.Browser;
-                    this.SocialUrl = new Uri("http://carcopilot.blogspot.cz/");
+                    this.SocialUrl = new Uri("http://carcopilot.blogspot.cz/?m=1");
                 }, param => true);
             }
         }

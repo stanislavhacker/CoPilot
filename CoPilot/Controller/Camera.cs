@@ -281,7 +281,7 @@ namespace CoPilot.CoPilot.Controller
         {
             get
             {
-                var max = 1024 * 1024 * 1024;
+                var max = 150 * 1024 * 1024;
                 return Storage.Get().AvailableFreeSpace > max;
             }
         }
@@ -460,7 +460,9 @@ namespace CoPilot.CoPilot.Controller
         /// </summary>
         private void stopRecordingInternal()
         {
+            //create blank video
             this.createCamera(null);
+            //set data
             this.stopRecording = false;
             this.splitRecording = false;
             this.IsRecording = false;
@@ -480,6 +482,11 @@ namespace CoPilot.CoPilot.Controller
         /// </summary>
         private void startRecordingInternal()
         {
+            if (!this.IsAvailableSpaceForVideo)
+            {
+                stopRecordingInternal();
+                return;
+            }
             //create video, camera and capture image
             this.createVideoObject();
             this.createCamera(video.Path);

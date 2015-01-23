@@ -599,6 +599,21 @@ namespace CoPilot.CoPilot.View
             }
         }
 
+        /// <summary>
+        /// Came info command
+        /// </summary>
+        public ICommand CameraInfoCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    //camera info popup
+                    this.createCameraInfoMessageBox();
+                }, param => true);
+            }
+        }
+
         #endregion
 
 
@@ -1551,6 +1566,20 @@ namespace CoPilot.CoPilot.View
                 Settings.Remove("error");
                 Settings.Save();
             }
+        }
+
+        /// <summary>
+        /// Create camera info message box
+        /// </summary>
+        private void createCameraInfoMessageBox()
+        {
+            Popup.MessageBox box = Popup.MessageBox.Create();
+            box.Caption = AppResources.CameraInfoTitle;
+            box.Message = AppResources.CameraInfoDescription;
+            box.ShowLeftButton = false;
+            box.ShowRightButton = true;
+            box.RightButtonText = AppResources.Ok;
+            box.IsOpen = true;
         }
 
         #endregion
