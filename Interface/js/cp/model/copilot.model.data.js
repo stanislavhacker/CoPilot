@@ -27,7 +27,8 @@
 		SEK: "SEK:",
 		CHF: "CHF",
 		RUB: "RUB",
-		TRY: "TRY"
+		TRY: "TRY",
+		CNY: "CNY"
 	};
 
 	/**

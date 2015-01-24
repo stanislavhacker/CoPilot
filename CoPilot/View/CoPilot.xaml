@@ -1006,7 +1006,14 @@
                                         Grid.Row="2"
                                         Style="{Binding DataController.Currency, Converter={StaticResource CurrencyToStyleConvertor}, ConverterParameter='TRY'}"
                                         Content="TRY"/>
-                                    
+                                    <Button 
+                                        Command="{Binding ChangeCurrencyCommand}"
+                                        CommandParameter="CNY"
+                                        Grid.Column="1"
+                                        Grid.Row="2"
+                                        Style="{Binding DataController.Currency, Converter={StaticResource CurrencyToStyleConvertor}, ConverterParameter='CNY'}"
+                                        Content="CNY"/>
+
                                 </Grid>
                             </Button>
                             <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
