@@ -32,6 +32,7 @@ using OdbCommunicator.OdbCommon;
 using CoPilot.Core.Data;
 using CoPilot.Utils.Enums;
 using CoPilot.Data;
+using CoPilot.Utils.Exception;
 
 namespace CoPilot.CoPilot.View
 {
@@ -1125,7 +1126,7 @@ namespace CoPilot.CoPilot.View
             HttpServerController.ResolveData();
 
             //send error
-            this.sendErrorIfExists();
+            ExceptionCollector.SendError(AppResources.ReportTitle, AppResources.ReportDescription);
         }
 
         /// <summary>
@@ -1537,35 +1538,6 @@ namespace CoPilot.CoPilot.View
                 resource = App.GetResourceStream(uri);
             }
             NavigationService.Navigate("/CoPilot/View/WebBrowser.xaml", this.GetUriDataContainer(uri));
-        }
-
-        /// <summary>
-        /// Send error if exists
-        /// </summary>
-        private void sendErrorIfExists()
-        {
-            var error = Settings.Get("error");
-            if (error != null) 
-            {
-                var result = MessageBox.Show(AppResources.ReportDescription, AppResources.ReportTitle, MessageBoxButton.OKCancel);
-                if (result == MessageBoxResult.OK)
-                {
-                    EmailComposeTask email = new EmailComposeTask();
-                    email.To = "stanislav.hacker@live.com";
-                    email.Subject = "Error in Co-Pilot app";
-
-                    var message = new StringBuilder();
-                    message.AppendLine("There is an error from application:");
-                    message.AppendLine(Environment.NewLine);
-                    message.AppendLine(error);
-
-                    email.Body = message.ToString();
-                    email.Show();
-                }
-
-                Settings.Remove("error");
-                Settings.Save();
-            }
         }
 
         /// <summary>
