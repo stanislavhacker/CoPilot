@@ -13,6 +13,8 @@ using System.Text;
 using CR = CoPilot.CoPilot.Controller;
 using System.IO.IsolatedStorage;
 using CoPilot.Utils;
+using CoPilot.Utils.Exception;
+using System.Collections.Generic;
 
 namespace CoPilot
 {
@@ -79,7 +81,6 @@ namespace CoPilot
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
-
         }
 
         // Code to execute when the application is launching (eg, from Start)
@@ -126,23 +127,23 @@ namespace CoPilot
             }
             else
             {
-                //save message
-                var message = new StringBuilder();
-                message.AppendLine(e.ExceptionObject.Message);
-                message.AppendLine(Environment.NewLine);
-                message.AppendLine(e.ExceptionObject.StackTrace);
-
+                List<ExceptionInfo> data = new List<ExceptionInfo>();
+                //base error
+                data.Add(new ExceptionInfo()
+                {
+                    Message = e.ExceptionObject.Message,
+                    StackTrace = e.ExceptionObject.StackTrace
+                });
+                //inner exception
                 if (e.ExceptionObject.InnerException != null)
                 {
-                    message.AppendLine(Environment.NewLine);
-                    message.AppendLine(e.ExceptionObject.InnerException.Message);
-                    message.AppendLine(Environment.NewLine);
-                    message.AppendLine(e.ExceptionObject.InnerException.StackTrace);
+                    data.Add(new ExceptionInfo()
+                    {
+                        Message = e.ExceptionObject.InnerException.Message,
+                        StackTrace = e.ExceptionObject.InnerException.StackTrace
+                    });
                 }
-
-                //save to isolated storage
-                Settings.Add("error", message.ToString());
-
+                ExceptionCollector.Collect(data);
                 //error save
                 MessageBox.Show(AppResources.ErrorDescription, AppResources.ErrorTitle, MessageBoxButton.OK);
             }
