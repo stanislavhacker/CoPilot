@@ -336,7 +336,7 @@ namespace CoPilot.CoPilot.Controller
 
                 for (var i = count - 1; i >= 0; i--)
                 {
-                    data.Add(new DateTimeModel(DateTime.Parse(trend.X[i]), trend.Y[i]));
+                    data.Add(new DateTimeModel(trend.X[i], trend.Y[i]));
                 }
 
                 return data;
@@ -356,7 +356,7 @@ namespace CoPilot.CoPilot.Controller
 
                 for (var i = count - 1; i >= 0; i--)
                 {
-                    data.Add(new DateTimeModel(DateTime.Parse(trend.X[i]), trend.Y[i]));
+                    data.Add(new DateTimeModel(trend.X[i], trend.Y[i]));
                 }
 
                 return data;
