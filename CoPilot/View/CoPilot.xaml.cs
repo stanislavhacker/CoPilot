@@ -903,7 +903,7 @@ namespace CoPilot.CoPilot.View
         {
             get
             {
-                return isAdVisible && this.IsTrial;
+                return isAdVisible && this.IsAddvertismets;
             }
             set
             {
@@ -913,13 +913,13 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
-        /// Is trial
+        /// Is Addvertismets
         /// </summary>
-        public Boolean IsTrial
+        public Boolean IsAddvertismets
         {
             get
             {
-                return License.IsTrial;
+                return License.IsAddvertismets;
             }
         }
 
@@ -958,10 +958,12 @@ namespace CoPilot.CoPilot.View
         {
             get
             {
-                return new RelayCommand((param) =>
+                return new RelayCommand(async (param) =>
                 {
-                    MarketplaceDetailTask marketPlaceDetailTask = new MarketplaceDetailTask();
-                    marketPlaceDetailTask.Show();
+                    //buy
+                    await License.BuyIsAddvertismets();
+                    //resolve
+                    ResolveLicense();
                 }, param => true);
             }
         }
@@ -1051,7 +1053,7 @@ namespace CoPilot.CoPilot.View
         {
             //Resovle license
             License.ResolveLicense();
-            OnPropertyChanged("IsTrial");
+            OnPropertyChanged("IsAddvertismets");
             OnPropertyChanged("IsAdVisible");
         }
 

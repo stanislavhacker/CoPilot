@@ -516,7 +516,7 @@
     <value>Something terrible has happened</value>
   </data>
   <data name="BuyApp" xml:space="preserve">
-    <value>Buy application</value>
+    <value>Remove ads</value>
   </data>
   <data name="RateApp" xml:space="preserve">
     <value>Rate and review</value>
@@ -982,5 +982,8 @@
   </data>
   <data name="CameraInfoTitle" xml:space="preserve">
     <value>Information about camera</value>
+  </data>
+  <data name="RemoveAds" xml:space="preserve">
+    <value>Remove ads</value>
   </data>
 </root>

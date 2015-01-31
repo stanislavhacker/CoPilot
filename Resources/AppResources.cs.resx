@@ -522,7 +522,7 @@
     <value>Něco strašného se stalo</value>
   </data>
   <data name="BuyApp" xml:space="preserve">
-    <value>Koupit aplikaci</value>
+    <value>Odstranit reklamu</value>
   </data>
   <data name="RateApp" xml:space="preserve">
     <value>Ohodnotit</value>
@@ -982,5 +982,8 @@
   </data>
   <data name="CameraInfoTitle" xml:space="preserve">
     <value>Informace o kameře</value>
+  </data>
+  <data name="RemoveAds" xml:space="preserve">
+    <value>Odstranit reklamu</value>
   </data>
 </root>

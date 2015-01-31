@@ -5,7 +5,7 @@
     <Language code="cs" />
     <Language code="zh" />
   </Languages>
-  <App xmlns="" ProductID="{84707615-802a-416a-9b55-0e941cd929a4}" Title="CoPilot" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Stanislav Hacker" Description="CoPilot is a application for complete management for your car." Publisher="CN=829DDA3F-A154-4789-9A76-16D3A6BC7212" PublisherID="{d0ff0d91-8c5d-4645-8107-abd81e2e157c}">
+  <App xmlns="" ProductID="{61685175-e5d2-44ca-a77a-779ff94ee278}" Title="CoPilot" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Stanislav Hacker" Description="CoPilot is a application for complete management for your car." Publisher="CN=829DDA3F-A154-4789-9A76-16D3A6BC7212" PublisherID="{d0ff0d91-8c5d-4645-8107-abd81e2e157c}">
     <IconPath IsRelative="true" IsResource="false">Resources\Images\Tiles\AppIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />

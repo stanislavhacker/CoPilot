@@ -310,6 +310,13 @@ namespace CoPilot.CoPilot.Controller
                 await createSpeechRecognizer();
             }
 
+            //speech recognizer is not supported
+            if (recognizer == null)
+            {
+                IsSupported = false;
+                return;
+            }
+
             speechContext = SpeechContext.Normal;
 
             View.Popup.DriveMode win = new View.Popup.DriveMode();
@@ -694,16 +701,23 @@ namespace CoPilot.CoPilot.Controller
                 return;
             }
 
-            recognizer = new SpeechRecognizer();
-            recognizer.SetRecognizer(langauge);
+            try
+            {
+                recognizer = new SpeechRecognizer();
+                recognizer.SetRecognizer(langauge);
 
-            //grammars
-            recognizer.Grammars.AddGrammarFromUri(SpeechGrammars.MAIN, new Uri("ms-appx:///Resources/Speech/Grammars/main.en-gb.xml", UriKind.Absolute));
-            recognizer.Grammars.AddGrammarFromUri(SpeechGrammars.NUMBERS, new Uri("ms-appx:///Resources/Speech/Grammars/number.en-gb.xml", UriKind.Absolute));
-            recognizer.Grammars.AddGrammarFromUri(SpeechGrammars.FILL, new Uri("ms-appx:///Resources/Speech/Grammars/fill.en-gb.xml", UriKind.Absolute));
+                //grammars
+                recognizer.Grammars.AddGrammarFromUri(SpeechGrammars.MAIN, new Uri("ms-appx:///Resources/Speech/Grammars/main.en-gb.xml", UriKind.Absolute));
+                recognizer.Grammars.AddGrammarFromUri(SpeechGrammars.NUMBERS, new Uri("ms-appx:///Resources/Speech/Grammars/number.en-gb.xml", UriKind.Absolute));
+                recognizer.Grammars.AddGrammarFromUri(SpeechGrammars.FILL, new Uri("ms-appx:///Resources/Speech/Grammars/fill.en-gb.xml", UriKind.Absolute));
 
-            //preload grammars
-            await recognizer.PreloadGrammarsAsync();
+                //preload grammars
+                await recognizer.PreloadGrammarsAsync();
+            }
+            catch
+            {
+                recognizer = null;
+            }
         }
 
         /// <summary>

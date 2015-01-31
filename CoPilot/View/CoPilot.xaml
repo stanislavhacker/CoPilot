@@ -80,24 +80,33 @@
         </Grid>
 
         <!-- ADVERTISIMENT -->
-        <UI:AdControl
-            Visibility="{Binding IsAdVisible, Converter={StaticResource BooleanToVisibilityConvertor}}" 
-            AdUnitId="170764" 
-            ApplicationId="5fa5feb7-a3c1-4b73-92ca-90133a53845b" 
+        <Grid
+            Visibility="{Binding IsAdVisible, Converter={StaticResource BooleanToVisibilityConvertor}}"
+            Margin="20,25,120,20"
             HorizontalAlignment="Center" 
-            VerticalAlignment="Top" 
-            Width="480" 
-            Height="80" 
-            Margin="20">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="AdRefreshed">
-                    <i:InvokeCommandAction Command="{Binding AdRefreshedCommand}" />
-                </i:EventTrigger>
-                <i:EventTrigger EventName="BindingValidationError">
-                    <i:InvokeCommandAction Command="{Binding AdErrorCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </UI:AdControl>
+            VerticalAlignment="Top">
+            <UI:AdControl
+                AdUnitId="170764" 
+                ApplicationId="5fa5feb7-a3c1-4b73-92ca-90133a53845b" 
+                Width="480" 
+                Height="80">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="AdRefreshed">
+                        <i:InvokeCommandAction Command="{Binding AdRefreshedCommand}" />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="BindingValidationError">
+                        <i:InvokeCommandAction Command="{Binding AdErrorCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </UI:AdControl>
+            <HyperlinkButton 
+                Command="{Binding BuyCommand}"
+                Content="{Binding LocalizedResources.RemoveAds, Mode=OneWay, Source={StaticResource LocalizedStrings}}" 
+                Margin="0,-25,-5,0" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Right" 
+                HorizontalContentAlignment="Right" />
+        </Grid>
 
         <!-- FLASH -->
         <Grid Name="Flash" Visibility="Collapsed" Background="White">
@@ -1143,7 +1152,7 @@
                             <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
 
                             <Button  
-                                Visibility="{Binding IsTrial, Converter={StaticResource BooleanToVisibilityConvertor}}" 
+                                Visibility="{Binding IsAddvertismets, Converter={StaticResource BooleanToVisibilityConvertor}}" 
                                 Command="{Binding BuyCommand}"
                                 Style="{StaticResource MenuButton}" 
                                 HorizontalContentAlignment="Stretch" 
