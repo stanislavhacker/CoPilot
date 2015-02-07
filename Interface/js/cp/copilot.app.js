@@ -16,6 +16,8 @@ var copilot = {};
 		copilot.Distance = null;
 		/** @type {copilot.model.Currency}*/
 		copilot.Currency = null;
+		/** @type {copilot.model.Unit}*/
+		copilot.Unit = null;
 
 		/** @type {Array.<boolean>}*/
 		copilot.Menus = [];
@@ -192,18 +194,43 @@ var copilot = {};
 		};
 
 		/**
-		 * GetPriceWithRightValue
-		 * @param {copilot.model.Price} price
+		 * GetExchangeUnitFor
+		 * @param {copilot.model.Unit} from
+		 * @param {copilot.model.Unit} to
 		 * @returns {number}
 		 * @static
 		 */
-		copilot.App.GetPriceWithRightValue = function(price) {
+		copilot.App.GetExchangeUnitFor = function(from, to) {
+			//Liters => Gallons
+			if (from == copilot.model.Unit.Liters && to == copilot.model.Unit.Gallons)
+			{
+				return 0.264172052;
+			}
+			//Gallons => Liters
+			if (from == copilot.model.Unit.Gallons && to == copilot.model.Unit.Liters)
+			{
+				return 3.78541178;
+			}
+
+			return 1;
+		};
+
+		/**
+		 * GetPriceWithRightValue
+		 * @param {copilot.model.Price} price
+		 * @param {boolean} forUnit
+		 * @returns {number}
+		 * @static
+		 */
+		copilot.App.GetPriceWithRightValue = function(price, forUnit) {
 			var rate,
+				unitRate,
 				currentCurrency = copilot.Currency;
 
 			//recalculate
 			rate = copilot.App.GetExchangeRateFor(price.Currency, currentCurrency);
-			return Math.round(price.Value * rate * 100) / 100;
+			unitRate = forUnit ? copilot.App.GetExchangeUnitFor(copilot.Unit, copilot.model.Unit.Liters) : 1;
+			return Math.round(price.Value * rate * unitRate * 100) / 100;
 		};
 
 		/**
@@ -260,14 +287,15 @@ var copilot = {};
 				month,
 				consumptionTotal = {},
 				graph = new copilot.model.Graph(),
-				series = new copilot.model.Graph.Series();
+				series = new copilot.model.Graph.Series(),
+				rate = copilot.App.GetExchangeUnitFor(copilot.Unit, copilot.model.Unit.Liters);
 
 			for (i = 0; i < fills.length; i++) {
 				//month
 				month = (fills[i].Date.getMonth() + 1) + "/" + fills[i].Date.getFullYear();
 				//month
 				consumptionTotal[month] = consumptionTotal[month] || 0;
-				consumptionTotal[month] += fills[i].Refueled;
+				consumptionTotal[month] += Math.round((fills[i].Refueled / rate) * 100) / 100;
 			}
 
 			//name
@@ -282,7 +310,7 @@ var copilot = {};
 
 			//create
 			graph.name = language.getString("MonthlyFuelConsumption");
-			graph.dataUnit = language.getString("FueledUnit");
+			graph.dataUnit = copilot.App.GetUnitString(language);
 			graph.type = 'column';
 			graph.addSeries(series);
 
@@ -328,6 +356,23 @@ var copilot = {};
 			graph.addSeries(series);
 
 			return graph;
+		};
+
+		/**
+		 * @static
+		 * Get uni string
+		 * @param {copilot.data.Language} language
+		 * @returns {string}
+		 */
+		copilot.App.GetUnitString = function (language) {
+			switch(copilot.Unit) {
+				case copilot.model.Unit.Liters:
+					return language.getString("Liter");
+				case copilot.model.Unit.Gallons:
+					return language.getString("Gallon");
+				default:
+					return language.getString("Liter");
+			}
 		};
 
 

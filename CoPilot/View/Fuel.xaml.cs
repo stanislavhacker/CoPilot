@@ -193,8 +193,8 @@ namespace CoPilot.CoPilot.View
             {
                 if (this.TryParseDouble(value, out fuelPrice))
                 {
-                    calculatePricePerLiter();
-                    calculateLiters();
+                    calculatePricePerUnit();
+                    calculateUnits();
                 }
                 else
                 {
@@ -206,29 +206,29 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
-        /// Price per liter
+        /// Price per unit
         /// </summary>
-        private Double pricePerLiter = Double.NaN;
-        public String PricePerLiter
+        private Double pricePerUnit = Double.NaN;
+        public String PricePerUnit
         {
             get
             {
-                if (Double.IsNaN(pricePerLiter))
+                if (Double.IsNaN(pricePerUnit))
                 {
                     return "";
                 }
-                return pricePerLiter.ToString();
+                return pricePerUnit.ToString();
             }
             set
             {
-                if (this.TryParseDouble(value, out pricePerLiter))
+                if (this.TryParseDouble(value, out pricePerUnit))
                 {
                     calculateFuelPrice();
-                    calculateLiters();
+                    calculateUnits();
                 }
                 else
                 {
-                    pricePerLiter = Double.NaN;
+                    pricePerUnit = Double.NaN;
                 }
                 RaisePropertyChanged();
                 OnPropertyChanged("IsSaveEnable");
@@ -236,29 +236,29 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
-        /// Liters
+        /// Units
         /// </summary>
-        private Double liters = Double.NaN;
-        public String Liters
+        private Double units = Double.NaN;
+        public String Units
         {
             get
             {
-                if (Double.IsNaN(liters))
+                if (Double.IsNaN(units))
                 {
                     return "";
                 }
-                return liters.ToString();
+                return units.ToString();
             }
             set
             {
-                if (this.TryParseDouble(value, out liters))
+                if (this.TryParseDouble(value, out units))
                 {
-                    calculatePricePerLiter();
+                    calculatePricePerUnit();
                     calculateFuelPrice();
                 }
                 else
                 {
-                    liters = Double.NaN;
+                    units = Double.NaN;
                 }
                 RaisePropertyChanged();
                 OnPropertyChanged("IsSaveEnable");
@@ -321,8 +321,8 @@ namespace CoPilot.CoPilot.View
                 return this.IsValidRecord &&
                     !Double.IsNaN(odometer) && 
                     !Double.IsNaN(fuelPrice) && 
-                    !Double.IsNaN(pricePerLiter) && 
-                    !Double.IsNaN(liters) &&
+                    !Double.IsNaN(pricePerUnit) && 
+                    !Double.IsNaN(units) &&
                     (TripDistanceKilometres > 0 || DataController.Fills.Count == 0);
             }
         }
@@ -366,35 +366,35 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
-        /// Price per liter style
+        /// Price per unit style
         /// </summary>
-        private Style pricePerLiterStyle = App.Current.Resources["Value"] as Style;
-        public Style PricePerLiterStyle
+        private Style pricePerUnitStyle = App.Current.Resources["Value"] as Style;
+        public Style PricePerUnitStyle
         {
             get
             {
-                return pricePerLiterStyle;
+                return pricePerUnitStyle;
             }
             set
             {
-                pricePerLiterStyle = value;
+                pricePerUnitStyle = value;
                 RaisePropertyChanged();
             }
         }
 
         /// <summary>
-        /// Liters style
+        /// Units style
         /// </summary>
-        private Style litersStyle = App.Current.Resources["Value"] as Style;
-        public Style LitersStyle
+        private Style unitsStyle = App.Current.Resources["Value"] as Style;
+        public Style UnitsStyle
         {
             get
             {
-                return litersStyle;
+                return unitsStyle;
             }
             set
             {
-                litersStyle = value;
+                unitsStyle = value;
                 RaisePropertyChanged();
             }
         }
@@ -492,18 +492,18 @@ namespace CoPilot.CoPilot.View
                                     FuelPrice = "";
                                 }
                                 break;
-                            case "PricePerLiter":
-                                if (PricePerLiterStyle == emptyValueStyle)
+                            case "PricePerUnit":
+                                if (PricePerUnitStyle == emptyValueStyle)
                                 {
-                                    PricePerLiterStyle = defaultValueStyle;
-                                    PricePerLiter = "";
+                                    PricePerUnitStyle = defaultValueStyle;
+                                    PricePerUnit = "";
                                 }
                                 break;
-                            case "Liters":
-                                if (LitersStyle == emptyValueStyle)
+                            case "Units":
+                                if (UnitsStyle == emptyValueStyle)
                                 {
-                                    LitersStyle = defaultValueStyle;
-                                    Liters = "";
+                                    UnitsStyle = defaultValueStyle;
+                                    Units = "";
                                 }
                                 break;
                             default:
@@ -534,17 +534,17 @@ namespace CoPilot.CoPilot.View
                                     calculateFuelPrice();
                                 }
                                 break;
-                            case "PricePerLiter":
-                                if (PricePerLiter == "")
+                            case "PricePerUnit":
+                                if (PricePerUnit == "")
                                 {
-                                    calculatePricePerLiter();
+                                    calculatePricePerUnit();
                                 }
                                 break;
-                            case "Liters":
-                                if (Liters == "")
+                            case "Units":
+                                if (Units == "")
                                 {
 
-                                    calculateLiters();
+                                    calculateUnits();
                                 }
                                 break;
                             default:
@@ -601,10 +601,10 @@ namespace CoPilot.CoPilot.View
                     FuelPrice = value;
                     break;
                 case "PricePerUnit":
-                    PricePerLiter = value;
+                    PricePerUnit = value;
                     break;
                 case "Fueled":
-                    Liters = value;
+                    Units = value;
                     break;
             }
         }
@@ -642,35 +642,35 @@ namespace CoPilot.CoPilot.View
         /// <summary>
         /// Calculate price and price per liter
         /// </summary>
-        private void calculateLiters()
+        private void calculateUnits()
         {
 
             //price and price per liter
-            if (!Double.IsNaN(pricePerLiter) && pricePerLiter > 0 && !Double.IsNaN(fuelPrice) && fuelPrice > 0)
+            if (!Double.IsNaN(pricePerUnit) && pricePerUnit > 0 && !Double.IsNaN(fuelPrice) && fuelPrice > 0)
             {
-                if (Double.IsNaN(liters) || LitersStyle == emptyValueStyle)
+                if (Double.IsNaN(units) || UnitsStyle == emptyValueStyle)
                 {
-                    Liters = Math.Round(fuelPrice / pricePerLiter, 2).ToString();
-                    LitersStyle = emptyValueStyle;
+                    Units = Math.Round(fuelPrice / pricePerUnit, 2).ToString();
+                    UnitsStyle = emptyValueStyle;
                 }
                 else
                 {
-                    LitersStyle = defaultValueStyle;
+                    UnitsStyle = defaultValueStyle;
                 }
             }
         }
 
         /// <summary>
-        /// Calculate price per liter and liters
+        /// Calculate price per unit and units
         /// </summary>
         private void calculateFuelPrice()
         {
-            //price per liter and liters
-            if (!Double.IsNaN(pricePerLiter) && pricePerLiter > 0 && !Double.IsNaN(liters) && liters > 0)
+            //price per unit and units
+            if (!Double.IsNaN(pricePerUnit) && pricePerUnit > 0 && !Double.IsNaN(units) && units > 0)
             {
                 if (Double.IsNaN(fuelPrice) || FuelPriceStyle == emptyValueStyle)
                 {
-                    FuelPrice = Math.Round(pricePerLiter * liters, 2).ToString();
+                    FuelPrice = Math.Round(pricePerUnit * units, 2).ToString();
                     FuelPriceStyle = emptyValueStyle;
                 }
                 else
@@ -681,21 +681,21 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
-        /// Calculate price per liter
+        /// Calculate price per unit
         /// </summary>
-        private void calculatePricePerLiter()
+        private void calculatePricePerUnit()
         {
-            //fuel price and liters
-            if (!Double.IsNaN(fuelPrice) && fuelPrice > 0 && !Double.IsNaN(liters) && liters > 0)
+            //fuel price and units
+            if (!Double.IsNaN(fuelPrice) && fuelPrice > 0 && !Double.IsNaN(units) && units > 0)
             {
-                if (Double.IsNaN(pricePerLiter) || PricePerLiterStyle == emptyValueStyle)
+                if (Double.IsNaN(pricePerUnit) || PricePerUnitStyle == emptyValueStyle)
                 {
-                    PricePerLiter = Math.Round(fuelPrice / liters, 2).ToString();
-                    PricePerLiterStyle = emptyValueStyle;
+                    PricePerUnit = Math.Round(fuelPrice / units, 2).ToString();
+                    PricePerUnitStyle = emptyValueStyle;
                 }
                 else
                 {
-                    PricePerLiterStyle = defaultValueStyle;
+                    PricePerUnitStyle = defaultValueStyle;
                 }
             }
         }
@@ -705,13 +705,16 @@ namespace CoPilot.CoPilot.View
         /// </summary>
         private void saveFuel()
         {
+            //get exchange
+            var rate = UnitExchange.GetExchangeUnitFor(UnitExchange.CurrentUnit, CoreData.Unit.Liters);
+            //create fill, all fills are in liters
             CoreData.Fill fill = new CoreData.Fill();
             fill.Odometer = new CoreData.Odometer(this.odometer, DataController.Distance);
             fill.Date = this.Date;
             fill.Full = this.isTankFull;
             fill.Price = new CoreData.Price(this.fuelPrice, DataController.Currency); 
-            fill.Refueled = this.liters;
-            fill.UnitPrice = new CoreData.Price(this.pricePerLiter, DataController.Currency);
+            fill.Refueled = this.units * rate;
+            fill.UnitPrice = new CoreData.Price(this.pricePerUnit / rate, DataController.Currency);
             DataController.AddFill(fill);
         }
 

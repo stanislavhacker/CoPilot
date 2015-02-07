@@ -16,6 +16,15 @@
 	};
 
 	/**
+	 * Unit
+	 * @enum
+	 */
+	copilot.model.Unit = {
+		Liters: "Liters",
+		Gallons: "Gallons"
+	};
+
+	/**
 	 * Currency
 	 * @enum
 	 */

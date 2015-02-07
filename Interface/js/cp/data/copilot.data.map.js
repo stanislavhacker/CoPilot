@@ -523,11 +523,12 @@
 	/**
 	 * Get map frame
 	 * @param {copilot.model.Path} path
-	 * @param {copilot.data.MapSettings} settings
+	 * @param {copilot.data.MapSettings=} settings
 	 * @returns {jQuery}
 	 */
 	copilot.data.Map.prototype.renderMapFrame = function (path, settings) {
-		var view,
+		var rate,
+			view,
 			series,
 			marker,
 			center,
@@ -540,6 +541,12 @@
 			skinData = skin.getSkin(),
 			header = $("#header").height();
 
+		//unit rate
+		rate = copilot.App.GetExchangeUnitFor(copilot.Unit, copilot.model.Unit.Liters);
+
+		//settings
+		settings = settings || new copilot.data.MapSettings();
+
 		//states
 		center = this.getCenter(path);
 		//view
@@ -549,8 +556,8 @@
 		data[0] = Math.round(path.TraveledDistance * 10) / 10; //distance
 		data[1] = copilot.Distance;
 		data[2] = copilot.App.timeDifference(path.EndDate, path.StartDate);
-		data[3] = Math.round(path.ConsumedFuel * 100) / 100; //fuel
-		data[4] = language.getString('FueledUnit');
+		data[3] = Math.round((path.ConsumedFuel / rate) * 100) / 100; //fuel
+		data[4] = copilot.App.GetUnitString(language);
 		//info
 		view.info.append(language.getString('RouteDescription', data));
 

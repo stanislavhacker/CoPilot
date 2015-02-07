@@ -358,6 +358,7 @@
 			title,
 			height,
 			info,
+			rate,
 			distance,
 			data = [],
 			distanceEl,
@@ -375,6 +376,9 @@
 		//clear
 		//noinspection JSUnresolvedFunction
 		parent.empty();
+
+		//refuel rate
+		rate = copilot.App.GetExchangeUnitFor(copilot.Unit, copilot.model.Unit.Liters);
 
 		//title
 		title = $('<div class="title" />').appendTo(parent);
@@ -404,11 +408,11 @@
 
 			//data
 			data[0] = fill.Date.toLocaleDateString();
-			data[1] = fill.Refueled;
-			data[2] = language.getString("FueledUnit");
+			data[1] = Math.round((fill.Refueled / rate) * 100) / 100;
+			data[2] = copilot.App.GetUnitString(language);
 			data[3] = copilot.App.GetPriceWithRightValue(fill.Price);
 			data[4] = copilot.Currency;
-			data[5] = copilot.App.GetPriceWithRightValue(fill.UnitPrice);
+			data[5] = copilot.App.GetPriceWithRightValue(fill.UnitPrice, true);
 
 
 			//info
@@ -581,7 +585,8 @@
 	 * @param {copilot.model.Video} video
 	 */
 	copilot.data.Renderer.prototype.videoFrame = function (parent, video) {
-		var item,
+		var rate,
+			item,
 			link,
 			div,
 			text,
@@ -597,6 +602,9 @@
 			language = this.language,
 			dataModel = this.data;
 
+		//unit rate
+		rate = copilot.App.GetExchangeUnitFor(copilot.Unit, copilot.model.Unit.Liters);
+
 		/**
 		 * Description
 		 * @returns {string|*}
@@ -606,10 +614,10 @@
 			data[0] = video.Time.toLocaleDateString();
 			data[1] = copilot.App.timeDifference(new Date(video.duration * 1000), new Date(0));
 			data[2] = paths ? paths.States.length : 0;
-			data[3] = paths ?  Math.round(paths.ConsumedFuel * 100) / 100 : 0;
+			data[3] = paths ?  Math.round((paths.ConsumedFuel / rate) * 100) / 100 : 0;
 			data[4] = paths ?  Math.round(paths.TraveledDistance * 100) / 100 : 0;
 			data[5] = copilot.Distance;
-			data[6] = language.getString('FueledUnit');
+			data[6] = copilot.App.GetUnitString(language);
 			//string
 			return language.getString("VideoDescription", data);
 		}
@@ -1114,7 +1122,8 @@
 	 * @param {copilot.model.Path} path
 	 */
 	copilot.data.Renderer.prototype.pathFrame = function (parent, path) {
-		var item,
+		var rate,
+			item,
 			link,
 			div,
 			text,
@@ -1129,6 +1138,9 @@
 			language = this.language,
 			dataModel = this.data;
 
+		//unit rate
+		rate = copilot.App.GetExchangeUnitFor(copilot.Unit, copilot.model.Unit.Liters);
+
 		/**
 		 * Description
 		 * @returns {string|*}
@@ -1136,10 +1148,10 @@
 		function getDescription(path) {
 			//data
 			data[0] = path.StartDate.toLocaleDateString();
-			data[1] = Math.round(path.ConsumedFuel * 1000) / 1000;
+			data[1] = Math.round((path.ConsumedFuel / rate) * 1000) / 1000;
 			data[2] = Math.round(path.TraveledDistance * 1000) / 1000;
 			data[3] = path.Distance;
-			data[4] = language.getString("FueledUnit");
+			data[4] = copilot.App.GetUnitString(language);
 			data[5] = copilot.App.timeDifference(path.EndDate, path.StartDate);
 			//string
 			return language.getString("PathDescription", data);
@@ -1619,7 +1631,7 @@
 	/**
 	 * Render map
 	 * @param {copilot.model.Path} path
-	 * @param {copilot.data.MapSettings} settings
+	 * @param {copilot.data.MapSettings=} settings
 	 */
 	copilot.data.Renderer.prototype.renderMap = function (path, settings) {
 		var frame;

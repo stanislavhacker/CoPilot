@@ -164,8 +164,13 @@
     <Compile Include="CoPilot\View\WebBrowser.xaml.cs">
       <DependentUpon>WebBrowser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\Convertors\FuelUnitPriceToRealPrice.cs" />
     <Compile Include="Data\Convertors\MaintenanceTypeToString.cs" />
     <Compile Include="Data\Convertors\MaintenanceTypeToStyle.cs" />
+    <Compile Include="Data\Convertors\RefueledToRealRefueled.cs" />
+    <Compile Include="Data\Convertors\TextToText.cs" />
+    <Compile Include="Data\Convertors\UnitToString.cs" />
+    <Compile Include="Data\Convertors\UnitToStyle.cs" />
     <Compile Include="FeaturesUtility.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="NavigationExtensions.cs" />

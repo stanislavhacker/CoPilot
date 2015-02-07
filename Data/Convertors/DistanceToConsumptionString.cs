@@ -1,5 +1,6 @@
 ﻿using CoPilot.CoPilot.Controller;
 using CoPilot.Core.Data;
+using CoPilot.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,16 +17,19 @@ namespace CoPilot.Data.Convertors
         {
             //liters per 1 distance
             Double consumption = (Double)value;
+            Double unitRate;
             Consumption current = App.DataController.Consumption;
             String val = "";
 
             switch (current)
             {
                 case Consumption.LitersPer100Distance:
-                    val = Math.Round(consumption * 100, 2).ToString();
+                    unitRate = UnitExchange.GetExchangeUnitFor(App.DataController.Unit, Unit.Liters);
+                    val = Math.Round((consumption * 100) / unitRate, 2).ToString();
                     break;
                 case Consumption.DistanceOnGallon:
-                    var gallonsPerDistance = consumption / 3.78541178;
+                    unitRate = UnitExchange.GetExchangeUnitFor(Unit.Gallons, Unit.Liters);
+                    var gallonsPerDistance = consumption / unitRate;
                     if (gallonsPerDistance > 0)
                     {
                         val = Math.Round(1 / gallonsPerDistance, 2).ToString();

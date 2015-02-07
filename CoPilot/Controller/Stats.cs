@@ -331,7 +331,7 @@ namespace CoPilot.CoPilot.Controller
             get
             {
                 var data = new ObservableCollection<DateTimeModel>();
-                var trend = this.baseStats.getFuelStats().TrendFuelPrices(DataController.Currency);
+                var trend = this.baseStats.getFuelStats().TrendFuelPrices(DataController.Currency, DataController.Unit);
                 var count = trend.X.Count < 20 ? trend.X.Count : 20;
 
                 for (var i = count - 1; i >= 0; i--)
@@ -351,7 +351,7 @@ namespace CoPilot.CoPilot.Controller
             get
             {
                 var data = new ObservableCollection<DateTimeModel>();
-                var trend = this.baseStats.getFuelStats().TrendUnitsPerRefill(DataController.Currency);
+                var trend = this.baseStats.getFuelStats().TrendUnitsPerRefill(DataController.Currency, DataController.Unit);
                 var count = trend.X.Count < 20 ? trend.X.Count : 20;
 
                 for (var i = count - 1; i >= 0; i--)
@@ -451,7 +451,7 @@ namespace CoPilot.CoPilot.Controller
         /// <param name="e"></param>
         private void propertyChangedEvent(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            var force = e.PropertyName == "" || e.PropertyName == "Currency" || e.PropertyName == "Distance";
+            var force = e.PropertyName == "" || e.PropertyName == "Currency" || e.PropertyName == "Distance"  || e.PropertyName == "Unit";
 
             //create new statsi f its reset
             if (e.PropertyName == "")

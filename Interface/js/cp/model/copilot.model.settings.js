@@ -15,6 +15,8 @@
 		this.Currency = "CZK";
 		/** @type {copilot.model.Distance}*/
 		this.Distance = copilot.model.Distance.Km;
+		/** @type {copilot.model.Unit}*/
+		this.Unit = copilot.model.Unit.Liters;
 		/** @type {string}*/
 		this.Consumption = "";
 
@@ -52,6 +54,7 @@
 
 		clone.Currency = this.Currency;
 		clone.Distance = this.Distance;
+		clone.Unit = this.Unit;
 		clone.Consumption = this.Consumption;
 		clone.Repairs = this.Repairs;
 		clone.Maintenances = this.Maintenances;

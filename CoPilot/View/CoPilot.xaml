@@ -624,12 +624,12 @@
                                                         <StackPanel Margin="10,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
                                                             <TextBlock 
                                                                 Style="{StaticResource Info}" 
-                                                                Text="{Binding UnitPrice, Converter={StaticResource PriceToRealPriceConvertor}}"
+                                                                Text="{Binding UnitPrice, Converter={StaticResource FuelUnitPriceToRealPriceConvertor}}"
                                                                 Margin="5,0" />
                                                             <Image Width="20" Height="20" Source="/Resources/Images/Info/cheap.png" Stretch="UniformToFill" />
                                                         </StackPanel>
                                                         <StackPanel Margin="10,2,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal">
-                                                            <TextBlock Style="{StaticResource Info}" Text="{Binding Refueled}" Margin="5,0" />
+                                                            <TextBlock Style="{StaticResource Info}" Text="{Binding Refueled, Converter={StaticResource RefueledToRealRefueledConvertor}}" Margin="5,0" />
                                                             <Image Width="20" Height="20" Source="/Resources/Images/Info/refueled.png" Stretch="UniformToFill" />
                                                         </StackPanel>
                                                     </Grid>
@@ -1062,6 +1062,45 @@
                                         Grid.Row="1"
                                         Style="{Binding DataController.Distance, Converter={StaticResource DistanceToStyleConvertor}, ConverterParameter='Mi'}"
                                         Content="Mi"/>
+                                </Grid>
+                            </Button>
+                            <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />
+
+                            <Button 
+                                Style="{StaticResource MenuButton}" 
+                                HorizontalContentAlignment="Stretch" 
+                                Height="120">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock 
+                                        Grid.Row="0" 
+                                        Grid.ColumnSpan="3" 
+                                        Margin="0,-15,0,0" 
+                                        Text="{Binding LocalizedResources.Unit, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
+
+                                    <Button 
+                                        Command="{Binding ChangeUnitCommand}"
+                                        CommandParameter="Liters"
+                                        Grid.Column="0"
+                                        Grid.Row="1"
+                                        Style="{Binding DataController.Unit, Converter={StaticResource UnitToStyleConvertor}, ConverterParameter='Liters'}"
+                                        Content="{Binding LocalizedResources.Liter, Mode=OneWay, Source={StaticResource LocalizedStrings}, Converter={StaticResource TextToTextConvertor}}"/>
+                                    <Button 
+                                        Command="{Binding ChangeUnitCommand}"
+                                        CommandParameter="Gallons"
+                                        Grid.Column="1"
+                                        Grid.Row="1"
+                                        Style="{Binding DataController.Unit, Converter={StaticResource UnitToStyleConvertor}, ConverterParameter='Gallons'}"
+                                        Content="{Binding LocalizedResources.Gallon, Mode=OneWay, Source={StaticResource LocalizedStrings}, Converter={StaticResource TextToTextConvertor}}"/>
                                 </Grid>
                             </Button>
                             <Rectangle VerticalAlignment="Bottom" Fill="{StaticResource LineColor}" Height="1" />

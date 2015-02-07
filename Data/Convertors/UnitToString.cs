@@ -1,5 +1,4 @@
-﻿using CoPilot.CoPilot.Controller;
-using CoPilot.Core.Data;
+﻿using CoPilot.Core.Data;
 using CoPilot.Resources;
 using System;
 using System.Collections.Generic;
@@ -11,13 +10,12 @@ using System.Windows.Data;
 
 namespace CoPilot.Data.Convertors
 {
-    public class RealConsumptionToString : IValueConverter
+    public class UnitToString : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Consumption val = (Consumption)value;
-            Distance distance = App.DataController.Distance;
-            String info = Convert(val, distance);
+            Unit val = (Unit)value;
+            String info = Convert(val);
             return info;
         }
 
@@ -30,19 +28,18 @@ namespace CoPilot.Data.Convertors
         /// Convert
         /// </summary>
         /// <param name="val"></param>
-        /// <param name="distance"></param>
+        /// <param name="unit"></param>
         /// <returns></returns>
-        public static string Convert(Consumption val, Distance distance)
+        public static string Convert(Unit val)
         {
             String info = "";
             switch (val)
             {
-                case Consumption.LitersPer100Distance:
-                    Unit unit = App.DataController.Unit;
-                    info = UnitToString.Convert(unit) + " " + AppResources.Per + " 100 " + distance;
+                case Unit.Gallons:
+                    info = AppResources.Gallon;
                     break;
-                case Consumption.DistanceOnGallon:
-                    info = distance + " " + AppResources.Per + " " + AppResources.Gallon;
+                case Unit.Liters:
+                    info = AppResources.Liter;
                     break;
                 default:
                     break;

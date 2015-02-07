@@ -76,15 +76,16 @@
                 <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource Unit}" Text="{Binding DataController.Currency}" />
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.PricePerUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
-                <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource RowValue}" Text="{Binding Fill.UnitPrice, Converter={StaticResource PriceToRealPriceConvertor}}" TextAlignment="Right" />
+                <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource RowValue}" Text="{Binding Fill.UnitPrice, Converter={StaticResource FuelUnitPriceToRealPriceConvertor}}" TextAlignment="Right" />
                 <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" >
                     <TextBlock Style="{StaticResource Unit}" Text="{Binding DataController.Currency}" Margin="10,10,-5,10" />
-                    <TextBlock Style="{StaticResource Unit}" Text="{Binding LocalizedResources.PricePerLiterUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    <TextBlock Style="{StaticResource Unit}" Text="{Binding LocalizedResources.PerSlash, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                    <TextBlock Style="{StaticResource Unit}" Text="{Binding DataController.Unit, Mode=OneWay, Converter={StaticResource UnitToStringConvertor}}" Margin="-5,10,0,10" />
                 </StackPanel>
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.Fueled, Mode=OneWay, Source={StaticResource LocalizedStrings}, StringFormat='{}{0}:'}" />
-                <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource RowValue}" Text="{Binding Fill.Refueled, FallbackValue=0.0}" TextAlignment="Right" />
-                <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource Unit}" Text="{Binding LocalizedResources.FueledUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+                <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource RowValue}" Text="{Binding Fill.Refueled, FallbackValue=0.0, Converter={StaticResource RefueledToRealRefueledConvertor}}" TextAlignment="Right" />
+                <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource Unit}" Text="{Binding DataController.Unit, Mode=OneWay, Converter={StaticResource UnitToStringConvertor}}" />
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource Row}" Text="{Binding LocalizedResources.FullTank, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
                 <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding Fill.Full}" IsEnabled="False" HorizontalAlignment="Right" Margin="0,0,-15,0" />

@@ -758,6 +758,7 @@ namespace CoPilot.CoPilot.Controller
             setting.Consumption = controller.Consumption.ToString();
             setting.Currency = controller.Currency.ToString();
             setting.Distance = controller.Distance.ToString();
+            setting.Unit = controller.Unit.ToString();
             setting.Fills = controller.Fills.Count;
             setting.Maintenances = controller.Maintenances.Count;
             setting.Repairs = controller.Repairs.Count;

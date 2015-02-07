@@ -505,6 +505,31 @@ namespace CoPilot.CoPilot.Controller
         }
 
         /// <summary>
+        /// Unit
+        /// </summary>
+        public Unit Unit
+        {
+            get
+            {
+                return baseData.Unit;
+            }
+            set
+            {
+                baseData.Unit = value;
+
+
+                if (onUnitsChange != null)
+                {
+                    onUnitsChange.Invoke(this, EventArgs.Empty);
+                }
+
+                RaisePropertyChanged();
+                refresh();
+                this.Save();
+            }
+        }
+
+        /// <summary>
         /// Obd device
         /// </summary>
         public String ObdDevice
@@ -744,6 +769,7 @@ namespace CoPilot.CoPilot.Controller
                 //set globals
                 RateExchange.CurrentCurrency = this.Currency;
                 DistanceExchange.CurrentDistance = this.Distance;
+                UnitExchange.CurrentUnit = this.Unit;
                 //refresh
                 RaisePropertiesChanged();
                 //Start timer again

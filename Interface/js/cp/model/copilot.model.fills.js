@@ -61,7 +61,7 @@
 			//add categories
 			categories.push(fill.Date.toLocaleDateString());
 			//series
-			series.data.push(copilot.App.GetPriceWithRightValue(fill.UnitPrice));
+			series.data.push(copilot.App.GetPriceWithRightValue(fill.UnitPrice, true));
 		}
 
 		//create
@@ -86,7 +86,8 @@
 			fill,
 			categories = [],
 			graph = new copilot.model.Graph(),
-			series = new copilot.model.Graph.Series();
+			series = new copilot.model.Graph.Series(),
+			rate = copilot.App.GetExchangeUnitFor(copilot.Unit, copilot.model.Unit.Liters);
 
 		series.name = language.getString("Fueled");
 		series.lineWidth = 2;
@@ -98,7 +99,7 @@
 			//add categories
 			categories.push(fill.Date.toLocaleDateString());
 			//series
-			series.data.push(fill.Refueled);
+			series.data.push(Math.round((fill.Refueled / rate) * 100) / 100);
 		}
 
 		//create

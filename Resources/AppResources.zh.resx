@@ -126,9 +126,6 @@
   <data name="FueledExample" xml:space="preserve">
     <value>例如: 14.7</value>
   </data>
-  <data name="FueledUnit" xml:space="preserve">
-    <value>升</value>
-  </data>
   <data name="FuelPrice" xml:space="preserve">
     <value>油价</value>
   </data>
@@ -150,8 +147,8 @@
   <data name="Photos" xml:space="preserve">
     <value>照片</value>
   </data>
-  <data name="PricePerLiterUnit" xml:space="preserve">
-    <value>/ 单位</value>
+  <data name="PerSlash" xml:space="preserve">
+    <value>/</value>
   </data>
   <data name="PricePerUnit" xml:space="preserve">
     <value>单价</value>
@@ -985,5 +982,11 @@
   </data>
   <data name="RemoveAds" xml:space="preserve">
     <value>删除广告</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>单元</value>
+  </data>
+  <data name="Liter" xml:space="preserve">
+    <value>升</value>
   </data>
 </root>

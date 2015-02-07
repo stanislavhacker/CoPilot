@@ -126,9 +126,6 @@
   <data name="FueledExample" xml:space="preserve">
     <value>Příklad: 14.7</value>
   </data>
-  <data name="FueledUnit" xml:space="preserve">
-    <value>Litrů</value>
-  </data>
   <data name="FuelPrice" xml:space="preserve">
     <value>Cena tankování</value>
   </data>
@@ -150,8 +147,8 @@
   <data name="Photos" xml:space="preserve">
     <value>Fotky</value>
   </data>
-  <data name="PricePerLiterUnit" xml:space="preserve">
-    <value>/ litr</value>
+  <data name="PerSlash" xml:space="preserve">
+    <value>/</value>
   </data>
   <data name="PricePerUnit" xml:space="preserve">
     <value>Cena za jednotku</value>
@@ -985,5 +982,11 @@
   </data>
   <data name="RemoveAds" xml:space="preserve">
     <value>Odstranit reklamu</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Jednotka</value>
+  </data>
+  <data name="Liter" xml:space="preserve">
+    <value>litr</value>
   </data>
 </root>

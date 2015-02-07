@@ -61,6 +61,7 @@
 			if (settings) {
 				copilot.Distance = settings.Distance;
 				copilot.Currency = settings.Currency;
+				copilot.Unit = settings.Unit;
 			}
 			//set
 			self.storage.setState(what, false);

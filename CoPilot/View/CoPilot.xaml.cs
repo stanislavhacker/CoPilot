@@ -478,6 +478,21 @@ namespace CoPilot.CoPilot.View
         }
 
         /// <summary>
+        /// Change unit command
+        /// </summary>
+        public ICommand ChangeUnitCommand
+        {
+            get
+            {
+                return new RelayCommand((param) =>
+                {
+                    CoreData.Unit unit = (CoreData.Unit)Enum.Parse(typeof(CoreData.Unit), (String)param);
+                    DataController.Unit = unit;
+                }, param => true);
+            }
+        }
+
+        /// <summary>
         /// Social command
         /// </summary>
         public ICommand SocialCommand
@@ -1089,6 +1104,7 @@ namespace CoPilot.CoPilot.View
             DataController.StartTimer();
             RateExchange.CurrentCurrency = DataController.Currency;
             DistanceExchange.CurrentDistance = DataController.Distance;
+            UnitExchange.CurrentUnit = DataController.Unit;
 
             //camera
             CameraController.Orientation = this.Orientation;
@@ -1203,6 +1219,7 @@ namespace CoPilot.CoPilot.View
             {
                 RateExchange.CurrentCurrency = DataController.Currency;
                 DistanceExchange.CurrentDistance = DataController.Distance;
+                UnitExchange.CurrentUnit = DataController.Unit;
             };
             DataController.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
             {
