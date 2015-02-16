@@ -976,7 +976,7 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand(async (param) =>
                 {
-                    var progress = await showSystemProgressIndicator();
+                    var progress = CoPilot.showSystemProgressIndicator();
                     //buy
                     await License.BuyIsAddvertismets();
                     //resolve
@@ -1894,7 +1894,7 @@ namespace CoPilot.CoPilot.View
         /// Show system progress indicator
         /// </summary>
         /// <returns></returns>
-        private static Task<ProgressIndicator> showSystemProgressIndicator()
+        private static ProgressIndicator showSystemProgressIndicator()
         {
             SystemTray.Opacity = 0.8;
             SystemTray.IsVisible = true;
