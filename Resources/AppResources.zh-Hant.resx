@@ -1,0 +1,995 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddFuel" xml:space="preserve">
+    <value>加油</value>
+  </data>
+  <data name="Fueled" xml:space="preserve">
+    <value>已加</value>
+  </data>
+  <data name="FueledExample" xml:space="preserve">
+    <value>例如: 14.7</value>
+  </data>
+  <data name="FuelPrice" xml:space="preserve">
+    <value>油价</value>
+  </data>
+  <data name="FuelPriceExample" xml:space="preserve">
+    <value>例如: 1000</value>
+  </data>
+  <data name="FullTank" xml:space="preserve">
+    <value>加满?</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="OdometerState" xml:space="preserve">
+    <value>里程表状况</value>
+  </data>
+  <data name="OdometerStateExample" xml:space="preserve">
+    <value>例如: 35274</value>
+  </data>
+  <data name="Photos" xml:space="preserve">
+    <value>照片</value>
+  </data>
+  <data name="PerSlash" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="PricePerUnit" xml:space="preserve">
+    <value>单价</value>
+  </data>
+  <data name="PricePerUnitExample" xml:space="preserve">
+    <value>例如: 36.6</value>
+  </data>
+  <data name="ResourceFlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+    <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
+  </data>
+  <data name="ResourceLanguage" xml:space="preserve">
+    <value>zh-CN</value>
+    <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
+  </data>
+  <data name="StartRecording" xml:space="preserve">
+    <value>开始录象</value>
+  </data>
+  <data name="StopRecording" xml:space="preserve">
+    <value>停止录像</value>
+  </data>
+  <data name="TakePicture" xml:space="preserve">
+    <value>拍照</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="DeleteFuelMessage" xml:space="preserve">
+    <value>您是否要删除这条加油记录？</value>
+  </data>
+  <data name="DeleteFuelTitle" xml:space="preserve">
+    <value>删除记录</value>
+  </data>
+  <data name="AddRepair" xml:space="preserve">
+    <value>添加维修</value>
+  </data>
+  <data name="RepairDescription" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="RepairPrice" xml:space="preserve">
+    <value>维修价格</value>
+  </data>
+  <data name="RepairPriceExample" xml:space="preserve">
+    <value>例如: 1250</value>
+  </data>
+  <data name="ServiceName" xml:space="preserve">
+    <value>维修地点</value>
+  </data>
+  <data name="ServiceNameExample" xml:space="preserve">
+    <value>例如: 4S店</value>
+  </data>
+  <data name="DeleteRepairMessage" xml:space="preserve">
+    <value>您是否要删除这条维修记录？</value>
+  </data>
+  <data name="DeleteRepairTitle" xml:space="preserve">
+    <value>删除记录</value>
+  </data>
+  <data name="ViewFuel" xml:space="preserve">
+    <value>查看邮箱</value>
+  </data>
+  <data name="ViewRepair" xml:space="preserve">
+    <value>查看维修</value>
+  </data>
+  <data name="UseGpsSenzor" xml:space="preserve">
+    <value>使用 GPS 定位</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>货币单位</value>
+  </data>
+  <data name="Distance" xml:space="preserve">
+    <value>距离单位</value>
+  </data>
+  <data name="AverageConsumption" xml:space="preserve">
+    <value>平均</value>
+  </data>
+  <data name="Per" xml:space="preserve">
+    <value>每</value>
+  </data>
+  <data name="UseObdDevice" xml:space="preserve">
+    <value>使用 OBD 设备</value>
+  </data>
+  <data name="BluetoothIsNotAllowed" xml:space="preserve">
+    <value>OBD 不允许使用</value>
+  </data>
+  <data name="DeviceNotFound" xml:space="preserve">
+    <value>设备未找到，触摸刷新</value>
+  </data>
+  <data name="MoreDevices" xml:space="preserve">
+    <value>多个 OBD 设备，触摸选择一个</value>
+  </data>
+  <data name="OutOfRangeOfDevice" xml:space="preserve">
+    <value>设备超出范围，触摸刷新</value>
+  </data>
+  <data name="ReceivingDataFromObd" xml:space="preserve">
+    <value>从设备接收数据</value>
+  </data>
+  <data name="Searching" xml:space="preserve">
+    <value>搜索 ...</value>
+  </data>
+  <data name="TurnOnBluetooth" xml:space="preserve">
+    <value>触摸开启您的蓝牙</value>
+  </data>
+  <data name="SelectObdDevice" xml:space="preserve">
+    <value>选择 OBD 设备</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>隐私策略</value>
+  </data>
+  <data name="Social" xml:space="preserve">
+    <value>社交</value>
+  </data>
+  <data name="Donate" xml:space="preserve">
+    <value>捐助</value>
+  </data>
+  <data name="AppEndDescription" xml:space="preserve">
+    <value>再次点击返回关闭程序。录像将会停止。</value>
+  </data>
+  <data name="AppEndTitle" xml:space="preserve">
+    <value>退出程序？</value>
+  </data>
+  <data name="DriveModeActivated" xml:space="preserve">
+    <value>连接 OBD 后自动启动</value>
+  </data>
+  <data name="DriveModeNotAllowed" xml:space="preserve">
+    <value>仅手动</value>
+  </data>
+  <data name="DrivingMode" xml:space="preserve">
+    <value>驾驶模式</value>
+  </data>
+  <data name="TapOnScreenToSpeak" xml:space="preserve">
+    <value>触摸屏幕开始语音控制</value>
+  </data>
+  <data name="TapOnScreenToStopRecording" xml:space="preserve">
+    <value>触摸屏幕停止录像</value>
+  </data>
+  <data name="Gallon" xml:space="preserve">
+    <value>加仑</value>
+  </data>
+  <data name="OpenBackup" xml:space="preserve">
+    <value>备份数据</value>
+  </data>
+  <data name="BackupOptions" xml:space="preserve">
+    <value>备份设置</value>
+  </data>
+  <data name="BackupMainFile" xml:space="preserve">
+    <value>备份整个数据</value>
+  </data>
+  <data name="OpenLinkInBrowser" xml:space="preserve">
+    <value>在浏览器中打开备份</value>
+  </data>
+  <data name="DownloadBackup" xml:space="preserve">
+    <value>下载备份</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>通过邮件发送备份链接</value>
+  </data>
+  <data name="SendByEmailBody" xml:space="preserve">
+    <value>这是您的备份数据的下载链接。{E}您的备份 ID 是 {0}{E}点击 {1} 开始下载。</value>
+  </data>
+  <data name="SendByEmailSubject" xml:space="preserve">
+    <value>您的备份链接</value>
+  </data>
+  <data name="DownloadBackupHelp" xml:space="preserve">
+    <value>点击这里下载您存储中的备份</value>
+  </data>
+  <data name="LastBackup" xml:space="preserve">
+    <value>上次备份</value>
+  </data>
+  <data name="BackupUnknown" xml:space="preserve">
+    <value>无备份</value>
+  </data>
+  <data name="BackupApplyDescription" xml:space="preserve">
+    <value>您是否想要加载云端的备份？该操作无法撤销！</value>
+  </data>
+  <data name="BackupApplyTitle" xml:space="preserve">
+    <value>加载备份？</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="BackupCurrentId" xml:space="preserve">
+    <value>当前备份 ID</value>
+  </data>
+  <data name="BackupAllowOnStart" xml:space="preserve">
+    <value>允许启动时备份</value>
+  </data>
+  <data name="BackupSelectedFiles" xml:space="preserve">
+    <value>备份选择的文件</value>
+  </data>
+  <data name="CountOfSelectedFiled" xml:space="preserve">
+    <value>文件列表</value>
+  </data>
+  <data name="UploadInProgress" xml:space="preserve">
+    <value>正在上传 ...</value>
+  </data>
+  <data name="BackupDescription" xml:space="preserve">
+    <value>当选择自动备份时，备份只保存菜单设置文件和数据。视频和照片不会自动备份而需要您手动备份。该操作只能在 WiFi 网络下进行。备份视频文件需要花费更长时间！</value>
+  </data>
+  <data name="UnknownSize" xml:space="preserve">
+    <value>位置大小</value>
+  </data>
+  <data name="ErrorDescription" xml:space="preserve">
+    <value>对不起，程序遇到一个意外错误。请帮助我们改进程序并在下次启动时发送包含错误信息的邮件。程序将会关闭</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>应用下线 :(</value>
+  </data>
+  <data name="ReportDescription" xml:space="preserve">
+    <value>上次程序由于错误推出。想要帮助我们改进并发送错误报告？</value>
+  </data>
+  <data name="ReportTitle" xml:space="preserve">
+    <value>应用崩溃报告</value>
+  </data>
+  <data name="BackupDownload" xml:space="preserve">
+    <value>下载到设备</value>
+  </data>
+  <data name="BackupView" xml:space="preserve">
+    <value>查看</value>
+  </data>
+  <data name="DownloadInProgress" xml:space="preserve">
+    <value>正在下载 ...</value>
+  </data>
+  <data name="ObdAcceleratorPedalPosition" xml:space="preserve">
+    <value>油门踏板位置</value>
+  </data>
+  <data name="ObdEngineLoad" xml:space="preserve">
+    <value>引擎载入进度</value>
+  </data>
+  <data name="ObdEngineOilTemperature" xml:space="preserve">
+    <value>机油温度</value>
+  </data>
+  <data name="ObdEngineReferenceTorque" xml:space="preserve">
+    <value>发动机参考扭矩</value>
+  </data>
+  <data name="ObdFuelInjectionTiming" xml:space="preserve">
+    <value>燃油喷射时间</value>
+  </data>
+  <data name="ObdMaxAirFlowRate" xml:space="preserve">
+    <value>最大空气流量</value>
+  </data>
+  <data name="ObdRpm" xml:space="preserve">
+    <value>发动机转速</value>
+  </data>
+  <data name="ObdSpeed" xml:space="preserve">
+    <value>您的当前速度</value>
+  </data>
+  <data name="ObdTemperature" xml:space="preserve">
+    <value>发动机温度</value>
+  </data>
+  <data name="ObdThrottlePosition" xml:space="preserve">
+    <value>油门未知</value>
+  </data>
+  <data name="ObdTitle" xml:space="preserve">
+    <value>OBD 数据</value>
+  </data>
+  <data name="ObdUptime" xml:space="preserve">
+    <value>发动机启动时间</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>下一个</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>上一个</value>
+  </data>
+  <data name="Tutorial_Backup" xml:space="preserve">
+    <value>备份页面</value>
+  </data>
+  <data name="Tutorial_BackupFileMenu" xml:space="preserve">
+    <value>备份主文件菜单</value>
+  </data>
+  <data name="Tutorial_BackupFileMenu_Description" xml:space="preserve">
+    <value>这里有4个重要按钮在菜单里. 1) 用这个按钮备份主要文件 2) 如果备份已经创建，您可以添加到浏览器（并保存） 或 3) 让它发送邮件。如果您有一个备份在云端 4) 您可以通过点击这个按钮下载。</value>
+  </data>
+  <data name="Tutorial_BackupMenu" xml:space="preserve">
+    <value>备份菜单</value>
+  </data>
+  <data name="Tutorial_BackupMenu_Description" xml:space="preserve">
+    <value>这里有3个重要按钮在边栏中。分别是 1)常用备份，备份菜单数据文件，2)备份图片和 3)备份视频。如果您选择启动后自动备份，程序会只备份菜单数据文件！视频和照片只能手动备份。您可以在媒体列表中查看哪些项目没有备份。</value>
+  </data>
+  <data name="Tutorial_Backup_Description" xml:space="preserve">
+    <value>在设置页面中点击“备份”后，您将看到关于备份的信息。在这您会找到最后备份的日期，备份的 ID 和设置。1)您想要在程序启动后备份并 2)在您想要备份您的数据，您必须登陆云存储。</value>
+  </data>
+  <data name="Tutorial_CameraMenu" xml:space="preserve">
+    <value>相机菜单</value>
+  </data>
+  <data name="Tutorial_CameraMenu_Description" xml:space="preserve">
+    <value>如果您点击相机菜单，您将会看到4个按钮。1)开始和停止录像，2)拍照，3)查看您保存的视频，4)查看您保存的照片。</value>
+  </data>
+  <data name="Tutorial_End" xml:space="preserve">
+    <value>关闭教程？</value>
+  </data>
+  <data name="Tutorial_End_Description" xml:space="preserve">
+    <value>关闭教程？您可以在更多菜单中返回教程。</value>
+  </data>
+  <data name="Tutorial_FuelMenu" xml:space="preserve">
+    <value>燃油菜单</value>
+  </data>
+  <data name="Tutorial_FuelMenu_Description" xml:space="preserve">
+    <value>如果您点击加油菜单，这里会显示两个按钮和一个加油列表。1)添加加油记录，2)显示平均消费量并可以切换显示模式，3)记录列表，点击可以显示细节。</value>
+  </data>
+  <data name="Tutorial_Information" xml:space="preserve">
+    <value>请花费几分钟查看教程。</value>
+  </data>
+  <data name="Tutorial_MainScreen" xml:space="preserve">
+    <value>主菜单</value>
+  </data>
+  <data name="Tutorial_MainScreen_Description_One" xml:space="preserve">
+    <value>在主菜单您可以看到应用数据状态并通过左侧箭头关闭来查看相机画面。</value>
+  </data>
+  <data name="Tutorial_MainScreen_Description_Two" xml:space="preserve">
+    <value>主菜单包含四个菜单按钮。1)相机，2)加油，3)维修和 4)设置与其它。</value>
+  </data>
+  <data name="Tutorial_MoreMenu" xml:space="preserve">
+    <value>设置菜单</value>
+  </data>
+  <data name="Tutorial_MoreMenu_Description" xml:space="preserve">
+    <value>如果您点击其他菜单（三个点），将会显示一个其他设置的列表。1)启用GPS，2)如果存在多个OBD模块，您可以选择一个连接，3)开启驾驶模式来接受语音命令，4)上传和发送备份。在这个菜单中可以同时设置单位，连接到社交网络以及其他。</value>
+  </data>
+  <data name="Tutorial_ObdPage" xml:space="preserve">
+    <value>OBD页面</value>
+  </data>
+  <data name="Tutorial_ObdPage_Description" xml:space="preserve">
+    <value>如果您点击 1)OBD 按钮且设备连接到您的手机，您会看到 OBD 模块发送的真实数据。所有数据将会保存用于以后浏览和可视化车况数据。</value>
+  </data>
+  <data name="Tutorial_RepairMenu" xml:space="preserve">
+    <value>维修菜单</value>
+  </data>
+  <data name="Tutorial_RepairMenu_Description" xml:space="preserve">
+    <value>如果您点击维修按钮并切换到 3)维修，您将看到按钮和维修记录列表。1)创建新的维修记录，2)列表入口，点击可以查看细节。</value>
+  </data>
+  <data name="Tutorial_ThanksEnd" xml:space="preserve">
+    <value>就到这里吧。</value>
+  </data>
+  <data name="Tutorial_ThanksEnd_Description" xml:space="preserve">
+    <value>教程结束，您可以从应用菜单中再次打开教程。</value>
+  </data>
+  <data name="Tutorial_ThankYou" xml:space="preserve">
+    <value>感谢您安装副驾驶。</value>
+  </data>
+  <data name="Tutorial_Welcome" xml:space="preserve">
+    <value>欢迎！</value>
+  </data>
+  <data name="Tutorial_WhatIsIt" xml:space="preserve">
+    <value>副驾驶室干什么的？</value>
+  </data>
+  <data name="Tutorial_WhatIsIt_Description" xml:space="preserve">
+    <value>副驾驶是一个用来记录有关您的汽车的任何信息的应用。你可以录像，拍照，跟进油耗和维修记录。当您连接到 OBD 还可以收集重要数据并在桌面设备上查看。</value>
+  </data>
+  <data name="Tile" xml:space="preserve">
+    <value>汽车平均消费量{0} 并经历 {1} 维修。</value>
+  </data>
+  <data name="Tile_Small" xml:space="preserve">
+    <value>油耗 {0}，维修 {1}</value>
+  </data>
+  <data name="FreeSpaceAvailable" xml:space="preserve">
+    <value>可用空间</value>
+  </data>
+  <data name="ObdFatalError" xml:space="preserve">
+    <value>一些可怕的事情发生了</value>
+  </data>
+  <data name="BuyApp" xml:space="preserve">
+    <value>删除广告</value>
+  </data>
+  <data name="RateApp" xml:space="preserve">
+    <value>打分并评价</value>
+  </data>
+  <data name="UsedAccounts" xml:space="preserve">
+    <value>使用账户备份</value>
+  </data>
+  <data name="Backup_NotSignedIn" xml:space="preserve">
+    <value>您没有登录</value>
+  </data>
+  <data name="Backup_NotSignedIn_Description" xml:space="preserve">
+    <value>您没有登陆任何云存储服务。备份操作需要您登陆。</value>
+  </data>
+  <data name="BackupNotFoundDescription" xml:space="preserve">
+    <value>没有在服务器中找到备份文件。</value>
+  </data>
+  <data name="BackupNotFoundTitle" xml:space="preserve">
+    <value>备份没有找到</value>
+  </data>
+  <data name="StorageInfo_Again" xml:space="preserve">
+    <value>再次下载</value>
+  </data>
+  <data name="StorageInfo_Connection" xml:space="preserve">
+    <value>网络连接</value>
+  </data>
+  <data name="StorageInfo_Delete" xml:space="preserve">
+    <value>删除这条记录</value>
+  </data>
+  <data name="StorageInfo_Login" xml:space="preserve">
+    <value>登陆您的云存储</value>
+  </data>
+  <data name="StorageInfo_Part1" xml:space="preserve">
+    <value>文件无法下载，尝试 </value>
+  </data>
+  <data name="StorageInfo_Part2" xml:space="preserve">
+    <value> 并检查 </value>
+  </data>
+  <data name="StorageInfo_Part3" xml:space="preserve">
+    <value>。如果您选中，尝试 </value>
+  </data>
+  <data name="StorageInfo_Part4" xml:space="preserve">
+    <value>。如果您从历史中删除它，文件将无法被获得并且您可以 </value>
+  </data>
+  <data name="StorageInfo_Part5" xml:space="preserve">
+    <value>.</value>
+  </data>
+  <data name="FromStorage" xml:space="preserve">
+    <value>这个视频在云存储中。</value>
+  </data>
+  <data name="Buffering" xml:space="preserve">
+    <value>缓冲中</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="VideoDeleteHard" xml:space="preserve">
+    <value>录像</value>
+  </data>
+  <data name="VideoDeleteHard_Description" xml:space="preserve">
+    <value>所有，您无法播放该文件</value>
+  </data>
+  <data name="VideoDeleteSoft" xml:space="preserve">
+    <value>仅视频，保持录像</value>
+  </data>
+  <data name="VideoDeleteSoft_Description" xml:space="preserve">
+    <value>文件，您可以从云中播放视频</value>
+  </data>
+  <data name="VideoError_Description" xml:space="preserve">
+    <value>打开视频文件时发生错误，请重试。</value>
+  </data>
+  <data name="VideoError_Title" xml:space="preserve">
+    <value>视频错误</value>
+  </data>
+  <data name="AllowOnCelluralAndBatery" xml:space="preserve">
+    <value>等待链接 ...</value>
+  </data>
+  <data name="AllowOnWifiAndBatery" xml:space="preserve">
+    <value>等待 Wi-Fi 网络 ...</value>
+  </data>
+  <data name="AllowOnWifiAndExternalPower" xml:space="preserve">
+    <value>连接外部电源和 Wi-Fi ...</value>
+  </data>
+  <data name="AverageSpeed" xml:space="preserve">
+    <value>平均速度</value>
+  </data>
+  <data name="FuelPriceTrend" xml:space="preserve">
+    <value>油价趋势</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>h.</value>
+  </data>
+  <data name="PaidForFuel" xml:space="preserve">
+    <value>加油费</value>
+  </data>
+  <data name="PaidForRepairs" xml:space="preserve">
+    <value>维修费</value>
+  </data>
+  <data name="TrendUnitsPerRefill" xml:space="preserve">
+    <value>加油趋势</value>
+  </data>
+  <data name="AddMaintenance" xml:space="preserve">
+    <value>添加保养</value>
+  </data>
+  <data name="Maintenance" xml:space="preserve">
+    <value>保养</value>
+  </data>
+  <data name="Repairs" xml:space="preserve">
+    <value>维修</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="MaintenanceType" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="MaintenanceType_Filters" xml:space="preserve">
+    <value>滤清器</value>
+  </data>
+  <data name="MaintenanceType_Insurance" xml:space="preserve">
+    <value>保险</value>
+  </data>
+  <data name="MaintenanceType_Maintenance" xml:space="preserve">
+    <value>保养</value>
+  </data>
+  <data name="MaintenanceType_Oil" xml:space="preserve">
+    <value>油</value>
+  </data>
+  <data name="MaintenanceType_TechnicalInspection" xml:space="preserve">
+    <value>技术检查</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="WarningDays" xml:space="preserve">
+    <value>天前</value>
+  </data>
+  <data name="WarningDaysExample" xml:space="preserve">
+    <value>例如: 7</value>
+  </data>
+  <data name="WarningDistance" xml:space="preserve">
+    <value>前</value>
+  </data>
+  <data name="WarningDistanceExample" xml:space="preserve">
+    <value>例如: 20</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>任务</value>
+  </data>
+  <data name="MaintenanceTasks" xml:space="preserve">
+    <value>保养任务</value>
+  </data>
+  <data name="ViewMaintenance" xml:space="preserve">
+    <value>查看保养</value>
+  </data>
+  <data name="Tutorial_MaintenanceMenu" xml:space="preserve">
+    <value>保养菜单</value>
+  </data>
+  <data name="Tutorial_MaintenanceMenu_Description" xml:space="preserve">
+    <value>如果您点击维修菜单并切换到 3)保养，您将会看到按钮和保养列表。1)创建保养或事故记录，2)列表入口，点击可以查看细节。</value>
+  </data>
+  <data name="Tutorial_StatsScreen" xml:space="preserve">
+    <value>统计信息</value>
+  </data>
+  <data name="Tutorial_StatsScreen_Description_One" xml:space="preserve">
+    <value>当您打开应用，您可以看到基本的统计信息。1)平均油耗，2)平均速度，3)燃油花费，4)维修花费总计 5)保养任务次数（技术检测，保养，机油检查，等等……）。还可以看到一些统计图表。</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>数据</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="NoWifi" xml:space="preserve">
+    <value>没有可用 Wifi</value>
+  </data>
+  <data name="WebInterface" xml:space="preserve">
+    <value>网络界面地址</value>
+  </data>
+  <data name="WebInterface_Description" xml:space="preserve">
+    <value>在同一 WiFi 网络下的您的计算机上的网络浏览器中输入这个地址。您将可以用有好的网络应用界面管理您的数据。注意：应用必须在您操作时处于打开状态。</value>
+  </data>
+  <data name="WebInterface_Title" xml:space="preserve">
+    <value>网络界面</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>副驾驶</value>
+  </data>
+  <data name="Fuels" xml:space="preserve">
+    <value>加油</value>
+  </data>
+  <data name="Images" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>发送</value>
+  </data>
+  <data name="Understood" xml:space="preserve">
+    <value>明白</value>
+  </data>
+  <data name="ContactEmail" xml:space="preserve">
+    <value>联系人邮件</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>版权 (c) 2014 CoPilot. 版权所有</value>
+  </data>
+  <data name="DesignBy" xml:space="preserve">
+    <value>技术支持</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>当载入页面时发生错误，请刷新页面并重试。检查副驾驶应用仍然开启并且 WiFi 网络可用。</value>
+  </data>
+  <data name="Graphs" xml:space="preserve">
+    <value>图表</value>
+  </data>
+  <data name="NewItems" xml:space="preserve">
+    <value>新项目</value>
+  </data>
+  <data name="Welcome_Chat" xml:space="preserve">
+    <value>副驾驶是一款管理您的汽车相关所有数据的一款应用。您现在获得了 {0} 您已经支付的燃油费 {1} {2}。所有的加油数据是 {3}. 您为您的车花费共计 {5} {2} 用于 {4} 维修。目前您有 {6} 保养计划。感谢您录制视频并拍摄照片用于维护事故证据或路上发生的事。您当前有 {7} 视频和 {8} 张照片。</value>
+  </data>
+  <data name="Welcome_Motto" xml:space="preserve">
+    <value>关于您的汽车的一切尽在这里。</value>
+  </data>
+  <data name="Welcome_Title" xml:space="preserve">
+    <value>欢迎进入副驾驶！</value>
+  </data>
+  <data name="Welcome_Warnings" xml:space="preserve">
+    <value>显示警告</value>
+  </data>
+  <data name="Facebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="FacebookDescription" xml:space="preserve">
+    <value>副驾驶是一款允许您记录和可视化您的汽车所有信息的应用。简单插入电源并开始探索吧！</value>
+  </data>
+  <data name="Google" xml:space="preserve">
+    <value>Google+</value>
+  </data>
+  <data name="GoogleDescription" xml:space="preserve">
+    <value>查看最新的照片和副驾驶应用的贡献。这里不仅有应用的开发信息，还有其他使用应用的用户。</value>
+  </data>
+  <data name="MaintenanceType_Filters_Description" xml:space="preserve">
+    <value>不久您将需要更换引擎中的滤清器。请在 4S 店或修配厂检查公里数和周期。</value>
+  </data>
+  <data name="MaintenanceType_Insurance_Description" xml:space="preserve">
+    <value>保险即将到期。如果您想续保，请尽快办理。</value>
+  </data>
+  <data name="MaintenanceType_Maintenance_Description" xml:space="preserve">
+    <value>引擎保养时间已接近。检查您期望的保养项目并前往您的维修技师处货授权服务中心。</value>
+  </data>
+  <data name="MaintenanceType_Oil_Description" xml:space="preserve">
+    <value>您需要更换您的机油。请尽快更换，否则会伤害您的引擎。</value>
+  </data>
+  <data name="MaintenanceType_TechnicalInspection_Description" xml:space="preserve">
+    <value>接近汽车的技术检查时间。确保您的车已经检查过，并完成年检。</value>
+  </data>
+  <data name="SocialDescription" xml:space="preserve">
+    <value>链接到社交网络。沟通，贡献，写下您的意见和评论。您可以提出一些你希望程序增加的功能。</value>
+  </data>
+  <data name="Twitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TwitterDescription" xml:space="preserve">
+    <value>和其他人沟通，浏览最新的微博并提出功能建议。</value>
+  </data>
+  <data name="YourDescription" xml:space="preserve">
+    <value>您的描述</value>
+  </data>
+  <data name="Youtube" xml:space="preserve">
+    <value>YouTube</value>
+  </data>
+  <data name="YoutubeDescription" xml:space="preserve">
+    <value>副驾驶视频频道，您可以找到不同的教程，知识，各种技巧和恶作剧视频。所有尽在这里，在一个频道。</value>
+  </data>
+  <data name="FillDescription" xml:space="preserve">
+    <value>On {0} you collected a total of {1} {2} fuel for a total cost {3} {4}. Price per unit of fuel was {5} {4}.</value>
+  </data>
+  <data name="Fuels_Motto" xml:space="preserve">
+    <value>所有加油记录。</value>
+  </data>
+  <data name="ShowGraph" xml:space="preserve">
+    <value>显示图表</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>或</value>
+  </data>
+  <data name="RepairDescriptionWeb" xml:space="preserve">
+    <value>在 {0} 您维修您的汽车在 {1} 共计花费 {2} {3}。您为此次维修支付：</value>
+  </data>
+  <data name="Repairs_Motto" xml:space="preserve">
+    <value>所有维修记录。</value>
+  </data>
+  <data name="ShowMap" xml:space="preserve">
+    <value>显示地图</value>
+  </data>
+  <data name="VideoBackupIt" xml:space="preserve">
+    <value>备份</value>
+  </data>
+  <data name="VideoDescription" xml:space="preserve">
+    <value>在 {0} 您录制了一个视频。视频长度是 {1} 并包含了录制的路径，有 {2} 个地点。您共计消费了 {3} {6} 汽油并行驶 {4} {5} 路径。</value>
+  </data>
+  <data name="VideoNotBackuped" xml:space="preserve">
+    <value>该视频无法在云端播放。如果您想播放您可以</value>
+  </data>
+  <data name="VideoPlayIt" xml:space="preserve">
+    <value>在您的设备上播放</value>
+  </data>
+  <data name="Videos_Motto" xml:space="preserve">
+    <value>您的旅程视频。</value>
+  </data>
+  <data name="AddItem" xml:space="preserve">
+    <value>添加项目</value>
+  </data>
+  <data name="AddItem_Description" xml:space="preserve">
+    <value>在您的移动设备上显示添加新的项目。输入必要的信息并确认。数据将会自动载入到网页版应用。</value>
+  </data>
+  <data name="AddItem_Motto" xml:space="preserve">
+    <value>添加项目到应用。</value>
+  </data>
+  <data name="EmptyData" xml:space="preserve">
+    <value>现在这里是空的。您还没有输入任何数据以供显示。继续点击下面并输入第一条记录。</value>
+  </data>
+  <data name="EmptyImages" xml:space="preserve">
+    <value>现在这里是空的。您还没有任何图片以供浏览。使用拍摄按钮在应用中拍摄照片。</value>
+  </data>
+  <data name="EmptyPaths" xml:space="preserve">
+    <value>您还没有任何记录。使用 OBD 或 GPS 来记录您的路径。</value>
+  </data>
+  <data name="EmptyVideos" xml:space="preserve">
+    <value>现在这里是空的。您还没有任何视频以供浏览。使用录像按钮在应用中录制一些有趣的东西吧。</value>
+  </data>
+  <data name="ImageDescription" xml:space="preserve">
+    <value>在 {0} 您拍摄了一张照片。</value>
+  </data>
+  <data name="ImageNotBackuped" xml:space="preserve">
+    <value>照片无法在云端显示。如果您想您可以</value>
+  </data>
+  <data name="ImageShowIt" xml:space="preserve">
+    <value>在您的设备中显示。</value>
+  </data>
+  <data name="PathDescription" xml:space="preserve">
+    <value>在 {0} 您在路上行驶，那是一个长达 {2} {3} 并且您花费了 {1} {4} 油费。行程时间是 {5}.</value>
+  </data>
+  <data name="Paths" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="Paths_Motto" xml:space="preserve">
+    <value>您所有旅程的记录。和所有信息。</value>
+  </data>
+  <data name="Pictures_Motto" xml:space="preserve">
+    <value>您旅程中的点滴时刻。</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>速度</value>
+  </data>
+  <data name="ViewThroughCamera" xml:space="preserve">
+    <value>通过相机查看</value>
+  </data>
+  <data name="RouteDescription" xml:space="preserve">
+    <value>路径： {0} {1}, 行程： {2}, 油耗： {3} {4}</value>
+  </data>
+  <data name="PathDescription_Tweet" xml:space="preserve">
+    <value>在 {0} 我行驶 {2} {3} 于时间 {5} 并花费 {1} {4} 油费。 #carcopilot</value>
+  </data>
+  <data name="VideoDescription_Tweet" xml:space="preserve">
+    <value>在 {0} 我录制了一段视频。我行驶 {4} {5} 于时间 {1} 并花费 {3} {6} 油费。 #carcopilot</value>
+  </data>
+  <data name="Blog" xml:space="preserve">
+    <value>阅读博客中的文章</value>
+  </data>
+  <data name="MediaError" xml:space="preserve">
+    <value>无法载入媒体文件。打开应用并重试货检查您的网络连接。</value>
+  </data>
+  <data name="MonthlyExpenditure" xml:space="preserve">
+    <value>月花费</value>
+  </data>
+  <data name="ObdDescription" xml:space="preserve">
+    <value>车载诊断 （OBD） 是汽车的术语，指的车辆自诊断和报告能力。OBD 系统给车主或维修人员访问各种车辆子系统状态。可通过 OBD 的诊断信息的数量自 1980 年代早期版本的车载电脑年问世以来已相差很大。OBD 的早期版本将只是照亮一个故障指示灯或在一个问题被检测到时的“白痴灯”，但不会提供任何信息的性质的问题。现代 OBD 实现使用一个标准化的数字通信端口来提供实时数据标准化系列诊断故障代码，允许你以快速查明和补救在车内的故障。</value>
+  </data>
+  <data name="ObdInfo" xml:space="preserve">
+    <value>OBD 模块信息</value>
+  </data>
+  <data name="ObdInfo_Title1" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="ObdInfo_Title2" xml:space="preserve">
+    <value>位置</value>
+  </data>
+  <data name="ObdInfo_Title3" xml:space="preserve">
+    <value>何处购买？</value>
+  </data>
+  <data name="ObdBuy" xml:space="preserve">
+    <value>什么是 OBD？哪里可以买到？</value>
+  </data>
+  <data name="FamilyApps" xml:space="preserve">
+    <value>副驾驶家族应用</value>
+  </data>
+  <data name="SpeedWay_Title" xml:space="preserve">
+    <value>赛道</value>
+  </data>
+  <data name="DownloadSpeedWay" xml:space="preserve">
+    <value>下载赛道数据</value>
+  </data>
+  <data name="DownloadSpeedWayHelp" xml:space="preserve">
+    <value>点击这里从赛道中下载数据</value>
+  </data>
+  <data name="CountOfLaps" xml:space="preserve">
+    <value>路线数量</value>
+  </data>
+  <data name="LengthOfLaps" xml:space="preserve">
+    <value>所有路线距离</value>
+  </data>
+  <data name="Soon" xml:space="preserve">
+    <value>很快！</value>
+  </data>
+  <data name="CircuitDescription" xml:space="preserve">
+    <value>在 {3} 您完成了一个路线标签是 {1} 共计 {2} 圈。耗时 {0}。</value>
+  </data>
+  <data name="CircuitDescription_Tweet" xml:space="preserve">
+    <value>在 {3} 您完成了一个路线标签是 {1} 共计 {2} 圈。耗时 {0}。 #carcopilot</value>
+  </data>
+  <data name="Circuits" xml:space="preserve">
+    <value>路线</value>
+  </data>
+  <data name="Circuits_Motto" xml:space="preserve">
+    <value>您的所有路线。</value>
+  </data>
+  <data name="Consumed" xml:space="preserve">
+    <value>消耗</value>
+  </data>
+  <data name="EmptyCircuits" xml:space="preserve">
+    <value>您还没有完成任何路线。如果您没有下载赛道应用，您可以在应用商店中下载。之后您可以记录路线并可以查看。</value>
+  </data>
+  <data name="EmptyTimes" xml:space="preserve">
+    <value>您还没有完成任何路线。如果您没有下载赛道应用，您可以在应用商店中下载。之后您可以记录路线并可以查看。</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>{0} 项目</value>
+  </data>
+  <data name="MonthlyFuelConsumption" xml:space="preserve">
+    <value>月油耗</value>
+  </data>
+  <data name="Times" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="TimesDescription" xml:space="preserve">
+    <value>在 {2} 您已经完成了您的最好路线 {0}。驾驶时间是 {1}。</value>
+  </data>
+  <data name="TimesDescription_Tweet" xml:space="preserve">
+    <value>在 {2} 您已经完成了您的最好路线 {0}。驾驶时间是 {1}。 #carcopilot</value>
+  </data>
+  <data name="Times_Motto" xml:space="preserve">
+    <value>您所有的唯一路线。</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="CameraInfoDescription" xml:space="preserve">
+    <value>相机录制视屏并且于5分钟后截取视频。这将需要至少 150 MB 空余存储空间来录像。</value>
+  </data>
+  <data name="CameraInfoTitle" xml:space="preserve">
+    <value>相机信息</value>
+  </data>
+  <data name="RemoveAds" xml:space="preserve">
+    <value>删除广告</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>单元</value>
+  </data>
+  <data name="Liter" xml:space="preserve">
+    <value>升</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>工作 ...</value>
+  </data>
+</root>

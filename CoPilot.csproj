@@ -232,7 +232,8 @@
       <SubType>Designer</SubType>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\AppResources.zh.resx" />
+    <EmbeddedResource Include="Resources\AppResources.zh-Hant.resx" />
+    <EmbeddedResource Include="Resources\AppResources.zh-Hans.resx" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="CoPilot\View\Backup.xaml">
