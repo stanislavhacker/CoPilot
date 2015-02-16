@@ -33,6 +33,7 @@ using CoPilot.Core.Data;
 using CoPilot.Utils.Enums;
 using CoPilot.Data;
 using CoPilot.Utils.Exception;
+using Microsoft.Phone.Shell;
 
 namespace CoPilot.CoPilot.View
 {
@@ -975,10 +976,14 @@ namespace CoPilot.CoPilot.View
             {
                 return new RelayCommand(async (param) =>
                 {
+                    var progress = await showSystemProgressIndicator();
                     //buy
                     await License.BuyIsAddvertismets();
                     //resolve
                     ResolveLicense();
+                    //hide
+                    progress.IsVisible = false;
+                    SystemTray.IsVisible = false;
                 }, param => true);
             }
         }
@@ -1879,6 +1884,26 @@ namespace CoPilot.CoPilot.View
                     PropertyChanged(this, new PropertyChangedEventArgs(caller));
                 }
             });
+        }
+
+        #endregion
+
+        #region STATIC
+
+        /// <summary>
+        /// Show system progress indicator
+        /// </summary>
+        /// <returns></returns>
+        private static Task<ProgressIndicator> showSystemProgressIndicator()
+        {
+            SystemTray.Opacity = 0.8;
+            SystemTray.IsVisible = true;
+            SystemTray.ProgressIndicator = new ProgressIndicator();
+            var progress = SystemTray.ProgressIndicator;
+            progress.IsIndeterminate = true;
+            progress.IsVisible = true;
+            progress.Text = AppResources.Working;
+            return progress;
         }
 
         #endregion

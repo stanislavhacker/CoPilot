@@ -989,4 +989,7 @@
   <data name="Liter" xml:space="preserve">
     <value>升</value>
   </data>
+  <data name="Working" xml:space="preserve">
+    <value>工作 ...</value>
+  </data>
 </root>

@@ -989,4 +989,7 @@
   <data name="Liter" xml:space="preserve">
     <value>litr</value>
   </data>
+  <data name="Working" xml:space="preserve">
+    <value>Pracuji ...</value>
+  </data>
 </root>
